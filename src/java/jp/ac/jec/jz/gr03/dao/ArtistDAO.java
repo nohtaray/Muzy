@@ -43,6 +43,27 @@ public class ArtistDAO extends DAO {
             throw new IOException(e);
         }
     }
+    /**
+     * name または introduction に keyword を含むアーティストをすべて返します
+     * @param keyword
+     * @return
+     * @throws IOException 
+     */
+    public ArtistResultSet selectByKeyword(String keyword) throws IOException {
+        try {
+            String sql = "select * from artists where name like ? or introduction like ? escape '\\'";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            
+            String like = "%" + keyword.replaceAll("[\\\\%_]", "\\$0") + "%";
+            int idx = 1;
+            ps.setObject(idx++, like, Types.VARCHAR);
+            ps.setObject(idx++, like, Types.VARCHAR);
+            
+            return new ArtistResultSet(ps.executeQuery());
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
     
     /**
      * artist.user は userId のみ insert します
