@@ -1,0 +1,159 @@
+
+package jp.ac.jec.jz.gr03.servlet;
+
+import jp.ac.jec.jz.gr03.util.GoogleUserInfo;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import jp.ac.jec.jz.gr03.dao.UserDAO;
+import jp.ac.jec.jz.gr03.entity.User;
+import jp.ac.jec.jz.gr03.util.Authorizer;
+
+/**
+ *
+ * @author yada
+ */
+public class SignUpWithGoogleServlet extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific paramError occurs
+     * @throws IOException if an I/O paramError occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific paramError occurs
+     * @throws IOException if an I/O paramError occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+        
+        HttpSession session = request.getSession();
+        boolean googleAuthenticated = session.getAttribute("googleUserInfoForSignUp") != null;
+        if (googleAuthenticated) {
+            request.getRequestDispatcher("signUpWithGoogle.jsp").forward(request, response);
+        } else {
+            // ログインボタンで認証させる
+            request.getRequestDispatcher("loginWithGoogle.jsp").forward(request, response);
+        }
+        
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific paramError occurs
+     * @throws IOException if an I/O paramError occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+        
+        HttpSession session = request.getSession();
+        Authorizer auth = new Authorizer(session);
+        
+        // Googleで認証されてるか？
+        GoogleUserInfo gu = (GoogleUserInfo)session.getAttribute("googleUserInfoForSignUp");
+        if (gu == null) {
+            // 認証まだ
+            request.getRequestDispatcher("loginWithGoogle.jsp").forward(request, response);
+            return;
+        }
+        
+        // パラメータは足りてる？
+        String paramError = null;
+        String name = request.getParameter("name");
+        String introduction = request.getParameter("introduction");
+        if (name == null || name.length() == 0) {
+            paramError = "名前を入力してください";
+        }
+        if (introduction == null) {
+            paramError = "specify `introduction`";
+        }
+        
+        // なんかエラーあった？
+        if (paramError != null) {
+            request.setAttribute("error", paramError);
+            request.getRequestDispatcher("signUpWithGoogle.jsp").forward(request, response);
+            return;
+        }
+        
+        // 登録・ログイン
+        User user;
+        try {
+            user = createUserAndRegister(name, introduction, gu);
+        } catch (IOException ex) {
+            Logger.getLogger(LoginWithGoogleServlet.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("error", "システム内部エラー");
+            request.getRequestDispatcher("signUpWithGoogle.jsp").forward(request, response);
+            return;
+        }
+        
+        auth.loginAs(user);
+
+        session.removeAttribute("googleUserInfoForSignUp");
+        request.setAttribute("flush", "アカウント登録しました");
+        response.sendRedirect("/");
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+    
+    private User createUserAndRegister(String name, String introduction, GoogleUserInfo gu)
+            throws IOException {
+        User user = new User();
+        
+        user.name = name;
+        user.introduction = introduction;
+        user.email = gu.email;
+        user.googleUID = gu.userId;
+        user.googleToken = gu.accessToken;
+        user.googleRefreshToken = gu.refreshToken;
+        user.googleExpiresAt = new Date(gu.expiresAt * 1000);
+        user.isValid = true;
+        user.isOwner = false;
+        
+        registerUser(user);
+        
+        return user;
+    }
+    private void registerUser(User user)
+            throws IOException {
+        UserDAO dao = new UserDAO();
+        dao.insert(user);
+    }
+}

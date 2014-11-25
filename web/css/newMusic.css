@@ -1,0 +1,35 @@
+/* 
+    Created on : 2014/11/25, 9:10:36
+    Author     : yada
+*/
+
+.hidden {
+    display: none;
+    visibility: hidden;
+}
+#new-music-youtube-videos {
+    height: 585px;
+    overflow: scroll;
+}
+
+#new-music-youtube-loading {
+    padding-top: 40px;
+    text-align: center;
+}
+
+#new-music-youtube-load-failed {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.new-music-youtube-video {
+    margin-bottom: 15px;
+}
+.new-music-youtube-video:hover {
+    background-color: lightyellow;
+    cursor: pointer;
+}
+
+.new-music-youtube-video.title {
+    font-weight: bold;
+}
