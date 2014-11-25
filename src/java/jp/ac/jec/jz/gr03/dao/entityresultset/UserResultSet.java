@@ -33,9 +33,9 @@ public class UserResultSet extends EntityResultSet<User> {
         user.introduction   = (String)row.get("introduction");
         user.iconImageFile  = (String)row.get("icon_image_file");
         Integer isValid = (Integer)row.get("is_valid");
-        user.isValid = isValid != null && isValid != 0;
+        user.isValid = isValid != null ? isValid != 0 : null;
         Integer isOwner = (Integer)row.get("is_owner");
-        user.isOwner = isOwner != null && isValid != 0;
+        user.isOwner = isOwner != null ? isOwner != 0 : null;
         user.createdAt  = (Timestamp)row.get("created_at");
         user.updatedAt  = (Timestamp)row.get("updated_at");
 

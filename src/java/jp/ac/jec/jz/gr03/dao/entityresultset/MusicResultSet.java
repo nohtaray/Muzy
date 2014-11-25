@@ -43,7 +43,7 @@ public class MusicResultSet extends EntityResultSet<Music> {
         music.createdAt = (Timestamp)row.get("created_at");
         music.updatedAt = (Timestamp)row.get("updated_at");
         Integer isDeleted = (Integer)row.get("is_deleted");
-        music.isDeleted = isDeleted != null && isDeleted != 0;
+        music.isDeleted = isDeleted != null ? isDeleted != 0 : null;
 
         return music;
     }
