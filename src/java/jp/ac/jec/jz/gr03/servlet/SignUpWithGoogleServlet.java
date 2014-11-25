@@ -117,9 +117,12 @@ public class SignUpWithGoogleServlet extends HttpServlet {
         
         auth.loginAs(user);
 
+        response.getWriter().println("アカウント登録しました！");
+        /*
         session.removeAttribute("googleUserInfoForSignUp");
         request.setAttribute("flush", "アカウント登録しました");
         response.sendRedirect("/");
+        */
     }
 
     /**

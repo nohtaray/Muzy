@@ -104,7 +104,7 @@ public class LoginWithGoogleServlet extends HttpServlet {
             auth.loginAs(user);
             
             PrintWriter out = response.getWriter();
-            out.println("logincanryou");
+            out.println("ログインに成功しました！");
             // response.sendRedirect("/");
         } else {
             // 未登録ユーザ。新規登録へ
