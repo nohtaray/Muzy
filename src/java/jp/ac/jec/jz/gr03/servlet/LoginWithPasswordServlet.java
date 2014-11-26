@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import jp.ac.jec.jz.gr03.dao.UserDAO;
 import jp.ac.jec.jz.gr03.entity.*;
 import jp.ac.jec.jz.gr03.util.Authorizer;
-import jp.ac.jec.jz.gr03.util.CSRFToken;
+import jp.ac.jec.jz.gr03.util.CSRFTokenSet;
 
 /**
  *
@@ -53,8 +53,7 @@ public class LoginWithPasswordServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Authorizer auth = new Authorizer(session);
         if (!auth.hasLoggedIn()) {
-            CSRFToken token = new CSRFToken(session);
-            request.setAttribute("token", token.toString());
+            request.setAttribute("token", CSRFTokenSet.get(session));
             request.getRequestDispatcher("loginWithPassword.jsp").forward(request, response);
         }
     }
@@ -85,13 +84,10 @@ public class LoginWithPasswordServlet extends HttpServlet {
             return;
         }
         
-        // 書き方が微妙。new で生成してるのと、equalsで比較してるところ（Object#equals(Object) とかぶってる）
         // csrf prevention
-        CSRFToken csrfToken = new CSRFToken(session);
-        if (!csrfToken.equals(token)) {
+        if (!token.equals(CSRFTokenSet.get(session))) {
             // csrf detected
             response.getWriter().println("csrf detected");
-            // response.sendRedirect("LoginWithPasswordServlet");
             return;
         }
         
