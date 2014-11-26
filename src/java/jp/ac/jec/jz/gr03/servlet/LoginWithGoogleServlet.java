@@ -101,6 +101,10 @@ public class LoginWithGoogleServlet extends HttpServlet {
             } catch (IOException ex) {
                 Logger.getLogger(LoginWithGoogleServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+            // セッション固定攻撃防止
+            session.invalidate();
+            session = request.getSession(true);
+            auth = new Authorizer(session);
             auth.loginAs(user);
             
             PrintWriter out = response.getWriter();

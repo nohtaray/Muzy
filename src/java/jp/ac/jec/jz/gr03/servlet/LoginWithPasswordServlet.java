@@ -79,7 +79,12 @@ public class LoginWithPasswordServlet extends HttpServlet {
         User user = selectUser(email);
         if (user != null && user.passwordEquals(rawPass)) {
             // emailで取得できた かつ パスワードが合ってる
+            // セッション固定攻撃防止
+            session.invalidate();
+            session = request.getSession(true);
+            auth = new Authorizer(session);
             auth.loginAs(user);
+            
             PrintWriter out = response.getWriter();
             out.println("login success");
         } else {
