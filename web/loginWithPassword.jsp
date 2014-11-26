@@ -12,8 +12,9 @@
             </div>
             <% } %>
             
+            <input type="hidden" name="token" value="${token}">
             <label>
-                名前：<input type="text" name="name">
+                email：<input type="text" name="email">
             </label><br>
             <label>
                 パスワード：<input type="password" name="password">

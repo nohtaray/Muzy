@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import jp.ac.jec.jz.gr03.dao.UserDAO;
 import jp.ac.jec.jz.gr03.entity.*;
 import jp.ac.jec.jz.gr03.util.Authorizer;
+import jp.ac.jec.jz.gr03.util.CSRFToken;
 
 /**
  *
@@ -49,7 +50,13 @@ public class LoginWithPasswordServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
 
-        request.getRequestDispatcher("loginWithPassword.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        Authorizer auth = new Authorizer(session);
+        if (!auth.hasLoggedIn()) {
+            CSRFToken token = new CSRFToken(session);
+            request.setAttribute("token", token.toString());
+            request.getRequestDispatcher("loginWithPassword.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -71,8 +78,20 @@ public class LoginWithPasswordServlet extends HttpServlet {
         // パラメータちゃんとある？
         String email = request.getParameter("email");
         String rawPass = request.getParameter("password");
-        if (email == null || rawPass == null) {
-            request.getRequestDispatcher("loginWithPassword.jsp").forward(request, response);
+        String token = request.getParameter("token");
+        if (email == null || rawPass == null || token == null) {
+            // パラメータが足りない
+            response.sendRedirect("LoginWithPasswordServlet");
+            return;
+        }
+        
+        // 書き方が微妙。new で生成してるのと、equalsで比較してるところ（Object#equals(Object) とかぶってる）
+        // csrf prevention
+        CSRFToken csrfToken = new CSRFToken(session);
+        if (!csrfToken.equals(token)) {
+            // csrf detected
+            response.getWriter().println("csrf detected");
+            // response.sendRedirect("LoginWithPasswordServlet");
             return;
         }
         
