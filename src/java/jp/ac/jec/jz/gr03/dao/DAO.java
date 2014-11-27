@@ -17,7 +17,7 @@ abstract class DAO {
     protected final Connection conn;
     
     // ファイルに切り出したほうがいい
-    private final static String DRIVER_URL = "jdbc:mysql://dev.yada.jp:3306/muzy?zeroDateTimeBehavior=convertToNull&connectTimeout=5000";
+    private final static String DRIVER_URL = "jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull&connectTimeout=5000";
     private final static String DB_USER = "root";
     private final static String DB_PASS = "rootroot";
     
