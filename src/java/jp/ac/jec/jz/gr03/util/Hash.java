@@ -9,7 +9,10 @@ import java.security.NoSuchAlgorithmException;
  */
 public class Hash {
     
-    public static class Algorithm {
+    // Hash のコンストラクタに渡せるオブジェクト。
+    // Hash 内部で使ってる java.security.MessageDigest.getInstance は引数に文字列を取る。
+    // 任意の文字列を渡せてしまうのは嫌なので、すべて定数化しておく
+    public static final class Algorithm {
         public static final Algorithm MD2 = new Algorithm("MD2");
         public static final Algorithm MD5 = new Algorithm("MD5");
         public static final Algorithm SHA1 = new Algorithm("SHA-1");
@@ -31,7 +34,7 @@ public class Hash {
     
     /**
      * 
-     * @param algorithm Hash.Algorithm.XXX 定数が使えます 
+     * @param algorithm Hash.Algorithm.{ALGORITHM_NAME} 定数が使えます
      * @exception IllegalArgumentException 
      */
     public Hash(Algorithm algorithm) {
@@ -45,7 +48,7 @@ public class Hash {
     }
     /**
      * 
-     * @param algorithm Hash.Algorithm.XXX 定数が使えます
+     * @param algorithm Hash.Algorithm.{ALGORITHM_NAME} 定数が使えます
      * @param salt 
      */
     public Hash(Algorithm algorithm, String salt) {
