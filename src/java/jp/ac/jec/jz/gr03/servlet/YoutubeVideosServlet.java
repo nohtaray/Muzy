@@ -2,7 +2,6 @@
 package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -52,7 +51,7 @@ public class YoutubeVideosServlet extends HttpServlet {
             response.sendError(404);
             return;
         }
-        
+        // JSON 文字列として出力
         response.getWriter().println(videos.toString());
     }
 
