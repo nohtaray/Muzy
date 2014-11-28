@@ -136,7 +136,7 @@ public class SignUpWithGoogleServlet extends HttpServlet {
         session.removeAttribute("googleUserInfoForSignUp");
         /*
         request.setAttribute("flush", "アカウント登録しました");
-        response.sendRedirect("/");
+        response.sendRedirect("");
         */
     }
 
