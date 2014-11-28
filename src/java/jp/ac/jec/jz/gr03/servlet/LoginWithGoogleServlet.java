@@ -53,7 +53,14 @@ public class LoginWithGoogleServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
 
-        request.getRequestDispatcher("loginWithGoogle.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        Authorizer auth = new Authorizer(session);
+        
+        if (auth.hasLoggedIn()) {
+            response.sendRedirect("");
+        } else {
+            request.getRequestDispatcher("loginWithGoogle.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -72,8 +79,14 @@ public class LoginWithGoogleServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Authorizer auth = new Authorizer(session);
         
+        // すでにログインしている？
+        if (auth.hasLoggedIn()) {
+            response.sendRedirect("");
+            return;
+        }
+        
         // TODO: CSRF防止
-        // 必要なパラメータがあるか？
+        // 必要なパラメータがある？
         String code = request.getParameter("code");
         if (code == null) {
             request.getRequestDispatcher("loginWithGoogle.jsp").forward(request, response);
@@ -109,9 +122,8 @@ public class LoginWithGoogleServlet extends HttpServlet {
             
             PrintWriter out = response.getWriter();
             out.println("ログインに成功しました！");
-            // response.sendRedirect("/");
         } else {
-            // 未登録ユーザ。新規登録へ
+            // 未登録ユーザ。認証情報をセッションに入れて新規登録へ
             session.setAttribute("googleUserInfoForSignUp", gu);
             response.sendRedirect("SignUpWithGoogleServlet");
         }

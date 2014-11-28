@@ -3,7 +3,6 @@ package jp.ac.jec.jz.gr03.servlet;
 
 import jp.ac.jec.jz.gr03.util.GoogleUserInfo;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,7 +33,6 @@ public class SignUpWithGoogleServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -52,14 +50,21 @@ public class SignUpWithGoogleServlet extends HttpServlet {
         processRequest(request, response);
         
         HttpSession session = request.getSession();
-        boolean googleAuthenticated = session.getAttribute("googleUserInfoForSignUp") != null;
-        if (googleAuthenticated) {
-            request.getRequestDispatcher("signUpWithGoogle.jsp").forward(request, response);
-        } else {
-            // ログインボタンで認証させる
-            request.getRequestDispatcher("loginWithGoogle.jsp").forward(request, response);
+        Authorizer auth = new Authorizer(session);
+        
+        if (auth.hasLoggedIn()) {
+            response.sendRedirect("");
+            return;
         }
         
+        boolean googleAuthenticated = session.getAttribute("googleUserInfoForSignUp") != null;
+        if (googleAuthenticated) {
+            // サインアップページを表示
+            request.getRequestDispatcher("signUpWithGoogle.jsp").forward(request, response);
+        } else {
+            // 認証ページを表示
+            request.getRequestDispatcher("loginWithGoogle.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -78,23 +83,33 @@ public class SignUpWithGoogleServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Authorizer auth = new Authorizer(session);
         
+        if (auth.hasLoggedIn()) {
+            response.sendRedirect("");
+            return;
+        }
+        
         // Googleで認証されてるか？
         GoogleUserInfo gu = (GoogleUserInfo)session.getAttribute("googleUserInfoForSignUp");
         if (gu == null) {
-            // 認証まだ
+            // 認証まだ。認証ページを表示
             request.getRequestDispatcher("loginWithGoogle.jsp").forward(request, response);
             return;
         }
         
-        // パラメータは足りてる？
+        if (userExists(gu)) {
+            // 登録済み
+            response.sendRedirect("");
+            return;
+        }
+        
+        // パラメータは正常？
         String paramError = null;
         String name = request.getParameter("name");
         String introduction = request.getParameter("introduction");
-        if (name == null || name.length() == 0) {
+        if (name == null || introduction == null) {
+            paramError = "パラメータが足りません";
+        } else if (name.isEmpty()) {
             paramError = "名前を入力してください";
-        }
-        if (introduction == null) {
-            paramError = "specify `introduction`";
         }
         
         // なんかエラーあった？
@@ -110,7 +125,7 @@ public class SignUpWithGoogleServlet extends HttpServlet {
             user = createUserAndRegister(name, introduction, gu);
         } catch (IOException ex) {
             Logger.getLogger(LoginWithGoogleServlet.class.getName()).log(Level.SEVERE, null, ex);
-            request.setAttribute("error", "システム内部エラー");
+            request.setAttribute("error", "システム内部エラー。" + ex.toString());
             request.getRequestDispatcher("signUpWithGoogle.jsp").forward(request, response);
             return;
         }
@@ -118,8 +133,8 @@ public class SignUpWithGoogleServlet extends HttpServlet {
         auth.loginAs(user);
 
         response.getWriter().println("アカウント登録しました！");
-        /*
         session.removeAttribute("googleUserInfoForSignUp");
+        /*
         request.setAttribute("flush", "アカウント登録しました");
         response.sendRedirect("/");
         */
@@ -135,7 +150,15 @@ public class SignUpWithGoogleServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    
+    private boolean userExists(GoogleUserInfo gu) {
+        UserDAO dao = new UserDAO();
+        try {
+            return dao.selectByGoogleUID(gu.userId) != null;
+        } catch (IOException ex) {
+            Logger.getLogger(SignUpWithGoogleServlet.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
     private User createUserAndRegister(String name, String introduction, GoogleUserInfo gu)
             throws IOException {
         User user = new User();

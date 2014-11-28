@@ -1,4 +1,3 @@
-
 package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
@@ -52,10 +51,13 @@ public class LoginWithPasswordServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         Authorizer auth = new Authorizer(session);
-        if (!auth.hasLoggedIn()) {
-            request.setAttribute("token", CSRFTokenSet.get(session));
-            request.getRequestDispatcher("loginWithPassword.jsp").forward(request, response);
+
+        if (auth.hasLoggedIn()) {
+            response.sendRedirect("");
+            return;
         }
+        request.setAttribute("token", CSRFTokenSet.get(session));
+        request.getRequestDispatcher("loginWithPassword.jsp").forward(request, response);
     }
 
     /**
@@ -70,27 +72,34 @@ public class LoginWithPasswordServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
         HttpSession session = request.getSession();
         Authorizer auth = new Authorizer(session);
+
+        if (auth.hasLoggedIn()) {
+            response.sendRedirect("");
+            return;
+        }
         
         // パラメータちゃんとある？
+        String paramError = null;
         String email = request.getParameter("email");
         String rawPass = request.getParameter("password");
         String token = request.getParameter("token");
         if (email == null || rawPass == null || token == null) {
-            // パラメータが足りない
-            response.sendRedirect("LoginWithPasswordServlet");
+            paramError = "パラメータが足りません";
+        } else if (!token.equals(CSRFTokenSet.get(session))) {
+            paramError = "CSRF を検出";
+        }
+        
+        // なんかエラーあった？
+        if (paramError != null) {
+            request.setAttribute("error", paramError);
+            request.getRequestDispatcher("loginWithPassword.jsp").forward(request, response);
             return;
         }
         
-        // csrf prevention
-        if (!token.equals(CSRFTokenSet.get(session))) {
-            // csrf detected
-            response.getWriter().println("csrf detected");
-            return;
-        }
-        
+
         User user = selectUser(email);
         if (user != null && user.passwordEquals(rawPass)) {
             // emailで取得できた かつ パスワードが合ってる
@@ -99,7 +108,7 @@ public class LoginWithPasswordServlet extends HttpServlet {
             session = request.getSession(true);
             auth = new Authorizer(session);
             auth.loginAs(user);
-            
+
             PrintWriter out = response.getWriter();
             out.println("login success");
         } else {
@@ -118,11 +127,9 @@ public class LoginWithPasswordServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    
     private User selectUser(String email) {
         UserDAO dao = new UserDAO();
-        
-        
+
         try {
             return dao.selectByEmail(email);
         } catch (IOException ex) {
