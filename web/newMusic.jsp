@@ -15,6 +15,11 @@
     <c:param name="content">
 
         <div class="container">
+            <% if (request.getAttribute("error") != null) { %>
+            <div class="has-error">
+                ${error}
+            </div>
+            <% }%>
             <div class="row">
                 <div class="col-md-7">
                     <div id="music-youtube-video-area">
@@ -27,13 +32,13 @@
                             <div class="form-group">
                                 <label for="music-title" class="col-sm-2 control-label">Title</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="music-title" placeholder="Title">
+                                    <input type="text" class="form-control" id="music-title" placeholder="Title" name="title">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="music-description" class="col-sm-2 control-label">Description</label>
                                 <div class="col-sm-10">
-                                    <textarea class="form-control" id="music-description" placeholder="Description"></textarea>
+                                    <textarea class="form-control" id="music-description" placeholder="Description" name="description"></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
