@@ -79,7 +79,7 @@ public class MusicDAO extends DAO {
             ps.setObject(idx++, music.description, Types.VARCHAR);
             ps.setObject(idx++, Date.now(), Types.TIMESTAMP);
             ps.setObject(idx++, Date.now(), Types.TIMESTAMP);
-            ps.setObject(idx++, (music.isDeleted ? 1 : 0), Types.INTEGER);
+            ps.setObject(idx++, expressAsInteger(music.isDeleted), Types.INTEGER);
             
             ps.execute();
             
@@ -115,7 +115,7 @@ public class MusicDAO extends DAO {
             ps.setObject(idx++, music.title, Types.VARCHAR);
             ps.setObject(idx++, music.description, Types.VARCHAR);
             ps.setObject(idx++, Date.now(), Types.TIMESTAMP);
-            ps.setObject(idx++, (music.isDeleted ? 1 : 0), Types.INTEGER);
+            ps.setObject(idx++, expressAsInteger(music.isDeleted), Types.INTEGER);
             ps.setObject(idx++, music.musicId, Types.INTEGER);
             
             ps.execute();

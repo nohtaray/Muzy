@@ -85,13 +85,13 @@ public class UserDAO extends DAO {
             ps.setObject(idx++, user.passwordHash, Types.VARCHAR);
             ps.setObject(idx++, user.googleUID, Types.VARCHAR);
             ps.setObject(idx++, user.googleToken, Types.VARCHAR);
-            ps.setObject(idx++, new Date(user.googleExpiresAt), Types.TIMESTAMP);
+            ps.setObject(idx++, (user.googleExpiresAt != null ? new Date(user.googleExpiresAt) : null), Types.TIMESTAMP);
             ps.setObject(idx++, user.googleRefreshToken, Types.VARCHAR);
             ps.setObject(idx++, user.name, Types.VARCHAR);
             ps.setObject(idx++, user.introduction, Types.VARCHAR);
             ps.setObject(idx++, user.iconImageFile, Types.VARCHAR);
-            ps.setObject(idx++, (user.isValid ? 1 : 0), Types.INTEGER);
-            ps.setObject(idx++, (user.isOwner ? 1 : 0), Types.INTEGER);
+            ps.setObject(idx++, expressAsInteger(user.isValid), Types.INTEGER);
+            ps.setObject(idx++, expressAsInteger(user.isOwner), Types.INTEGER);
             ps.setObject(idx++, user.userId, Types.INTEGER);
             ps.setObject(idx++, Date.now(), Types.TIMESTAMP);
 
@@ -129,13 +129,13 @@ public class UserDAO extends DAO {
             ps.setObject(idx++, user.passwordHash, Types.VARCHAR);
             ps.setObject(idx++, user.googleUID, Types.VARCHAR);
             ps.setObject(idx++, user.googleToken, Types.VARCHAR);
-            ps.setObject(idx++, new Date(user.googleExpiresAt), Types.TIMESTAMP);
+            ps.setObject(idx++, (user.googleExpiresAt != null ? new Date(user.googleExpiresAt) : null), Types.TIMESTAMP);
             ps.setObject(idx++, user.googleRefreshToken, Types.VARCHAR);
             ps.setObject(idx++, user.name, Types.VARCHAR);
             ps.setObject(idx++, user.introduction, Types.VARCHAR);
             ps.setObject(idx++, user.iconImageFile, Types.VARCHAR);
-            ps.setObject(idx++, (user.isValid ? 1 : 0), Types.INTEGER);
-            ps.setObject(idx++, (user.isOwner ? 1 : 0), Types.INTEGER);
+            ps.setObject(idx++, expressAsInteger(user.isValid), Types.INTEGER);
+            ps.setObject(idx++, expressAsInteger(user.isOwner), Types.INTEGER);
             ps.setObject(idx++, Date.now(), Types.TIMESTAMP);
             ps.setObject(idx++, Date.now(), Types.TIMESTAMP);
 

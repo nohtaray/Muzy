@@ -56,7 +56,7 @@ abstract class DAO {
         }
     }
     
-    protected int getGeneratedKey(PreparedStatement ps) throws SQLException {
+    protected static int getGeneratedKey(PreparedStatement ps) throws SQLException {
         ResultSet keys = ps.getGeneratedKeys();
         if (keys.next()) {
             return keys.getInt(1);
@@ -64,4 +64,12 @@ abstract class DAO {
             throw new SQLException("Creating user failed, no ID obtained.");
         }
     }
+    
+    protected static Integer expressAsInteger(Boolean b) {
+        if (b == null) {
+            return null;
+        } else {
+            return b ? 1 : 0;
+        }
+    } 
 }
