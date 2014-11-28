@@ -60,12 +60,14 @@ public class NewMusicServlet extends HttpServlet {
         
         User user = auth.getUserLoggedInAs();
         if (!isUserArtist(user)) {
+            /*
             // アーティストじゃない
             response.sendRedirect("/");
             return;
+            */
         }
         
-        request.getRequestDispatcher("newMovie.jsp").forward(request, response);
+        request.getRequestDispatcher("newMusic.jsp").forward(request, response);
     }
 
     /**

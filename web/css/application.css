@@ -4,3 +4,6 @@
     Author     : yada
 */
 
+.container {
+    max-width: 970px;
+}

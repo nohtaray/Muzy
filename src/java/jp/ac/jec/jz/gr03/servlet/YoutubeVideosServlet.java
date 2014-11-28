@@ -36,6 +36,7 @@ public class YoutubeVideosServlet extends HttpServlet {
         Authorizer auth = new Authorizer(session);
         
         if (!auth.hasLoggedIn()) {
+            response.sendError(401);
             return;
         }
         
@@ -52,10 +53,7 @@ public class YoutubeVideosServlet extends HttpServlet {
             return;
         }
         
-        try (PrintWriter out = response.getWriter()) {
-            // JSON文字列として出力
-            out.println(videos.toString());
-        }
+        response.getWriter().println(videos.toString());
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

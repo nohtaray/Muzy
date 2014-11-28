@@ -7,6 +7,11 @@
     display: none;
     visibility: hidden;
 }
+#new-music-form>input[type="text"],
+#new-music-form>textarea {
+    width: 500px;
+}
+
 #new-music-youtube-videos {
     height: 585px;
     overflow: scroll;
