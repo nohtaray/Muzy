@@ -38,11 +38,11 @@
     </servlet>
     <servlet>
         <servlet-name>RankingMusicServlet</servlet-name>
-        <servlet-class>jp.ac.jec.jz.gr03.servlet.ranking.RankingMusicServlet</servlet-class>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.RankingMusicServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RankingArtistServlet</servlet-name>
-        <servlet-class>jp.ac.jec.jz.gr03.servlet.ranking.RankingArtistServlet</servlet-class>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.RankingArtistServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>IndexServlet</servlet-name>

@@ -66,7 +66,7 @@ public class MusicServlet extends HttpServlet {
             request.setAttribute("youtubeVideoId", music.youtubeVideoId);
             request.setAttribute("title", music.title);
             request.setAttribute("description", music.description);
-            request.getRequestDispatcher("movie.jsp").forward(request, response);
+            request.getRequestDispatcher("music.jsp").forward(request, response);
         } else {
             // idがそんざいしない。どうするか
             return;
