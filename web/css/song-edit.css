@@ -1,0 +1,21 @@
+/* 
+    Created on : 2014/10/27, 11:01:20
+    Author     : 12jz0112
+*/
+#movie {
+    float: left;
+    height: 300px;
+    width: 400px;
+    border: lightblue 1px solid;
+    text-align: center;
+    padding-top: 50px;
+    font-size: 20px;
+}
+#frm span {
+    line-height: 23px;
+}
+#movie>img {
+    max-width: 380px;
+    margin: 10px;
+    height: auto;
+}

@@ -48,6 +48,34 @@
         <servlet-name>IndexServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.IndexServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>keizibanwrite</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.keizibanwrite</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserEdit</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.UserEdit</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ArtistEdit</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.ArtistEdit</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SongEdit</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.SongEdit</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SongDelete</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.SongDelete</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>admin</servlet-name>
+        <servlet-class>admin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Admin</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.Admin</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
         <url-pattern>/LoginWithGoogleServlet</url-pattern>
@@ -87,6 +115,34 @@
     <servlet-mapping>
         <servlet-name>IndexServlet</servlet-name>
         <url-pattern>/IndexServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>keizibanwrite</servlet-name>
+        <url-pattern>/keizibanwrite</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserEdit</servlet-name>
+        <url-pattern>/UserEdit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ArtistEdit</servlet-name>
+        <url-pattern>/ArtistEdit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SongEdit</servlet-name>
+        <url-pattern>/SongEdit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SongDelete</servlet-name>
+        <url-pattern>/SongDelete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>admin</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Admin</servlet-name>
+        <url-pattern>/Admin</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

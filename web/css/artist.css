@@ -1,0 +1,27 @@
+/* 
+    Created on : 2014/10/27, 10:15:46
+    Author     : 12jz0112
+*/
+#profile {
+    border: lightgrey 1px solid;
+    height: 100px;
+    padding: 10px;
+    margin: 10px;
+}
+#keiziban {
+    float: left;
+    width: 480px;
+    border: lightgreen 1px solid;
+}
+.comment {
+    margin: 5px;
+    padding: 5px;
+    border: lightgrey 1px solid;
+}
+#songlist {
+    margin-left: 500px;
+}
+#image {
+    float: left;
+    margin-right: 10px;
+}
