@@ -76,6 +76,34 @@
         <servlet-name>Admin</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.Admin</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>WithdrawalServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.UserWithdrawalServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>accountstop</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.UserStopServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ArtistWithDrawalServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.ArtistWithDrawalServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ArtistStopServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.ArtistStopServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SignUpTagsServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.SignUpTagsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteTagsServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.DeleteTagsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EvaluationTagsServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.EvaluationTagsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
         <url-pattern>/LoginWithGoogleServlet</url-pattern>
@@ -143,6 +171,34 @@
     <servlet-mapping>
         <servlet-name>Admin</servlet-name>
         <url-pattern>/Admin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WithdrawalServlet</servlet-name>
+        <url-pattern>/WithdrawalServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>accountstop</servlet-name>
+        <url-pattern>/accountstop</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ArtistWithDrawalServlet</servlet-name>
+        <url-pattern>/ArtistWithDrawalServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ArtistStopServlet</servlet-name>
+        <url-pattern>/ArtistStopServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SignUpTagsServlet</servlet-name>
+        <url-pattern>/SignUpTagsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteTagsServlet</servlet-name>
+        <url-pattern>/DeleteTagsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EvaluationTagsServlet</servlet-name>
+        <url-pattern>/EvaluationTagsServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
