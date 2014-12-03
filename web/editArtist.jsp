@@ -41,7 +41,7 @@
         <div id="main">
             <div id="page_title">アーティスト情報編集</div>
             <div id="page_content">
-                <form method="post" action="ArtistEdit">
+                <form method="post" action="EditArtistServlet">
                 <input type="text" name="name" value="${name}"><br>
                 <textarea placeholder="アーティストプロフィール" name="introduction">${introduction}</textarea>
                 <br>

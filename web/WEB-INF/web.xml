@@ -49,32 +49,40 @@
         <servlet-class>jp.ac.jec.jz.gr03.servlet.IndexServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>keizibanwrite</servlet-name>
-        <servlet-class>jp.ac.jec.jz.gr03.keizibanwrite</servlet-class>
+        <servlet-name>NewMessage</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.NewMessageServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UserEdit</servlet-name>
-        <servlet-class>jp.ac.jec.jz.gr03.UserEdit</servlet-class>
+        <servlet-name>EditUserServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.EditUserServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ArtistEdit</servlet-name>
-        <servlet-class>jp.ac.jec.jz.gr03.ArtistEdit</servlet-class>
+        <servlet-name>EditArtistServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.EditArtistServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SongEdit</servlet-name>
-        <servlet-class>jp.ac.jec.jz.gr03.SongEdit</servlet-class>
+        <servlet-name>EditMusicServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.EditMusicServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SongDelete</servlet-name>
-        <servlet-class>jp.ac.jec.jz.gr03.SongDelete</servlet-class>
+        <servlet-name>DeleteMusicByAdminServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.DeleteMusicByAdminServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>admin</servlet-name>
-        <servlet-class>admin</servlet-class>
+        <servlet-name>AdminServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.AdminServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Admin</servlet-name>
-        <servlet-class>jp.ac.jec.jz.gr03.Admin</servlet-class>
+        <servlet-name>AdminArtistServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.AdminArtistServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminUserServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.AdminUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteArtistByAdminServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.DeleteArtistByAdminServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>WithdrawalServlet</servlet-name>
@@ -181,32 +189,40 @@
         <url-pattern>/IndexServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>keizibanwrite</servlet-name>
-        <url-pattern>/keizibanwrite</url-pattern>
+        <servlet-name>NewMessageServlet</servlet-name>
+        <url-pattern>/NewMessageServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UserEdit</servlet-name>
-        <url-pattern>/UserEdit</url-pattern>
+        <servlet-name>EditUserServlet</servlet-name>
+        <url-pattern>/EditUserServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ArtistEdit</servlet-name>
-        <url-pattern>/ArtistEdit</url-pattern>
+        <servlet-name>EditArtistServlet</servlet-name>
+        <url-pattern>/EditArtistServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SongEdit</servlet-name>
-        <url-pattern>/SongEdit</url-pattern>
+        <servlet-name>EditMusicServlet</servlet-name>
+        <url-pattern>/EditMusicServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SongDelete</servlet-name>
-        <url-pattern>/SongDelete</url-pattern>
+        <servlet-name>DeleteMusicByAdminServlet</servlet-name>
+        <url-pattern>/DeleteMusicByAdminServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>admin</servlet-name>
-        <url-pattern>/admin</url-pattern>
+        <servlet-name>AdminServlet</servlet-name>
+        <url-pattern>/AdminServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Admin</servlet-name>
-        <url-pattern>/Admin</url-pattern>
+        <servlet-name>AdminArtistServlet</servlet-name>
+        <url-pattern>/AdminArtistServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminUserServlet</servlet-name>
+        <url-pattern>/AdminUserServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteArtistByAdminServlet</servlet-name>
+        <url-pattern>/DeleteArtistByAdminServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>WithdrawalServlet</servlet-name>

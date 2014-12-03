@@ -31,6 +31,30 @@
             <div class="comment">
                 <a href="user.html">鈴木良房：</a><br>
                 一応できるけど面倒くさいし、それでJavaやってる人は情弱
+            <div id="keiziban">
+                <div class="comment">
+                    <a href="user.html">三戸さん：</a><br>
+                        1get
+                </div>
+                <div class="comment">
+                    <a href="user.html">五井さん：</a><br>
+                        NetBeansまじでうざいんだけどｗ
+                </div>
+                <div class="comment">
+                    <a href="user.html">マウンテンさん：</a><br>
+                        .netでJavaはできないらしい。。。まじオワコン
+                </div>
+                <div class="comment">
+                    <a href="user.html">鈴木良房：</a><br>
+                        一応できるけど面倒くさいし、それでJavaやってる人は情弱
+                </div>
+                <div class="comment">
+                    <a href="user.html">新名翔太：</a><br>
+                        ↑だまれ
+                </div>
+                <form method="post" action="NewMessage">
+                    <input type="text" placeholder="コメントを入力"><input type="button" value="コメントする" onclick="alert('投稿しました！');">
+                </form>
             </div>
             <div class="comment">
                 <a href="user.html">新名翔太：</a><br>

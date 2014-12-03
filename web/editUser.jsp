@@ -41,7 +41,7 @@
   <div id="main">
     <div id="page_title">ページタイトル</div>
     <div id="page_content">
-        <form method="post" action="UserEdit">
+        <form method="post" action="EditUserServlet">
         <input type="text" name="name" value="${name}"><br>
         <input type="text" name="email" value="${email}"><br>
         <input type="text" name="newpass1" placeholder="新しいパスワード"><br>

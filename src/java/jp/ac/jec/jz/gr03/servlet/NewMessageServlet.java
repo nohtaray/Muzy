@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jp.ac.jec.jz.gr03;
+package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,7 +19,7 @@ import jp.ac.jec.jz.gr03.util.Authorizer;
  *
  * @author 12jz0112
  */
-public class keizibanwrite extends HttpServlet {
+public class NewMessageServlet extends HttpServlet {
 
     static {
         try {

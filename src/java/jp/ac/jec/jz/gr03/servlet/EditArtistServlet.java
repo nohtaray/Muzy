@@ -1,4 +1,4 @@
-package jp.ac.jec.jz.gr03;
+package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,7 +20,7 @@ import jp.ac.jec.jz.gr03.util.Authorizer;
  *
  * @author 12jz0112
  */
-public class ArtistEdit extends HttpServlet {
+public class EditArtistServlet extends HttpServlet {
 
     static {
         try {
@@ -60,21 +60,21 @@ public class ArtistEdit extends HttpServlet {
             _user.userId = 11;
             _user.name = "artist";
             _user.introduction = "artistテスト用紹介文";
-            auth.login(_user);
+            auth.loginAs(_user);
 
             if (auth.hasLoggedIn()) {
                 // ログインしてる
-                User user = auth.getUserLoggedIn();
+                User user = auth.getUserLoggedInAs();
 
                 request.setAttribute("name", user.name);
                 request.setAttribute("introduction", user.introduction);
-                request.getRequestDispatcher("artist-edit.jsp").forward(request, response);
+                request.getRequestDispatcher("editArtist.jsp").forward(request, response);
             } else {
                 // ログインしてない
                 request.setAttribute("name", "KURIKO");
                 //request.setAttribute("email", "test");
                 request.setAttribute("introduction", "LOL");
-                request.getRequestDispatcher("artist-edit.jsp").forward(request, response);
+                request.getRequestDispatcher("editArtist.jsp").forward(request, response);
             }
         } finally {
             out.close();
@@ -92,7 +92,7 @@ public class ArtistEdit extends HttpServlet {
             // roguixnsitenai
             return;
         }
-        User user = auth.getUserLoggedIn();
+        User user = auth.getUserLoggedInAs();
 
         response.getWriter().println("1");
         //DB connect
@@ -100,7 +100,7 @@ public class ArtistEdit extends HttpServlet {
         try {
             con = DriverManager.getConnection("jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull", "12jz0112", "12jz0112");
         } catch (SQLException ex) {
-            Logger.getLogger(UserEdit.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditUserServlet.class.getName()).log(Level.SEVERE, null, ex);
             response.getWriter().println(ex.toString());
         }
 
@@ -121,7 +121,7 @@ public class ArtistEdit extends HttpServlet {
                 ps.execute();
                 response.getWriter().println("更新しました");
             } catch (SQLException ex) {
-                Logger.getLogger(ArtistEdit.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(EditArtistServlet.class.getName()).log(Level.SEVERE, null, ex);
                 response.getWriter().println(ex.toString());
             }
         } else {

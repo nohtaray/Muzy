@@ -1,5 +1,9 @@
+/*
+ * Here comes the text of your license
+ * Each line should be prefixed with  * 
+ */
 
-package jp.ac.jec.jz.gr03;
+package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,15 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author 12jz0112
  */
-public class SongEdit extends HttpServlet {
-    static {
-           try {
-                    Class.forName("com.mysql.jdbc.Driver");
-           }
-           catch(ClassNotFoundException e ){
-                    throw new RuntimeException(e);
-           }
-    }
+public class AdminUserServlet extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,20 +30,17 @@ public class SongEdit extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SongEdit</title>");            
+            out.println("<title>Servlet AdminUserServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SongEdit at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AdminUserServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-        } finally {
-            out.close();
         }
     }
 

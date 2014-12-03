@@ -15,6 +15,16 @@ import jp.ac.jec.jz.gr03.util.Date;
  */
 public class ArtistDAO extends DAO {
 
+    public ArtistResultSet selectAll() throws IOException {
+        try {
+            String sql = "select * from artists";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            return new ArtistResultSet(ps.executeQuery());
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
+    
     public Artist selectById(Integer artistId) throws IOException {
         try {
             String sql = "select * from artists where artist_id = ? limit 1";

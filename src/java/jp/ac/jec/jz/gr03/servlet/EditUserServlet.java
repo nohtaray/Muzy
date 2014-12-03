@@ -1,4 +1,4 @@
-package jp.ac.jec.jz.gr03;
+package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,7 +20,7 @@ import jp.ac.jec.jz.gr03.util.Authorizer;
  *
  * @author 12jz0112
  */
-public class UserEdit extends HttpServlet {
+public class EditUserServlet extends HttpServlet {
 
     static {
             try {
@@ -72,13 +72,13 @@ public class UserEdit extends HttpServlet {
                 request.setAttribute("name", user.name);
                 request.setAttribute("email", user.email);
                 request.setAttribute("introduction", user.introduction);
-                request.getRequestDispatcher("user-edit.jsp").forward(request, response);
+                request.getRequestDispatcher("editUser.jsp").forward(request, response);
             } else {
                 // ログインしてない
                 request.setAttribute("name", "KURIO");
                 request.setAttribute("email", "test");
                 request.setAttribute("introduction", "testtest");
-                request.getRequestDispatcher("user-edit.jsp").forward(request, response);
+                request.getRequestDispatcher("editUser.jsp").forward(request, response);
             }
         } finally {
             out.close();
@@ -112,7 +112,7 @@ public class UserEdit extends HttpServlet {
         try {
             con = DriverManager.getConnection("jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=converToNull", "12jz0112", "12jz0112");
         } catch (SQLException ex) {
-            Logger.getLogger(UserEdit.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditUserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         String name = request.getParameter("name");
         String email = request.getParameter("email");
@@ -135,7 +135,7 @@ public class UserEdit extends HttpServlet {
                     ps.executeUpdate();
                     response.getWriter().println("更新しました");
                 } catch (SQLException ex) {
-                    Logger.getLogger(UserEdit.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(EditUserServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
