@@ -104,6 +104,38 @@
         <servlet-name>EvaluationTagsServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.EvaluationTagsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoginWithGoogle</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.LoginWithGoogle</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SignUpWithGoogle</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.SignUpWithGoogle</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginWithPassword</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.LoginWithPassword</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.Logout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>taikaiServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.taikaiServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SignUpUser</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.SignUpUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SignUpArtist</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.SignUpArtistServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddMyListServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.AddMyListServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
         <url-pattern>/LoginWithGoogleServlet</url-pattern>
@@ -199,6 +231,38 @@
     <servlet-mapping>
         <servlet-name>EvaluationTagsServlet</servlet-name>
         <url-pattern>/EvaluationTagsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginWithGoogle</servlet-name>
+        <url-pattern>/LoginWithGoogle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SignUpWithGoogle</servlet-name>
+        <url-pattern>/SignUpWithGoogle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginWithPassword</servlet-name>
+        <url-pattern>/LoginWithPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>taikaiServlet</servlet-name>
+        <url-pattern>/taikaiServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SignUpUser</servlet-name>
+        <url-pattern>/SignUpUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SignUpArtist</servlet-name>
+        <url-pattern>/SignUpArtist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddMyListServlet</servlet-name>
+        <url-pattern>/AddMyListServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
