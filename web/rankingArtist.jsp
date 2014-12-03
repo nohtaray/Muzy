@@ -20,7 +20,7 @@
                 out.println("<li>");
                 out.println(++rank);
                 out.println(artist.artistId);
-                out.println(artist.name);
+                out.println("<a href=\"ArtistServlet?id=" + artist.artistId + "\">" + artist.name + "</a>");
                 out.println("</li>");
             }
         %>

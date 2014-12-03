@@ -8,6 +8,9 @@
     </c:param>
     <c:param name="content">
         
+        <p>
+            楽曲ランキング
+        </p>
         <ol>
         <%
             MusicResultSet musics = (MusicResultSet)request.getAttribute("musics");
@@ -16,7 +19,7 @@
             while ((music = musics.readRow()) != null) {
                 out.println("<li>");
                 out.println(++rank);
-                out.println(music.musicId);
+                out.println("<a href=\"MusicServlet?id=" + music.musicId + "\">" + music.musicId + "</a>");
                 out.println(music.youtubeVideoId);
                 out.println("</li>");
             }

@@ -136,6 +136,10 @@
         <servlet-name>AddMyListServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.AddMyListServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ArtistServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.ArtistServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
         <url-pattern>/LoginWithGoogleServlet</url-pattern>
@@ -263,6 +267,10 @@
     <servlet-mapping>
         <servlet-name>AddMyListServlet</servlet-name>
         <url-pattern>/AddMyListServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ArtistServlet</servlet-name>
+        <url-pattern>/ArtistServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
