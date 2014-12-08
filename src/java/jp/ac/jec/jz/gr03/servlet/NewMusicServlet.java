@@ -62,11 +62,9 @@ public class NewMusicServlet extends HttpServlet {
         
         User user = auth.getUserLoggedInAs();
         if (!isUserArtist(user)) {
-            /*
             // アーティストじゃない
             response.sendRedirect("");
             return;
-            */
         }
         
         request.getRequestDispatcher("newMusic.jsp").forward(request, response);
@@ -128,10 +126,7 @@ public class NewMusicServlet extends HttpServlet {
             request.getRequestDispatcher("newMusic.jsp").forward(request, response);
             return;
         }
-        response.getWriter().println("登録しました！");
-        /*
         response.sendRedirect("MusicServlet?id=" + music.musicId);
-        */
     }
 
     /**
