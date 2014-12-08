@@ -49,7 +49,7 @@
         <servlet-class>jp.ac.jec.jz.gr03.servlet.IndexServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>NewMessage</servlet-name>
+        <servlet-name>NewMessageServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.NewMessageServlet</servlet-class>
     </servlet>
     <servlet>
