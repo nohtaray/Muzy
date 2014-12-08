@@ -3,7 +3,7 @@
 tmp='.crlftolf.tmp'
 
 find . -path "./.git" -prune -o -type f | while read f; do
-  if [ -f $f -a "`nkf --guess $f`" = 'ASCII (CRLF)' ]; then
+  if [[ -f $f && `nkf --guess $f` =~ \(CRLF\)$ ]]; then
     nkf -Lu $f > $tmp && mv $tmp $f
   fi
 done
