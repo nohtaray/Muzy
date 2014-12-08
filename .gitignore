@@ -7,3 +7,6 @@ nbactions.xml
 nb-configuration.xml
 
 .DS_Store
+nbproject/ant-deploy.xml
+nbproject/build-impl.xml
+nbproject/genfiles.properties
