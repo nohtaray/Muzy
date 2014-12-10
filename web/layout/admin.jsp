@@ -17,10 +17,9 @@
         ${param.header}
     </head>
     <body>
-        <h1>管理画面</h1>
-            <div id="content">
-                ${param.content}
-            </div>
+        <h1>Muzy管理画面</h1>
+        <div id="content">
+            ${param.content}
         </div>
     </body>
 </html>

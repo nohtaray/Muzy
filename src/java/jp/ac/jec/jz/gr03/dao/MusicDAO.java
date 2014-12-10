@@ -15,7 +15,6 @@ import jp.ac.jec.jz.gr03.util.Date;
  */
 public class MusicDAO extends DAO {
 
-    
     public Music selectById(Integer musicId) throws IOException {
         try {
             String sql = "select * from musics where music_id = ? limit 1";
@@ -27,6 +26,16 @@ public class MusicDAO extends DAO {
             MusicResultSet results = new MusicResultSet(ps.executeQuery());
             
             return results.readRow();
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
+    public MusicResultSet selectAll() throws IOException {
+        try {
+            String sql = "select * from musics";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            
+            return new MusicResultSet(ps.executeQuery());
         } catch (SQLException e) {
             throw new IOException(e);
         }

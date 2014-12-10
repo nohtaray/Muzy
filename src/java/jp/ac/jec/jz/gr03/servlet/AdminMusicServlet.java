@@ -1,6 +1,8 @@
 package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -45,10 +47,8 @@ public class AdminMusicServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-        MusicDAO dao = new MusicDAO();
-      //MusicResultSet Musics = dao.selectById();
-            
-    //  request.setAttribute("musics", musics);
+        MusicResultSet musics = fetchMusics();
+        request.setAttribute("musics", musics);
         request.getRequestDispatcher("adminMusic.jsp").forward(request, response);
     }
 
@@ -76,4 +76,14 @@ public class AdminMusicServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private MusicResultSet fetchMusics() {
+        MusicDAO dao = new MusicDAO();
+        MusicResultSet musics = null;
+        try {
+            musics = dao.selectAll();
+        } catch (IOException ex) {
+            Logger.getLogger(AdminMusicServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return musics;
+    }
 }
