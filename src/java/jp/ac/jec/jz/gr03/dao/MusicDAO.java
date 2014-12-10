@@ -52,6 +52,20 @@ public class MusicDAO extends DAO {
             throw new IOException(e);
         }
     }
+    public MusicResultSet selectLatests(int limit, int offset) throws IOException {
+        try {
+            String sql = "select * from musics order by created_at desc limit ? offset ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            
+            int idx = 1;
+            ps.setObject(idx++, limit, Types.INTEGER);
+            ps.setObject(idx++, offset, Types.INTEGER);
+            
+            return new MusicResultSet(ps.executeQuery());
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
     /**
      * music.artist は artistId のみ insert します
      * @param music

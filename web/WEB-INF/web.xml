@@ -156,6 +156,10 @@
         <servlet-name>SearchArtistServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.SearchArtistServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LatestMusicServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.LatestMusicServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
         <url-pattern>/LoginWithGoogleServlet</url-pattern>
@@ -303,6 +307,10 @@
     <servlet-mapping>
         <servlet-name>SearchArtistServlet</servlet-name>
         <url-pattern>/SearchArtistServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LatestMusicServlet</servlet-name>
+        <url-pattern>/LatestMusicServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
