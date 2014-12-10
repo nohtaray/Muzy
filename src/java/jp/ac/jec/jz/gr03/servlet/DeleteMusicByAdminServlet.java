@@ -3,10 +3,14 @@ package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import jp.ac.jec.jz.gr03.dao.MusicDAO;
+import jp.ac.jec.jz.gr03.entity.Music;
 
 /**
  *
@@ -26,12 +30,6 @@ public class DeleteMusicByAdminServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-                
-        } finally {
-            out.close();
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -47,6 +45,8 @@ public class DeleteMusicByAdminServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
     }
 
     /**
@@ -61,6 +61,32 @@ public class DeleteMusicByAdminServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        String idStr = request.getParameter("id");
+        if (idStr == null) {
+            // パラメータがない
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        int id;
+        try {
+            id = Integer.parseInt(idStr);
+        } catch (NumberFormatException e) {
+            // idが数値じゃない
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+        
+        if (idExists(id)) {
+            deleteMusic(id);
+            response.sendRedirect("AdminMusicServlet");
+            return;
+        } else {
+            // id が存在しない
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
     }
 
     /**
@@ -73,4 +99,23 @@ public class DeleteMusicByAdminServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private boolean idExists(int id) {
+        MusicDAO dao = new MusicDAO();
+        Music music = null;
+        try {
+            music = dao.selectById(id);
+        } catch (IOException ex) {
+            Logger.getLogger(DeleteMusicByAdminServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return music != null;
+    }
+    private void deleteMusic(int id) {
+        try {
+            MusicDAO dao = new MusicDAO();
+            Music music = dao.selectById(id);
+            dao.delete(music);
+        } catch (IOException ex) {
+            Logger.getLogger(DeleteMusicByAdminServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
