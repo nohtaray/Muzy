@@ -315,8 +315,8 @@
     <servlet-mapping>
         <servlet-name>LatestMusicServlet</servlet-name>
         <url-pattern>/LatestMusicServlet</url-pattern>
-    <servlet-mapping>
     </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AdminMusicServlet</servlet-name>
         <url-pattern>/AdminMusicServlet</url-pattern>
     </servlet-mapping>
