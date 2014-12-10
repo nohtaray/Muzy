@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import jp.ac.jec.jz.gr03.dao.MusicDAO;
+import jp.ac.jec.jz.gr03.dao.TagDAO;
 import jp.ac.jec.jz.gr03.dao.entityresultset.MusicResultSet;
 
 /**
@@ -45,14 +46,21 @@ public class SearchMusicServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
 
+        MusicResultSet musics;
+        
         String keyword = request.getParameter("q");
-        if (keyword == null) {
-            // キーワードがない
+        String tag = request.getParameter("t");
+        if (keyword != null) {
+            musics = searchMusic(keyword);
+            request.setAttribute("keyword", keyword);
+        } else if (tag != null) {
+            musics = searchTag(tag);
+            request.setAttribute("tag", tag);
+        } else {
+            // キーワードもタグもない
+            // TODO: なんか出す
             return;
         }
-
-        MusicResultSet musics = searchMusic(keyword);
-        request.setAttribute("keyword", keyword);
         request.setAttribute("musics", musics);
         request.getRequestDispatcher("searchMusic.jsp").forward(request, response);
     }
@@ -86,6 +94,16 @@ public class SearchMusicServlet extends HttpServlet {
         MusicResultSet musics = null;
         try {
             musics = dao.selectByKeyword(keyword);
+        } catch (IOException ex) {
+            Logger.getLogger(SearchMusicServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return musics;
+    }
+    private MusicResultSet searchTag(String tagName) {
+        TagDAO dao = new TagDAO();
+        MusicResultSet musics = null;
+        try {
+            musics = dao.selectMusicsByName(tagName);
         } catch (IOException ex) {
             Logger.getLogger(SearchMusicServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

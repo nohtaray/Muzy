@@ -9,9 +9,20 @@
     <c:param name="content">
         
         <p>
-            ${keyword} の検索結果
+            <c:choose>
+                <c:when test="${keyword != null && tag == null}">
+                    キーワード "${keyword}" の検索結果
+                </c:when>
+                <c:when test="${keyword == null && tag != null}">
+                    タグ "${tag}" の検索結果
+                </c:when>
+                <c:otherwise>
+                    なにかがおかしいです。<br>
+                    このメッセージを消すには、このJSPまたは呼び出し元のサーブレットを修正してください。
+                </c:otherwise>
+            </c:choose>
         </p>
-        <ol>
+        <ul>
         <%
             MusicResultSet musics = (MusicResultSet)request.getAttribute("musics");
             Music music;
@@ -22,7 +33,7 @@
                 out.println("</li>");
             }
         %>
-        </ol>
+        </ul>
         
     </c:param>
 </c:import>
