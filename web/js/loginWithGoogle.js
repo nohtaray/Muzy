@@ -3,7 +3,7 @@ $(function() {
     // googleアカウントログイン用コールバック
     window.googleLoginCallback = function(authResult) {
         if (authResult['code']) {   // 成功
-            Helper.post('LoginWithGoogleServlet', {
+            Helper.postHref('LoginWithGoogleServlet', {
                 code: authResult['code']
             });
         } else if (authResult['error']) {   // 失敗

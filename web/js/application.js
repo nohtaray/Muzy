@@ -7,7 +7,7 @@
 window.Helper = (function() {
     
     return {
-        post: function(url, params) {
+        postHref: function(url, params) {
             var $form = $('<form>', { method: 'POST', action: url });
             Object.keys(params).forEach(function(key) {
                 $('<input type="hidden">').attr('name', key).val(params[key]).appendTo($form);
