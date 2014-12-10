@@ -7,8 +7,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import jp.ac.jec.jz.gr03.dao.MusicDAO;
 import jp.ac.jec.jz.gr03.dao.entityresultset.MusicResultSet;
+import jp.ac.jec.jz.gr03.entity.User;
+import jp.ac.jec.jz.gr03.util.Authorizer;
 
 /**
  *
@@ -47,6 +50,15 @@ public class AdminMusicServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
+        HttpSession session = request.getSession();
+        Authorizer auth = new Authorizer(session);
+        User user = auth.getUserLoggedInAs();
+            // 管理者としてログインしていなければエラー
+        if (user == null || !user.isOwner) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
+        }
+        
         MusicResultSet musics = fetchMusics();
         request.setAttribute("musics", musics);
         request.getRequestDispatcher("adminMusic.jsp").forward(request, response);
@@ -64,6 +76,8 @@ public class AdminMusicServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
     }
 
     /**

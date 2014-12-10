@@ -9,8 +9,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import jp.ac.jec.jz.gr03.dao.MusicDAO;
 import jp.ac.jec.jz.gr03.entity.Music;
+import jp.ac.jec.jz.gr03.entity.User;
+import jp.ac.jec.jz.gr03.util.Authorizer;
 
 /**
  *
@@ -62,19 +65,28 @@ public class DeleteMusicByAdminServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
+        // 管理者ですか？
+        HttpSession session = request.getSession();
+        Authorizer auth = new Authorizer(session);
+        User user = auth.getUserLoggedInAs();
+        if (user == null || !user.isOwner) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
+        }
+        
+        // id はある？
         String idStr = request.getParameter("id");
         if (idStr == null) {
-            // パラメータがない
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "id を指定してください");
             return;
         }
 
+        // id は数値？
         int id;
         try {
             id = Integer.parseInt(idStr);
         } catch (NumberFormatException e) {
-            // idが数値じゃない
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "id は数値で指定してください");
             return;
         }
         
@@ -83,8 +95,7 @@ public class DeleteMusicByAdminServlet extends HttpServlet {
             response.sendRedirect("AdminMusicServlet");
             return;
         } else {
-            // id が存在しない
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "指定した id は存在しません");
             return;
         }
     }
