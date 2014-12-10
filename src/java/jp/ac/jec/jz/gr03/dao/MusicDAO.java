@@ -39,7 +39,7 @@ public class MusicDAO extends DAO {
      */
     public MusicResultSet selectByKeyword(String keyword) throws IOException {
         try {
-            String sql = "select * from musics where title like ? or description like ? escape '\\'";
+            String sql = "select * from musics where title like ? or description like ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             
             String like = "%" + keyword.replaceAll("[\\\\%_]", "\\$0") + "%";

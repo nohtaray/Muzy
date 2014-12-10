@@ -61,7 +61,7 @@ public class ArtistDAO extends DAO {
      */
     public ArtistResultSet selectByKeyword(String keyword) throws IOException {
         try {
-            String sql = "select * from artists where name like ? or introduction like ? escape '\\'";
+            String sql = "select * from artists where name like ? or introduction like ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             
             String like = "%" + keyword.replaceAll("[\\\\%_]", "\\$0") + "%";
