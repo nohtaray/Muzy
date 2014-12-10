@@ -81,7 +81,7 @@ public class SearchMusicServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    MusicResultSet searchMusic(String keyword) {
+    private MusicResultSet searchMusic(String keyword) {
         MusicDAO dao = new MusicDAO();
         MusicResultSet musics = null;
         try {
