@@ -1,14 +1,13 @@
 package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import jp.ac.jec.jz.gr03.dao.RankingDAO;
+import jp.ac.jec.jz.gr03.dao.ArtistDAO;
 import jp.ac.jec.jz.gr03.dao.entityresultset.ArtistResultSet;
 
 /**
@@ -77,9 +76,9 @@ public class RankingArtistServlet extends HttpServlet {
 
     
     private ArtistResultSet selectArtistRanking() throws IOException  {
-        RankingDAO dao = new RankingDAO();
+        ArtistDAO dao = new ArtistDAO();
         try {
-            return dao.selectArtists(30, 0);
+            return dao.selectRanking(30, 0);
         } catch (IOException ex) {
             Logger.getLogger(RankingArtistServlet.class.getName()).log(Level.SEVERE, null, ex);
             throw new IOException(ex);

@@ -24,7 +24,6 @@ public class ArtistDAO extends DAO {
             throw new IOException(e);
         }
     }
-    
     public Artist selectById(Integer artistId) throws IOException {
         try {
             String sql = "select * from artists where artist_id = ? limit 1";
@@ -74,7 +73,21 @@ public class ArtistDAO extends DAO {
             throw new IOException(e);
         }
     }
-    
+    public ArtistResultSet selectRanking(int limit, int offset) throws IOException {
+        try {
+            // TODO: 順番を決める
+            String sql = "select * from artists order by updated_at desc limit ? offset ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            int idx = 1;
+            ps.setObject(idx++, limit, Types.INTEGER);
+            ps.setObject(idx++, offset, Types.INTEGER);
+
+            return new ArtistResultSet(ps.executeQuery());
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
     /**
      * artist.user は userId のみ insert します
      * @param artist
