@@ -1,4 +1,3 @@
-
 package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
@@ -10,15 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import jp.ac.jec.jz.gr03.dao.MusicDAO;
-import jp.ac.jec.jz.gr03.entity.Music;
+import jp.ac.jec.jz.gr03.dao.PointDAO;
+import jp.ac.jec.jz.gr03.entity.Point;
+import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
 
 /**
  *
  * @author yada
  */
-public class MusicServlet extends HttpServlet {
+public class PointServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,7 +32,6 @@ public class MusicServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -51,29 +50,24 @@ public class MusicServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         Authorizer auth = new Authorizer(session);
-        
-        String idStr = request.getParameter("id");
-        if (idStr == null) {
-            // パラメータがない。どうするか
+        if (!auth.hasLoggedIn()) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "ログインしてください");
             return;
         }
         
-        int id;
-        try {
-            id = Integer.parseInt(idStr);
-        } catch (NumberFormatException e) {
-            // idが不正。どうするか
+        User me = auth.getUserLoggedInAs();
+        Point point = fetchPoint(me);
+        if (point == null) {
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "ポイントレコードがありません");
             return;
         }
         
-        Music music = selectMusic(id);
-        if (music != null) {
-            request.setAttribute("loggedIn", auth.hasLoggedIn());
-            request.setAttribute("music", music);
-            request.getRequestDispatcher("music.jsp").forward(request, response);
-        } else {
-            // idがそんざいしない。どうするか
-            return;
+        try (PrintWriter out = response.getWriter()) {
+            // JSON 形式で point オブジェクトを出力
+            out.println("{"
+                + "\"user_id\":" + me.userId + ","
+                + "\"point_count\":" + point.pointCount + ","
+                + "\"vote_ticket_count\":" + point.voteTicketCount + "}");
         }
     }
 
@@ -89,6 +83,8 @@ public class MusicServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
     }
 
     /**
@@ -100,15 +96,15 @@ public class MusicServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
-    
-    private Music selectMusic(int musicId) {
-        MusicDAO dao = new MusicDAO();
+
+    private Point fetchPoint(User user) {
+        PointDAO dao = new PointDAO();
+        Point point = null;
         try {
-            return dao.selectById(musicId);
+            point = dao.selectByUserId(user.userId);
         } catch (IOException ex) {
-            Logger.getLogger(MusicServlet.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
+            Logger.getLogger(PointServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return point;
     }
 }

@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import jp.ac.jec.jz.gr03.dao.entityresultset.UserResultSet;
+import jp.ac.jec.jz.gr03.entity.Point;
 import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Date;
 
@@ -145,6 +146,19 @@ public class UserDAO extends DAO {
             user.createdAt = Date.now();
             user.updatedAt = Date.now();
         } catch (SQLException e) {
+            throw new IOException(e);
+        }
+        
+        // 関連するレコードを挿入
+        try {
+            Point point = new Point();
+            point.user = user;
+            point.pointCount = 0;
+            point.voteTicketCount = 0;
+
+            PointDAO dao = new PointDAO();
+            dao.insert(point);
+        } catch (IOException e) {
             throw new IOException(e);
         }
     }
