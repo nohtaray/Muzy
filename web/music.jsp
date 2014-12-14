@@ -54,7 +54,7 @@
                                 </form>
 
                             </div>
-                            <div id="advertise-loading" class="hidden">
+                            <div id="advertise-sending" class="hidden">
                                 <img src="img/ajax-loader.gif">通信中です...
                             </div>
                             <div id="advertise-done" class="hidden">
