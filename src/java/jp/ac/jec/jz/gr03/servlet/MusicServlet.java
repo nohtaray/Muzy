@@ -9,8 +9,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import jp.ac.jec.jz.gr03.dao.MusicDAO;
 import jp.ac.jec.jz.gr03.entity.Music;
+import jp.ac.jec.jz.gr03.util.Authorizer;
 
 /**
  *
@@ -47,6 +49,9 @@ public class MusicServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
+        HttpSession session = request.getSession();
+        Authorizer auth = new Authorizer(session);
+        
         String idStr = request.getParameter("id");
         if (idStr == null) {
             // パラメータがない。どうするか
@@ -63,6 +68,7 @@ public class MusicServlet extends HttpServlet {
         
         Music music = selectMusic(id);
         if (music != null) {
+            request.setAttribute("loggedIn", auth.hasLoggedIn());
             request.setAttribute("music", music);
             request.getRequestDispatcher("music.jsp").forward(request, response);
         } else {

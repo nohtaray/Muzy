@@ -3,6 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
     Music music = (Music) request.getAttribute("music");
+    boolean loggedIn = (boolean) request.getAttribute("loggedIn");
 %>
 <c:import url="/layout/application.jsp">
     <c:param name="title" value="<%= music.title%>" />
@@ -21,7 +22,9 @@
             <%= music.title%>
         </h2>
         <div id="tools">
+            <% if (loggedIn) { %>
             <a class="modal-open btn" data-toggle="modal" data-target="#advertise-modal" id='advertise-button'>この動画を広告する！</a>
+            <% }%>
         </div>
         <div>
             <iframe width="576" height="360" src="//www.youtube.com/embed/<%= music.youtubeVideoId%>?autoplay=1&controls=2&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>    
