@@ -128,7 +128,7 @@ public class AdvertiseServlet extends HttpServlet {
             throw new IOException("マイナスの値は指定できません");
         }
         Point point = fetchNowPoint(user);
-        if (spendPoints > point.pointCount) {
+        if (point == null || spendPoints > point.pointCount) {
             throw new IOException("ポイントが足りません");
         }
         

@@ -49,8 +49,7 @@
                                 </p>
                                 <form id="advertise-form">
                                     <div id="advertise-error" class="hidden"></div>
-                                    <%-- TODO: 今の保有ポイントを取得する --%>
-                                    保有ポイント：<span id="advertise-now-points">〇〇</span><br>
+                                    保有ポイント：<span id="advertise-now-points">0</span><br>
                                     <label>利用ポイント：</label><input type="text" id="advertise-use-points">
                                     <input type="hidden" id="advertise-music-id" value="<%= music.musicId%>">
                                     <input type="submit" class="btn btn-primary" value="ポイントを使って広告する！">

@@ -2,12 +2,14 @@
 $(function() {
     // advertisement 機能
     $(function() {
+        loadNowPoints();
+        
         $('#advertise-form').submit(function() {
             var use = $('#advertise-use-points').val();
             var now = $('#advertise-now-points').text();
 
             // 入力チェック
-            if (!use.match(/^[0-9]+$/g)) {
+            if (!use.match(/^[1-9][0-9]*$/g)) {
                 $('#advertise-error').removeClass('hidden').text('正の整数で入力してください');
                 return false;
             } else if (use > now) {
@@ -29,6 +31,7 @@ $(function() {
                 },
             }).done(function() {
                 switchView('done');
+                loadNowPoints();
             }).fail(function() {
                 $('#advertise-fail-message').text('サーバエラーが発生しました');
                 switchView('fail');
@@ -47,6 +50,15 @@ $(function() {
         function switchView(name) {
             $('#advertise-roles').children().addClass('hidden');
             $('#advertise-' + name).removeClass('hidden');
+        }
+        function loadNowPoints() {
+            $.ajax({
+                url: 'PointServlet',
+                type: 'GET',
+                dataType: 'json',
+            }).done(function(res) {
+                $('#advertise-now-points').text(res['point_count']);
+            });
         }
     });
 });
