@@ -11,7 +11,7 @@ $(function() {
                 $('#advertise-error').removeClass('hidden').text('正の整数で入力してください');
                 return false;
             } else if (use > now) {
-                $('#advertise-error').removeClass('hidden').text('保有ポイントを超えています');
+                $('#advertise-error').removeClass('hidden').text('ポイントが足りません');
                 return false;
             } else {
                 $('#advertise-error').addClass('hidden').text('');

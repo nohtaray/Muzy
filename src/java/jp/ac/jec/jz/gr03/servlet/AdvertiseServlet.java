@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import jp.ac.jec.jz.gr03.dao.AdvertisementDAO;
 import jp.ac.jec.jz.gr03.dao.MusicDAO;
+import jp.ac.jec.jz.gr03.dao.PointDAO;
 import jp.ac.jec.jz.gr03.entity.Advertisement;
 import jp.ac.jec.jz.gr03.entity.Music;
+import jp.ac.jec.jz.gr03.entity.Point;
 import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
 
@@ -91,7 +93,12 @@ public class AdvertiseServlet extends HttpServlet {
             return;
         }
         
-        advertise(music, point, me);
+        try {
+            advertise(music, point, me);
+        } catch (IOException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+            return;
+        }
     }
 
     /**
@@ -115,18 +122,51 @@ public class AdvertiseServlet extends HttpServlet {
         
         return music;
     }
-    private void advertise(Music music, int point, User user) throws IOException {
+    private void advertise(Music music, int spendPoints, User user) throws IOException {
+        // IOException ばっかで良くない気がする
+        if (spendPoints < 0) {
+            throw new IOException("マイナスの値は指定できません");
+        }
+        Point point = fetchNowPoint(user);
+        if (spendPoints > point.pointCount) {
+            throw new IOException("ポイントが足りません");
+        }
+        
+        // ポイント更新
+        point.pointCount -= spendPoints;
+        updatePoint(point);
+        
+        // 広告追加
         Advertisement ad = new Advertisement();
         ad.music = music;
-        ad.spentPoints = point;
+        ad.spentPoints = spendPoints;
         ad.user = user;
-        
+        insertAdvertisement(ad);
+    }
+    private Point fetchNowPoint(User user) {
+        PointDAO dao = new PointDAO();
+        Point point = null;
+        try {
+            point = dao.selectByUserId(user.userId);
+        } catch (IOException ex) {
+            Logger.getLogger(AdvertiseServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return point;
+    }
+    private void insertAdvertisement(Advertisement ad) {
         AdvertisementDAO dao = new AdvertisementDAO();
         try {
             dao.insert(ad);
         } catch (IOException ex) {
             Logger.getLogger(AdvertiseServlet.class.getName()).log(Level.SEVERE, null, ex);
-            throw new IOException("レコードの挿入に失敗しました", ex);
+        }
+    }
+    private void updatePoint(Point point) {
+        PointDAO dao = new PointDAO();
+        try {
+            dao.update(point);
+        } catch (IOException ex) {
+            Logger.getLogger(AdvertiseServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
