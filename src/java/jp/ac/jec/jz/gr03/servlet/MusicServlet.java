@@ -63,9 +63,7 @@ public class MusicServlet extends HttpServlet {
         
         Music music = selectMusic(id);
         if (music != null) {
-            request.setAttribute("youtubeVideoId", music.youtubeVideoId);
-            request.setAttribute("title", music.title);
-            request.setAttribute("description", music.description);
+            request.setAttribute("music", music);
             request.getRequestDispatcher("music.jsp").forward(request, response);
         } else {
             // idがそんざいしない。どうするか
