@@ -41,6 +41,7 @@ $(function() {
             switchView('input');
         });
         $('#advertise-button').click(function() {
+            $('#advertise-use-points').val('');
             switchView('input');
         });
         function switchView(name) {
