@@ -164,6 +164,10 @@
         <servlet-name>AdminMusicServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.AdminMusicServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdvertiseServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.AdvertiseServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
         <url-pattern>/LoginWithGoogleServlet</url-pattern>
@@ -319,6 +323,10 @@
     <servlet-mapping>
         <servlet-name>AdminMusicServlet</servlet-name>
         <url-pattern>/AdminMusicServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdvertiseServlet</servlet-name>
+        <url-pattern>/AdvertiseServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
