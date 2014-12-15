@@ -14,6 +14,9 @@ import org.apache.tomcat.jni.Time;
  * @author yada
  */
 public class HttpClient {
+    private final int connectTimeout = 3000;
+    private final int socketTimeout = 3000;
+    
     public String get(String url)
             throws IOException {
         Request request = Request.Get(url);
@@ -35,7 +38,7 @@ public class HttpClient {
     
     private String execute(Request request) 
             throws IOException {
-        return request.execute().returnContent().toString();
+        return request.connectTimeout(connectTimeout).socketTimeout(socketTimeout).execute().returnContent().toString();
     }
     private List<NameValuePair> mapToParamList(Map<String, String> params) {
         Form f = Form.form();
