@@ -3,14 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+<<<<<<< HEAD
 
 package jp.ac.jec.jz.gr03;
+=======
+package jp.ac.jec.jz.gr03.servlet;
+>>>>>>> mulist-edit系追加しました
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+<<<<<<< HEAD
+=======
+import java.sql.ResultSet;
+>>>>>>> mulist-edit系追加しました
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +27,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+<<<<<<< HEAD
+=======
+import jp.ac.jec.jz.gr03.dao.MyListDAO;
+import jp.ac.jec.jz.gr03.entity.MyList;
+>>>>>>> mulist-edit系追加しました
 import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
 
@@ -27,6 +40,7 @@ import jp.ac.jec.jz.gr03.util.Authorizer;
  * @author 12jz0121
  */
 public class AddMyListServlet extends HttpServlet {
+<<<<<<< HEAD
     static {
         try {
                 Class.forName("com.mysql.jdbc.Driver");
@@ -59,6 +73,37 @@ public class AddMyListServlet extends HttpServlet {
             ////mylist_detail_id
             //ps.setInt(2, x);
             ps.executeUpdate();
+=======
+
+    static {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+        response.setContentType("text/html;charset=UTF-8");
+        MyList mylist = new MyList();
+        MyListDAO mylistDAO = new MyListDAO();
+
+        HttpSession session = request.getSession();
+        Authorizer auth = new Authorizer(session);
+        User user = auth.getUserLoggedInAs();
+
+        if(mylist.user.userId != null){
+            mylist.user.userId = user.userId;
+            mylist.name = request.getParameter("name");
+            try {
+                mylistDAO.insert(mylist);
+            } catch (IOException e) {
+                response.sendError(401);
+            }
+        }else {
+            ///ログインしてないエラー
+>>>>>>> mulist-edit系追加しました
         }
     }
 

@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 
-package jp.ac.jec.jz.gr03;
+
+package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -126,4 +127,5 @@ public class SignUpUserServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

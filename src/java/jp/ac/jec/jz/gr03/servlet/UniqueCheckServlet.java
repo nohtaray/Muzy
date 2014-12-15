@@ -1,10 +1,11 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
-package jp.ac.jec.jz.gr03;
+package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,7 +26,7 @@ import javax.sql.DataSource;
 import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
 
-public class UniqueCheck extends HttpServlet {
+public class UniqueCheckServlet extends HttpServlet {
     @Resource(name = "jdbcTest")
     private DataSource jdbcTest;
     

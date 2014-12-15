@@ -172,6 +172,22 @@
         <servlet-name>PointServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.PointServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UniqueCheckServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.UniqueCheckServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddMyListDetailServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.AddMyListDetailServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetMyListServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.GetMyListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MyListServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.MyListServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
         <url-pattern>/LoginWithGoogleServlet</url-pattern>
@@ -309,8 +325,20 @@
         <url-pattern>/AddMyListServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ArtistServlet</servlet-name>
-        <url-pattern>/ArtistServlet</url-pattern>
+        <servlet-name>UniqueCheckServlet</servlet-name>
+        <url-pattern>/UniqueCheckServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddMyListDetailServlet</servlet-name>
+        <url-pattern>/AddMyListDetailServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetMyListServlet</servlet-name>
+        <url-pattern>/GetMyListServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyListServlet</servlet-name>
+        <url-pattern>/MyListServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SearchMusicServlet</servlet-name>

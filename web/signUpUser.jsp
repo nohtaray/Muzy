@@ -12,11 +12,11 @@
         <script type="text/javascript" src="js/signUpUser.js"></script>
         <script src="js/prototype.js"></script> 
         <script src="js/jquery-1.11.1.js"></script> 
-        
+        +
  <form onsubmit="return funcDispChange()">
-    <input type="text" name="email" onfocus="xx()" onblur="yy()" onkeyup="zz(this)"/><br> 
+    <input type="text" name="email" onfocus="xx()" onblur="yy()" onkeyup="zz(this)"/><br>
     <input type="submit" name="bt" value="使用可能なＩＤかチェック" /> 
-    
+
  </form>
         <!--
         <script type="text/javascript">
@@ -45,7 +45,7 @@
         
         <script type="text/javascript">
             function funcDispChange() {
-                new Ajax.Request('UniqueCheck', {
+                new Ajax.Request('UniqueCheckServlet', {
                     method: 'get',
                     onSuccess: function() {
                         alert("成功");
