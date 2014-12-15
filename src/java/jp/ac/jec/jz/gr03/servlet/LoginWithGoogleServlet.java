@@ -89,7 +89,7 @@ public class LoginWithGoogleServlet extends HttpServlet {
         // 必要なパラメータがある？
         String code = request.getParameter("code");
         if (code == null) {
-            request.getRequestDispatcher("loginWithGoogle.jsp").forward(request, response);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが足りません");
             return;
         }
         
@@ -99,9 +99,8 @@ public class LoginWithGoogleServlet extends HttpServlet {
             // codeからGoogleのユーザ情報を取得
             gu = retrieveGoogleUserInfo(code);
         } catch (IOException ex) {
-            // code が不正
             Logger.getLogger(LoginWithGoogleServlet.class.getName()).log(Level.SEVERE, null, ex);
-            request.getRequestDispatcher("loginWithGoogle.jsp").forward(request, response);
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Google アカウント情報の取得に失敗しました");
             return;
         }
         

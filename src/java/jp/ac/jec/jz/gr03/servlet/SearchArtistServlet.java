@@ -48,7 +48,9 @@ public class SearchArtistServlet extends HttpServlet {
         
         String keyword = request.getParameter("q");
         if (keyword == null) {
-            // キーワードがない
+            // TODO: 単独の検索ページを出す
+            
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが足りません");
             return;
         }
 
@@ -70,6 +72,8 @@ public class SearchArtistServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
     }
 
     /**

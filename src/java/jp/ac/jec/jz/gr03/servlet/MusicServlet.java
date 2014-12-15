@@ -54,7 +54,7 @@ public class MusicServlet extends HttpServlet {
         
         String idStr = request.getParameter("id");
         if (idStr == null) {
-            // パラメータがない。どうするか
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが足りません");
             return;
         }
         
@@ -62,7 +62,7 @@ public class MusicServlet extends HttpServlet {
         try {
             id = Integer.parseInt(idStr);
         } catch (NumberFormatException e) {
-            // idが不正。どうするか
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID は数値で指定してください");
             return;
         }
         
@@ -72,7 +72,7 @@ public class MusicServlet extends HttpServlet {
             request.setAttribute("music", music);
             request.getRequestDispatcher("music.jsp").forward(request, response);
         } else {
-            // idがそんざいしない。どうするか
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "楽曲が存在しません");
             return;
         }
     }

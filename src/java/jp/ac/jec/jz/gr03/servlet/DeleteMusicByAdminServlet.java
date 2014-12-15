@@ -70,7 +70,7 @@ public class DeleteMusicByAdminServlet extends HttpServlet {
         Authorizer auth = new Authorizer(session);
         User user = auth.getUserLoggedInAs();
         if (user == null || !user.isOwner) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "管理者のみアクセスできます");
             return;
         }
         

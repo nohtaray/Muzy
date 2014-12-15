@@ -98,7 +98,7 @@ public class SignUpWithGoogleServlet extends HttpServlet {
         
         if (userExists(gu)) {
             // 登録済み
-            response.sendRedirect("");
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Google ID は登録済みです");
             return;
         }
         

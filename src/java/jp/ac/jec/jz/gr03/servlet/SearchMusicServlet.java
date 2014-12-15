@@ -58,7 +58,9 @@ public class SearchMusicServlet extends HttpServlet {
             request.setAttribute("tag", tag);
         } else {
             // キーワードもタグもない
-            // TODO: なんか出す
+            // TODO: 単独の検索ページを出す
+            
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータがありません");
             return;
         }
         request.setAttribute("musics", musics);
@@ -77,6 +79,8 @@ public class SearchMusicServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
     }
 
     /**

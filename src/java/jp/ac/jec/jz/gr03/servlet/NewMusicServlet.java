@@ -55,15 +55,13 @@ public class NewMusicServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Authorizer auth = new Authorizer(session);
         if (!auth.hasLoggedIn()) {
-            // ログインしてない
-            response.sendRedirect("");
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "ログインしてください");
             return;
         }
         
         User user = auth.getUserLoggedInAs();
         if (!isUserArtist(user)) {
-            // アーティストじゃない
-            response.sendRedirect("");
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "アーティスト登録してください");
             return;
         }
         
@@ -86,15 +84,13 @@ public class NewMusicServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Authorizer auth = new Authorizer(session);
         if (!auth.hasLoggedIn()) {
-            // ログインしてない
-            response.sendRedirect("");
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "ログインしてください");
             return;
         }
         
         User user = auth.getUserLoggedInAs();
         if (!isUserArtist(user)) {
-            // アーティストじゃない
-            response.sendRedirect("");
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "アーティスト登録してください");
             return;
         }
         

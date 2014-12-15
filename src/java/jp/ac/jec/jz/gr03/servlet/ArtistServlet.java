@@ -47,8 +47,7 @@ public class ArtistServlet extends HttpServlet {
         
         String idStr = request.getParameter("id");
         if (idStr == null) {
-            // idがない
-            // TODO: なんかメッセージ出す
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが足りません");
             return;
         }
         
@@ -57,8 +56,7 @@ public class ArtistServlet extends HttpServlet {
         try {
             id = Integer.parseInt(idStr);
         } catch (NumberFormatException e) {
-            // idが不正
-            // TODO: なんかメッセージ出す
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID は数値で指定してください");
             return;
         }
         
@@ -68,8 +66,7 @@ public class ArtistServlet extends HttpServlet {
             request.setAttribute("introduction", artist.introduction);
             request.getRequestDispatcher("artist.jsp").forward(request, response);
         } else {
-            // idが存在しない
-            // TODO: なんか出す
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "アーティストが存在しません");
             return;
         }
     }
@@ -86,6 +83,8 @@ public class ArtistServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
     }
 
     /**
