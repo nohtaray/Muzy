@@ -4,6 +4,7 @@ tmp='.crlftolf.tmp'
 
 find . -path "./.git" -prune -o -type f | while read f; do
   if [[ -f $f && `nkf --guess $f` =~ \(CRLF\)$ ]]; then
+    echo $f
     nkf -Lu $f > $tmp && mv $tmp $f
   fi
 done
