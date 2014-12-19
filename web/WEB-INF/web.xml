@@ -188,6 +188,10 @@
         <servlet-name>MyListServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.MyListServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EvaluationCommentsServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.EvaluationCommentsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
         <url-pattern>/LoginWithGoogleServlet</url-pattern>
@@ -363,6 +367,10 @@
     <servlet-mapping>
         <servlet-name>PointServlet</servlet-name>
         <url-pattern>/PointServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EvaluationCommentsServlet</servlet-name>
+        <url-pattern>/EvaluationCommentsServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
