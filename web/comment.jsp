@@ -20,6 +20,7 @@
         <%-- ここにHTMLを記述 --%>
         <input type="button" onclick="evaluationCommentGood()" value="良い" />
         <input type="button" onclick="evaluationCommentBad()" value="悪い" />
+        <input type="button" onclick="deleteComment()" value="削除" />
         
         <script type="text/javascript">
             function evaluationCommentGood() {
@@ -59,6 +60,23 @@
                     }
                 });
             }
+            
+            function deleteComment() {
+                new Ajax.Request('DeleteCommentServlet', {
+                    method: 'post',
+                    parameters: {
+                        commentid: 2 //仮
+                    },
+                    onSuccess: function() {
+                        alert("削除成功");
+                        //再表示処理したい
+                    },
+                    onFailure: function() {
+                        alert("削除失敗");
+                    }
+                });
+            }
+        
             
         </script>
     </c:param>
