@@ -1,4 +1,4 @@
-<%-- 
+ex<%-- 
     Document   : musicplay
     Created on : 2014/11/20, 9:39:56
     Author     : 12jz0129
@@ -115,7 +115,7 @@
 				 <input type="button" onclick="funcSignUpTags();" value="追加">
 			</div>
             <div id="music">
-                楽曲ID埋め込み
+                1
             </div>
         </div>
  

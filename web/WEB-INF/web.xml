@@ -191,6 +191,10 @@
     <servlet>
         <servlet-name>EvaluationCommentsServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.EvaluationCommentsServlet</servlet-class>
+	</servlet>
+	<servlet>
+        <servlet-name>AddReviewServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.AddReviewServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
@@ -371,6 +375,10 @@
     <servlet-mapping>
         <servlet-name>EvaluationCommentsServlet</servlet-name>
         <url-pattern>/EvaluationCommentsServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+        <servlet-name>AddReviewServlet</servlet-name>
+        <url-pattern>/AddReviewServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

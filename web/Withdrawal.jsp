@@ -6,6 +6,6 @@
     <c:param name="content">
 		
 		<h1>退会しました</h1>
-    
+		<% request.setCharacterEncoding("UTF-8");%>
 	</c:param>
 </c:import>
