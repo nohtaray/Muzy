@@ -31,7 +31,7 @@
                     //ここがServletに渡される値
                     //複数渡せる左が変数で右が値
                     data     : {
-                                 commentid: 1, //仮
+                                 commentid: 2, //仮
                                  eva: 1
                                }
                 }).done(function() {
@@ -49,7 +49,7 @@
                     //ここがServletに渡される値
                     //複数渡せる左が変数で右が値
                     data     : {
-                                 commentid: 1, //仮
+                                 commentid: 2, //仮
                                  eva: -1
                                }
                 }).done(function() {

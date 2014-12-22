@@ -65,7 +65,7 @@ public class EvaluationCommentsServlet extends HttpServlet {
             if (user.userId != null) {
                 try {
                     //comment_score表に追加
-                    ps = con.prepareStatement("insert into comment_scores value(?, ?, ?)");
+                    ps = con.prepareStatement("insert into comment_scores values(?, ?, ?)");
                     ps.setInt(1, user.userId);
                     ps.setInt(2, commentid);
                     ps.setInt(3, eva);
@@ -78,16 +78,19 @@ public class EvaluationCommentsServlet extends HttpServlet {
                          
                             //既に評価がされていた場合、評価の再設定をするための処理（comment_score 表のscoreを変更）
                            //comments表の、のplusまたはminusを-1する処理
-                            ps = con.prepareStatement("update comments set score_minus_count = (CASE WHEN (select score from comment_scores where user_id = 29 AND comment_id = 1) = -1 THEN (score_minus_count - 1) ELSE score_minus_count END),score_plus_count = (CASE WHEN (select score from comment_scores where user_id = 29 AND comment_id = 1) = 1 THEN score_plus_count - 1 ELSE score_plus_count END) where comment_id = 1");
-                        //    ps.setInt(1, user.userId);
-                         //   ps.setInt(2, commentid);
+                            ps = con.prepareStatement("update comments set score_minus_count = (CASE WHEN (select score from comment_scores where user_id = ? AND comment_id = ?) = -1 THEN (score_minus_count - 1) ELSE score_minus_count END),score_plus_count = (CASE WHEN (select score from comment_scores where user_id = ? AND comment_id = ?) = 1 THEN score_plus_count - 1 ELSE score_plus_count END) where comment_id = ?");
+                            ps.setInt(1, user.userId);
+                            ps.setInt(2, commentid);
+							ps.setInt(3, user.userId);
+							ps.setInt(4, commentid);
+							ps.setInt(5, commentid);
                            // ps.setInt(1, eva);
                             ps.executeUpdate();
                             //comment_scoreのscoreを更新する
-                            ps = con.prepareStatement("update comment_scores set score = ? where user_id = 29 AND comment_id = 1");
+                            ps = con.prepareStatement("update comment_scores set score = ? where user_id = ? AND comment_id = ?");
                             ps.setInt(1, eva);
-                            //ps.setInt(2, user.userId);
-                            //ps.setInt(3, commentid);
+                            ps.setInt(2, user.userId);
+                            ps.setInt(3, commentid);
                             ps.executeUpdate();
                             break;
                         
