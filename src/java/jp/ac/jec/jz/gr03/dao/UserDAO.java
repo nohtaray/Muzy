@@ -16,6 +16,17 @@ import jp.ac.jec.jz.gr03.util.Date;
  */
 public class UserDAO extends DAO {
 
+    public UserResultSet selectAll() throws IOException {
+        try {
+            String sql = "select * from users";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            return new UserResultSet(ps.executeQuery());
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
+    
+    
     public User selectById(Integer userId) throws IOException {
         try {
             String sql = "select * from users where user_id = ? limit 1";
