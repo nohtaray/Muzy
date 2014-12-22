@@ -54,7 +54,6 @@ public class AddReviewServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 		PreparedStatement ps;
-		PreparedStatement ps2;
         Connection con = null;
 		try {
             //データベースアクセス
@@ -76,28 +75,7 @@ public class AddReviewServlet extends HttpServlet {
 				ps.setString(2, review);
 				ps.setInt(3, Integer.parseInt(request.getParameter("musicid")));
 				ps.executeUpdate();
-			
-				
-			//上記のSQLで順列で生成されたconmmetIDを取得する
-			//コメントした時に評価値はいらない？
-				
-				
-				int commentid = 0;
-                ResultSet gKeys = ps.getGeneratedKeys();
-                if(gKeys.next()){
-                    commentid = gKeys.getInt(1);
-                }
-                else {
-                    throw new SQLException("Creating user faled, no ID obtained.");
-                }
-                
-                ps2 = con.prepareStatement("insert into comment_scores (user_id, comment_id, score) VALUES (?, ?, 0");
-                ps2.setInt(1, user.userId);
-                ps2.setInt(2, commentid);
-				ps2.executeUpdate();
-				
-				
-			}
+						}
             else {
                 //失敗に遷移したときにこれを書くとajaxでエラーに飛ぶ
                 //何もなくうまくいったら200が自動で帰る。

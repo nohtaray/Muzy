@@ -208,10 +208,6 @@
         <servlet-name>PopularMusicServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.PopularMusicServlet</servlet-class>
 	</servlet>
-    <servlet>
-        <servlet-name>VoteArtistServlet</servlet-name>
-        <servlet-class>jp.ac.jec.jz.gr03.servlet.VoteArtistServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
         <url-pattern>/LoginWithGoogleServlet</url-pattern>
@@ -408,10 +404,6 @@
         <servlet-name>PopularMusicServlet</servlet-name>
         <url-pattern>/PopularMusicServlet</url-pattern>
 	</servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>VoteArtistServlet</servlet-name>
-        <url-pattern>/VoteArtistServlet</url-pattern>
-    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

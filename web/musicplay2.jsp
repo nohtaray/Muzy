@@ -65,7 +65,7 @@
                     $reviewarea = $('#reviewarea');
                     $newreview = $('#review');
                     $('<br /><br /><span>' + $newreview.val() + '</span>').appendTo($reviewarea);
-					$('<br /><input type="button" onclick="evaluationCommentGood()" value="良い" /><input type="button" onclick="evaluationCommentBad()" value="悪い" />').appendTo($reviewarea);
+					$('<br /><input type="button" onclick="evaluationCommentGood()" value="良い" /><input type="button" onclick="evaluationCommentBad()" value="悪い" /><input type="button" onclick="deleteComment()" value="削除" />').appendTo($reviewarea);
 					alert("成功");
                 }).fail(function(data) {
                     // ajax error
@@ -77,40 +77,57 @@
             }
 			
 			function evaluationCommentGood() {
-                new Ajax.Request('EvaluationCommentsServlet', {
-                    method: 'post',
-                    parameters: {
-                        commentid: 1, //仮
-                        eva: 1
-                    },
-                    onSuccess: function() {
-                        alert("良い成功");
-                    },
-                    onFailure: function() {
-                        alert("良い失敗");
-                    },
-                    onException: function() {
-                        alert("エラー");
-                    }
+                $.ajax({
+                    type     : 'POST',
+                    dataType : 'text',
+                    url      : 'EvaluationCommentsServlet', //ここにServletのアドレス
+                    //ここがServletに渡される値
+                    //複数渡せる左が変数で右が値
+                    data     : {
+                                 commentid: 1, //仮
+                                 eva: 1
+                               }
+                }).done(function() {
+                    alert("良い成功");
+                }).fail(function() {
+                    alert("良い失敗");
+                }).always(function() {
+                });
+            }
+            function evaluationCommentBad() {
+                $.ajax({
+                    type     : 'POST',
+                    dataType : 'text',
+                    url      : 'EvaluationCommentsServlet', //ここにServletのアドレス
+                    //ここがServletに渡される値
+                    //複数渡せる左が変数で右が値
+                    data     : {
+                                 commentid: 1, //仮
+                                 eva: -1
+                               }
+                }).done(function() {
+                    alert("悪い成功");
+                }).fail(function() {
+                    alert("悪い失敗");
+                }).always(function() {
                 });
             }
             
-            function evaluationCommentBad() {
-                new Ajax.Request('EvaluationCommentsServlet', {
-                    method: 'post',
-                    parameters: {
-                        commentid: 1, //仮
-                        eva: -1
-                    },
-                    onSuccess: function() {
-                        alert("悪い成功");
-                    },
-                    onFailure: function() {
-                        alert("悪い失敗");
-                    },
-                    onException: function() {
-                        alert("エラー");
-                    }
+            function deleteComment() {
+                $.ajax({
+                    type     : 'POST',
+                    dataType : 'text',
+                    url      : 'DeleteCommentServlet', //ここにServletのアドレス
+                    //ここがServletに渡される値
+                    //複数渡せる左が変数で右が値
+                    data     : {
+                                 commentid: 2 //仮
+                               }
+                }).done(function() {
+                    alert("削除成功");
+                }).fail(function() {
+                    alert("削除失敗");
+                }).always(function() {
                 });
             }
 
@@ -151,6 +168,7 @@
 			<br />
 			<input type="button" onclick="evaluationCommentGood()" value="良い" />
 			<input type="button" onclick="evaluationCommentBad()" value="悪い" />
+			<input type="button" onclick="deleteComment()" value="削除" />
 		</div>
     </c:param>
 </c:import>
