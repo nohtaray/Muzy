@@ -75,7 +75,7 @@ public class DeleteArtistByAdminServlet extends HttpServlet {
         Artist artist = artistDAO.selectById(id);
         artistDAO.delete(artist);
         
-        
+        response.sendRedirect("AdminArtistServlet");
     }
 
     /**
