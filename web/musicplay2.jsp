@@ -8,6 +8,7 @@
         <link rel="stylesheet" type="text/css" href="css/template.css">
         --%>
         <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+		
         <script>
             function HeaderClick() {
                 target = document.getElementById("ContentsPanel");
@@ -61,7 +62,10 @@
                 }).done(function(data) {
                     // ajax ok
                     //追加表示処理
-                    
+                    $reviewarea = $('#reviewarea');
+                    $newreview = $('#review');
+                    $('<br /><br /><span>' + $newreview.val() + '</span>').appendTo($reviewarea);
+					$('<br /><input type="button" onclick="evaluationCommentGood()" value="良い" /><input type="button" onclick="evaluationCommentBad()" value="悪い" />').appendTo($reviewarea);
 					alert("成功");
                 }).fail(function(data) {
                     // ajax error
@@ -69,6 +73,44 @@
 					alert("失敗");
                 }).always(function(data) {
                     // ajax complete
+                });
+            }
+			
+			function evaluationCommentGood() {
+                new Ajax.Request('EvaluationCommentsServlet', {
+                    method: 'post',
+                    parameters: {
+                        commentid: 1, //仮
+                        eva: 1
+                    },
+                    onSuccess: function() {
+                        alert("良い成功");
+                    },
+                    onFailure: function() {
+                        alert("良い失敗");
+                    },
+                    onException: function() {
+                        alert("エラー");
+                    }
+                });
+            }
+            
+            function evaluationCommentBad() {
+                new Ajax.Request('EvaluationCommentsServlet', {
+                    method: 'post',
+                    parameters: {
+                        commentid: 1, //仮
+                        eva: -1
+                    },
+                    onSuccess: function() {
+                        alert("悪い成功");
+                    },
+                    onFailure: function() {
+                        alert("悪い失敗");
+                    },
+                    onException: function() {
+                        alert("エラー");
+                    }
                 });
             }
 
@@ -101,5 +143,14 @@
 			<input type="button" onclick="funcReview();" value="レビュー書き込み">
 		</div>
 		
+		<br /><br /><br />
+		<h2>レビュー一覧</h2>
+		<div id="reviewarea">
+			<span>良い曲ですね</span>
+			<%--ユーザーIDとかも表示？--%>
+			<br />
+			<input type="button" onclick="evaluationCommentGood()" value="良い" />
+			<input type="button" onclick="evaluationCommentBad()" value="悪い" />
+		</div>
     </c:param>
 </c:import>
