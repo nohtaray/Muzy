@@ -1,18 +1,20 @@
 package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import jp.ac.jec.jz.gr03.dao.ArtistDAO;
-import jp.ac.jec.jz.gr03.entity.Artist;
+import jp.ac.jec.jz.gr03.dao.AdvertisementDAO;
+import jp.ac.jec.jz.gr03.dao.entityresultset.AdvertisementResultSet;
 
 /**
  *
- * @author 12jz0112
+ * @author yada
  */
-public class DeleteArtistByAdminServlet extends HttpServlet {
+public class PopularMusicServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -26,7 +28,6 @@ public class DeleteArtistByAdminServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -42,6 +43,12 @@ public class DeleteArtistByAdminServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        
+        AdvertisementResultSet ads = selectPopulars();
+        
+        request.setAttribute("advertisements", ads);
+        request.getRequestDispatcher("popularMusic.jsp").forward(request, response);
     }
 
     /**
@@ -56,26 +63,8 @@ public class DeleteArtistByAdminServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-
-        String idStr = request.getParameter("id");
-        if (idStr == null) {
-            // パラメータがない。どうするか
-            return;
-        }
-
-        int id;
-        try {
-            id = Integer.parseInt(idStr);
-        } catch (NumberFormatException e) {
-            // idが不正。どうするか
-            return;
-        }
         
-        ArtistDAO artistDAO = new ArtistDAO();
-        Artist artist = artistDAO.selectById(id);
-        artistDAO.delete(artist);
-        
-        response.sendRedirect("AdminArtistServlet");
+        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
     }
 
     /**
@@ -88,4 +77,14 @@ public class DeleteArtistByAdminServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private AdvertisementResultSet selectPopulars() {
+        AdvertisementDAO dao = new AdvertisementDAO();
+        AdvertisementResultSet ads = null;
+        try {
+            ads = dao.selectPopularMusics(30, 0);
+        } catch (IOException ex) {
+            Logger.getLogger(PopularMusicServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ads;
+    }
 }

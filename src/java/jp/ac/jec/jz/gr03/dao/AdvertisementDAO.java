@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import jp.ac.jec.jz.gr03.dao.entityresultset.AdvertisementResultSet;
 import jp.ac.jec.jz.gr03.entity.Advertisement;
 import jp.ac.jec.jz.gr03.util.Date;
 
@@ -14,6 +15,26 @@ import jp.ac.jec.jz.gr03.util.Date;
  */
 public class AdvertisementDAO extends DAO {
     
+    public AdvertisementResultSet selectPopularMusics(int limit, int offset) throws IOException {
+        // TODO: 書く
+        // music_id ごとに spent_points を合計して返したい。
+        // sum(spent_points) as spent_points だと
+        // integer より桁数が多い型になって ResultSet へマップできない
+        String sql = "select distinct music_id "
+                + "from advertisements "
+                + "limit ? offset ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            
+            int idx = 1;
+            ps.setObject(idx++, limit, Types.INTEGER);
+            ps.setObject(idx++, offset, Types.INTEGER);
+            
+            return new AdvertisementResultSet(ps.executeQuery());
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
     public void insert(Advertisement advertisement) throws IOException {
         String sql = "insert into advertisements("
                 + "user_id, "

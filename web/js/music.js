@@ -5,11 +5,11 @@ $(function() {
         loadNowPoints();
         
         $('#advertise-form').submit(function() {
-            var use = $('#advertise-use-points').val();
-            var now = $('#advertise-now-points').text();
+            var use = parseInt( $('#advertise-use-points').val(), 10);
+            var now = parseInt( $('#advertise-now-points').text(), 10);
 
             // 入力チェック
-            if (!use.match(/^[1-9][0-9]*$/g)) {
+            if (use <= 0) {
                 $('#advertise-error').removeClass('hidden').text('正の整数で入力してください');
                 return false;
             } else if (use > now) {

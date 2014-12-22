@@ -199,6 +199,18 @@
     <servlet>
         <servlet-name>VoteArtistServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.VoteArtistServlet</servlet-class>
+	</servlet>
+    <servlet>
+        <servlet-name>DeleteCommentServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.DeleteCommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PopularMusicServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.PopularMusicServlet</servlet-class>
+	</servlet>
+    <servlet>
+        <servlet-name>VoteArtistServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.VoteArtistServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
@@ -384,6 +396,18 @@
         <servlet-name>AddReviewServlet</servlet-name>
         <url-pattern>/AddReviewServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VoteArtistServlet</servlet-name>
+        <url-pattern>/VoteArtistServlet</url-pattern>
+	</servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCommentServlet</servlet-name>
+        <url-pattern>/DeleteCommentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PopularMusicServlet</servlet-name>
+        <url-pattern>/PopularMusicServlet</url-pattern>
+	</servlet-mapping>
     <servlet-mapping>
         <servlet-name>VoteArtistServlet</servlet-name>
         <url-pattern>/VoteArtistServlet</url-pattern>
