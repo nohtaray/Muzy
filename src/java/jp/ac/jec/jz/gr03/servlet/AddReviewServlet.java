@@ -67,6 +67,9 @@ public class AddReviewServlet extends HttpServlet {
 			//追加されたレビュー内容を引っ張ってくる
 			String review = request.getParameter("review");
 			
+			//仮
+            if (user == null) {user = new User(); user.userId = 29;}
+			
             if(review != null){
                 ps = con.prepareStatement("insert into comments (user_id, content, music_id, score_plus_count, score_minus_count, created_at, is_deleted) VALUES (?, ?, ?, 0, 0, now(), 0)", Statement.RETURN_GENERATED_KEYS);
 				ps.setInt(1, user.userId);
@@ -78,7 +81,7 @@ public class AddReviewServlet extends HttpServlet {
 			//上記のSQLで順列で生成されたconmmetIDを取得する
 			//コメントした時に評価値はいらない？
 				
-				/*
+				
 				int commentid = 0;
                 ResultSet gKeys = ps.getGeneratedKeys();
                 if(gKeys.next()){
@@ -93,7 +96,7 @@ public class AddReviewServlet extends HttpServlet {
                 ps2.setInt(2, commentid);
 				ps2.executeUpdate();
 				
-				*/
+				
 			}
             else {
                 //失敗に遷移したときにこれを書くとajaxでエラーに飛ぶ

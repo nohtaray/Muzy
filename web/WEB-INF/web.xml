@@ -197,12 +197,17 @@
         <servlet-class>jp.ac.jec.jz.gr03.servlet.AddReviewServlet</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
         <servlet-name>DeleteCommentServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.DeleteCommentServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PopularMusicServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.PopularMusicServlet</servlet-class>
+=======
+        <servlet-name>VoteArtistServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.VoteArtistServlet</servlet-class>
+>>>>>>> 14/12/22 12jz0129
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
@@ -389,12 +394,17 @@
         <url-pattern>/AddReviewServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>DeleteCommentServlet</servlet-name>
         <url-pattern>/DeleteCommentServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PopularMusicServlet</servlet-name>
         <url-pattern>/PopularMusicServlet</url-pattern>
+=======
+        <servlet-name>VoteArtistServlet</servlet-name>
+        <url-pattern>/VoteArtistServlet</url-pattern>
+>>>>>>> 14/12/22 12jz0129
     </servlet-mapping>
     <session-config>
         <session-timeout>
