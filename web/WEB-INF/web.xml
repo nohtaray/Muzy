@@ -191,14 +191,18 @@
     <servlet>
         <servlet-name>EvaluationCommentsServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.EvaluationCommentsServlet</servlet-class>
-	</servlet>
-	<servlet>
+    </servlet>
+    <servlet>
         <servlet-name>AddReviewServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.AddReviewServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteCommentServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.DeleteCommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PopularMusicServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.PopularMusicServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
@@ -379,14 +383,18 @@
     <servlet-mapping>
         <servlet-name>EvaluationCommentsServlet</servlet-name>
         <url-pattern>/EvaluationCommentsServlet</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AddReviewServlet</servlet-name>
         <url-pattern>/AddReviewServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteCommentServlet</servlet-name>
         <url-pattern>/DeleteCommentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PopularMusicServlet</servlet-name>
+        <url-pattern>/PopularMusicServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
