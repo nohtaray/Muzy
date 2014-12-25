@@ -4,6 +4,23 @@
     Author     : yada
 */
 
+#nav {
+    float: left;
+    width: 300px;
+    background-color: lightgray;
+}
+#nav ul {
+    list-style: none;
+}
+#nav div {
+    margin-left: 20px;
+}
+
+#main {
+    margin-left: 300px;
+    padding-left: 15px;
+}
+
 .container {
     max-width: 970px;
 }
