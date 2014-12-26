@@ -1,10 +1,10 @@
-/*global $ */
+/*global jQuery */
 
 /**
  * 全画面共通のスクリプト
  */
 
-window.Helper = (function() {
+window.Helper = (function($) {
     
     return {
         postHref: function(url, params) {
@@ -15,4 +15,4 @@ window.Helper = (function() {
             $form.submit();
         },
     };
-})();
+})(jQuery);
