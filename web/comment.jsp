@@ -8,12 +8,6 @@
 <c:import url="/layout/application.jsp">
     <c:param name="title" value="ページのタイトル" />
     <c:param name="header">
-        <%-- スクリプトのインポートなど。例↓
-        <script type="text/javascript" src="js/template.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/template.css">
-        --%>
-        <script src="/js/jquery-1.11.1.js"></script>   
-        
     </c:param>
     <c:param name="content">
         

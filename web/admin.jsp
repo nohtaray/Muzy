@@ -10,7 +10,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>管理者画面</title>
-        <script src="js/jquery-1.11.1.min.js"></script>
     </head>
     <body>
     <h1><a href="AdminServlet">管理画面</a></h1>

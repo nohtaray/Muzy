@@ -7,11 +7,7 @@
     
     <c:param name="myList-edit" value="マイリストの編集" />
     <c:param name="header">
-        <%-- スクリプトのインポートなど。例↓
-        <script type="text/javascript" src="js/template.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/template.css">
-        --%>
-        <script src="js/prototype.js"></script>
+        <script src="js/lib/prototype.js"></script>
         
         <input type="text" name="name" id="name" />
         <input type="button" onclick="addMyList() " name="bt" value="マイリスト追加" /> 

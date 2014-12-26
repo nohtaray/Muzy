@@ -10,8 +10,7 @@
         
         
         <script type="text/javascript" src="js/signUpUser.js"></script>
-        <script src="js/prototype.js"></script> 
-        <script src="js/jquery-1.11.1.js"></script> 
+        <script src="js/lib/prototype.js"></script> 
         +
  <form onsubmit="return funcDispChange()">
     <input type="text" name="email" onfocus="xx()" onblur="yy()" onkeyup="zz(this)"/><br>
