@@ -349,6 +349,10 @@
         <url-pattern>/AddMyListServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ArtistServlet</servlet-name>
+        <url-pattern>/ArtistServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>UniqueCheckServlet</servlet-name>
         <url-pattern>/UniqueCheckServlet</url-pattern>
     </servlet-mapping>
