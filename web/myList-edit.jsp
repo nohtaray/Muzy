@@ -5,7 +5,7 @@
 <%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.MyListResultSet" %>
 <c:import url="/layout/application.jsp">
     
-    <c:param name="myList-edit" value="マイリストの編集" />
+    <c:param name="title" value="マイリストの編集" />
     <c:param name="header">
         <script src="js/lib/prototype.js"></script>
         

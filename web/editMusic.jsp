@@ -1,17 +1,16 @@
-<%-- 
-    Document   : song-edit
-    Created on : 2014/11/20, 10:09:28
-    Author     : 12jz0112
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title></title>
-    </head>
-    <body>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:import url="/layout/application.jsp">
+    <c:param name="title" value="ページのタイトル" />
+    <c:param name="header">
+        <%-- スクリプトのインポートなど。例↓
+        <script type="text/javascript" src="js/template.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/template.css">
+        --%>
+    </c:param>
+    <c:param name="content">
         
-    </body>
-</html>
+        <%-- ここにHTMLを記述 --%>
+        
+    </c:param>
+</c:import>

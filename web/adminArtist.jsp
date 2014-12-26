@@ -3,7 +3,7 @@
 <%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.ArtistResultSet" %>
 <%@page import="jp.ac.jec.jz.gr03.entity.Artist" %>
 <c:import url="/layout/admin.jsp">
-    <c:param name="title" value="ページのタイトル" />
+    <c:param name="title" value="アーティスト管理" />
     <c:param name="header">
     </c:param>
     <c:param name="content">

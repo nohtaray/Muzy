@@ -4,7 +4,7 @@
 <%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.UserResultSet" %>
 <%@page import="jp.ac.jec.jz.gr03.entity.User" %>
 <c:import url="/layout/admin.jsp">
-    <c:param name="title" value="ページのタイトル" />
+    <c:param name="title" value="ユーザ管理" />
     <c:param name="header">
     </c:param>
     <c:param name="content">
