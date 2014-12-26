@@ -18,12 +18,11 @@
     <c:param name="content">
 
 
-        <h2>
-            <%= music.title%>
-        </h2>
+        <h2><%= music.title%></h2>
+        <hr>
         <div id="tools">
             <% if (loggedIn) { %>
-            <a class="modal-open btn" data-toggle="modal" data-target="#advertise-modal" id='advertise-button'>この動画を広告する！</a>
+            <a class="modal-open btn" data-toggle="modal" data-target="#advertise-modal" id="advertise-button">この動画を広告する！</a>
             <% }%>
         </div>
         <div>
@@ -33,6 +32,46 @@
             <%= music.description%>
         </div>
 
+        <hr>
+
+        <%--既存登録タグ(暫定的)--%>
+        <div id="tag">
+            <span>xyz</span>
+        </div>
+
+        <%--タグ追加スペース--%>
+        <input type="button" onclick="HeaderClick();" value="タグ追加">
+        <div>
+            <div id="ContentsPanel" style="width:780px;border:1px solid #008d18; display:none">
+                <div id="tagfiled">
+                    <input type="text" id="tagname" placeholder="タグ名" required>
+                    <!--number形だと動かない？サイズは後-->
+                    <input type="number" id="score"   placeholder="評価値" required>
+                </div>
+                <input type="button" onclick="funcSignUpTags();" value="新規タグを登録する">
+            </div>
+            <input type="hidden" id="musicid" value="1">
+        </div>
+
+        レビュー<br />
+        <div>
+            <textarea id="review" cols="30" rows="5"></textarea>
+            <input type="button" onclick="funcReview();" value="レビュー書き込み">
+        </div>
+
+        <br /><br /><br />
+        <h2>レビュー一覧</h2>
+        <div id="reviewarea">
+            <span>良い曲ですね</span>
+            <%--ユーザーIDとかも表示？--%>
+            <br />
+            <input type="button" onclick="evaluationCommentGood()" value="良い" />
+            <input type="button" onclick="evaluationCommentBad()" value="悪い" />
+            <input type="button" onclick="deleteComment()" value="削除" />
+        </div>
+
+
+        <% if (loggedIn) {%>
         <div id="advertise-modal" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -75,5 +114,6 @@
                 </div>
             </div>
         </div>
+        <% }%>
     </c:param>
 </c:import>
