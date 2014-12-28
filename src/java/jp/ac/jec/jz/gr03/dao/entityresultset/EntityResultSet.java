@@ -4,13 +4,16 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author yada
  * @param <T>
  */
-abstract public class EntityResultSet<T> {
+abstract public class EntityResultSet<T> implements Iterator<T>, Iterable<T> {
     
     private final ResultSet rs;
     
@@ -63,5 +66,37 @@ abstract public class EntityResultSet<T> {
         }
         
         return row;
+    }
+
+    @Override
+    public boolean hasNext() {
+        try {
+            boolean has = rs.next();
+            rs.previous(); // カーソルが進んじゃうので戻す
+            return has;
+        } catch (SQLException ex) {
+            Logger.getLogger(EntityResultSet.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    @Override
+    public T next() {
+        try {
+            return readRow();
+        } catch (SQLException ex) {
+            Logger.getLogger(EntityResultSet.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    @Override
+    public void remove() {
+        throw new UnsupportedOperationException("Not supported."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return this;
     }
 }
