@@ -50,7 +50,7 @@
                 </div>
                 <input type="button" onclick="funcSignUpTags();" value="新規タグを登録する">
             </div>
-            <input type="hidden" id="musicid" value="1">
+            <input type="hidden" id="musicid" value="<%= music.musicId %>">
         </div>
 
         レビュー<br />
