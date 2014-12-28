@@ -3,7 +3,7 @@ $(function() {
     // advertisement 機能
     $(function() {
         loadNowPoints();
-        
+
         $('#advertise-form').submit(function() {
             var use = parseInt( $('#advertise-use-points').val(), 10);
             var now = parseInt( $('#advertise-now-points').text(), 10);
@@ -61,7 +61,7 @@ $(function() {
             });
         }
     });
-    
+
     // タグ
     $(function() {
         loadTags();
@@ -69,7 +69,7 @@ $(function() {
 });
 
 function HeaderClick() {
-    target = document.getElementById("ContentsPanel");
+    var target = document.getElementById("ContentsPanel");
     if (target.style.display === "none") {
         target.style.display = "block";
     } else {
@@ -111,7 +111,7 @@ function loadTags() {
             id: musicId
         },
     }).done(function(tags) {
-        $tags = $('#tags').empty();
+        var $tags = $('#tags').empty();
         tags.forEach(function(tag) {
             $('<div>', {
                 class: 'tag'
@@ -135,8 +135,8 @@ function funcReview() {
     }).done(function (data) {
         // ajax ok
         //追加表示処理
-        $reviewarea = $('#reviewarea');
-        $newreview = $('#review');
+        var $reviewarea = $('#reviewarea');
+        var $newreview = $('#review');
         $('<br /><br /><span>' + $newreview.val() + '</span>').appendTo($reviewarea);
         $('<br /><input type="button" onclick="evaluationCommentGood()" value="良い" /><input type="button" onclick="evaluationCommentBad()" value="悪い" /><input type="button" onclick="deleteComment()" value="削除" />').appendTo($reviewarea);
         alert("成功");
