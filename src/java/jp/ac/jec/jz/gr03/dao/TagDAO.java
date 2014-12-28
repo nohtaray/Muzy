@@ -13,6 +13,20 @@ import jp.ac.jec.jz.gr03.dao.entityresultset.TagResultSet;
  */
 public class TagDAO extends DAO {
 
+    public TagResultSet selectByMusicId(int musicId) throws IOException {
+        try {
+            String sql = "select * from tags where music_id = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            
+            int idx = 1;
+            ps.setObject(idx++, musicId, Types.INTEGER);
+            
+            return new TagResultSet(ps.executeQuery());
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
+    
     public TagResultSet selectByName(String name) throws IOException {
         try {
             String sql = "select * from tags where name = ?";
@@ -40,4 +54,5 @@ public class TagDAO extends DAO {
             throw new IOException(e);
         }
     }
+    
 }

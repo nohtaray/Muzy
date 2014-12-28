@@ -212,6 +212,10 @@
         <servlet-name>DeleteUserByAdminServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.DeleteUserByAdminServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MusicTagsServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.MusicTagsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
         <url-pattern>/LoginWithGoogleServlet</url-pattern>
@@ -415,6 +419,10 @@
     <servlet-mapping>
         <servlet-name>DeleteUserByAdminServlet</servlet-name>
         <url-pattern>/DeleteUserByAdminServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MusicTagsServlet</servlet-name>
+        <url-pattern>/MusicTagsServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
