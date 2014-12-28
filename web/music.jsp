@@ -35,8 +35,8 @@
         <hr>
 
         <%--既存登録タグ(暫定的)--%>
-        <div id="tag">
-            <span>xyz</span>
+        <div id="tags">
+            
         </div>
 
         <%--タグ追加スペース--%>

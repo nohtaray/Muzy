@@ -5,3 +5,10 @@
 #advertise-error {
     color: red;
 }
+
+.tag {
+    margin: 0 10px 5px 0;
+    padding: 2px 5px;
+    display: inline-block;
+    background-color: lightgray;
+}

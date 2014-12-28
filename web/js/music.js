@@ -61,6 +61,11 @@ $(function() {
             });
         }
     });
+    
+    // タグ
+    $(function() {
+        loadTags();
+    });
 });
 
 function HeaderClick() {
@@ -86,17 +91,32 @@ function funcSignUpTags() {
         }
     }).done(function (data) {
         // ajax ok
-        //追加表示処理
-        $tag = $('#tag');
-        $newtag = $('#tagname');
-        $('<span>' + " " + $newtag.val() + " " + '</span>').appendTo($tag);
         alert("成功");
+        loadTags();
     }).fail(function (data) {
         // ajax error
         //追加できませんでした的な通知
         alert("失敗");
     }).always(function (data) {
         // ajax complete
+    });
+}
+function loadTags() {
+    var musicId = $('#musicid').val();
+    $.ajax({
+        url: 'MusicTagsServlet',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+            id: musicId
+        },
+    }).done(function(tags) {
+        $tags = $('#tags').empty();
+        tags.forEach(function(tag) {
+            $('<div>', {
+                class: 'tag'
+            }).text(tag['name']).appendTo($tags);
+        });
     });
 }
 //------------ここまで実行可能確認------------------
