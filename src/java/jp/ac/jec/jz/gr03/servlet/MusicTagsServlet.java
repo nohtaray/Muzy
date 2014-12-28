@@ -66,9 +66,9 @@ public class MusicTagsServlet extends HttpServlet {
 
         TagResultSet tags = selectTags(musicId);
         // リンクしてるユーザ情報などを出力しないようフィルタリングする
-        Map<String, Object> mp = new HashMap<>();
         List<Map<String, Object>> tagList = new ArrayList<>();
         for (Tag tag : tags) {
+            Map<String, Object> mp = new HashMap<>();
             mp.put("name", tag.name);
             mp.put("score_average", tag.scoreAverage);
             mp.put("score_count", tag.scoreCount);
