@@ -1,10 +1,13 @@
 <%@page import="jp.ac.jec.jz.gr03.entity.Music"%>
 <%@page import="jp.ac.jec.jz.gr03.entity.User"%>
+<%@page import="jp.ac.jec.jz.gr03.entity.Comment"%>
+<%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.CommentResultSet"%>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
     Music music = (Music) request.getAttribute("music");
     User me = (User) request.getAttribute("me");
+    CommentResultSet comments = (CommentResultSet) request.getAttribute("comments");
     boolean loggedIn = me != null;
 %>
 <c:import url="/layout/application.jsp">
@@ -58,19 +61,21 @@
 
         レビュー<br />
         <div>
-            <textarea id="review" cols="30" rows="5"></textarea>
+            <textarea id="comment-add-content" cols="30" rows="5"></textarea>
             <input type="button" onclick="funcReview();" value="レビュー書き込み">
         </div>
 
         <br /><br /><br />
         <h2>レビュー一覧</h2>
         <div id="reviewarea">
-            <span>良い曲ですね</span>
-            <%--ユーザーIDとかも表示？--%>
-            <br />
-            <input type="button" onclick="evaluationCommentGood()" value="良い" />
-            <input type="button" onclick="evaluationCommentBad()" value="悪い" />
-            <input type="button" onclick="deleteComment()" value="削除" />
+            <% for (Comment comment : comments) { %>
+            <div class="comment" data-comment-id="<%= comment.commentId %>">
+                <div class="comment-content"><%= comment.content %></div>
+                <input type="button" onclick="evaluationCommentGood()" value="良い" />
+                <input type="button" onclick="evaluationCommentBad()" value="悪い" />
+                <input type="button" onclick="deleteComment()" value="削除" />
+            </div>
+            <% } %>
         </div>
 
 

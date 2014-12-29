@@ -171,9 +171,9 @@ function rateTag(tagId, score) {
         }
     });
 }
-//------------ここまで実行可能確認------------------
 
 function funcReview() {
+    var content = $('#comment-add-content').val();
     $.ajax({
         type: 'POST',
         dataType: 'text',
@@ -181,16 +181,17 @@ function funcReview() {
         //ここがServletに渡される値
         //複数渡せる左が変数で右が値
         data: {
-            review: $('#review').val(),
+            review: content,
             musicid: $('#musicid').val()
         }
     }).done(function (data) {
         // ajax ok
-        //追加表示処理
-        var $reviewarea = $('#reviewarea');
-        var $newreview = $('#review');
-        $('<br /><br /><span>' + $newreview.val() + '</span>').appendTo($reviewarea);
-        $('<br /><input type="button" onclick="evaluationCommentGood()" value="良い" /><input type="button" onclick="evaluationCommentBad()" value="悪い" /><input type="button" onclick="deleteComment()" value="削除" />').appendTo($reviewarea);
+        //追加表示
+        var $newreview = $('<div>', { class: 'comment' }).appendTo($('#reviewarea'));
+        // 内容
+        $('<div>', { class: 'comment-content' }).text(content).appendTo($newreview);
+        // 評価ボタン
+        $('<input type="button" onclick="evaluationCommentGood()" value="良い" /><input type="button" onclick="evaluationCommentBad()" value="悪い" /><input type="button" onclick="deleteComment()" value="削除" />').appendTo($newreview);
         alert("成功");
     }).fail(function (data) {
         // ajax error
@@ -200,6 +201,7 @@ function funcReview() {
         // ajax complete
     });
 }
+//------------ここまで実行可能確認------------------
 
 function evaluationCommentGood() {
     $.ajax({
