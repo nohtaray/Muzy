@@ -1,4 +1,10 @@
 /*global $ */
+// jquery raty のデフォルト設定
+$.extend($.fn.raty.defaults, {
+    path: 'img',
+    hints: ['1', '2', '3', '4', '5'],
+    number: 5,
+});
 $(function() {
     // advertisement 機能
     $(function() {
@@ -66,7 +72,7 @@ $(function() {
     $(function() {
         loadTags();
 
-        $(document).on('click', '.delete-tag-button', function() {
+        $(document).on('click', '.tag-delete-button', function() {
             var ok = confirm('このタグを削除します。よろしいですか。');
             if (!ok) return;
 
@@ -129,15 +135,39 @@ function loadTags() {
     }).done(function(tags) {
         var $tags = $('#tags').empty();
         tags.forEach(function(tag) {
-            // append tag to $tags
-            $('<div>', {
-                class: 'tag'
-            }).attr('data-tag-id', tag['tag_id']).text(tag['name']).appendTo($tags);
+            $tags.append(makeTagElement(tag));
         });
-        // 自分が投稿した楽曲の場合
-        if ($('#is-my-music').val() === 'true') {
-            // タグに削除ボタンを追加
-            $tags.children().append($('<span>', { class: 'delete-tag-button' }).html('&times;'))
+
+        function makeTagElement(tag) {
+            var $tag = $('<div>').addClass('tag').attr('data-tag-id', tag['tag_id']);
+            // tag name
+            $('<span>').addClass('tag-name').text(tag['name']).appendTo($tag);
+            // 自分が投稿した楽曲の場合
+            if ($('#is-my-music').val() === 'true') {
+                // 削除ボタン
+                $('<span>', { class: 'tag-delete-button' }).html('&times;').appendTo($tag);
+            }
+            // ログインしてる場合
+            if ($('#is-logged-in').val() === 'true') {
+                // タグ評価ボタン
+                $('<div>').addClass('tag-rate').raty({
+                    click: function(score) {
+                        var tagId = $(this).parent().data('tagId');
+                        rateTag(tagId, score);
+                    },
+                }).appendTo($tag);
+            }
+            return $tag;
+        }
+    });
+}
+function rateTag(tagId, score) {
+    $.ajax({
+        url: 'EvaluationTagsServlet',
+        type: 'POST',
+        data: {
+            tagid: tagId,
+            evaluation: score
         }
     });
 }

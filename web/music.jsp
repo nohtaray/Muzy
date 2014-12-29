@@ -15,6 +15,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
         <link rel="stylesheet" href="css/music.css">
+        <script src="js/lib/jquery.raty.js"></script>
         <script src="js/music.js"></script>
     </c:param>
     <c:param name="content">
@@ -121,6 +122,7 @@
         
         <%-- 投稿者かどうか --%>
         <input type="hidden" id="is-my-music" value="<%= me != null && me.userId == music.artist.user.userId %>">
-
+        <%-- ログインしてるか --%>
+        <input type="hidden" id="is-logged-in" value="<%= loggedIn %>">
     </c:param>
 </c:import>

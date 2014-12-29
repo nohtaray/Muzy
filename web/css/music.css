@@ -8,11 +8,13 @@
 
 .tag {
     margin: 0 10px 5px 0;
-    padding: 2px 5px;
     display: inline-block;
+}
+.tag-name {
+    padding: 2px 5px;
     background-color: lightgray;
 }
 
-.delete-tag-button {
+.tag-delete-button {
     cursor: pointer;
 }
