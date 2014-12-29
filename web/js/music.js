@@ -2,7 +2,7 @@
 // jquery raty のデフォルト設定
 $.extend($.fn.raty.defaults, {
     path: 'img',
-    hints: ['1', '2', '3', '4', '5'],
+    hints: [],
     number: 5,
 });
 $(function() {
@@ -141,7 +141,7 @@ function loadTags() {
         function makeTagElement(tag) {
             var $tag = $('<div>').addClass('tag').attr('data-tag-id', tag['tag_id']);
             // tag name
-            $('<a>', { href: 'SearchMusicServlet?t=' + tag['name'] }).addClass('tag-name').text(tag['name']).appendTo($tag);
+            $('<a>', { href: 'SearchMusicServlet?t=' + tag['name'] }).addClass('tag-name').attr('title', tag['score_average'].toFixed(1)).text(tag['name']).appendTo($tag);
             // 自分が投稿した楽曲の場合
             if ($('#is-my-music').val() === 'true') {
                 // 削除ボタン
