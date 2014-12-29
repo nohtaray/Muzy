@@ -141,7 +141,7 @@ function loadTags() {
         function makeTagElement(tag) {
             var $tag = $('<div>').addClass('tag').attr('data-tag-id', tag['tag_id']);
             // tag name
-            $('<span>').addClass('tag-name').text(tag['name']).appendTo($tag);
+            $('<a>', { href: 'SearchMusicServlet?t=' + tag['name'] }).addClass('tag-name').text(tag['name']).appendTo($tag);
             // 自分が投稿した楽曲の場合
             if ($('#is-my-music').val() === 'true') {
                 // 削除ボタン
