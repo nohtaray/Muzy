@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import jp.ac.jec.jz.gr03.dao.CommentDAO;
 import jp.ac.jec.jz.gr03.dao.MusicDAO;
+import jp.ac.jec.jz.gr03.dao.entityresultset.CommentResultSet;
 import jp.ac.jec.jz.gr03.entity.Music;
 import jp.ac.jec.jz.gr03.util.Authorizer;
 
@@ -70,6 +72,7 @@ public class MusicServlet extends HttpServlet {
         if (music != null) {
             request.setAttribute("me", auth.getUserLoggedInAs());
             request.setAttribute("music", music);
+            request.setAttribute("comments", selectComments(music.musicId));
             request.getRequestDispatcher("music.jsp").forward(request, response);
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "楽曲が存在しません");
@@ -106,6 +109,15 @@ public class MusicServlet extends HttpServlet {
         MusicDAO dao = new MusicDAO();
         try {
             return dao.selectById(musicId);
+        } catch (IOException ex) {
+            Logger.getLogger(MusicServlet.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    private CommentResultSet selectComments(int musicId) {
+        CommentDAO dao = new CommentDAO();
+        try {
+            return dao.selectByMusicId(musicId);
         } catch (IOException ex) {
             Logger.getLogger(MusicServlet.class.getName()).log(Level.SEVERE, null, ex);
             return null;
