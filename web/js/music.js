@@ -65,6 +65,22 @@ $(function() {
     // タグ
     $(function() {
         loadTags();
+
+        $(document).on('click', '.delete-tag-button', function() {
+            var ok = confirm('このタグを削除します。よろしいですか。');
+            if (!ok) return;
+
+            var tagId = $(this).parent().data('tagId');
+            $.ajax({
+                url: 'DeleteTagsServlet',
+                type: 'POST',
+                data: {
+                    tagid: tagId
+                }
+            }).done(function() {
+                loadTags();
+            });
+        });
     });
 });
 
@@ -113,10 +129,16 @@ function loadTags() {
     }).done(function(tags) {
         var $tags = $('#tags').empty();
         tags.forEach(function(tag) {
+            // append tag to $tags
             $('<div>', {
                 class: 'tag'
-            }).text(tag['name']).appendTo($tags);
+            }).attr('data-tag-id', tag['tag_id']).text(tag['name']).appendTo($tags);
         });
+        // 自分が投稿した楽曲の場合
+        if ($('#is-my-music').val() === 'true') {
+            // タグに削除ボタンを追加
+            $tags.children().append($('<span>', { class: 'delete-tag-button' }).html('&times;'))
+        }
     });
 }
 //------------ここまで実行可能確認------------------

@@ -1,9 +1,11 @@
 <%@page import="jp.ac.jec.jz.gr03.entity.Music"%>
+<%@page import="jp.ac.jec.jz.gr03.entity.User"%>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
     Music music = (Music) request.getAttribute("music");
-    boolean loggedIn = (boolean) request.getAttribute("loggedIn");
+    User me = (User) request.getAttribute("me");
+    boolean loggedIn = me != null;
 %>
 <c:import url="/layout/application.jsp">
     <c:param name="title" value="<%= music.title%>" />
@@ -17,7 +19,7 @@
     </c:param>
     <c:param name="content">
 
-
+        
         <h2><%= music.title%></h2>
         <hr>
         <div id="tools">
@@ -115,5 +117,10 @@
             </div>
         </div>
         <% }%>
+        
+        
+        <%-- 投稿者かどうか --%>
+        <input type="hidden" id="is-my-music" value="<%= me != null && me.userId == music.artist.user.userId %>">
+
     </c:param>
 </c:import>

@@ -68,7 +68,7 @@ public class MusicServlet extends HttpServlet {
         
         Music music = selectMusic(id);
         if (music != null) {
-            request.setAttribute("loggedIn", auth.hasLoggedIn());
+            request.setAttribute("me", auth.getUserLoggedInAs());
             request.setAttribute("music", music);
             request.getRequestDispatcher("music.jsp").forward(request, response);
         } else {

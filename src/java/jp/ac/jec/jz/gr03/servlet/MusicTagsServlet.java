@@ -69,6 +69,8 @@ public class MusicTagsServlet extends HttpServlet {
         List<Map<String, Object>> tagList = new ArrayList<>();
         for (Tag tag : tags) {
             Map<String, Object> mp = new HashMap<>();
+            mp.put("tag_id", tag.tagId);
+            mp.put("music_id", (tag.music != null ? tag.music.musicId : null));
             mp.put("name", tag.name);
             mp.put("score_average", tag.scoreAverage);
             mp.put("score_count", tag.scoreCount);
