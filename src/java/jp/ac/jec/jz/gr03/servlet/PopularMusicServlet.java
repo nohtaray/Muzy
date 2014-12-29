@@ -7,8 +7,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import jp.ac.jec.jz.gr03.dao.AdvertisementDAO;
+import jp.ac.jec.jz.gr03.dao.PopularMusicDAO;
 import jp.ac.jec.jz.gr03.dao.entityresultset.AdvertisementResultSet;
+import jp.ac.jec.jz.gr03.dao.entityresultset.PopularMusicResultSet;
 
 /**
  *
@@ -45,9 +46,9 @@ public class PopularMusicServlet extends HttpServlet {
         processRequest(request, response);
         
         
-        AdvertisementResultSet ads = selectPopulars();
+        PopularMusicResultSet musics = selectPopulars();
         
-        request.setAttribute("advertisements", ads);
+        request.setAttribute("popularMusics", musics);
         request.getRequestDispatcher("popularMusic.jsp").forward(request, response);
     }
 
@@ -77,14 +78,14 @@ public class PopularMusicServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private AdvertisementResultSet selectPopulars() {
-        AdvertisementDAO dao = new AdvertisementDAO();
-        AdvertisementResultSet ads = null;
+    private PopularMusicResultSet selectPopulars() {
+        PopularMusicDAO dao = new PopularMusicDAO();
+        PopularMusicResultSet musics = null;
         try {
-            ads = dao.selectPopularMusics(30, 0);
+            musics = dao.selectPopularMusics(30, 0);
         } catch (IOException ex) {
             Logger.getLogger(PopularMusicServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return ads;
+        return musics;
     }
 }
