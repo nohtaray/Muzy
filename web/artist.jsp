@@ -10,7 +10,7 @@
         <a href="#" id="ad">チケットを使ってこのアーティストを応援する</a>&nbsp;
         <a href="#" id="addto">マイリストに追加する</a><br>
         <div id="profile">
-            <img id="image" width="140" height="90" src="images/artist.jpg">
+            <img id="image" src="img/ajax-loader.gif">
             ${introduction}
         </div>
         
