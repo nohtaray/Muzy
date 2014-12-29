@@ -15,7 +15,7 @@ $(function() {
             var now = parseInt( $('#advertise-now-points').text(), 10);
 
             // 入力チェック
-            if (use <= 0) {
+            if (!isFinite(use) || use <= 0) {
                 $('#advertise-error').removeClass('hidden').text('正の整数で入力してください');
                 return false;
             } else if (use > now) {
