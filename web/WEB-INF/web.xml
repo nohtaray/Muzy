@@ -232,6 +232,10 @@
         <servlet-name>PasswordServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.PasswordServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MyPageServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.MyPageServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
         <url-pattern>/LoginWithGoogleServlet</url-pattern>
@@ -455,6 +459,10 @@
     <servlet-mapping>
         <servlet-name>PasswordServlet</servlet-name>
         <url-pattern>/PasswordServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyPageServlet</servlet-name>
+        <url-pattern>/MyPageServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
