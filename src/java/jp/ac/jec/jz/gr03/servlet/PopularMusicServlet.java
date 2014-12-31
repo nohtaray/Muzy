@@ -82,7 +82,7 @@ public class PopularMusicServlet extends HttpServlet {
         PopularMusicDAO dao = new PopularMusicDAO();
         PopularMusicResultSet musics = null;
         try {
-            musics = dao.selectPopularMusics(30, 0);
+            musics = dao.select(30, 0);
         } catch (IOException ex) {
             Logger.getLogger(PopularMusicServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
