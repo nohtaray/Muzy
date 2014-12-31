@@ -46,9 +46,10 @@
             開発用サイトマップ
             <ul>
                 <li><a href="MusicServlet?id=1">楽曲</a></li>
+                <li><a href="ArtistServlet?id=1">アーティスト</a></li>
                 <li><a href="LatestMusicServlet">最新楽曲</a></li>
                 <li><a href="PopularMusicServlet">注目楽曲</a></li>
-                <li>注目アーティスト</li>
+                <li><a href="PopularArtistServlet">注目アーティスト</a></li>
 
             </ul>
             <div>
