@@ -5,7 +5,7 @@
  */
 
 window.Helper = (function($) {
-    
+
     return {
         postHref: function(url, params) {
             var $form = $('<form>', { method: 'POST', action: url });

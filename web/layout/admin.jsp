@@ -12,8 +12,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>${param.title}</title>
         <script type="text/javascript" src="js/lib/jquery-2.1.1.min.js"></script>
-        <script type="text/javascript" src="js/application.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/application.css">
+        <script type="text/javascript" src="js/common.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/common.css">
         ${param.header}
     </head>
     <body>

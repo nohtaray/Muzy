@@ -98,7 +98,7 @@
                                     広告した楽曲はあなたの名前と共にトップページに表示されます。
                                 </p>
                                 <form id="advertise-form">
-                                    <div id="advertise-error" class="hidden"></div>
+                                    <div id="advertise-error" class="hidden error"></div>
                                     保有ポイント：<span id="advertise-now-points">0</span><br>
                                     <label>利用ポイント：</label><input type="text" id="advertise-use-points">
                                     <input type="hidden" id="advertise-music-id" value="<%= music.musicId%>">

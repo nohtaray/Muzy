@@ -1,0 +1,14 @@
+/*
+    全画面共通のスタイル
+    Created on : Dec 31, 2014, 6:21:51 PM
+    Author     : yada
+*/
+
+.error {
+    color: red;
+}
+
+.hidden {
+    display: none;
+    visibility: hidden;
+}

@@ -3,11 +3,6 @@
     Author     : yada
 */
 
-.hidden {
-    display: none;
-    visibility: hidden;
-}
-
 #new-music-youtube-videos {
     height: 585px;
     overflow: scroll;
