@@ -37,7 +37,7 @@ public class LoginWithGoogleServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
     }
-    
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -55,8 +55,9 @@ public class LoginWithGoogleServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         Authorizer auth = new Authorizer(session);
-        
-        if (auth.hasLoggedIn()) {
+
+        // すでに Google でログインしている？
+        if (auth.hasLoggedIn() && auth.getUserLoggedInAs().googleUID != null) {
             response.sendRedirect("");
         } else {
             request.getRequestDispatcher("loginWithGoogle.jsp").forward(request, response);
@@ -75,16 +76,16 @@ public class LoginWithGoogleServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
         HttpSession session = request.getSession();
         Authorizer auth = new Authorizer(session);
-        
-        // すでにログインしている？
-        if (auth.hasLoggedIn()) {
+
+        // すでに Google でログインしている？
+        if (auth.hasLoggedIn() && auth.getUserLoggedInAs().googleUID != null) {
             response.sendRedirect("");
             return;
         }
-        
+
         // TODO: CSRF防止
         // 必要なパラメータがある？
         String code = request.getParameter("code");
@@ -92,8 +93,7 @@ public class LoginWithGoogleServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが足りません");
             return;
         }
-        
-        
+
         GoogleUserInfo gu;
         try {
             // codeからGoogleのユーザ情報を取得
@@ -103,28 +103,48 @@ public class LoginWithGoogleServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Google アカウント情報の取得に失敗しました");
             return;
         }
-        
+
         // Googleのユーザ情報を使ってDBからユーザを取得
-        User user = selectUser(gu);
-        if (user != null) {
-            // 登録済み。ログイン
-            try {
-                updateTokens(user, gu);
-            } catch (IOException ex) {
-                Logger.getLogger(LoginWithGoogleServlet.class.getName()).log(Level.SEVERE, null, ex);
+        User dbUser = selectUser(gu);
+        boolean googleAccountRegistered = dbUser != null;
+        if (!auth.hasLoggedIn()) {
+            // 未ログイン。
+            if (googleAccountRegistered) {
+                // 登録済みアカウント。ログインする
+                try {
+                    updateTokens(dbUser, gu);
+                } catch (IOException ex) {
+                    Logger.getLogger(LoginWithGoogleServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                // セッション固定攻撃防止
+                session.invalidate();
+                session = request.getSession(true);
+                auth = new Authorizer(session);
+                auth.loginAs(dbUser);
+
+                PrintWriter out = response.getWriter();
+                out.println("ログインに成功しました！");
+            } else {
+                // 未登録の Google アカウント。認証情報をセッションに入れて新規登録へ
+                session.setAttribute("googleUserInfoForSignUp", gu);
+                response.sendRedirect("SignUpWithGoogleServlet");
             }
-            // セッション固定攻撃防止
-            session.invalidate();
-            session = request.getSession(true);
-            auth = new Authorizer(session);
-            auth.loginAs(user);
-            
-            PrintWriter out = response.getWriter();
-            out.println("ログインに成功しました！");
         } else {
-            // 未登録ユーザ。認証情報をセッションに入れて新規登録へ
-            session.setAttribute("googleUserInfoForSignUp", gu);
-            response.sendRedirect("SignUpWithGoogleServlet");
+            // ログイン済み。Google で追加認証したい。
+            if (googleAccountRegistered) {
+                PrintWriter out = response.getWriter();
+                out.println("この Google アカウントはすでに登録されているため使用できません");
+            } else {
+                // 未登録の Google アカウント
+                User me = auth.getUserLoggedInAs();
+                me.googleUID = gu.userId;
+                me.googleToken = gu.accessToken;
+                me.googleRefreshToken = gu.refreshToken;
+                me.googleExpiresAt = new Date(gu.expiresAt * 1000);
+                updateUser(me);
+                PrintWriter out = response.getWriter();
+                out.println("認証が成功しました");
+            }
         }
     }
 
@@ -137,28 +157,26 @@ public class LoginWithGoogleServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
-    
-    
+
     private GoogleUserInfo retrieveGoogleUserInfo(String code)
             throws IOException {
         GoogleUserInfo gu = new GoogleUserInfo();
         GoogleProxy googleProxy = new GoogleProxy();
-        
+
         Json tokens = new Json(googleProxy.retrieveTokens(code));
         gu.accessToken = tokens.get("access_token");
         gu.refreshToken = tokens.get("refresh_token");
-        
+
         int expiresIn = 0;
         try {
             expiresIn = Integer.parseInt(tokens.get("expires_in"));
         } catch (NumberFormatException e) {}
         gu.expiresAt = Date.now().getTime() / 1000 + expiresIn;
-        
+
         Json tokenInfo = new Json(googleProxy.retrieveTokenInfo(gu.accessToken));
         gu.userId = tokenInfo.get("user_id");
         gu.email  = tokenInfo.get("email");
-        
+
         return gu;
     }
     private User selectUser(GoogleUserInfo gu) {
@@ -175,9 +193,18 @@ public class LoginWithGoogleServlet extends HttpServlet {
         user.googleToken = gu.accessToken;
         user.googleRefreshToken = gu.refreshToken;
         user.googleExpiresAt = new Date(gu.expiresAt * 1000);
-        
+
         UserDAO dao = new UserDAO();
-        
+
         dao.update(user);
+    }
+
+    private void updateUser(User user) {
+        UserDAO dao = new UserDAO();
+        try {
+            dao.update(user);
+        } catch (IOException ex) {
+            Logger.getLogger(LoginWithGoogleServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
