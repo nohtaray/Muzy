@@ -1,7 +1,6 @@
 package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -10,7 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import jp.ac.jec.jz.gr03.dao.ArtistDAO;
 import jp.ac.jec.jz.gr03.dao.MessageDAO;
+import jp.ac.jec.jz.gr03.dao.MusicDAO;
 import jp.ac.jec.jz.gr03.dao.entityresultset.MessageResultSet;
+import jp.ac.jec.jz.gr03.dao.entityresultset.MusicResultSet;
 import jp.ac.jec.jz.gr03.entity.Artist;
 
 /**
@@ -66,6 +67,7 @@ public class ArtistServlet extends HttpServlet {
         if (artist != null) {
             request.setAttribute("artist", artist);
             request.setAttribute("messages", selectMessages(artist.artistId));
+            request.setAttribute("musics", selectMusics(artist.artistId));
             request.getRequestDispatcher("artist.jsp").forward(request, response);
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "アーティストが存在しません");
@@ -111,6 +113,15 @@ public class ArtistServlet extends HttpServlet {
     }
     private MessageResultSet selectMessages(int artistId) {
         MessageDAO dao = new MessageDAO();
+        try {
+            return dao.selectByArtistId(artistId);
+        } catch (IOException ex) {
+            Logger.getLogger(ArtistServlet.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    private MusicResultSet selectMusics(int artistId) {
+        MusicDAO dao = new MusicDAO();
         try {
             return dao.selectByArtistId(artistId);
         } catch (IOException ex) {

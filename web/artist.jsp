@@ -1,4 +1,6 @@
+<%@page import="jp.ac.jec.jz.gr03.entity.Music"%>
 <%@page import="jp.ac.jec.jz.gr03.entity.Message"%>
+<%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.MusicResultSet"%>
 <%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.MessageResultSet"%>
 <%@page import="jp.ac.jec.jz.gr03.entity.Artist"%>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
@@ -6,6 +8,7 @@
 <%
     Artist artist = (Artist) request.getAttribute("artist");
     MessageResultSet messages = (MessageResultSet) request.getAttribute("messages");
+    MusicResultSet musics = (MusicResultSet) request.getAttribute("musics");
     String pageTitle = artist.name + " さんのページ";
 %>
 <c:import url="/layout/application.jsp">
@@ -46,17 +49,15 @@
             <% }%>
         </div>
 
-        <div id="songlist">
-            楽曲一覧
+        <div id="musics">
+            投稿楽曲一覧
             <ul>
+                <% for (Music music : musics) { %>
                 <li>
-                    <a href="song.html">楽曲1<br>
-                        <img src="http://img.youtube.com/vi/KLVOwmAf7ok/1.jpg"></a>
+                    <a href="MusicServlet?id=<%= music.musicId %>"><%= music.title %><br>
+                        <img src="http://img.youtube.com/vi/<%= music.youtubeVideoId %>/1.jpg"></a>
                 </li>
-                <li>
-                    <a href="song.html">楽曲2<br>
-                        <img src="http://img.youtube.com/vi/KLVOwmAf7ok/1.jpg"></a>
-                </li>
+                <% } %>
             </ul>
         </div>
     </c:param>
