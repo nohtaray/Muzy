@@ -62,8 +62,7 @@ public class ArtistServlet extends HttpServlet {
         
         Artist artist = selectArtist(id);
         if (artist != null) {
-            request.setAttribute("name", artist.name);
-            request.setAttribute("introduction", artist.introduction);
+            request.setAttribute("artist", artist);
             request.getRequestDispatcher("artist.jsp").forward(request, response);
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "アーティストが存在しません");
