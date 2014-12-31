@@ -7,6 +7,7 @@
 <c:import url="/layout/application.jsp">
     <c:param name="title" value="楽曲編集" />
     <c:param name="header">
+        <script type="text/javascript" src="js/editMusic.js"></script>
     </c:param>
     <c:param name="content">
 
@@ -32,5 +33,8 @@
             </div>
         </form>
 
+        <div>
+            <button id="delete-button" data-music-id="<%= music.musicId %>">この楽曲を削除する</button>
+        </div>
     </c:param>
 </c:import>

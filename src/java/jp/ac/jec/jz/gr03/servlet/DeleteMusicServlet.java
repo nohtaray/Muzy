@@ -91,6 +91,7 @@ public class DeleteMusicServlet extends HttpServlet {
         }
         
         delete(music);
+        response.sendRedirect("MyMusicServlet");
     }
 
     /**
