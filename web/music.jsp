@@ -35,6 +35,9 @@
             <iframe width="576" height="360" src="//www.youtube.com/embed/<%= music.youtubeVideoId%>?autoplay=1&controls=2&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>    
         </div>
         <div>
+            <div>
+                再生： <%= music.viewCount %> 回
+            </div>
             <%= music.description%>
         </div>
 

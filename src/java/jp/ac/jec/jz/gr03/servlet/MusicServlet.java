@@ -70,6 +70,8 @@ public class MusicServlet extends HttpServlet {
         
         Music music = selectMusic(id);
         if (music != null) {
+            music.viewCount++;
+            update(music);
             request.setAttribute("me", auth.getUserLoggedInAs());
             request.setAttribute("music", music);
             request.setAttribute("comments", selectComments(music.musicId));
@@ -121,6 +123,14 @@ public class MusicServlet extends HttpServlet {
         } catch (IOException ex) {
             Logger.getLogger(MusicServlet.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        }
+    }
+    private void update(Music music) {
+        MusicDAO dao = new MusicDAO();
+        try {
+            dao.update(music);
+        } catch (IOException ex) {
+            Logger.getLogger(MusicServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
