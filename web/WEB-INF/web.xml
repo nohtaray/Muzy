@@ -220,6 +220,10 @@
         <servlet-name>PopularArtistServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.PopularArtistServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteMusicServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.DeleteMusicServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
         <url-pattern>/LoginWithGoogleServlet</url-pattern>
@@ -431,6 +435,10 @@
     <servlet-mapping>
         <servlet-name>PopularArtistServlet</servlet-name>
         <url-pattern>/PopularArtistServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteMusicServlet</servlet-name>
+        <url-pattern>/DeleteMusicServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
