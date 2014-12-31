@@ -67,6 +67,7 @@
                     <li><a href="EditUserServlet">ユーザ情報編集</a></li>
                     <li><a href="LogoutServlet">ログアウト</a></li>
                     <li>退会</li>
+                    <li><a href="PasswordServlet">パスワード登録・変更</a></li>
                     <li><a href="MyListServlet">マイリスト</a></li>
                     <li><a href="RankingMusicServlet">楽曲ランキング</a></li>
                     <li><a href="RankingArtistServlet">アーティストランキング</a></li>
