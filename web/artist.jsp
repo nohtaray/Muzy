@@ -1,8 +1,11 @@
+<%@page import="jp.ac.jec.jz.gr03.entity.Message"%>
+<%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.MessageResultSet"%>
 <%@page import="jp.ac.jec.jz.gr03.entity.Artist"%>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
     Artist artist = (Artist) request.getAttribute("artist");
+    MessageResultSet messages = (MessageResultSet) request.getAttribute("messages");
     String pageTitle = artist.name + " さんのページ";
 %>
 <c:import url="/layout/application.jsp">
@@ -11,68 +14,38 @@
         value=" <%= 1 %> " はOK
         value="<%= 1 %> " はエラーになる
     --%>
-    <c:param name="title" value="<%= pageTitle %>" />
+    <c:param name="title" value="<%= pageTitle%>" />
     <c:param name="header">
     </c:param>
     <c:param name="content">
-        <h1><%= artist.name %> さんのページ</h1>
+        <h1><%= artist.name%> さんのページ</h1>
         プロフィール&nbsp;&nbsp;&nbsp;
         <a href="#" id="ad">チケットを使ってこのアーティストを応援する</a>&nbsp;
         <a href="#" id="addto">マイリストに追加する</a><br>
         <div id="profile">
             <img id="image" src="img/ajax-loader.gif">
-            <%= artist.introduction %>
+            <%= artist.introduction%>
         </div>
-        
-        <div id="keiziban">
-            <div class="comment">
-                <a href="user.html">三戸さん：</a><br>
-                1get
-            </div>
-            <div class="comment">
-                <a href="user.html">五井さん：</a><br>
-                NetBeansまじでうざいんだけどｗ
-            </div>
-            <div class="comment">
-                <a href="user.html">マウンテンさん：</a><br>
-                .netでJavaはできないらしい。。。まじオワコン
-            </div>
-            <div class="comment">
-                <a href="user.html">鈴木良房：</a><br>
-                一応できるけど面倒くさいし、それでJavaやってる人は情弱
-            <div id="keiziban">
-                <div class="comment">
-                    <a href="user.html">三戸さん：</a><br>
-                        1get
+
+        <form method="post" action="keizibanwrite">
+            <input type="text" placeholder="コメントを入力"><input type="button" value="コメントする" onclick="alert('投稿しました！');">
+        </form>
+        <div id="messages">
+            <% for (Message message : messages) {%>
+            <div class="message">
+                <div class="message-header">
+                    <%= message.messageId%>. <%= message.user.name%>
                 </div>
-                <div class="comment">
-                    <a href="user.html">五井さん：</a><br>
-                        NetBeansまじでうざいんだけどｗ
+                <div class="message-body">
+                    <%= message.content%>
                 </div>
-                <div class="comment">
-                    <a href="user.html">マウンテンさん：</a><br>
-                        .netでJavaはできないらしい。。。まじオワコン
+                <div class="message-footer">
+                    <%= message.createdAt%>
                 </div>
-                <div class="comment">
-                    <a href="user.html">鈴木良房：</a><br>
-                        一応できるけど面倒くさいし、それでJavaやってる人は情弱
-                </div>
-                <div class="comment">
-                    <a href="user.html">新名翔太：</a><br>
-                        ↑だまれ
-                </div>
-                <form method="post" action="NewMessage">
-                    <input type="text" placeholder="コメントを入力"><input type="button" value="コメントする" onclick="alert('投稿しました！');">
-                </form>
             </div>
-            <div class="comment">
-                <a href="user.html">新名翔太：</a><br>
-                ↑だまれ
-            </div>
-            <form method="post" action="keizibanwrite">
-                <input type="text" placeholder="コメントを入力"><input type="button" value="コメントする" onclick="alert('投稿しました！');">
-            </form>
+            <% }%>
         </div>
+
         <div id="songlist">
             楽曲一覧
             <ul>
