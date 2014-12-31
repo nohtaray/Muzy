@@ -81,9 +81,10 @@
                 <div>
                     アーティスト
                     <ul>
+                        <li><a href="MyMusicServlet">投稿した楽曲</a></li>
                         <li><a href="NewMusicServlet">楽曲投稿</a></li>
                         <li><a href="EditArtistServlet">アーティスト情報編集</a></li>
-                        <li><a href="ArtistStopServlet">アーティスト登録解除</a></li>
+                        <li>アーティスト登録解除</li>
                         <li><a href="EditMusicServlet?id=1">楽曲編集</a></li>
                     </ul>
                 </div>
