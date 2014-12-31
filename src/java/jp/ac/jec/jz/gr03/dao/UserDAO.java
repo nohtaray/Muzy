@@ -104,8 +104,8 @@ public class UserDAO extends DAO {
             ps.setObject(idx++, user.iconImageFile, Types.VARCHAR);
             ps.setObject(idx++, expressAsInteger(user.isValid), Types.INTEGER);
             ps.setObject(idx++, expressAsInteger(user.isOwner), Types.INTEGER);
-            ps.setObject(idx++, user.userId, Types.INTEGER);
             ps.setObject(idx++, Date.now(), Types.TIMESTAMP);
+            ps.setObject(idx++, user.userId, Types.INTEGER);
 
             ps.execute();
         } catch (SQLException e) {
