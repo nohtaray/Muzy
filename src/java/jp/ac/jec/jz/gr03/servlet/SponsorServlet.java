@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import jp.ac.jec.jz.gr03.dao.PointDAO;
+import jp.ac.jec.jz.gr03.dao.PointGetHistoryDAO;
 import jp.ac.jec.jz.gr03.entity.Point;
+import jp.ac.jec.jz.gr03.entity.PointGetHistory;
 import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
 
@@ -49,7 +51,7 @@ public class SponsorServlet extends HttpServlet {
         Authorizer auth = new Authorizer(session);
         
         if (auth.hasLoggedIn()) {
-            addPoint(auth.getUserLoggedInAs(), 5);
+            addPoint(auth.getUserLoggedInAs(), 5, "広告表示");
         }
         request.getRequestDispatcher("sponsor.jsp").forward(request, response);
     }
@@ -80,10 +82,19 @@ public class SponsorServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void addPoint(User user, int count) throws IOException {
-        PointDAO dao = new PointDAO();
-        Point point = dao.selectByUserId(user.userId);
+    private void addPoint(User user, int count, String description) throws IOException {
+        // point 加算
+        PointDAO pointDAO = new PointDAO();
+        Point point = pointDAO.selectByUserId(user.userId);
         point.pointCount += count;
-        dao.update(point);
+        pointDAO.update(point);
+        
+        // 履歴に追加
+        PointGetHistory pgh = new PointGetHistory();
+        pgh.user = user;
+        pgh.gotPoints = count;
+        pgh.description = description;
+        PointGetHistoryDAO pghDAO = new PointGetHistoryDAO();
+        pghDAO.insert(pgh);
     }
 }
