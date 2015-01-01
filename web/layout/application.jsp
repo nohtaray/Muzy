@@ -51,7 +51,7 @@
                 <li><a href="LatestMusicServlet">最新楽曲</a></li>
                 <li><a href="PopularMusicServlet">注目楽曲</a></li>
                 <li><a href="PopularArtistServlet">注目アーティスト</a></li>
-
+                <li><a href="SponsorServlet">スポンサー</a></li>
             </ul>
             <div>
                 未ログイン

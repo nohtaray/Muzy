@@ -236,6 +236,10 @@
         <servlet-name>MyPageServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.MyPageServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SponsorServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.SponsorServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
         <url-pattern>/LoginWithGoogleServlet</url-pattern>
@@ -463,6 +467,10 @@
     <servlet-mapping>
         <servlet-name>MyPageServlet</servlet-name>
         <url-pattern>/MyPageServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SponsorServlet</servlet-name>
+        <url-pattern>/SponsorServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
