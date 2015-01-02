@@ -7,12 +7,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import jp.ac.jec.jz.gr03.dao.ArtistDAO;
 import jp.ac.jec.jz.gr03.dao.MessageDAO;
 import jp.ac.jec.jz.gr03.dao.MusicDAO;
 import jp.ac.jec.jz.gr03.dao.entityresultset.MessageResultSet;
 import jp.ac.jec.jz.gr03.dao.entityresultset.MusicResultSet;
 import jp.ac.jec.jz.gr03.entity.Artist;
+import jp.ac.jec.jz.gr03.util.Authorizer;
 
 /**
  *
@@ -48,12 +50,14 @@ public class ArtistServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
+        HttpSession session = request.getSession();
+        Authorizer auth = new Authorizer(session);
+        
         String idStr = request.getParameter("id");
         if (idStr == null) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが足りません");
             return;
         }
-        
         
         int id;
         try {
@@ -66,6 +70,7 @@ public class ArtistServlet extends HttpServlet {
         Artist artist = selectArtist(id);
         if (artist != null) {
             request.setAttribute("artist", artist);
+            request.setAttribute("me", auth.getUserLoggedInAs());
             request.setAttribute("messages", selectMessages(artist.artistId));
             request.setAttribute("musics", selectMusics(artist.artistId));
             request.getRequestDispatcher("artist.jsp").forward(request, response);
