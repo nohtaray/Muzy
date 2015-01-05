@@ -1,8 +1,8 @@
-
 package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import jp.ac.jec.jz.gr03.dao.ArtistDAO;
 import jp.ac.jec.jz.gr03.dao.MusicDAO;
+import jp.ac.jec.jz.gr03.dao.TagDAO;
 import jp.ac.jec.jz.gr03.entity.Artist;
 import jp.ac.jec.jz.gr03.entity.Music;
+import jp.ac.jec.jz.gr03.entity.Tag;
 import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
 
@@ -35,7 +37,7 @@ public class NewMusicServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -51,20 +53,20 @@ public class NewMusicServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
         HttpSession session = request.getSession();
         Authorizer auth = new Authorizer(session);
         if (!auth.hasLoggedIn()) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "ログインしてください");
             return;
         }
-        
+
         User user = auth.getUserLoggedInAs();
         if (!isUserArtist(user)) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "アーティスト登録してください");
             return;
         }
-        
+
         request.getRequestDispatcher("newMusic.jsp").forward(request, response);
     }
 
@@ -80,26 +82,27 @@ public class NewMusicServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
         HttpSession session = request.getSession();
         Authorizer auth = new Authorizer(session);
         if (!auth.hasLoggedIn()) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "ログインしてください");
             return;
         }
-        
+
         User user = auth.getUserLoggedInAs();
         if (!isUserArtist(user)) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "アーティスト登録してください");
             return;
         }
-        
+
         // パラメータチェック
         String paramError = null;
         String youtubeVideoId = request.getParameter("youtubeVideoId");
         String title = request.getParameter("title");
         String description = request.getParameter("description");
-        if (youtubeVideoId == null || title == null || description == null) {
+        String strTags = request.getParameter("tags");
+        if (youtubeVideoId == null || title == null || description == null || strTags == null) {
             paramError = "パラメータが足りません";
         } else if (!isOwnedYouTubeVideo(youtubeVideoId, user)) {
             paramError = "不正な動画です";
@@ -112,11 +115,13 @@ public class NewMusicServlet extends HttpServlet {
             request.getRequestDispatcher("newMusic.jsp").forward(request, response);
             return;
         }
-        
+
         // 登録
         Music music;
         try {
             music = createMusicAndRegister(youtubeVideoId, title, description, user);
+            Set<String> tags = parseTags(strTags);
+            insertTags(music, tags);
         } catch (IOException e) {
             request.setAttribute("error", "サーバ内部エラー：" + e.toString());
             request.getRequestDispatcher("newMusic.jsp").forward(request, response);
@@ -134,31 +139,34 @@ public class NewMusicServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
-    
+
     private boolean isUserArtist(User user) {
-        if (user == null) return false;
-        
+        if (user == null) {
+            return false;
+        }
+
         try {
             ArtistDAO dao = new ArtistDAO();
             Artist artist = dao.selectByUserId(user.userId);
-            
+
             return artist != null;
         } catch (IOException ex) {
             Logger.getLogger(NewMusicServlet.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
+
     private boolean isOwnedYouTubeVideo(String youtubeVideoId, User user) {
         // TODO: 書く
         // 自分がYouTubeに投稿した動画か？
         // API から一発で取れそう
         return true;
     }
+
     private Music createMusicAndRegister(String youtubeVideoId, String title, String description, User user)
             throws IOException {
         Music music = new Music();
-        
+
         try {
             ArtistDAO artistDAO = new ArtistDAO();
             music.artist = artistDAO.selectByUserId(user.userId);
@@ -170,10 +178,33 @@ public class NewMusicServlet extends HttpServlet {
         music.title = title;
         music.description = description;
         music.isDeleted = false;
-        
+
         MusicDAO dao = new MusicDAO();
         dao.insert(music);
-        
+
         return music;
+    }
+
+    private Set<String> parseTags(String tagsDelimitedByNewLine) {
+        String[] split = tagsDelimitedByNewLine.split("[\\r\\n]");
+        // 重複と空文字列を除く
+        Set<String> tags = new HashSet<>();
+        for (String tag : split) {
+            if (tag.length() > 0) {
+                tags.add(tag);
+            }
+        }
+        return tags;
+    }
+    private void insertTags(Music music, Set<String> tags) throws IOException {
+        TagDAO dao = new TagDAO();
+        for (String tagName : tags) {
+            Tag tag = new Tag();
+            tag.music = music;
+            tag.name = tagName;
+            tag.scoreAverage = 3f;   // TODO: 定数とかにする
+            tag.scoreCount = 0;
+            dao.insert(tag);
+        }
     }
 }

@@ -3,9 +3,11 @@ package jp.ac.jec.jz.gr03.dao;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import jp.ac.jec.jz.gr03.dao.entityresultset.MusicResultSet;
 import jp.ac.jec.jz.gr03.dao.entityresultset.TagResultSet;
+import jp.ac.jec.jz.gr03.entity.Tag;
 
 /**
  *
@@ -50,6 +52,31 @@ public class TagDAO extends DAO {
             ps.setObject(idx++, name, Types.VARCHAR);
 
             return new MusicResultSet(ps.executeQuery());
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
+    
+    public void insert(Tag tag) throws IOException {
+        String sql = "insert into tags("
+                + "music_id, "
+                + "name, "
+                + "score_average, "
+                + "score_count) "
+                + "values(?, ?, ?, ?)";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            
+            int idx = 1;
+            
+            ps.setObject(idx++, (tag.music != null ? tag.music.musicId : null), Types.INTEGER);
+            ps.setObject(idx++, tag.name, Types.VARCHAR);
+            ps.setObject(idx++, tag.scoreAverage, Types.FLOAT);
+            ps.setObject(idx++, tag.scoreCount, Types.INTEGER);
+            
+            ps.execute();
+            
+            tag.tagId = getGeneratedKey(ps);
         } catch (SQLException e) {
             throw new IOException(e);
         }

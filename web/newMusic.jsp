@@ -42,6 +42,12 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label for="music-tags" class="col-sm-2 control-label">Tags</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" id="music-tags" placeholder="Tags（改行で区切ります）" name="tags"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <button type="submit" class="btn btn-default">登録！</button>
                                 </div>
