@@ -71,7 +71,7 @@ public class TagDAO extends DAO {
             
             ps.setObject(idx++, (tag.music != null ? tag.music.musicId : null), Types.INTEGER);
             ps.setObject(idx++, tag.name, Types.VARCHAR);
-            ps.setObject(idx++, tag.scoreAverage, Types.FLOAT);
+            ps.setObject(idx++, tag.scoreAverage, Types.DOUBLE);
             ps.setObject(idx++, tag.scoreCount, Types.INTEGER);
             
             ps.execute();

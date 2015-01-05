@@ -36,7 +36,7 @@ public class TagResultSet extends EntityResultSet<Tag> {
             tag.music = null;
         }
         tag.name = (String)row.get("name");
-        tag.scoreAverage = (Float)row.get("score_average");
+        tag.scoreAverage = (Double)row.get("score_average");
         tag.scoreCount = (Integer)row.get("score_count");
         
         return tag;
