@@ -12,7 +12,7 @@ import jp.ac.jec.jz.gr03.dao.entityresultset.MusicAdvertisementResultSet;
  * @author yada
  */
 public class MusicAdvertisementDAO extends DAO {
-    public MusicAdvertisementResultSet select(int limit, int offset) throws IOException {
+    public MusicAdvertisementResultSet selectMostCounts(int limit, int offset) throws IOException {
         String sql = "select music_id, count(*) as advertisement_count, sum(spent_points) as spent_points_sum "
                 + "from advertisements "
                 + "group by music_id "

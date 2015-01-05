@@ -46,7 +46,7 @@ public class RankingMusicAdvertisementServlet extends HttpServlet {
         processRequest(request, response);
         
         
-        MusicAdvertisementResultSet musicAdvertisements = selectMusicAdvertisements();
+        MusicAdvertisementResultSet musicAdvertisements = selectMostAdvertised();
         
         request.setAttribute("musicAdvertisements", musicAdvertisements);
         request.getRequestDispatcher("rankingMusicAdvertisement.jsp").forward(request, response);
@@ -78,11 +78,11 @@ public class RankingMusicAdvertisementServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private MusicAdvertisementResultSet selectMusicAdvertisements() {
+    private MusicAdvertisementResultSet selectMostAdvertised() {
         MusicAdvertisementDAO dao = new MusicAdvertisementDAO();
         MusicAdvertisementResultSet musics = null;
         try {
-            musics = dao.select(30, 0);
+            musics = dao.selectMostCounts(30, 0);
         } catch (IOException ex) {
             Logger.getLogger(RankingMusicAdvertisementServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
