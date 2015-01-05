@@ -248,6 +248,10 @@
         <servlet-name>RankingMusicViewServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.RankingMusicViewServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RankingMusicMylistServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.RankingMusicMylistServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
         <url-pattern>/LoginWithGoogleServlet</url-pattern>
@@ -487,6 +491,10 @@
     <servlet-mapping>
         <servlet-name>RankingMusicViewServlet</servlet-name>
         <url-pattern>/RankingMusicViewServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RankingMusicMylistServlet</servlet-name>
+        <url-pattern>/RankingMusicMylistServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

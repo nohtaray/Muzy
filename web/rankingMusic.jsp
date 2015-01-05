@@ -12,6 +12,7 @@
         <ul>
             <li><a href="RankingMusicAdvertisementServlet">広告ポイント数</a></li>
             <li><a href="RankingMusicViewServlet">再生数</a></li>
+            <li><a href="RankingMusicMylistServlet">マイリスト登録数</a></li>
         </ul>
         
     </c:param>
