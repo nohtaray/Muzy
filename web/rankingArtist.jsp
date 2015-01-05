@@ -10,7 +10,7 @@
             アーティストランキング
         </p>
         <ul>
-            <li><a href="PopularArtistServlet">投票数</a></li>
+            <li><a href="RankingArtistVoteServlet">投票数</a></li>
         </ul>
         
     </c:param>

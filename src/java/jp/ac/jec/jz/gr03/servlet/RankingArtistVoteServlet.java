@@ -8,14 +8,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import jp.ac.jec.jz.gr03.dao.PopularArtistDAO;
-import jp.ac.jec.jz.gr03.dao.entityresultset.PopularArtistResultSet;
+import jp.ac.jec.jz.gr03.dao.ArtistVoteDAO;
+import jp.ac.jec.jz.gr03.dao.entityresultset.ArtistVoteResultSet;
 
 /**
  *
  * @author yada
  */
-public class PopularArtistServlet extends HttpServlet {
+public class RankingArtistVoteServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +45,10 @@ public class PopularArtistServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-        PopularArtistResultSet artists = selectPopulars();
+        ArtistVoteResultSet artistVotes = selectArtistVotes();
         
-        request.setAttribute("popularArtists", artists);
-        request.getRequestDispatcher("popularArtist.jsp").forward(request, response);
+        request.setAttribute("artistVotes", artistVotes);
+        request.getRequestDispatcher("rankingArtistVote.jsp").forward(request, response);
     }
 
     /**
@@ -77,13 +77,13 @@ public class PopularArtistServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private PopularArtistResultSet selectPopulars() {
-        PopularArtistDAO dao = new PopularArtistDAO();
-        PopularArtistResultSet artists = null;
+    private ArtistVoteResultSet selectArtistVotes() {
+        ArtistVoteDAO dao = new ArtistVoteDAO();
+        ArtistVoteResultSet artists = null;
         try {
             artists = dao.select(30, 0);
         } catch (IOException ex) {
-            Logger.getLogger(PopularArtistServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RankingArtistVoteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         return artists;
     }

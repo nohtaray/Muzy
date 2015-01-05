@@ -213,8 +213,8 @@
         <servlet-class>jp.ac.jec.jz.gr03.servlet.MusicTagsServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>PopularArtistServlet</servlet-name>
-        <servlet-class>jp.ac.jec.jz.gr03.servlet.PopularArtistServlet</servlet-class>
+        <servlet-name>RankingArtistVoteServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.RankingArtistVoteServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteMusicServlet</servlet-name>
@@ -449,8 +449,8 @@
         <url-pattern>/MusicTagsServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>PopularArtistServlet</servlet-name>
-        <url-pattern>/PopularArtistServlet</url-pattern>
+        <servlet-name>RankingArtistVoteServlet</servlet-name>
+        <url-pattern>/RankingArtistVoteServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteMusicServlet</servlet-name>
