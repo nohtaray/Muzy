@@ -14,6 +14,7 @@ public class MusicMylistDetailDAO extends DAO {
     public MusicMylistDetailResultSet selectMostCounts(int limit, int offset) throws IOException {
         String sql = "select music_id, count(*) as mylist_detail_count "
                 + "from mylist_details "
+                + "where music_id is not null "
                 + "group by music_id "
                 + "order by mylist_detail_count desc "
                 + "limit ? offset ?";
