@@ -79,23 +79,6 @@ public class MusicDAO extends DAO {
         }
     }
 
-    public MusicResultSet selectRanking(int limit, int offset) throws IOException {
-        try {
-            // TODO: 順番を決める
-            // limit, offset は良くないらしい togetter.com/li/640847
-            String sql = "select * from musics order by updated_at desc limit ? offset ?";
-            PreparedStatement ps = conn.prepareStatement(sql);
-
-            int idx = 1;
-            ps.setObject(idx++, limit, Types.INTEGER);
-            ps.setObject(idx++, offset, Types.INTEGER);
-
-            return new MusicResultSet(ps.executeQuery());
-        } catch (SQLException e) {
-            throw new IOException(e);
-        }
-    }
-
     public MusicResultSet selectLatests(int limit, int offset) throws IOException {
         try {
             String sql = "select * from musics order by created_at desc limit ? offset ?";

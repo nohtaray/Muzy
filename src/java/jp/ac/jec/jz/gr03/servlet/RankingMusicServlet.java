@@ -44,10 +44,6 @@ public class RankingMusicServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-        
-        MusicResultSet musics = selectMusicRanking();
-        
-        request.setAttribute("musics", musics);
         request.getRequestDispatcher("rankingMusic.jsp").forward(request, response);
     }
 
@@ -76,15 +72,4 @@ public class RankingMusicServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    
-    private MusicResultSet selectMusicRanking() throws IOException {
-        MusicDAO dao = new MusicDAO();
-        try {
-            return dao.selectRanking(30, 0);
-        } catch (IOException ex) {
-            Logger.getLogger(RankingMusicServlet.class.getName()).log(Level.SEVERE, null, ex);
-            throw new IOException(ex);
-        }
-    }
 }

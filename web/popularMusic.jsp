@@ -3,15 +3,15 @@
 <%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.PopularMusicResultSet" %>
 <%@page import="jp.ac.jec.jz.gr03.entity.PopularMusic" %>
 <c:import url="/layout/application.jsp">
-    <c:param name="title" value="注目動画" />
+    <c:param name="title" value="楽曲ランキング（広告ポイント順）" />
     <c:param name="header">
     </c:param>
     <c:param name="content">
 
         <p>
-            注目動画
+            楽曲ランキング（広告ポイント順）
         </p>
-        <ul>
+        <ol>
             <%
                 PopularMusicResultSet popularMusics = (PopularMusicResultSet) request.getAttribute("popularMusics");
                 for (PopularMusic pm : popularMusics) {
@@ -22,7 +22,7 @@
             <%
                 }
             %>
-        </ul>
+        </ol>
 
     </c:param>
 </c:import>
