@@ -93,6 +93,20 @@ public class MusicDAO extends DAO {
             throw new IOException(e);
         }
     }
+    public MusicResultSet selectMostViewed(int limit, int offset) throws IOException {
+        String sql = "select * from musics order by view_count desc limit ? offset ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            int idx = 1;
+            ps.setObject(idx++, limit, Types.INTEGER);
+            ps.setObject(idx++, offset, Types.INTEGER);
+
+            return new MusicResultSet(ps.executeQuery());
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
 
     /**
      * music.artist は artistId のみ insert します

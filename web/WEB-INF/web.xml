@@ -244,6 +244,10 @@
         <servlet-name>BuyTicketServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.BuyTicketServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RankingMusicViewServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.RankingMusicViewServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
         <url-pattern>/LoginWithGoogleServlet</url-pattern>
@@ -479,6 +483,10 @@
     <servlet-mapping>
         <servlet-name>BuyTicketServlet</servlet-name>
         <url-pattern>/BuyTicketServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RankingMusicViewServlet</servlet-name>
+        <url-pattern>/RankingMusicViewServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
