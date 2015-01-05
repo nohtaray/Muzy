@@ -240,6 +240,10 @@
         <servlet-name>VoteServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.VoteServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BuyTicketServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.BuyTicketServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
         <url-pattern>/LoginWithGoogleServlet</url-pattern>
@@ -471,6 +475,10 @@
     <servlet-mapping>
         <servlet-name>VoteServlet</servlet-name>
         <url-pattern>/VoteServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BuyTicketServlet</servlet-name>
+        <url-pattern>/BuyTicketServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
