@@ -11,6 +11,7 @@
         </p>
         <ul>
             <li><a href="RankingArtistVoteServlet">投票数</a></li>
+            <li><a href="RankingArtistMylistServlet">マイリスト登録数</a></li>
         </ul>
         
     </c:param>
