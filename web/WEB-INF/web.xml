@@ -201,8 +201,8 @@
         <servlet-class>jp.ac.jec.jz.gr03.servlet.DeleteCommentServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>PopularMusicServlet</servlet-name>
-        <servlet-class>jp.ac.jec.jz.gr03.servlet.PopularMusicServlet</servlet-class>
+        <servlet-name>RankingMusicAdvertisementServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.RankingMusicAdvertisementServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteUserByAdminServlet</servlet-name>
@@ -437,8 +437,8 @@
         <url-pattern>/DeleteCommentServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>PopularMusicServlet</servlet-name>
-        <url-pattern>/PopularMusicServlet</url-pattern>
+        <servlet-name>RankingMusicAdvertisementServlet</servlet-name>
+        <url-pattern>/RankingMusicAdvertisementServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteUserByAdminServlet</servlet-name>

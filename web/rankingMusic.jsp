@@ -10,7 +10,7 @@
             楽曲ランキング
         </p>
         <ul>
-            <li><a href="PopularMusicServlet">広告ポイント数</a></li>
+            <li><a href="RankingMusicAdvertisementServlet">広告ポイント数</a></li>
         </ul>
         
     </c:param>

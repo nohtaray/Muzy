@@ -5,14 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
 import jp.ac.jec.jz.gr03.dao.entityresultset.AdvertisementResultSet;
-import jp.ac.jec.jz.gr03.dao.entityresultset.PopularMusicResultSet;
+import jp.ac.jec.jz.gr03.dao.entityresultset.MusicAdvertisementResultSet;
 
 /**
  *
  * @author yada
  */
-public class PopularMusicDAO extends DAO {
-    public PopularMusicResultSet select(int limit, int offset) throws IOException {
+public class MusicAdvertisementDAO extends DAO {
+    public MusicAdvertisementResultSet select(int limit, int offset) throws IOException {
         String sql = "select music_id, count(*) as advertisement_count, sum(spent_points) as spent_points_sum "
                 + "from advertisements "
                 + "group by music_id "
@@ -25,7 +25,7 @@ public class PopularMusicDAO extends DAO {
             ps.setObject(idx++, limit, Types.INTEGER);
             ps.setObject(idx++, offset, Types.INTEGER);
             
-            return new PopularMusicResultSet(ps.executeQuery());
+            return new MusicAdvertisementResultSet(ps.executeQuery());
         } catch (SQLException e) {
             throw new IOException(e);
         }

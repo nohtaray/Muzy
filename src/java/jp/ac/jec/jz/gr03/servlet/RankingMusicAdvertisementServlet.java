@@ -7,15 +7,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import jp.ac.jec.jz.gr03.dao.PopularMusicDAO;
+import jp.ac.jec.jz.gr03.dao.MusicAdvertisementDAO;
 import jp.ac.jec.jz.gr03.dao.entityresultset.AdvertisementResultSet;
-import jp.ac.jec.jz.gr03.dao.entityresultset.PopularMusicResultSet;
+import jp.ac.jec.jz.gr03.dao.entityresultset.MusicAdvertisementResultSet;
 
 /**
  *
  * @author yada
  */
-public class PopularMusicServlet extends HttpServlet {
+public class RankingMusicAdvertisementServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,10 +46,10 @@ public class PopularMusicServlet extends HttpServlet {
         processRequest(request, response);
         
         
-        PopularMusicResultSet musics = selectPopulars();
+        MusicAdvertisementResultSet musicAdvertisements = selectMusicAdvertisements();
         
-        request.setAttribute("popularMusics", musics);
-        request.getRequestDispatcher("popularMusic.jsp").forward(request, response);
+        request.setAttribute("musicAdvertisements", musicAdvertisements);
+        request.getRequestDispatcher("rankingMusicAdvertisement.jsp").forward(request, response);
     }
 
     /**
@@ -78,13 +78,13 @@ public class PopularMusicServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private PopularMusicResultSet selectPopulars() {
-        PopularMusicDAO dao = new PopularMusicDAO();
-        PopularMusicResultSet musics = null;
+    private MusicAdvertisementResultSet selectMusicAdvertisements() {
+        MusicAdvertisementDAO dao = new MusicAdvertisementDAO();
+        MusicAdvertisementResultSet musics = null;
         try {
             musics = dao.select(30, 0);
         } catch (IOException ex) {
-            Logger.getLogger(PopularMusicServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RankingMusicAdvertisementServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         return musics;
     }
