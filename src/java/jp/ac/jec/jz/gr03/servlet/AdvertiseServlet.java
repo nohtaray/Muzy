@@ -143,30 +143,16 @@ public class AdvertiseServlet extends HttpServlet {
         ad.user = user;
         insertAdvertisement(ad);
     }
-    private Point fetchNowPoint(User user) {
+    private Point fetchNowPoint(User user) throws IOException {
         PointDAO dao = new PointDAO();
-        Point point = null;
-        try {
-            point = dao.selectByUserId(user.userId);
-        } catch (IOException ex) {
-            Logger.getLogger(AdvertiseServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return point;
+        return dao.selectByUserId(user.userId);
     }
-    private void insertAdvertisement(Advertisement ad) {
+    private void insertAdvertisement(Advertisement ad) throws IOException {
         AdvertisementDAO dao = new AdvertisementDAO();
-        try {
-            dao.insert(ad);
-        } catch (IOException ex) {
-            Logger.getLogger(AdvertiseServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        dao.insert(ad);
     }
-    private void updatePoint(Point point) {
+    private void updatePoint(Point point) throws IOException {
         PointDAO dao = new PointDAO();
-        try {
-            dao.update(point);
-        } catch (IOException ex) {
-            Logger.getLogger(AdvertiseServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        dao.update(point);
     }
 }

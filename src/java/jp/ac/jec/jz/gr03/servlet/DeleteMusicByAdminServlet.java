@@ -110,23 +110,14 @@ public class DeleteMusicByAdminServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private boolean idExists(int id) {
+    private boolean idExists(int id) throws IOException {
         MusicDAO dao = new MusicDAO();
-        Music music = null;
-        try {
-            music = dao.selectById(id);
-        } catch (IOException ex) {
-            Logger.getLogger(DeleteMusicByAdminServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Music music = dao.selectById(id);
         return music != null;
     }
-    private void deleteMusic(int id) {
-        try {
-            MusicDAO dao = new MusicDAO();
-            Music music = dao.selectById(id);
-            dao.delete(music);
-        } catch (IOException ex) {
-            Logger.getLogger(DeleteMusicByAdminServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    private void deleteMusic(int id) throws IOException {
+        MusicDAO dao = new MusicDAO();
+        Music music = dao.selectById(id);
+        dao.delete(music);
     }
 }

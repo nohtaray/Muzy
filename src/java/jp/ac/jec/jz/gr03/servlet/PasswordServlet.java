@@ -101,12 +101,8 @@ public class PasswordServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void updateUser(User user) {
+    private void updateUser(User user) throws IOException {
         UserDAO dao = new UserDAO();
-        try {
-            dao.update(user);
-        } catch (IOException ex) {
-            Logger.getLogger(PasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        dao.update(user);
     }
 }

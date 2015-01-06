@@ -93,24 +93,12 @@ public class SearchMusicServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private MusicResultSet searchMusic(String keyword) {
+    private MusicResultSet searchMusic(String keyword) throws IOException {
         MusicDAO dao = new MusicDAO();
-        MusicResultSet musics = null;
-        try {
-            musics = dao.selectByKeyword(keyword);
-        } catch (IOException ex) {
-            Logger.getLogger(SearchMusicServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return musics;
+        return dao.selectByKeyword(keyword);
     }
-    private MusicResultSet searchTag(String tagName) {
+    private MusicResultSet searchTag(String tagName) throws IOException {
         TagDAO dao = new TagDAO();
-        MusicResultSet musics = null;
-        try {
-            musics = dao.selectMusicsByName(tagName);
-        } catch (IOException ex) {
-            Logger.getLogger(SearchMusicServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return musics;
+        return dao.selectMusicsByName(tagName);
     }
 }

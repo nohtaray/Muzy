@@ -96,22 +96,12 @@ public class MyMusicServlet extends HttpServlet {
     }// </editor-fold>
 
     
-    private Artist selectOwnArtist(User user) {
+    private Artist selectOwnArtist(User user) throws IOException {
         ArtistDAO dao = new ArtistDAO();
-        try {
-            return dao.selectByUserId(user.userId);
-        } catch (IOException ex) {
-            Logger.getLogger(MyMusicServlet.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
+        return dao.selectByUserId(user.userId);
     }
-    private MusicResultSet selectOwnMusics(Artist artist) {
+    private MusicResultSet selectOwnMusics(Artist artist) throws IOException {
         MusicDAO dao = new MusicDAO();
-        try {
-            return dao.selectByArtistId(artist.artistId);
-        } catch (IOException ex) {
-            Logger.getLogger(MyMusicServlet.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
+        return dao.selectByArtistId(artist.artistId);
     }
 }

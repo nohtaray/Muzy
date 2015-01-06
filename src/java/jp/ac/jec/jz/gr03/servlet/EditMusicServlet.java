@@ -156,34 +156,20 @@ public class EditMusicServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private boolean isUserArtist(User user) {
+    private boolean isUserArtist(User user) throws IOException {
         if (user == null) return false;
         
-        try {
-            ArtistDAO dao = new ArtistDAO();
-            Artist artist = dao.selectByUserId(user.userId);
-            
-            return artist != null;
-        } catch (IOException ex) {
-            Logger.getLogger(EditMusicServlet.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
+        ArtistDAO dao = new ArtistDAO();
+        Artist artist = dao.selectByUserId(user.userId);
+
+        return artist != null;
     }
-    private Music selectMusic(int id) {
+    private Music selectMusic(int id) throws IOException {
         MusicDAO dao = new MusicDAO();
-        try {
-            return dao.selectById(id);
-        } catch (IOException ex) {
-            Logger.getLogger(EditMusicServlet.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
+        return dao.selectById(id);
     }
-    private void update(Music music) {
+    private void update(Music music) throws IOException {
         MusicDAO dao = new MusicDAO();
-        try {
-            dao.update(music);
-        } catch (IOException ex) {
-            Logger.getLogger(MusicServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        dao.update(music);
     }
 }

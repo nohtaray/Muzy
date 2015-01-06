@@ -107,30 +107,16 @@ public class MusicServlet extends HttpServlet {
     }// </editor-fold>
     
     
-    private Music selectMusic(int musicId) {
+    private Music selectMusic(int musicId) throws IOException {
         MusicDAO dao = new MusicDAO();
-        try {
-            return dao.selectById(musicId);
-        } catch (IOException ex) {
-            Logger.getLogger(MusicServlet.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
+        return dao.selectById(musicId);
     }
-    private CommentResultSet selectComments(int musicId) {
+    private CommentResultSet selectComments(int musicId) throws IOException {
         CommentDAO dao = new CommentDAO();
-        try {
-            return dao.selectByMusicId(musicId);
-        } catch (IOException ex) {
-            Logger.getLogger(MusicServlet.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
+        return dao.selectByMusicId(musicId);
     }
-    private void update(Music music) {
+    private void update(Music music) throws IOException {
         MusicDAO dao = new MusicDAO();
-        try {
-            dao.update(music);
-        } catch (IOException ex) {
-            Logger.getLogger(MusicServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        dao.update(music);
     }
 }

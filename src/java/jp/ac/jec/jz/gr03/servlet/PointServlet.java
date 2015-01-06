@@ -97,14 +97,8 @@ public class PointServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private Point fetchPoint(User user) {
+    private Point fetchPoint(User user) throws IOException {
         PointDAO dao = new PointDAO();
-        Point point = null;
-        try {
-            point = dao.selectByUserId(user.userId);
-        } catch (IOException ex) {
-            Logger.getLogger(PointServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return point;
+        return dao.selectByUserId(user.userId);
     }
 }

@@ -140,20 +140,15 @@ public class NewMusicServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private boolean isUserArtist(User user) {
+    private boolean isUserArtist(User user) throws IOException {
         if (user == null) {
             return false;
         }
 
-        try {
-            ArtistDAO dao = new ArtistDAO();
-            Artist artist = dao.selectByUserId(user.userId);
+        ArtistDAO dao = new ArtistDAO();
+        Artist artist = dao.selectByUserId(user.userId);
 
-            return artist != null;
-        } catch (IOException ex) {
-            Logger.getLogger(NewMusicServlet.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
+        return artist != null;
     }
 
     private boolean isOwnedYouTubeVideo(String youtubeVideoId, User user) {
@@ -167,12 +162,9 @@ public class NewMusicServlet extends HttpServlet {
             throws IOException {
         Music music = new Music();
 
-        try {
-            ArtistDAO artistDAO = new ArtistDAO();
-            music.artist = artistDAO.selectByUserId(user.userId);
-        } catch (IOException ex) {
-            Logger.getLogger(NewMusicServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        ArtistDAO artistDAO = new ArtistDAO();
+        music.artist = artistDAO.selectByUserId(user.userId);
+
         music.youtubeVideoId = youtubeVideoId;
         music.viewCount = 0;
         music.title = title;

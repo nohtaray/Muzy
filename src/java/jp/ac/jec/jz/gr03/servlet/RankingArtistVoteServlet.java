@@ -77,14 +77,8 @@ public class RankingArtistVoteServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private ArtistVoteResultSet selectArtistVotes() {
+    private ArtistVoteResultSet selectArtistVotes() throws IOException {
         ArtistVoteDAO dao = new ArtistVoteDAO();
-        ArtistVoteResultSet artists = null;
-        try {
-            artists = dao.select(30, 0);
-        } catch (IOException ex) {
-            Logger.getLogger(RankingArtistVoteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return artists;
+        return dao.select(30, 0);
     }
 }

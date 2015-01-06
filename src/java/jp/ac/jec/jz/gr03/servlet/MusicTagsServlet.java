@@ -105,14 +105,8 @@ public class MusicTagsServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    TagResultSet selectTags(int musicId) {
+    TagResultSet selectTags(int musicId) throws IOException {
         TagDAO dao = new TagDAO();
-        TagResultSet tags = null;
-        try {
-            tags = dao.selectByMusicId(musicId);
-        } catch (IOException ex) {
-            Logger.getLogger(MusicTagsServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return tags;
+        return dao.selectByMusicId(musicId);
     }
 }

@@ -150,14 +150,9 @@ public class SignUpWithGoogleServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private boolean userExists(GoogleUserInfo gu) {
+    private boolean userExists(GoogleUserInfo gu) throws IOException {
         UserDAO dao = new UserDAO();
-        try {
-            return dao.selectByGoogleUID(gu.userId) != null;
-        } catch (IOException ex) {
-            Logger.getLogger(SignUpWithGoogleServlet.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
+        return dao.selectByGoogleUID(gu.userId) != null;
     }
     private User createUserAndRegister(String name, String introduction, GoogleUserInfo gu)
             throws IOException {

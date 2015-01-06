@@ -90,14 +90,8 @@ public class AdminMusicServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private MusicResultSet fetchMusics() {
+    private MusicResultSet fetchMusics() throws IOException {
         MusicDAO dao = new MusicDAO();
-        MusicResultSet musics = null;
-        try {
-            musics = dao.selectAll();
-        } catch (IOException ex) {
-            Logger.getLogger(AdminMusicServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return musics;
+        return dao.selectAll();
     }
 }

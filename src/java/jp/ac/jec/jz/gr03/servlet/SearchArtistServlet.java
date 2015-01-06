@@ -86,14 +86,8 @@ public class SearchArtistServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private ArtistResultSet searchArtist(String keyword) {
+    private ArtistResultSet searchArtist(String keyword) throws IOException {
         ArtistDAO dao = new ArtistDAO();
-        ArtistResultSet artists = null;
-        try {
-            artists = dao.selectByKeyword(keyword);
-        } catch (IOException ex) {
-            Logger.getLogger(SearchArtistServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return artists;
+        return dao.selectByKeyword(keyword);
     }
 }

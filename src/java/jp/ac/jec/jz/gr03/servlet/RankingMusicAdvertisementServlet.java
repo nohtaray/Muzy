@@ -78,14 +78,8 @@ public class RankingMusicAdvertisementServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private MusicAdvertisementResultSet selectMostAdvertised() {
+    private MusicAdvertisementResultSet selectMostAdvertised() throws IOException {
         MusicAdvertisementDAO dao = new MusicAdvertisementDAO();
-        MusicAdvertisementResultSet musics = null;
-        try {
-            musics = dao.selectMostCounts(30, 0);
-        } catch (IOException ex) {
-            Logger.getLogger(RankingMusicAdvertisementServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return musics;
+        return dao.selectMostCounts(30, 0);
     }
 }

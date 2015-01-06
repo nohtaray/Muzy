@@ -127,14 +127,8 @@ public class LoginWithPasswordServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private User selectUser(String email) {
+    private User selectUser(String email) throws IOException {
         UserDAO dao = new UserDAO();
-
-        try {
-            return dao.selectByEmail(email);
-        } catch (IOException ex) {
-            Logger.getLogger(LoginWithPasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
+        return dao.selectByEmail(email);
     }
 }

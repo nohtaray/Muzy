@@ -105,21 +105,12 @@ public class DeleteMusicServlet extends HttpServlet {
     }// </editor-fold>
 
     
-    private Music selectMusic(int id) {
+    private Music selectMusic(int id) throws IOException {
         MusicDAO dao = new MusicDAO();
-        try {
-            return dao.selectById(id);
-        } catch (IOException ex) {
-            Logger.getLogger(DeleteMusicServlet.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
+        return dao.selectById(id);
     }
-    private void delete(Music music) {
+    private void delete(Music music) throws IOException {
         MusicDAO dao = new MusicDAO();
-        try {
-            dao.delete(music);
-        } catch (IOException ex) {
-            Logger.getLogger(DeleteMusicServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        dao.delete(music);
     }
 }

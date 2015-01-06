@@ -179,14 +179,9 @@ public class LoginWithGoogleServlet extends HttpServlet {
 
         return gu;
     }
-    private User selectUser(GoogleUserInfo gu) {
+    private User selectUser(GoogleUserInfo gu) throws IOException {
         UserDAO dao = new UserDAO();
-        try {
-            return dao.selectByGoogleUID(gu.userId);
-        } catch (IOException ex) {
-            Logger.getLogger(LoginWithGoogleServlet.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
+        return dao.selectByGoogleUID(gu.userId);
     }
     private void updateTokens(User user, GoogleUserInfo gu)
             throws IOException {
@@ -199,12 +194,8 @@ public class LoginWithGoogleServlet extends HttpServlet {
         dao.update(user);
     }
 
-    private void updateUser(User user) {
+    private void updateUser(User user) throws IOException {
         UserDAO dao = new UserDAO();
-        try {
-            dao.update(user);
-        } catch (IOException ex) {
-            Logger.getLogger(LoginWithGoogleServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        dao.update(user);
     }
 }

@@ -77,14 +77,8 @@ public class LatestMusicServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private MusicResultSet fetchLatestMusics(int size) {
+    private MusicResultSet fetchLatestMusics(int size) throws IOException {
         MusicDAO dao = new MusicDAO();
-        MusicResultSet musics = null;
-        try {
-            musics = dao.selectLatests(size, 0);
-        } catch (IOException ex) {
-            Logger.getLogger(LatestMusicServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return musics;
+        return dao.selectLatests(size, 0);
     }
 }
