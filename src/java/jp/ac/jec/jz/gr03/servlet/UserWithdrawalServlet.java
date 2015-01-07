@@ -85,7 +85,7 @@ public class UserWithdrawalServlet extends HttpServlet {
                 //ログアウト
                 auth.logout();
 
-                request.getRequestDispatcher("").forward(request, response);
+                response.sendRedirect("");
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserWithdrawalServlet.class.getName()).log(Level.SEVERE, null, ex);
