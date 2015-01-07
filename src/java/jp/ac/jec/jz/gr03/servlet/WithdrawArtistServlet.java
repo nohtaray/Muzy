@@ -122,7 +122,7 @@ public class WithdrawArtistServlet extends HttpServlet {
                 ps.setInt(1, user.userId);
                 ps.executeUpdate();
 
-                request.getRequestDispatcher("Withdrawal.jsp").forward(request, response);
+                request.getRequestDispatcher("withdrawedArtist.jsp").forward(request, response);
             }
         } catch (SQLException ex) {
             Logger.getLogger(WithdrawUserServlet.class.getName()).log(Level.SEVERE, null, ex);
