@@ -8,27 +8,11 @@ package jp.ac.jec.jz.gr03.servlet;
 import jp.ac.jec.jz.gr03.util.Authorizer;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.Resource;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
-import javax.sql.DataSource;
 import jp.ac.jec.jz.gr03.dao.TagDAO;
 import jp.ac.jec.jz.gr03.dao.TagScoreDAO;
 import jp.ac.jec.jz.gr03.entity.Tag;
@@ -41,17 +25,6 @@ import jp.ac.jec.jz.gr03.entity.User;
  */
 public class EvaluationTagsServlet extends HttpServlet {
 
-    @Resource(name = "jdbcTest")
-    private DataSource jdbcTest;
-
-    static {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -62,55 +35,65 @@ public class EvaluationTagsServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ClassNotFoundException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        PreparedStatement ps;
-        PreparedStatement ps2;
-        Connection con = null;
-        try {
-            //データベースアクセス
-            con = DriverManager.getConnection("jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull", "12jz0129", "12jz0129");
-
-            HttpSession session = request.getSession();
-            Authorizer auth = new Authorizer(session);
-            User user = auth.getUserLoggedInAs();
-
-            //tagidを引っ張ってくる
-            int tagid = Integer.parseInt(request.getParameter("tagid"));
-            //評価を引っ張ってくる
-            int eva = Integer.parseInt(request.getParameter("evaluation"));
-
-            if (request.getParameter("tagid") != null) {
-                TagDAO tagDAO = new TagDAO();
-                TagScoreDAO tagScoreDAO = new TagScoreDAO();
-                
-                TagScore tagScore = tagScoreDAO.selectById(user.userId, tagid);
-                if (tagScore == null) {
-                    tagScore = new TagScore();
-                    tagScore.user = user;
-                    tagScore.tag = tagDAO.selectById(tagid);
-                    tagScore.score = eva;
-                    tagScoreDAO.insert(tagScore);
-                } else {
-                    tagScore.score = eva;
-                    tagScoreDAO.update(tagScore);
-                }
-                
-                //評価を追加した後の平均値の計算
-                tagDAO.updateScores(tagDAO.selectById(tagid));
-            } else {
-                //失敗に遷移したときにこれを書くとajaxでエラーに飛ぶ
-                //何もなくうまくいったら200が自動で帰る。
-                response.sendError(400);
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(EvaluationTagsServlet.class.getName()).log(Level.SEVERE, null, ex);
-            throw new ServletException(ex);
-        } finally {
-            out.close();
+        
+        HttpSession session = request.getSession();
+        Authorizer auth = new Authorizer(session);
+        
+        if (!auth.hasLoggedIn()) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "ログインしてください");
+            return;
         }
+        User user = auth.getUserLoggedInAs();
+
+        // パラメータチェック
+        String strTagId = request.getParameter("tagid");
+        String strEval = request.getParameter("evaluation");
+        if (strTagId == null || strEval == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが足りません");
+            return;
+        }
+        
+        // それぞれ int に変換
+        int tagId;
+        try {
+            tagId = Integer.parseInt(strTagId);
+        } catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "tagid は数値で指定してください");
+            return;
+        }
+        int eval;
+        try {
+            eval = Integer.parseInt(request.getParameter("evaluation"));
+        } catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "evaluation は数値で指定してください");
+            return;
+        }
+
+        TagDAO tagDAO = new TagDAO();
+        Tag tag = tagDAO.selectById(tagId);
+        if (tag == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "タグがありません");
+            return;
+        }
+        
+        TagScoreDAO tagScoreDAO = new TagScoreDAO();
+        TagScore tagScore = tagScoreDAO.selectById(user.userId, tagId);
+        if (tagScore != null) {
+            // 2回目以降の評価
+            tagScore.score = eval;
+            tagScoreDAO.update(tagScore);
+        } else {
+            // 初めての評価
+            tagScore = new TagScore();
+            tagScore.user = user;
+            tagScore.tag = tagDAO.selectById(tagId);
+            tagScore.score = eval;
+            tagScoreDAO.insert(tagScore);
+        }
+        // タグの表示ごとに評価を計算するのは大変なので、追加時のみ計算する
+        tagDAO.updateScores(tagDAO.selectById(tagId));
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -125,11 +108,7 @@ public class EvaluationTagsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(EvaluationTagsServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -143,11 +122,7 @@ public class EvaluationTagsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(EvaluationTagsServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
