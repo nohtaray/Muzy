@@ -38,8 +38,38 @@ public class AddMyListServlet extends HttpServlet {
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        PreparedStatement ps;
+        Connection con = null;
+        
+        try (PrintWriter out = response.getWriter()) {
+            con = DriverManager.getConnection("jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull", "root", "rootroot");
+            HttpSession session = request.getSession();
+            Authorizer auth = new Authorizer(session);
+            User user = auth.getUserLoggedIn();
+
+            //仮
+            if (user == null) {user = new User(); user.userId = 29;}
+
+            String name = request.getParameter("name");
+            
+            if (user.userId != null) {
+                ps = con.prepareStatement("insert into mylists(user_id, created_at, updated_at, name) values(?, now(), now(), ?)");
+                ps.setInt(1, user.userId);
+                ps.setString(2, name);
+
+                ps.executeUpdate();
+                
+            }
+            else{
+                //ログインしてないエラー
+            }
+            con.close();
+        }
+        /*うまくいかなかったやつ
         MyList mylist = new MyList();
         MyListDAO mylistDAO = new MyListDAO();
 
@@ -47,6 +77,7 @@ public class AddMyListServlet extends HttpServlet {
         Authorizer auth = new Authorizer(session);
         User user = auth.getUserLoggedInAs();
 
+        
         if(mylist.user.userId != null){
             mylist.user.userId = user.userId;
             mylist.name = request.getParameter("name");
@@ -58,8 +89,10 @@ public class AddMyListServlet extends HttpServlet {
         }else {
             ///ログインしてないエラー
         }
+           */ 
     }
 
+        
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

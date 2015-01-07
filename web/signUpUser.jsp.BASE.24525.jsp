@@ -1,8 +1,5 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-    String error = (String) request.getAttribute("error");
-%>
 <c:import url="/layout/application.jsp">
     <c:param name="header">
     </c:param>
@@ -13,14 +10,15 @@
         </style>
         
         
+        <script type="text/javascript" src="js/signUpUser.js"></script>
         <script src="js/lib/prototype.js"></script> 
-        
-        <!--
+        +
  <form onsubmit="return funcDispChange()">
     <input type="text" name="email" onfocus="xx()" onblur="yy()" onkeyup="zz(this)"/><br>
     <input type="submit" name="bt" value="使用可能なＩＤかチェック" /> 
+
  </form>
-        
+        <!--
         <script type="text/javascript">
             function funcDispChange() {
                 $.ajax({
@@ -43,7 +41,7 @@
                 });
             }
         </script>
-        
+        !-->
         
         <script type="text/javascript">
             function funcDispChange() {
@@ -61,18 +59,16 @@
                 });
             }
         </script>
-        -->
         
         
         
         
         
-       
+        
         <form method="POST" action="SignUpUserServlet">
-            <% if (error != null) { %>
-
+            <% if (request.getAttribute("error") != null) { %>
             <div class="has-error">
-                <%= error %>
+                ${error}
             </div>
             <% } %>
             <label>

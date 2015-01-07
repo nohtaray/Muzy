@@ -1,8 +1,9 @@
-<%@page import="jp.ac.jec.jz.gr03.entity.MyList"%>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="jp.ac.jec.jz.gr03.entity.Music" %>
+<%@page import="jp.ac.jec.jz.gr03.entity.MyList"%>
 <%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.MyListResultSet" %>
+<%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.MusicResultSet" %>
 <c:import url="/layout/application.jsp">
     
     <c:param name="title" value="マイリストの編集" />
@@ -10,7 +11,11 @@
         <script src="js/lib/prototype.js"></script>
         
         <input type="text" name="name" id="name" />
+        
         <input type="button" onclick="addMyList() " name="bt" value="マイリスト追加" /> 
+        
+        <!--動画のサムネ画像   0.jpg の数字で画像の大きさが変わる -->
+        <img src="http://img.youtube.com/vi/<% %>/0.jpg" alt="Loading..." />
         
         <script type="text/javascript">
             function addMyList() {
@@ -22,7 +27,6 @@
                     },
                     onSuccess: function() {
                         alert("成功");
-                        showMyList();
                     },
                     onFailure: function() {
                         alert("失敗");
@@ -41,6 +45,7 @@
                     },
                     onSuccess : function(){
                     <%
+                        /*
                         //小菅さんの参考(ArtistServlet)　直す
                         MyListResultSet mylists = (MyListResultSet)request.getAttribute("mylists");
                         MyList mylist;
@@ -53,6 +58,7 @@
                            // out.println("<a href=\"MyListServlet?id=" + mylist.user.userId + "\">" + mylist.name + "</a>");
                             out.println("</li>");
                         }
+                                */
                     %>
                     }
                 });

@@ -67,10 +67,14 @@
         
         
         
-       
+<<<<<<< HEAD
+        
         <form method="POST" action="SignUpUserServlet">
             <% if (error != null) { %>
-
+=======
+        <form method="GET" action="SignUpUserServlet">
+            <% if (request.getAttribute("error") != null) { %>
+>>>>>>> マイリスト修正
             <div class="has-error">
                 <%= error %>
             </div>

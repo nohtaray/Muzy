@@ -13,14 +13,15 @@
         </style>
         
         
+        <script type="text/javascript" src="js/signUpUser.js"></script>
         <script src="js/lib/prototype.js"></script> 
-        
-        <!--
+        +
  <form onsubmit="return funcDispChange()">
     <input type="text" name="email" onfocus="xx()" onblur="yy()" onkeyup="zz(this)"/><br>
     <input type="submit" name="bt" value="使用可能なＩＤかチェック" /> 
+
  </form>
-        
+        <!--
         <script type="text/javascript">
             function funcDispChange() {
                 $.ajax({
@@ -43,7 +44,7 @@
                 });
             }
         </script>
-        
+        !-->
         
         <script type="text/javascript">
             function funcDispChange() {
@@ -61,16 +62,14 @@
                 });
             }
         </script>
-        -->
         
         
         
         
         
-       
+        
         <form method="POST" action="SignUpUserServlet">
             <% if (error != null) { %>
-
             <div class="has-error">
                 <%= error %>
             </div>

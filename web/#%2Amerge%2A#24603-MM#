@@ -67,10 +67,9 @@
         
         
         
-       
+        
         <form method="POST" action="SignUpUserServlet">
             <% if (error != null) { %>
-
             <div class="has-error">
                 <%= error %>
             </div>

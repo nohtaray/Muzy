@@ -31,7 +31,6 @@ import jp.ac.jec.jz.gr03.dao.UserDAO;
  * @author 12jz0121
  */
 public class SignUpUserServlet extends HttpServlet {
-    
     static {
         try {
                 Class.forName("com.mysql.jdbc.Driver");
@@ -49,9 +48,8 @@ public class SignUpUserServlet extends HttpServlet {
     Connection con = null;
   //  UserDAO userDAO = null;
     try {
-            con = DriverManager.getConnection("jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull", "12jz0121", "12jz0121");  
+            con = DriverManager.getConnection("jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull", "root", "rootroot");
             User user = new User();
-
             
             //パスワードのハッシュ化
             user.setPassword(request.getParameter("password"));
@@ -68,7 +66,7 @@ public class SignUpUserServlet extends HttpServlet {
             con.close();
 
             ///登録完了後開くページ
-            request.getRequestDispatcher("signUpUser.jsp").forward(request, response);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
             
             } catch (SQLException e) {
                 out.print("エラー");
