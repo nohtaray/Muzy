@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package jp.ac.jec.jz.gr03.servlet;
 
 import jp.ac.jec.jz.gr03.util.Authorizer;
@@ -37,102 +36,102 @@ import jp.ac.jec.jz.gr03.entity.User;
  * @author 12jz0129
  */
 public class UserStopServlet extends HttpServlet {
-	 @Resource(name = "jdbcTest")
+
+    @Resource(name = "jdbcTest")
     private DataSource jdbcTest;
-	
-	 static {
-		 try {
-			 Class.forName("com.mysql.jdbc.Driver");
-		 }
-		 catch(ClassNotFoundException e ){
-			 throw new RuntimeException(e);
-		 }
-	 }
-	/**
-	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-	 * methods.
-	 *
-	 * @param request servlet request
-	 * @param response servlet response
-	 * @throws ServletException if a servlet-specific error occurs
-	 * @throws IOException if an I/O error occurs
-	 */
-	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException, ClassNotFoundException, SQLException {
-		response.setContentType("text/html;charset=UTF-8");
+
+    static {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
+        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-		PreparedStatement ps;
+        PreparedStatement ps;
         Connection con = null;
-		try {
-				
-			//データベースアクセス
-			con = DriverManager.getConnection("jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull", "12jz0129", "12jz0129");
+        try {
 
-                        
-			if (request.getParameter("userid") != null){
-				
-				ps = con.prepareStatement("delete from users where user_id = ?");
-				ps.setInt(1, Integer.parseInt(request.getParameter("userid")));
-				ps.executeUpdate();
-				
-				request.getRequestDispatcher("adminUser.jsp").forward(request, response);
-			}
-		} catch (SQLException ex) {
-			 Logger.getLogger(UserWithdrawalServlet.class.getName()).log(Level.SEVERE, null, ex);
-		} finally {
-			out.close();
-		}
-	}
+            //データベースアクセス
+            con = DriverManager.getConnection("jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull", "12jz0129", "12jz0129");
 
-	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-	/**
-	 * Handles the HTTP <code>GET</code> method.
-	 *
-	 * @param request servlet request
-	 * @param response servlet response
-	 * @throws ServletException if a servlet-specific error occurs
-	 * @throws IOException if an I/O error occurs
-	 */
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		 try {
-			 processRequest(request, response);
-		 } catch (ClassNotFoundException ex) {
-			 Logger.getLogger(UserStopServlet.class.getName()).log(Level.SEVERE, null, ex);
-		 } catch (SQLException ex) {
-			 Logger.getLogger(UserStopServlet.class.getName()).log(Level.SEVERE, null, ex);
-		 }
-	}
+            if (request.getParameter("userid") != null) {
 
-	/**
-	 * Handles the HTTP <code>POST</code> method.
-	 *
-	 * @param request servlet request
-	 * @param response servlet response
-	 * @throws ServletException if a servlet-specific error occurs
-	 * @throws IOException if an I/O error occurs
-	 */
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		 try {
-			 processRequest(request, response);
-		 } catch (ClassNotFoundException ex) {
-			 Logger.getLogger(UserStopServlet.class.getName()).log(Level.SEVERE, null, ex);
-		 } catch (SQLException ex) {
-			 Logger.getLogger(UserStopServlet.class.getName()).log(Level.SEVERE, null, ex);
-		 }
-	}
+                ps = con.prepareStatement("delete from users where user_id = ?");
+                ps.setInt(1, Integer.parseInt(request.getParameter("userid")));
+                ps.executeUpdate();
 
-	/**
-	 * Returns a short description of the servlet.
-	 *
-	 * @return a String containing servlet description
-	 */
-	@Override
-	public String getServletInfo() {
-		return "Short description";
-	}// </editor-fold>
+                request.getRequestDispatcher("adminUser.jsp").forward(request, response);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserWithdrawalServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            out.close();
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserStopServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserStopServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserStopServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserStopServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 
 }
