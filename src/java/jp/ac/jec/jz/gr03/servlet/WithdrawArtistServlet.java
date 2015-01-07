@@ -35,7 +35,7 @@ import jp.ac.jec.jz.gr03.entity.User;
  *
  * @author 12jz0129
  */
-public class ArtistWithDrawalServlet extends HttpServlet {
+public class WithdrawArtistServlet extends HttpServlet {
 
     @Resource(name = "jdbcTest")
     private DataSource jdbcTest;
@@ -77,7 +77,7 @@ public class ArtistWithDrawalServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ArtistWithDrawalServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(WithdrawArtistServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         request.getRequestDispatcher("withdrawArtist.jsp").forward(request, response);
@@ -97,7 +97,7 @@ public class ArtistWithDrawalServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ArtistWithDrawalServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(WithdrawArtistServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         PrintWriter out = response.getWriter();
@@ -125,7 +125,7 @@ public class ArtistWithDrawalServlet extends HttpServlet {
                 request.getRequestDispatcher("Withdrawal.jsp").forward(request, response);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(UserWithdrawalServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(WithdrawUserServlet.class.getName()).log(Level.SEVERE, null, ex);
             throw new ServletException(ex);
         } finally {
             out.close();

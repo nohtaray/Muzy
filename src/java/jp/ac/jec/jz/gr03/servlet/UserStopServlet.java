@@ -77,7 +77,7 @@ public class UserStopServlet extends HttpServlet {
                 request.getRequestDispatcher("adminUser.jsp").forward(request, response);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(UserWithdrawalServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserStopServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
         }

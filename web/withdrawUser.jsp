@@ -9,7 +9,7 @@
             本当に退会しますか？<br>
             この動作は取り消せません。よろしければ以下のボタンを押してください。
         </p>
-        <form action="UserWithdrawalServlet" method="POST">
+        <form action="" method="POST">
             <input type="submit" value="登録情報削除">
         </form>
     </c:param>

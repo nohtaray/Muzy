@@ -35,7 +35,7 @@ import jp.ac.jec.jz.gr03.entity.User;
  *
  * @author 12jz0129
  */
-public class UserWithdrawalServlet extends HttpServlet {
+public class WithdrawUserServlet extends HttpServlet {
 
     @Resource(name = "jdbcTest")
     private DataSource jdbcTest;
@@ -77,7 +77,7 @@ public class UserWithdrawalServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UserWithdrawalServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(WithdrawUserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         request.getRequestDispatcher("withdrawUser.jsp").forward(request, response);
@@ -97,7 +97,7 @@ public class UserWithdrawalServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UserWithdrawalServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(WithdrawUserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
@@ -129,7 +129,7 @@ public class UserWithdrawalServlet extends HttpServlet {
                 response.sendRedirect("");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(UserWithdrawalServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(WithdrawUserServlet.class.getName()).log(Level.SEVERE, null, ex);
             throw new ServletException(ex);
         } finally {
             out.close();

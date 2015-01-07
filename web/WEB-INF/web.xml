@@ -85,16 +85,16 @@
         <servlet-class>jp.ac.jec.jz.gr03.servlet.DeleteArtistByAdminServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UserWithdrawalServlet</servlet-name>
-        <servlet-class>jp.ac.jec.jz.gr03.servlet.UserWithdrawalServlet</servlet-class>
+        <servlet-name>WithdrawUserServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.WithdrawUserServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>accountstop</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.UserStopServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ArtistWithDrawalServlet</servlet-name>
-        <servlet-class>jp.ac.jec.jz.gr03.servlet.ArtistWithDrawalServlet</servlet-class>
+        <servlet-name>WithdrawArtistServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.WithdrawArtistServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ArtistStopServlet</servlet-name>
@@ -333,16 +333,16 @@
         <url-pattern>/DeleteArtistByAdminServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UserWithdrawalServlet</servlet-name>
-        <url-pattern>/UserWithdrawalServlet</url-pattern>
+        <servlet-name>WithdrawUserServlet</servlet-name>
+        <url-pattern>/WithdrawUserServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>accountstop</servlet-name>
         <url-pattern>/accountstop</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ArtistWithDrawalServlet</servlet-name>
-        <url-pattern>/ArtistWithDrawalServlet</url-pattern>
+        <servlet-name>WithdrawArtistServlet</servlet-name>
+        <url-pattern>/WithdrawArtistServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ArtistStopServlet</servlet-name>

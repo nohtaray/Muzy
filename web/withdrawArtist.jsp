@@ -9,7 +9,7 @@
             アーティスト情報を削除します。あなたのプロフィールと投稿した楽曲はすべて削除されます。<br>
             この動作は取り消せません。よろしければ以下のボタンを押してください。
         </p>
-        <form action="ArtistWithDrawalServlet" method="POST">
+        <form action="" method="POST">
             <input type="submit" value="アーティスト登録解除">
         </form>
     </c:param>

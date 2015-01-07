@@ -76,7 +76,7 @@ public class ArtistStopServlet extends HttpServlet {
                 request.getRequestDispatcher("adminArtist.jsp").forward(request, response);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(UserWithdrawalServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ArtistStopServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
         }
