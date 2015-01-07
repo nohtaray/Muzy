@@ -67,15 +67,14 @@ public class ArtistStopServlet extends HttpServlet {
 			//データベースアクセス
 			con = DriverManager.getConnection("jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull", "12jz0129", "12jz0129");
 			
+                        
 			//アーティストアカウントの停止
-			if (request.getParameter("") != null){
+			if (request.getParameter("artistid") != null){
 				ps = con.prepareStatement("delete from artists where artist_id = ?");
-				//アーティストのIDをどうやって渡すか
-				//ps.setInt(1, );
+				ps.setInt(1, Integer.parseInt(request.getParameter("artistid")));
 				ps.executeUpdate();
 
-				//どのページを開く？
-				request.getRequestDispatcher("artists.html").forward(request, response);
+				request.getRequestDispatcher("adminArtist.jsp").forward(request, response);
 			}
 		} catch (SQLException ex) {
 			 Logger.getLogger(UserWithdrawalServlet.class.getName()).log(Level.SEVERE, null, ex);

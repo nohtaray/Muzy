@@ -78,16 +78,15 @@ public class UserWithdrawalServlet extends HttpServlet {
 				
 			//ユーザの退会
 			if (request.getParameter("user") != null){
-				/*
+				
 				ps = con.prepareStatement("delete from users where user_id = ?");
-				ps.setInt(1, 123);
+				ps.setInt(1, user.userId);
 				ps.executeUpdate();
 				
 				//ログアウト
 				auth.logout();
-				*/
-				//jspファイルだとまだうまくいかない
-				request.getRequestDispatcher("taikai.html").forward(request, response);
+				
+				request.getRequestDispatcher("index.jsp").forward(request, response);
 			}
 		} catch (SQLException ex) {
 			 Logger.getLogger(UserWithdrawalServlet.class.getName()).log(Level.SEVERE, null, ex);

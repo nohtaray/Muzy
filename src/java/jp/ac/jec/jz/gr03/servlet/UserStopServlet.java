@@ -67,17 +67,15 @@ public class UserStopServlet extends HttpServlet {
 				
 			//データベースアクセス
 			con = DriverManager.getConnection("jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull", "12jz0129", "12jz0129");
-				
-			//ユーザアカウントの停止
-			//これはやり方悪そう
-			if (request.getParameter("") != null){
+
+                        
+			if (request.getParameter("userid") != null){
 				
 				ps = con.prepareStatement("delete from users where user_id = ?");
-				//ユーザのIDをどうやって渡すか
-				//ps.setInt(1, );
+				ps.setInt(1, Integer.parseInt(request.getParameter("userid")));
 				ps.executeUpdate();
 				
-				request.getRequestDispatcher("users.html").forward(request, response);
+				request.getRequestDispatcher("adminUser.jsp").forward(request, response);
 			}
 		} catch (SQLException ex) {
 			 Logger.getLogger(UserWithdrawalServlet.class.getName()).log(Level.SEVERE, null, ex);
