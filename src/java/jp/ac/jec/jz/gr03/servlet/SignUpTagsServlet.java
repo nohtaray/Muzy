@@ -29,6 +29,10 @@ import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
+import jp.ac.jec.jz.gr03.dao.MusicDAO;
+import jp.ac.jec.jz.gr03.dao.TagDAO;
+import jp.ac.jec.jz.gr03.entity.Music;
+import jp.ac.jec.jz.gr03.entity.Tag;
 import jp.ac.jec.jz.gr03.entity.User;
 
 /**
@@ -36,6 +40,7 @@ import jp.ac.jec.jz.gr03.entity.User;
  * @author 12jz0129
  */
 public class SignUpTagsServlet extends HttpServlet {
+
     @Resource(name = "jdbcTest")
     private DataSource jdbcTest;
 
@@ -59,54 +64,41 @@ public class SignUpTagsServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        PreparedStatement ps;
-        PreparedStatement ps2;
-        Connection con = null;
-        try {
-            //データベースアクセス
-            con = DriverManager.getConnection("jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull", "12jz0129", "12jz0129");
+        
+        HttpSession session = request.getSession();
+        Authorizer auth = new Authorizer(session);
+        User user = auth.getUserLoggedInAs();
 
-            HttpSession session = request.getSession();
-            Authorizer auth = new Authorizer(session);
-            User user = auth.getUserLoggedInAs();
-
-            //登録したtag名を引っ張ってくる
-            String tagname = request.getParameter("tagname");
-
-            if (tagname != null) {
-                ps = con.prepareStatement("insert into tags (music_id, name, score_average, score_count) VALUES (?, ?, 0.0, 1)", Statement.RETURN_GENERATED_KEYS);
-                //musicidを引っ張ってくる
-                ps.setInt(1, Integer.parseInt(request.getParameter("musicid")));
-				ps.setString(2, tagname);
-                ps.executeUpdate();
-				
-				/*
-                int tagid = 0;
-                ResultSet gKeys = ps.getGeneratedKeys();
-                if (gKeys.next()) {
-                    tagid = gKeys.getInt(1);
-                } else {
-                    throw new SQLException("Creating user faled, no ID obtained.");
-                }
-				
-                ps2 = con.prepareStatement("insert into tag_scores (user_id, tag_id, score) VALUES (?, ?, 3");
-                ps2.setInt(1, user.userId);
-                ps2.setInt(2, tagid);
-                ps2.executeUpdate();
-				*/
-            } else {
-                //失敗に遷移したときにこれを書くとajaxでエラーに飛ぶ
-                //何もなくうまくいったら200が自動で帰る。
-                response.sendError(400);
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(SignUpTagsServlet.class.getName()).log(Level.SEVERE, null, ex);
-            throw new ServletException(ex);
-        } finally {
-            out.close();
+        String tagName = request.getParameter("tagname");
+        String strMusicId = request.getParameter("musicid");
+        if (tagName == null || strMusicId == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが足りません");
+            return;
         }
+        if (tagName.isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "タグ名が空です");
+            return;
+        }
+        
+        int musicId;
+        try {
+            musicId = Integer.parseInt(strMusicId);
+        } catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "楽曲IDが不正です");
+            return;
+        }
+        
+        Music music = fetchMusic(musicId);
+        if (music == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "楽曲が存在しません");
+            return;
+        }
+        
+        Tag tag = new Tag();
+        tag.music = music;
+        tag.name = tagName;
+        
+        insertTag(tag);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -156,4 +148,12 @@ public class SignUpTagsServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private Music fetchMusic(int musicId) throws IOException {
+        MusicDAO dao = new MusicDAO();
+        return dao.selectById(musicId);
+    }
+    private void insertTag(Tag tag) throws IOException {
+        TagDAO dao = new TagDAO();
+        dao.insert(tag);
+    }
 }
