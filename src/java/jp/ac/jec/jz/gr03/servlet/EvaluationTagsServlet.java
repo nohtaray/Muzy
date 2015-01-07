@@ -79,7 +79,7 @@ public class EvaluationTagsServlet extends HttpServlet {
 			int eva = Integer.parseInt(request.getParameter("evaluation"));
 			
 			if(request.getParameter("tagid") != null){
-				ps = con.prepareStatement("insert into tag_scores (user_id, tag_id, score) VALUES (?, ?, ?");
+				ps = con.prepareStatement("insert into tag_scores (user_id, tag_id, score) VALUES (?, ?, ?)");
 				ps.setInt(1, user.userId);
                 ps.setInt(2, tagid);
 				ps.setInt(3, eva);
