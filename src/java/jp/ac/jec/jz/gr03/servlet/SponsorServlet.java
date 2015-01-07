@@ -51,7 +51,9 @@ public class SponsorServlet extends HttpServlet {
         Authorizer auth = new Authorizer(session);
         
         if (auth.hasLoggedIn()) {
-            addPoint(auth.getUserLoggedInAs(), 5, "広告表示");
+            User user = auth.getUserLoggedInAs();
+            addPoint(user, 5, "広告表示");
+            request.setAttribute("user", user);
         }
         request.getRequestDispatcher("sponsor.jsp").forward(request, response);
     }
