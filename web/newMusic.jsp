@@ -1,5 +1,8 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+    String error = (String) request.getAttribute("error");
+%>
 <c:import url="/layout/application.jsp">
     <c:param name="title" value="new music" />
     <c:param name="header">
@@ -15,9 +18,9 @@
     <c:param name="content">
 
         <div class="container">
-            <% if (request.getAttribute("error") != null) { %>
+            <% if (error != null) { %>
             <div class="has-error">
-                ${error}
+                <%= error %>
             </div>
             <% }%>
             <div class="row">

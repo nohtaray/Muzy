@@ -2,6 +2,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.ArtistResultSet" %>
 <%@page import="jp.ac.jec.jz.gr03.entity.Artist" %>
+<%
+    String keyword = (String) request.getAttribute("keyword");
+%>
 <c:import url="/layout/application.jsp">
     <c:param name="title" value="アーティスト検索" />
     <c:param name="header">
@@ -9,7 +12,7 @@
     <c:param name="content">
         
         <p>
-            ${keyword} の検索結果
+            <%= keyword %> の検索結果
         </p>
         <ul>
         <%
