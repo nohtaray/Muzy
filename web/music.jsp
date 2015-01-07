@@ -54,8 +54,6 @@
             <div id="ContentsPanel" style="width:780px;border:1px solid #008d18; display:none">
                 <div id="tagfiled">
                     <input type="text" id="tagname" placeholder="タグ名" required>
-                    <!--number形だと動かない？サイズは後-->
-                    <input type="number" id="score"   placeholder="評価値" required>
                 </div>
                 <input type="button" onclick="funcSignUpTags();" value="新規タグを登録する">
             </div>

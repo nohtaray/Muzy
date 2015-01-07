@@ -108,7 +108,6 @@ function funcSignUpTags() {
         //複数渡せる左が変数で右が値
         data: {
             tagname: $('#tagname').val(),
-            score: $('#score').val(),
             musicid: $('#musicid').val()
         }
     }).done(function (data) {
