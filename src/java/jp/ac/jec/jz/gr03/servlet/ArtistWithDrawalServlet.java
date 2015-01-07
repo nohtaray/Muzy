@@ -79,6 +79,8 @@ public class ArtistWithDrawalServlet extends HttpServlet {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ArtistWithDrawalServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        request.getRequestDispatcher("withdrawArtist.jsp").forward(request, response);
     }
 
     /**
