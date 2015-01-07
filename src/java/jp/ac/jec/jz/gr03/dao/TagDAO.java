@@ -120,5 +120,21 @@ public class TagDAO extends DAO {
             throw new IOException(e);
         }
     }
+    public void updateScores(Tag tag) throws IOException {
+        String sql = "update tags, (select avg(score) as average, count(*) as count from tag_scores where tag_id = ? group by tag_id) as score "
+                + "set tags.score_average = score.average, tags.score_count = score.count "
+                + "where tag_id = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            
+            int idx = 1;
+            ps.setObject(idx++, tag.tagId, Types.INTEGER);
+            ps.setObject(idx++, tag.tagId, Types.INTEGER);
+            
+            ps.execute();
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
 
 }

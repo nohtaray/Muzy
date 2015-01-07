@@ -30,7 +30,9 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import jp.ac.jec.jz.gr03.dao.TagDAO;
+import jp.ac.jec.jz.gr03.dao.TagScoreDAO;
 import jp.ac.jec.jz.gr03.entity.Tag;
+import jp.ac.jec.jz.gr03.entity.TagScore;
 import jp.ac.jec.jz.gr03.entity.User;
 
 /**
@@ -80,19 +82,23 @@ public class EvaluationTagsServlet extends HttpServlet {
             int eva = Integer.parseInt(request.getParameter("evaluation"));
 
             if (request.getParameter("tagid") != null) {
-                ps = con.prepareStatement("insert into tag_scores (user_id, tag_id, score) VALUES (?, ?, ?)");
-                ps.setInt(1, user.userId);
-                ps.setInt(2, tagid);
-                ps.setInt(3, eva);
-                ps.executeUpdate();
-
-                //評価を追加した後の平均値の計算
                 TagDAO tagDAO = new TagDAO();
-                Tag tag = tagDAO.selectById(tagid);
-                // WARNING: 誤差あり。定期的に DB 内で再計算したほうがいいと思う
-                tag.scoreAverage = (tag.scoreAverage * tag.scoreCount + eva) / (tag.scoreCount + 1);
-                tag.scoreCount++;
-                tagDAO.update(tag);
+                TagScoreDAO tagScoreDAO = new TagScoreDAO();
+                
+                TagScore tagScore = tagScoreDAO.selectById(user.userId, tagid);
+                if (tagScore == null) {
+                    tagScore = new TagScore();
+                    tagScore.user = user;
+                    tagScore.tag = tagDAO.selectById(tagid);
+                    tagScore.score = eva;
+                    tagScoreDAO.insert(tagScore);
+                } else {
+                    tagScore.score = eva;
+                    tagScoreDAO.update(tagScore);
+                }
+                
+                //評価を追加した後の平均値の計算
+                tagDAO.updateScores(tagDAO.selectById(tagid));
             } else {
                 //失敗に遷移したときにこれを書くとajaxでエラーに飛ぶ
                 //何もなくうまくいったら200が自動で帰る。
