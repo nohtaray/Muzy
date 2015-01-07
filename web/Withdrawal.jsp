@@ -5,8 +5,8 @@
     <c:param name="header">
     </c:param>
     <c:param name="content">
-		
-		<h1>退会しました</h1>
-		<% request.setCharacterEncoding("UTF-8");%>
-	</c:param>
+        <p>
+            アーティスト情報を削除しました
+        </p>
+    </c:param>
 </c:import>
