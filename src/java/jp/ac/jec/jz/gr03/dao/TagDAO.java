@@ -15,20 +15,36 @@ import jp.ac.jec.jz.gr03.entity.Tag;
  */
 public class TagDAO extends DAO {
 
+    public Tag selectById(int tagId) throws IOException {
+        String sql = "select * from tags where tag_id = ? limit 1";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            int idx = 1;
+            ps.setObject(idx++, tagId, Types.INTEGER);
+
+            TagResultSet results = new TagResultSet(ps.executeQuery());
+
+            return results.readRow();
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
+
     public TagResultSet selectByMusicId(int musicId) throws IOException {
         try {
             String sql = "select * from tags where music_id = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
-            
+
             int idx = 1;
             ps.setObject(idx++, musicId, Types.INTEGER);
-            
+
             return new TagResultSet(ps.executeQuery());
         } catch (SQLException e) {
             throw new IOException(e);
         }
     }
-    
+
     public TagResultSet selectByName(String name) throws IOException {
         try {
             String sql = "select * from tags where name = ?";
@@ -56,7 +72,7 @@ public class TagDAO extends DAO {
             throw new IOException(e);
         }
     }
-    
+
     public void insert(Tag tag) throws IOException {
         String sql = "insert into tags("
                 + "music_id, "
@@ -66,20 +82,43 @@ public class TagDAO extends DAO {
                 + "values(?, ?, ?, ?)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            
+
             int idx = 1;
-            
+
             ps.setObject(idx++, (tag.music != null ? tag.music.musicId : null), Types.INTEGER);
             ps.setObject(idx++, tag.name, Types.VARCHAR);
             ps.setObject(idx++, tag.scoreAverage, Types.DOUBLE);
             ps.setObject(idx++, tag.scoreCount, Types.INTEGER);
-            
+
             ps.execute();
-            
+
             tag.tagId = getGeneratedKey(ps);
         } catch (SQLException e) {
             throw new IOException(e);
         }
     }
     
+    public void update(Tag tag) throws IOException {
+        String sql = "update tags set "
+                + "music_id = ?, "
+                + "name = ?, "
+                + "score_average = ?, "
+                + "score_count = ? "
+                + "where tag_id = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            
+            int idx = 1;
+            ps.setObject(idx++, (tag.music != null ? tag.music.musicId : null), Types.INTEGER);
+            ps.setObject(idx++, tag.name, Types.VARCHAR);
+            ps.setObject(idx++, tag.scoreAverage, Types.DOUBLE);
+            ps.setObject(idx++, tag.scoreCount, Types.INTEGER);
+            ps.setObject(idx++, tag.tagId, Types.INTEGER);
+            
+            ps.execute();
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
+
 }

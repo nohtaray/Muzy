@@ -29,6 +29,8 @@ import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
+import jp.ac.jec.jz.gr03.dao.TagDAO;
+import jp.ac.jec.jz.gr03.entity.Tag;
 import jp.ac.jec.jz.gr03.entity.User;
 
 /**
@@ -84,7 +86,13 @@ public class EvaluationTagsServlet extends HttpServlet {
                 ps.setInt(3, eva);
                 ps.executeUpdate();
 
-                //評価を追加した後の平均値の計算はどうするのか？DB上で計算するようにするんだっけ？
+                //評価を追加した後の平均値の計算
+                TagDAO tagDAO = new TagDAO();
+                Tag tag = tagDAO.selectById(tagid);
+                // WARNING: 誤差あり。定期的に DB 内で再計算したほうがいいと思う
+                tag.scoreAverage = (tag.scoreAverage * tag.scoreCount + eva) / (tag.scoreCount + 1);
+                tag.scoreCount++;
+                tagDAO.update(tag);
             } else {
                 //失敗に遷移したときにこれを書くとajaxでエラーに飛ぶ
                 //何もなくうまくいったら200が自動で帰る。
