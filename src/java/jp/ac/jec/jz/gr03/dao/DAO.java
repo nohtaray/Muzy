@@ -30,14 +30,11 @@ abstract class DAO {
     }
     
     public DAO() {
-        Connection _conn;
         try {
-            _conn = DriverManager.getConnection(DRIVER_URL, DB_USER, DB_PASS);
-        } catch (SQLException ex) {
-            _conn = null;
-            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            this.conn = DriverManager.getConnection(DRIVER_URL, DB_USER, DB_PASS);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        this.conn = _conn;
     }
     
     private void destruction() {
