@@ -75,7 +75,7 @@ public class ArtistWithDrawalServlet extends HttpServlet {
 			User user = auth.getUserLoggedIn();
 			
 			//アーティストの退会
-			if (request.getParameter("user") != null){
+			if (user != null){
 				
 				ps = con.prepareStatement("delete from artists where user_id = ?");
 				ps.setInt(1, user.userId);
