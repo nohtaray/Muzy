@@ -194,8 +194,6 @@ public class NewMusicServlet extends HttpServlet {
             Tag tag = new Tag();
             tag.music = music;
             tag.name = tagName;
-            tag.scoreAverage = 3.0;   // TODO: 定数とかにする
-            tag.scoreCount = 0;
             dao.insert(tag);
         }
     }
