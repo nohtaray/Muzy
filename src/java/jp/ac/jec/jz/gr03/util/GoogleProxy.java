@@ -10,8 +10,8 @@ import java.util.Map;
  * @author yada
  */
 public class GoogleProxy {
-    private final static String CLIENT_ID = "166700389458-3uhb2ncoloh1dstm2fact283csovd1us.apps.googleusercontent.com";
-    private final static String CLIENT_SECRET = "bPmqDaslssGTLVvPByJDQLxj";
+    public final static String CLIENT_ID = "166700389458-3uhb2ncoloh1dstm2fact283csovd1us.apps.googleusercontent.com";
+    public final static String CLIENT_SECRET = "bPmqDaslssGTLVvPByJDQLxj";
     private final HttpClient http;
     
     public GoogleProxy() {

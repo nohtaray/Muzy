@@ -1,3 +1,4 @@
+<%@page import="jp.ac.jec.jz.gr03.util.GoogleProxy"%>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:import url="/layout/application.jsp">
@@ -12,7 +13,7 @@
                 data-accesstype="offline"
                 data-approvalprompt="force"
                 data-callback="googleLoginCallback"
-                data-clientid="166700389458-3uhb2ncoloh1dstm2fact283csovd1us.apps.googleusercontent.com"
+                data-clientid="<%= GoogleProxy.CLIENT_ID %>"
                 data-cookiepolicy="single_host_origin"
                 data-redirecturi="postmessage"
                 data-requestvisibleactions="http://schemas.google.com/AddActivity"
