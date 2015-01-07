@@ -79,6 +79,8 @@ public class UserWithdrawalServlet extends HttpServlet {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(UserWithdrawalServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        request.getRequestDispatcher("withdrawUser.jsp").forward(request, response);
     }
 
     /**
