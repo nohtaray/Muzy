@@ -60,39 +60,6 @@ public class UserWithdrawalServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        PreparedStatement ps;
-        Connection con = null;
-        try {
-
-            //データベースアクセス
-            con = DriverManager.getConnection("jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull", "12jz0129", "12jz0129");
-
-            //セッション作成
-            HttpSession session = request.getSession();
-            Authorizer auth = new Authorizer(session);
-
-            //Userは別ファイルから取り出し可能
-            User user = auth.getUserLoggedIn();
-
-            //ユーザの退会
-            if (user != null) {
-
-                ps = con.prepareStatement("delete from users where user_id = ?");
-                ps.setInt(1, user.userId);
-                ps.executeUpdate();
-
-                //ログアウト
-                auth.logout();
-
-                response.sendRedirect("");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(UserWithdrawalServlet.class.getName()).log(Level.SEVERE, null, ex);
-            throw new ServletException(ex);
-        } finally {
-            out.close();
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -129,6 +96,41 @@ public class UserWithdrawalServlet extends HttpServlet {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(UserWithdrawalServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        PrintWriter out = response.getWriter();
+        PreparedStatement ps;
+        Connection con = null;
+        try {
+
+            //データベースアクセス
+            con = DriverManager.getConnection("jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull", "12jz0129", "12jz0129");
+
+            //セッション作成
+            HttpSession session = request.getSession();
+            Authorizer auth = new Authorizer(session);
+
+            //Userは別ファイルから取り出し可能
+            User user = auth.getUserLoggedIn();
+
+            //ユーザの退会
+            if (user != null) {
+
+                ps = con.prepareStatement("delete from users where user_id = ?");
+                ps.setInt(1, user.userId);
+                ps.executeUpdate();
+
+                //ログアウト
+                auth.logout();
+
+                response.sendRedirect("");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserWithdrawalServlet.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ServletException(ex);
+        } finally {
+            out.close();
         }
     }
 
