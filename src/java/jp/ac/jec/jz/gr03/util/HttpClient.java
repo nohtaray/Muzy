@@ -4,6 +4,7 @@ package jp.ac.jec.jz.gr03.util;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import org.apache.http.HttpHost;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.fluent.*;
 
@@ -14,6 +15,13 @@ import org.apache.http.client.fluent.*;
 public class HttpClient {
     private final int connectTimeout = 3000;
     private final int socketTimeout = 3000;
+    private static HttpHost proxy = null;
+    private static boolean useProxy = false;
+    
+    public static void useProxy(String hostname, int port) {
+        HttpClient.proxy = new HttpHost(hostname, port);
+        HttpClient.useProxy = true;
+    }
     
     public String get(String url)
             throws IOException {
@@ -36,6 +44,9 @@ public class HttpClient {
     
     private String execute(Request request) 
             throws IOException {
+        if (HttpClient.useProxy) {
+            request.viaProxy(HttpClient.proxy);
+        }
         return request.connectTimeout(connectTimeout).socketTimeout(socketTimeout).execute().returnContent().toString();
     }
     private List<NameValuePair> mapToParamList(Map<String, String> params) {
