@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Map;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.fluent.*;
-import org.apache.commons.logging.*;
-import org.apache.tomcat.jni.Time;
 
 /**
  *
