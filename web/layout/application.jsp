@@ -67,7 +67,7 @@
                     <li><a href="MyPageServlet">マイページ</a></li>
                     <li><a href="EditUserServlet">ユーザ情報編集</a></li>
                     <li><a href="LogoutServlet">ログアウト</a></li>
-                    <li>退会</li>
+                    <li><a href="WithdrawUserServlet">退会</a></li>
                     <li><a href="PasswordServlet">パスワード登録・変更</a></li>
                     <li><a href="MyListServlet">マイリスト</a></li>
                     <li><a href="RankingMusicServlet">楽曲ランキング</a></li>
@@ -85,7 +85,7 @@
                         <li><a href="MyMusicServlet">投稿した楽曲</a></li>
                         <li><a href="NewMusicServlet">楽曲投稿</a></li>
                         <li><a href="EditArtistServlet">アーティスト情報編集</a></li>
-                        <li>アーティスト登録解除</li>
+                        <li><a href="WithdrawArtistServlet">アーティスト登録解除</a></li>
                         <li><a href="EditMusicServlet?id=1">楽曲編集</a></li>
                     </ul>
                 </div>
