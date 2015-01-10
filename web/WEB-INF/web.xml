@@ -273,6 +273,10 @@
         <servlet-name>RankingArtistMylistServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.RankingArtistMylistServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SignUpArtistServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.SignUpArtistServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
         <url-pattern>/LoginWithGoogleServlet</url-pattern>
@@ -520,6 +524,10 @@
     <servlet-mapping>
         <servlet-name>RankingArtistMylistServlet</servlet-name>
         <url-pattern>/RankingArtistMylistServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SignUpArtistServlet</servlet-name>
+        <url-pattern>/SignUpArtistServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
