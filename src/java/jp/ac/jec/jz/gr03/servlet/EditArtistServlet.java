@@ -85,6 +85,10 @@ public class EditArtistServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが足りません");
             return;
         }
+        if (name.isEmpty() || introduction.isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "必須のフォームを入力してください");
+            return;
+        }
         
         artist.name = name;
         artist.introduction = introduction;
