@@ -13,15 +13,8 @@
 
         <form method="post" action="EditArtistServlet">
             <input type="text" name="name" value="<%= name%>"><br>
-            <textarea placeholder="アーティストプロフィール" name="introduction"><%= introduction%></textarea>
-            <br>
-            <br>
-            サムネイル画像:<br>
-            &nbsp;&nbsp;&nbsp;<input type="file" />
-            <%-- <div id="msg"></div> --%>
-            <br><br><br><br>
-
-            &nbsp;&nbsp;&nbsp;<input type="submit" value="更新">
+            <textarea placeholder="アーティストプロフィール" name="introduction"><%= introduction%></textarea><br>
+            <input type="submit" value="更新">
         </form>
 
         <a href="WithdrawArtistServlet">アーティスト登録解除</a>

@@ -38,7 +38,6 @@
         </div>
         <% }%>
         <div id="profile">
-            <img id="image" src="img/ajax-loader.gif">
             <%= artist.introduction%>
         </div>
 
