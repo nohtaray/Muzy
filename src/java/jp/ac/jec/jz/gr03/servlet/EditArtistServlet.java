@@ -57,8 +57,7 @@ public class EditArtistServlet extends HttpServlet {
             return;
         }
 
-        request.setAttribute("name", artist.name);
-        request.setAttribute("introduction", artist.introduction);
+        request.setAttribute("artist", artist);
         request.getRequestDispatcher("editArtist.jsp").forward(request, response);
     }
 

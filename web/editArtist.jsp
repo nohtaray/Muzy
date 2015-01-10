@@ -1,8 +1,8 @@
+<%@page import="jp.ac.jec.jz.gr03.entity.Artist"%>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-    String name = (String) request.getAttribute("name");
-    String introduction = (String) request.getAttribute("introduction");
+    Artist artist = (Artist) request.getAttribute("artist");
 %>
 <c:import url="/layout/application.jsp">
     <c:param name="title" value="ページのタイトル" />
@@ -12,8 +12,8 @@
         アーティスト情報編集
 
         <form method="post" action="EditArtistServlet">
-            <input type="text" name="name" value="<%= name%>"><br>
-            <textarea placeholder="アーティストプロフィール" name="introduction"><%= introduction%></textarea><br>
+            <input type="text" name="name" value="<%= artist.name%>"><br>
+            <textarea placeholder="アーティストプロフィール" name="introduction"><%= artist.introduction%></textarea><br>
             <input type="submit" value="更新">
         </form>
 
