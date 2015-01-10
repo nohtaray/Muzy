@@ -53,6 +53,10 @@ public class SignUpArtistServlet extends HttpServlet {
             return;
         }
         User user = auth.getUserLoggedInAs();
+        if (user.googleUID == null) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Google の認証情報がありません。");
+            return;
+        }
         if (userIsArtist(user)) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "すでに登録されています");
             return;
