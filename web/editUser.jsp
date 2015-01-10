@@ -24,5 +24,7 @@
         <input type="password" name="nowpass" placeholder="現在のパスワード" required><br>
         &nbsp;&nbsp;&nbsp;<input type="submit" value="更新">
         </form>
+        
+        <a href="WithdrawUserServlet">退会する</a>
     </c:param>
 </c:import>
