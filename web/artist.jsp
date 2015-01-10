@@ -13,15 +13,11 @@
     User me = (User) request.getAttribute("me");
 
     boolean loggedIn = me != null;
-    String pageTitle = artist.name + " さんのページ";
 %>
 <c:import url="/layout/application.jsp">
-    <%--
-        "<%= で始まった場合、 %>" で終わらなければいけない
-        value=" <%= 1 %> " はOK
-        value="<%= 1 %> " はエラーになる
-    --%>
-    <c:param name="title" value="<%= pageTitle%>" />
+    <c:param name="title">
+        <%= artist.name%> さんのページ
+    </c:param>
     <c:param name="header">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
