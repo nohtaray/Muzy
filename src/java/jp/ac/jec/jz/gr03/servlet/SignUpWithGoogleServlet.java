@@ -129,7 +129,10 @@ public class SignUpWithGoogleServlet extends HttpServlet {
             request.getRequestDispatcher("signUpWithGoogle.jsp").forward(request, response);
             return;
         }
-        
+        // セッション固定攻撃防止
+        session.invalidate();
+        session = request.getSession(true);
+        auth = new Authorizer(session);
         auth.loginAs(user);
 
         response.getWriter().println("アカウント登録しました！");
