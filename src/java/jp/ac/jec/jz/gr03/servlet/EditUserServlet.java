@@ -1,18 +1,12 @@
 package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import jp.ac.jec.jz.gr03.dao.UserDAO;
 import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
 
@@ -22,15 +16,6 @@ import jp.ac.jec.jz.gr03.util.Authorizer;
  */
 public class EditUserServlet extends HttpServlet {
 
-    static {
-            try {
-                    Class.forName("com.mysql.jdbc.Driver");
-            }
-            catch(ClassNotFoundException e ){
-                    throw new RuntimeException(e);
-            }
-    }
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -49,40 +34,20 @@ public class EditUserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        PrintWriter out = response.getWriter();
-        try {
-            HttpSession session = request.getSession();
-            Authorizer auth = new Authorizer(session);
-            
-            /* テスト用コード　ろぐいんしてることにする　*/
-            User _user = new User();
-            _user.userId = 10;
-            _user.email = "em@il.com";
-            _user.name = "aa";
-            _user.introduction = "よろしくね";
-            _user.setPassword("pass");
-            auth.login(_user);
-            
-            
-            if (auth.hasLoggedIn()) {
-                // ログインしてる
-                User user = auth.getUserLoggedIn();
-                
-                request.setAttribute("name", user.name);
-                request.setAttribute("email", user.email);
-                request.setAttribute("introduction", user.introduction);
-                request.getRequestDispatcher("editUser.jsp").forward(request, response);
-            } else {
-                // ログインしてない
-                request.setAttribute("name", "KURIO");
-                request.setAttribute("email", "test");
-                request.setAttribute("introduction", "testtest");
-                request.getRequestDispatcher("editUser.jsp").forward(request, response);
-            }
-        } finally {
-            out.close();
+
+        HttpSession session = request.getSession();
+        Authorizer auth = new Authorizer(session);
+
+        if (!auth.hasLoggedIn()) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "ログインしてください");
+            return;
         }
+
+        User user = auth.getUserLoggedInAs();
+        request.setAttribute("name", user.name);
+        request.setAttribute("email", user.email);
+        request.setAttribute("introduction", user.introduction);
+        request.getRequestDispatcher("editUser.jsp").forward(request, response);
     }
 
     /**
@@ -97,49 +62,34 @@ public class EditUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
         HttpSession session = request.getSession();
         Authorizer auth = new Authorizer(session);
+
         if (!auth.hasLoggedIn()) {
-            // roguixnsitenai
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "ログインしてください");
             return;
         }
-      
-        User user = auth.getUserLoggedIn();
-       
-        //DB connect
-        Connection con = null;
-        try {
-            con = DriverManager.getConnection("jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=converToNull", "12jz0112", "12jz0112");
-        } catch (SQLException ex) {
-            Logger.getLogger(EditUserServlet.class.getName()).log(Level.SEVERE, null, ex);
+
+        String name = (String) request.getParameter("name");
+        String email = (String) request.getParameter("email");
+        String introduction = (String) request.getParameter("introduction");
+        if (name == null || email == null || introduction == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが足りません");
+            return;
         }
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String newpass1 = request.getParameter("newpass1");
-        String newpass2 = request.getParameter("newpass2");
-        String introduction = request.getParameter("introduction");
-        String nowpass = request.getParameter("nowpass");
-        
-        
-        if (user.passwordEquals(nowpass)) {
-            if (email != null && newpass1 != null && newpass2 != null && introduction != null && nowpass != null && name != null && !name.equals("") && !email.equals("") && newpass1.equals(newpass2)) {
-                user.setPassword(newpass1);
-                try {
-                    PreparedStatement ps = con.prepareStatement("update users set name = ?,email = ?,password_hash = ?,introduction = ? WHERE user_id = ?");
-                    ps.setString(1, name);
-                    ps.setString(2, email);
-                    ps.setString(3, user.passwordHash);
-                    ps.setString(4, introduction);
-                    ps.setInt(5, user.userId);
-                    ps.executeUpdate();
-                    response.getWriter().println("更新しました");
-                } catch (SQLException ex) {
-                    Logger.getLogger(EditUserServlet.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+        if (name.isEmpty() || email.isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "必須のフィールドを入力してください");
+            return;
         }
+
+        User user = auth.getUserLoggedInAs();
+        user.name = name;
+        user.email = email;
+        user.introduction = introduction;
+        updateUser(user);
         
+        response.getWriter().println("こうしんしました");
     }
 
     /**
@@ -152,4 +102,8 @@ public class EditUserServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private void updateUser(User user) throws IOException {
+        UserDAO dao = new UserDAO();
+        dao.update(user);
+    }
 }
