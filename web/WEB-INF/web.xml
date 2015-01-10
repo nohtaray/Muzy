@@ -277,6 +277,10 @@
         <servlet-name>SignUpArtistServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.SignUpArtistServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.UserServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
         <url-pattern>/LoginWithGoogleServlet</url-pattern>
@@ -528,6 +532,10 @@
     <servlet-mapping>
         <servlet-name>SignUpArtistServlet</servlet-name>
         <url-pattern>/SignUpArtistServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserServlet</servlet-name>
+        <url-pattern>/UserServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
