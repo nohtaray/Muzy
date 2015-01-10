@@ -5,7 +5,12 @@
 
     全画面共通の部分
 --%>
-
+<%@page import="jp.ac.jec.jz.gr03.entity.User"%>
+<%@page import="jp.ac.jec.jz.gr03.util.Authorizer"%>
+<%
+    Authorizer auth = new Authorizer(session);
+    User userLoggedIn = auth.getUserLoggedInAs();
+%>
 <%@page pageEncoding="UTF-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -22,24 +27,45 @@
     <body>
         <header id="header">
             <h1><a href="./">Muzy</a></h1>
-            
             <div>
-                <form action="SearchMusicServlet" method="GET">
-                    <input type="text" name="q" placeholder="楽曲を検索">
-                    <input type="submit" value="検索">
-                </form>
-            </div>
-            <div>
-                <form action="SearchArtistServlet" method="GET">
-                    <input type="text" name="q" placeholder="アーティストを検索">
-                    <input type="submit" value="検索">
-                </form>
-            </div>
-            <div>
-                <form action="SearchMusicServlet" method="GET">
-                    <input type="text" name="t" placeholder="タグで検索">
-                    <input type="submit" value="検索">
-                </form>
+                <div>
+                    <div>
+                        <form action="SearchMusicServlet" method="GET">
+                            <input type="text" name="q" placeholder="楽曲を検索">
+                            <input type="submit" value="検索">
+                        </form>
+                    </div>
+                    <div>
+                        <form action="SearchArtistServlet" method="GET">
+                            <input type="text" name="q" placeholder="アーティストを検索">
+                            <input type="submit" value="検索">
+                        </form>
+                    </div>
+                    <div>
+                        <form action="SearchMusicServlet" method="GET">
+                            <input type="text" name="t" placeholder="タグで検索">
+                            <input type="submit" value="検索">
+                        </form>
+                    </div>
+                </div>
+                <div>
+                    <% if (userLoggedIn == null) { %>
+                    <%-- ログインしてない --%>
+                    未ログイン
+                    <ul>
+                        <li><a href="LoginWithPasswordServlet">パスワードでログイン</a></li>
+                        <li><a href="SignUpUserServlet">パスワードで新規登録</a></li>
+                        <li><a href="LoginWithGoogleServlet">Googleで登録・ログイン</a></li>
+                    </ul>
+                    <% } else { %>
+                    <%-- ログインしている --%>
+                    <%= userLoggedIn.name %>としてログイン中
+                    <ul>
+                        <li><a href="MyPageServlet">マイページ</a></li>
+                        <li><a href="LogoutServlet">ログアウト</a></li>
+                    </ul>
+                    <% } %>
+                </div>
             </div>
         </header>
         
