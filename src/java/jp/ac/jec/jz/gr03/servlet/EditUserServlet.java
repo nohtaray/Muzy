@@ -44,9 +44,7 @@ public class EditUserServlet extends HttpServlet {
         }
 
         User user = auth.getUserLoggedInAs();
-        request.setAttribute("name", user.name);
-        request.setAttribute("email", user.email);
-        request.setAttribute("introduction", user.introduction);
+        request.setAttribute("user", user);
         request.getRequestDispatcher("editUser.jsp").forward(request, response);
     }
 
