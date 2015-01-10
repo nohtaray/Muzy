@@ -150,7 +150,7 @@
         <servlet-class>jp.ac.jec.jz.gr03.servlet.taikaiServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SignUpUser</servlet-name>
+        <servlet-name>SignUpUserServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.SignUpUserServlet</servlet-class>
     </servlet>
     <servlet>
@@ -406,8 +406,8 @@
         <url-pattern>/taikaiServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SignUpUser</servlet-name>
-        <url-pattern>/SignUpUser</url-pattern>
+        <servlet-name>SignUpUserServlet</servlet-name>
+        <url-pattern>/SignUpUserServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SignUpArtist</servlet-name>
