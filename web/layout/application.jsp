@@ -70,7 +70,13 @@
         </header>
         
         <nav id="nav">
-            開発用サイトマップ
+            <ul>
+                <li><a href="SponsorServlet">スポンサー</a></li>
+                <li><a href="RankingMusicServlet">楽曲ランキング</a></li>
+                <li><a href="RankingArtistServlet">アーティストランキング</a></li>
+                <li><a href="LatestMusicServlet">最新楽曲</a></li>
+            </ul>
+            開発用サイトマップ（あとで消す）
             <ul>
                 <li><a href="MusicServlet?id=1">楽曲</a></li>
                 <li><a href="ArtistServlet?id=1">アーティスト</a></li>
