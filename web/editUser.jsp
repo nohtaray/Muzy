@@ -10,12 +10,18 @@
     </c:param>
     <c:param name="content">
         <form method="post" action="EditUserServlet">
-        <input type="text" name="name" value="<%= user.name %>"><br>
-        <input type="text" name="email" value="<%= user.email %>"><br>
-        <textarea placeholder="自己紹介文" name="introduction"><%= user.introduction %></textarea><br>
-        <input type="submit" value="更新">
+            <input type="text" name="name" value="<%= user.name%>"><br>
+            <input type="text" name="email" value="<%= user.email%>"><br>
+            <textarea placeholder="自己紹介文" name="introduction"><%= user.introduction%></textarea><br>
+            <input type="submit" value="更新">
         </form>
-        
-        <a href="WithdrawUserServlet">退会する</a>
+
+        <ul>
+            <% if (user.googleUID == null) { %>
+            <li><a href="LoginWithGoogleServlet">Google で認証する（アーティスト登録に必要です）</a></li>
+            <% }%>
+            <li><a href="PasswordServlet">パスワードを<%= user.passwordHash == null ? "登録" : "変更"%>する</a></li>
+            <li><a href="WithdrawUserServlet">退会する</a></li>
+        </ul>
     </c:param>
 </c:import>
