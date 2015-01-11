@@ -21,7 +21,7 @@
 
         name: <%= user.name%>
         <ul>
-
+            <li><a href="UserServlet?id=<%= user.userId%>">あなたの公開プロフィール</a></li>
             <li><a href="EditUserServlet">ユーザ情報編集</a></li>
             <li><a href="MyListServlet">マイリスト</a></li>
         </ul>
