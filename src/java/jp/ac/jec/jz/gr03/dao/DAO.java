@@ -6,15 +6,19 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author yada
  */
 abstract class DAO {
-    protected final Connection conn;
+    // 特に短時間に連続でアクセスしたときなどに、
+    // コネクションが閉じられてしまっていて
+    // 例外が発生することがあるため（原因未調査）、static にしている。
+    // コネクションが1つになるので、
+    // 短時間に大量のアクセスがあるとサイト全体が止まるが、
+    // 小規模サイトなので問題ない想定。
+    protected static Connection conn;
     
     // ファイルに切り出したほうがいい
     private final static String DRIVER_URL = "jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull&connectTimeout=5000";
@@ -31,18 +35,14 @@ abstract class DAO {
     
     public DAO() {
         try {
-            this.conn = DriverManager.getConnection(DRIVER_URL, DB_USER, DB_PASS);
+            conn = DriverManager.getConnection(DRIVER_URL, DB_USER, DB_PASS);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
     
     private void destruction() {
-        try {
-            conn.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }
     @Override
     protected void finalize() throws Throwable {
