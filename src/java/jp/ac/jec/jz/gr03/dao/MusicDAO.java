@@ -15,6 +15,13 @@ import jp.ac.jec.jz.gr03.util.Date;
  */
 public class MusicDAO extends DAO {
 
+    public enum Order {
+        CREATED_AT,
+        COMMENT_CREATED_AT,
+        VIEW,
+        MYLIST,
+        UNSPECIFIED,
+    }
     public Music selectById(Integer musicId) throws IOException {
         try {
             String sql = "select * from musics where music_id = ? limit 1";
@@ -64,8 +71,23 @@ public class MusicDAO extends DAO {
      * @throws IOException
      */
     public MusicResultSet selectByKeyword(String keyword) throws IOException {
+        return selectByKeyword(keyword, Order.UNSPECIFIED);
+    }
+    public MusicResultSet selectByKeyword(String keyword, Order order) throws IOException {
+        String sql;
+        if (order == Order.CREATED_AT) {
+            sql = "select * from musics where title like ? or description like ? order by created_at desc";
+        } else if (order == Order.COMMENT_CREATED_AT) {
+            sql = "select * from musics as m where title like ? or description like ? order by (select max(created_at) from comments as c where c.music_id = m.music_id) desc";
+        } else if (order == Order.VIEW) {
+            sql = "select * from musics where title like ? or description like ? order by view_count desc";
+        } else if (order == Order.MYLIST) {
+            sql = "select * from musics as m where title like ? or description like ? order by (select count(*) from mylist_details as md where md.music_id = m.music_id) desc";
+        } else {
+            sql = "select * from musics where title like ? or description like ?";
+        }
+    
         try {
-            String sql = "select * from musics where title like ? or description like ?";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             String like = "%" + keyword.replaceAll("[\\\\%_]", "\\$0") + "%";

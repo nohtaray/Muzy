@@ -18,6 +18,15 @@ import jp.ac.jec.jz.gr03.dao.entityresultset.MusicResultSet;
  */
 public class SearchMusicServlet extends HttpServlet {
 
+    public enum Order {
+        CREATED_AT,
+        COMMENT_CREATED_AT,
+        VIEW,
+        MYLIST,
+        TAG_SCORE,
+        VOTE,
+        UNSPECIFIED,
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -48,13 +57,22 @@ public class SearchMusicServlet extends HttpServlet {
 
         MusicResultSet musics;
         
+        // ソート順の取得
+        int order = Order.UNSPECIFIED.ordinal();
+        String strOrder = request.getParameter("o");
+        if (strOrder != null) {
+            try {
+                order = Integer.parseInt(strOrder);
+            } catch (NumberFormatException ignored) {}
+        }
+        
         String keyword = request.getParameter("q");
         String tag = request.getParameter("t");
         if (keyword != null) {
-            musics = searchMusic(keyword);
+            musics = searchMusic(keyword, order);
             request.setAttribute("keyword", keyword);
         } else if (tag != null) {
-            musics = searchTag(tag);
+            musics = searchTag(tag, order);
             request.setAttribute("tag", tag);
         } else {
             // キーワードもタグもない
@@ -63,6 +81,7 @@ public class SearchMusicServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータがありません");
             return;
         }
+        
         request.setAttribute("musics", musics);
         request.getRequestDispatcher("searchMusic.jsp").forward(request, response);
     }
@@ -93,11 +112,21 @@ public class SearchMusicServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private MusicResultSet searchMusic(String keyword) throws IOException {
+    private MusicResultSet searchMusic(String keyword, int order) throws IOException {
         MusicDAO dao = new MusicDAO();
-        return dao.selectByKeyword(keyword);
+        if (order == Order.CREATED_AT.ordinal()) {
+            return dao.selectByKeyword(keyword, MusicDAO.Order.CREATED_AT);
+        } else if (order == Order.COMMENT_CREATED_AT.ordinal()) {
+            return dao.selectByKeyword(keyword, MusicDAO.Order.COMMENT_CREATED_AT);
+        } else if (order == Order.VIEW.ordinal()) {
+            return dao.selectByKeyword(keyword, MusicDAO.Order.VIEW);
+        } else if (order == Order.MYLIST.ordinal()) {
+            return dao.selectByKeyword(keyword, MusicDAO.Order.MYLIST);
+        } else {
+            return dao.selectByKeyword(keyword, MusicDAO.Order.UNSPECIFIED);
+        }
     }
-    private MusicResultSet searchTag(String tagName) throws IOException {
+    private MusicResultSet searchTag(String tagName, int order) throws IOException {
         TagDAO dao = new TagDAO();
         return dao.selectMusicsByName(tagName);
     }
