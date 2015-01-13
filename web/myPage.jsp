@@ -25,6 +25,7 @@
             <li><a href="EditUserServlet">ユーザ情報編集</a></li>
             <li><a href="MyListServlet">マイリスト</a></li>
             <li><a href="BuyTicketServlet">チケット購入</a></li>
+            <li><a href="PointHistoryServlet">ポイント獲得・利用履歴</a></li>
         </ul>
         <% if (isArtist) {%>
         <div>
