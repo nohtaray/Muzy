@@ -21,20 +21,22 @@
         <table border="1">
             <caption>ポイント獲得・利用履歴</caption>
             <thead>
-            <th>日時</th>
-            <th>ポイント</th>
-            <th>詳細</th>
-        </thead>
-        <tbody>
-            <% for (PointGetHistory history : histories) {%>
-            <tr>
-                <td><%= history.createdAt%></td>
-                <td><%= history.gotPoints%></td>
-                <td><%= history.description%></td>
-            </tr>
-            <% }%>
-        </tbody>
-    </table>
+                <tr>
+                    <th>日時</th>
+                    <th>ポイント</th>
+                    <th>詳細</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (PointGetHistory history : histories) {%>
+                <tr>
+                    <td><%= history.createdAt%></td>
+                    <td><%= history.gotPoints%></td>
+                    <td><%= history.description%></td>
+                </tr>
+                <% }%>
+            </tbody>
+        </table>
 
-</c:param>
+    </c:param>
 </c:import>
