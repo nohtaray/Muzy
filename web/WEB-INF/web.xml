@@ -142,14 +142,6 @@
         <servlet-class>jp.ac.jec.jz.gr03.servlet.LoginWithPassword</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Logout</servlet-name>
-        <servlet-class>jp.ac.jec.jz.gr03.servlet.Logout</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>taikaiServlet</servlet-name>
-        <servlet-class>jp.ac.jec.jz.gr03.servlet.taikaiServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>SignUpUserServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.SignUpUserServlet</servlet-class>
     </servlet>
@@ -404,14 +396,6 @@
     <servlet-mapping>
         <servlet-name>LoginWithPassword</servlet-name>
         <url-pattern>/LoginWithPassword</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Logout</servlet-name>
-        <url-pattern>/Logout</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>taikaiServlet</servlet-name>
-        <url-pattern>/taikaiServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SignUpUserServlet</servlet-name>
