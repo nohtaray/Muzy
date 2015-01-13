@@ -8,9 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import jp.ac.jec.jz.gr03.dao.PointDAO;
 import jp.ac.jec.jz.gr03.dao.PointGetHistoryDAO;
+import jp.ac.jec.jz.gr03.dao.VoteTicketGetHistoryDAO;
 import jp.ac.jec.jz.gr03.entity.Point;
 import jp.ac.jec.jz.gr03.entity.PointGetHistory;
 import jp.ac.jec.jz.gr03.entity.User;
+import jp.ac.jec.jz.gr03.entity.VoteTicketGetHistory;
 import jp.ac.jec.jz.gr03.util.Authorizer;
 
 /**
@@ -141,12 +143,19 @@ public class BuyTicketServlet extends HttpServlet {
         point.voteTicketCount += count;
         updatePoint(point);
         
-        // 履歴追加
-        PointGetHistory hist = new PointGetHistory();
-        hist.user = user;
-        hist.gotPoints = -spends;   // ポイント支払いなのでマイナス
-        hist.description = "チケット購入";
-        insertPointGetHistory(hist);
+        // ポイント獲得履歴追加
+        PointGetHistory pointHistory = new PointGetHistory();
+        pointHistory.user = user;
+        pointHistory.gotPoints = -spends;   // ポイント支払いなのでマイナス
+        pointHistory.description = "チケット購入";
+        insertPointGetHistory(pointHistory);
+        
+        // チケット獲得履歴追加
+        VoteTicketGetHistory ticketHistory = new VoteTicketGetHistory();
+        ticketHistory.user = user;
+        ticketHistory.gotTickets = count;
+        ticketHistory.description = "チケット購入";
+        insertVoteTicketGetHistory(ticketHistory);
     }
     private Point fetchPoint(User user) throws IOException {
         PointDAO dao = new PointDAO();
@@ -158,6 +167,10 @@ public class BuyTicketServlet extends HttpServlet {
     }
     private void insertPointGetHistory(PointGetHistory hist) throws IOException {
         PointGetHistoryDAO dao = new PointGetHistoryDAO();
+        dao.insert(hist);
+    }
+    private void insertVoteTicketGetHistory(VoteTicketGetHistory hist) throws IOException {
+        VoteTicketGetHistoryDAO dao = new VoteTicketGetHistoryDAO();
         dao.insert(hist);
     }
 }
