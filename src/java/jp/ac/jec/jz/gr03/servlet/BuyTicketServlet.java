@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import jp.ac.jec.jz.gr03.dao.PointDAO;
+import jp.ac.jec.jz.gr03.dao.PointGetHistoryDAO;
 import jp.ac.jec.jz.gr03.entity.Point;
+import jp.ac.jec.jz.gr03.entity.PointGetHistory;
 import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
 
@@ -100,20 +102,19 @@ public class BuyTicketServlet extends HttpServlet {
         }
         
         User user = auth.getUserLoggedInAs();
-        Point point = fetchPoint(user);
         
         if (ticket <= 0) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "正の整数で指定してください");
             return;
-        } else if (PRICE * ticket > point.pointCount) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ポイントが足りません");
+        }
+        try {
+            buyTickets(ticket, user);
+        } catch (IllegalArgumentException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが不正です");
             return;
         }
-        point.pointCount -= PRICE * ticket;
-        point.voteTicketCount += ticket;
-        updatePoint(point);
         
-        request.setAttribute("point", point);
+        request.setAttribute("point", fetchPoint(user));
         request.setAttribute("price", PRICE);
         request.getRequestDispatcher("buyTicket.jsp").forward(request, response);
     }
@@ -128,6 +129,25 @@ public class BuyTicketServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private void buyTickets(int count, User user) throws IOException, IllegalArgumentException {
+        int spends = PRICE * count;
+        Point point = fetchPoint(user);
+        if (spends > point.pointCount) {
+            throw new IllegalArgumentException("ポイントが足りません");
+        }
+        
+        // 購入
+        point.pointCount -= spends;
+        point.voteTicketCount += count;
+        updatePoint(point);
+        
+        // 履歴追加
+        PointGetHistory hist = new PointGetHistory();
+        hist.user = user;
+        hist.gotPoints = -spends;   // ポイント支払いなのでマイナス
+        hist.description = "チケット購入";
+        insertPointGetHistory(hist);
+    }
     private Point fetchPoint(User user) throws IOException {
         PointDAO dao = new PointDAO();
         return dao.selectByUserId(user.userId);
@@ -135,5 +155,9 @@ public class BuyTicketServlet extends HttpServlet {
     private void updatePoint(Point point) throws IOException {
         PointDAO dao = new PointDAO();
         dao.update(point);
+    }
+    private void insertPointGetHistory(PointGetHistory hist) throws IOException {
+        PointGetHistoryDAO dao = new PointGetHistoryDAO();
+        dao.insert(hist);
     }
 }
