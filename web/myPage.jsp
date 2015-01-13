@@ -24,6 +24,7 @@
             <li><a href="UserServlet?id=<%= user.userId%>">あなたの公開プロフィール</a></li>
             <li><a href="EditUserServlet">ユーザ情報編集</a></li>
             <li><a href="MyListServlet">マイリスト</a></li>
+            <li><a href="BuyTicketServlet">チケット購入</a></li>
         </ul>
         <% if (isArtist) {%>
         <div>
