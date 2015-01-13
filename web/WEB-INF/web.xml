@@ -285,6 +285,10 @@
         <servlet-name>PointHistoryServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.PointHistoryServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TicketHistoryServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.TicketHistoryServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
         <url-pattern>/LoginWithGoogleServlet</url-pattern>
@@ -544,6 +548,10 @@
     <servlet-mapping>
         <servlet-name>PointHistoryServlet</servlet-name>
         <url-pattern>/PointHistoryServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TicketHistoryServlet</servlet-name>
+        <url-pattern>/TicketHistoryServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
