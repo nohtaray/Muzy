@@ -18,12 +18,16 @@
     </c:param>
     <c:param name="content">
 
+        <%-- TODO: 見づらいのでリファクタリング --%>
         並べ替え
         <div id="orders">
             <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.CREATED_AT.ordinal()%>">新着順</label>
             <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.COMMENT_CREATED_AT.ordinal()%>">コメントの新しい順</label>
             <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.VIEW.ordinal()%>">再生数順</label>
             <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.MYLIST.ordinal()%>">マイリスト登録数順</label>
+            <% if (tag != null) {%>
+            <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.TAG_SCORE.ordinal()%>">タグの評価順</label>
+            <% } %>
         </div>
         <div>
             <% if (musics != null) {%>
