@@ -18,7 +18,7 @@
         <ul>
         <% for (Artist artist : artists) { %>
         <li>
-            artist.artistId
+            <%= artist.artistId%>
             <a href="ArtistServlet?id=<%= artist.artistId %>"><%= artist.name%></a>
         </li>
         <% } %>
