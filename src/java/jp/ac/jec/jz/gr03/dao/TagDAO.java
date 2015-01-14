@@ -15,6 +15,10 @@ import jp.ac.jec.jz.gr03.entity.Tag;
  */
 public class TagDAO extends DAO {
 
+    public enum Order {
+        SCORE_AVERAGE,
+        UNSPECIFIED,
+    }
     public Tag selectById(int tagId) throws IOException {
         String sql = "select * from tags where tag_id = ? limit 1";
         try {
@@ -46,8 +50,16 @@ public class TagDAO extends DAO {
     }
 
     public TagResultSet selectByName(String name) throws IOException {
+        return selectByName(name, Order.UNSPECIFIED);
+    }
+    public TagResultSet selectByName(String name, Order order) throws IOException {
+        String sql;
+        if (order == Order.SCORE_AVERAGE) {
+            sql = "select * from tags where name = ? order by score_average desc";
+        } else {
+            sql = "select * from tags where name = ?";
+        }
         try {
-            String sql = "select * from tags where name = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             int idx = 1;
@@ -58,7 +70,7 @@ public class TagDAO extends DAO {
             throw new IOException(e);
         }
     }
-
+    
     public void insert(Tag tag) throws IOException {
         String sql = "insert into tags("
                 + "music_id, "

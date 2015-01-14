@@ -1,9 +1,6 @@
 package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -125,6 +122,12 @@ public class SearchMusicServlet extends HttpServlet {
 
     private TagResultSet searchTag(String tagName, int order) throws IOException {
         TagDAO dao = new TagDAO();
-        return dao.selectByName(tagName);
+        TagDAO.Order daoOrder;
+        if (order == Order.TAG_SCORE.ordinal()) {
+            daoOrder = TagDAO.Order.SCORE_AVERAGE;
+        } else {
+            daoOrder = TagDAO.Order.UNSPECIFIED;
+        }
+        return dao.selectByName(tagName, daoOrder);
     }
 }
