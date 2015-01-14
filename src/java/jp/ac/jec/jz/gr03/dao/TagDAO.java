@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
-import jp.ac.jec.jz.gr03.dao.entityresultset.MusicResultSet;
 import jp.ac.jec.jz.gr03.dao.entityresultset.TagResultSet;
 import jp.ac.jec.jz.gr03.entity.Tag;
 
@@ -17,6 +16,10 @@ public class TagDAO extends DAO {
 
     public enum Order {
         SCORE_AVERAGE,
+        MUSIC_CREATED_AT,
+        MUSIC_COMMENT_CREATED_AT,
+        MUSIC_VIEW,
+        MUSIC_MYLIST,
         UNSPECIFIED,
     }
     public Tag selectById(int tagId) throws IOException {
@@ -56,6 +59,14 @@ public class TagDAO extends DAO {
         String sql;
         if (order == Order.SCORE_AVERAGE) {
             sql = "select * from tags where name = ? order by score_average desc";
+        } else if (order == Order.MUSIC_CREATED_AT) {
+            sql = "select * from tags as t join musics as m using(music_id) where t.name = ? order by m.created_at desc";
+        } else if (order == Order.MUSIC_COMMENT_CREATED_AT) {
+            sql = "select * from tags as t join musics as m using(music_id) where t.name = ? order by (select max(created_at) from comments as c where c.music_id = m.music_id) desc";
+        } else if (order == Order.MUSIC_VIEW) {
+            sql = "select * from tags as t join musics as m using(music_id) where t.name = ? order by m.view_count desc";
+        } else if (order == Order.MUSIC_MYLIST) {
+            sql = "select * from tags as t join musics as m using(music_id) where t.name = ? order by (select count(*) from mylist_details as md where md.music_id = m.music_id) desc";
         } else {
             sql = "select * from tags where name = ?";
         }

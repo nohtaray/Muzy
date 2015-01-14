@@ -125,6 +125,14 @@ public class SearchMusicServlet extends HttpServlet {
         TagDAO.Order daoOrder;
         if (order == Order.TAG_SCORE.ordinal()) {
             daoOrder = TagDAO.Order.SCORE_AVERAGE;
+        } else if (order == Order.CREATED_AT.ordinal()) {
+            daoOrder = TagDAO.Order.MUSIC_CREATED_AT;
+        } else if (order == Order.COMMENT_CREATED_AT.ordinal()) {
+            daoOrder = TagDAO.Order.MUSIC_COMMENT_CREATED_AT;
+        } else if (order == Order.VIEW.ordinal()) {
+            daoOrder = TagDAO.Order.MUSIC_VIEW;
+        } else if (order == Order.MYLIST.ordinal()) {
+            daoOrder = TagDAO.Order.MUSIC_MYLIST;
         } else {
             daoOrder = TagDAO.Order.UNSPECIFIED;
         }
