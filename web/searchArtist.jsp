@@ -15,7 +15,7 @@
     <c:param name="content">
 
         <form method="GET" action="">
-            <input type="text" name="q" value="<%= keyword%>">
+            <input type="text" name="q" value="<%= keyword != null ? keyword : ""%>">
             <input type="submit" value="検索">
             <div id="orders">
                 <label><input type="radio" name="o" value="<%= SearchArtistServlet.Order.CREATED_AT.ordinal()%>">新着順</label>
@@ -23,9 +23,9 @@
                 <label><input type="radio" name="o" value="<%= SearchArtistServlet.Order.VOTE.ordinal()%>">投票数順</label>
             </div>
         </form>
-        <p>
+            
+            <% if (artists != null) { %>
             <%= keyword%> の検索結果
-        </p>
         <ul>
             <% for (Artist artist : artists) {%>
             <li>
@@ -34,6 +34,7 @@
             </li>
             <% }%>
         </ul>
+        <% } %>
 
     </c:param>
 </c:import>
