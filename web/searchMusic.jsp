@@ -14,13 +14,17 @@
     </c:param>
     <c:param name="content">
 
-        並べ替え
-        <div id="orders">
-            <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.CREATED_AT.ordinal()%>">新着順</label>
-            <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.COMMENT_CREATED_AT.ordinal()%>">コメントの新しい順</label>
-            <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.VIEW.ordinal()%>">再生数順</label>
-            <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.MYLIST.ordinal()%>">マイリスト登録数順</label>
-        </div>
+        
+        <form method="GET" action="">
+            <input type="text" name="q" value="<%= keyword != null ? keyword : ""%>">
+            <input type="submit" value="検索">
+            <div id="orders">
+                <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.CREATED_AT.ordinal()%>">新着順</label>
+                <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.COMMENT_CREATED_AT.ordinal()%>">コメントの新しい順</label>
+                <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.VIEW.ordinal()%>">再生数順</label>
+                <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.MYLIST.ordinal()%>">マイリスト登録数順</label>
+            </div>
+        </form>
         <div>
             <% if (musics != null) {%>
             キーワード "<%= keyword%>" の検索結果
