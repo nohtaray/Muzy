@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import jp.ac.jec.jz.gr03.dao.MusicDAO;
 import jp.ac.jec.jz.gr03.dao.TagDAO;
 import jp.ac.jec.jz.gr03.dao.entityresultset.MusicResultSet;
+import jp.ac.jec.jz.gr03.dao.entityresultset.TagResultSet;
 
 /**
  *
@@ -64,18 +65,18 @@ public class SearchMusicServlet extends HttpServlet {
             } catch (NumberFormatException ignored) {}
         }
         
-        MusicResultSet musics = null;
         String keyword = request.getParameter("q");
         String tag = request.getParameter("t");
         if (keyword != null) {
-            musics = searchMusic(keyword, order);
+            MusicResultSet musics = searchMusic(keyword, order);
             request.setAttribute("keyword", keyword);
+            request.setAttribute("musics", musics);
         } else if (tag != null) {
-            musics = searchTag(tag, order);
+            TagResultSet tags = searchTag(tag, order);
             request.setAttribute("tag", tag);
+            request.setAttribute("tags", tags);
         }
-
-        request.setAttribute("musics", musics);
+        
         request.getRequestDispatcher("searchMusic.jsp").forward(request, response);
     }
 
@@ -120,8 +121,8 @@ public class SearchMusicServlet extends HttpServlet {
         }
     }
 
-    private MusicResultSet searchTag(String tagName, int order) throws IOException {
+    private TagResultSet searchTag(String tagName, int order) throws IOException {
         TagDAO dao = new TagDAO();
-        return dao.selectMusicsByName(tagName);
+        return dao.selectByName(tagName);
     }
 }

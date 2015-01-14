@@ -59,20 +59,6 @@ public class TagDAO extends DAO {
         }
     }
 
-    public MusicResultSet selectMusicsByName(String name) throws IOException {
-        try {
-            String sql = "select * from musics natural join (select distinct music_id from tags where name = ?) music_ids";
-            PreparedStatement ps = conn.prepareStatement(sql);
-
-            int idx = 1;
-            ps.setObject(idx++, name, Types.VARCHAR);
-
-            return new MusicResultSet(ps.executeQuery());
-        } catch (SQLException e) {
-            throw new IOException(e);
-        }
-    }
-
     public void insert(Tag tag) throws IOException {
         String sql = "insert into tags("
                 + "music_id, "
