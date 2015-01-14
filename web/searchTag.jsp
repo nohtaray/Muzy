@@ -16,14 +16,18 @@
     </c:param>
     <c:param name="content">
 
-        並べ替え
-        <div id="orders">
-            <label><input type="radio" name="o" value="<%= SearchTagServlet.Order.MUSIC_CREATED_AT.ordinal()%>">新着順</label>
-            <label><input type="radio" name="o" value="<%= SearchTagServlet.Order.MUSIC_COMMENT_CREATED_AT.ordinal()%>">コメントの新しい順</label>
-            <label><input type="radio" name="o" value="<%= SearchTagServlet.Order.MUSIC_VIEW.ordinal()%>">再生数順</label>
-            <label><input type="radio" name="o" value="<%= SearchTagServlet.Order.MUSIC_MYLIST.ordinal()%>">マイリスト登録数順</label>
-            <label><input type="radio" name="o" value="<%= SearchTagServlet.Order.SCORE_AVERAGE.ordinal()%>">タグの評価順</label>
-        </div>
+
+        <form method="GET" action="">
+            タグ：<input type="text" name="t" value="<%= tagName != null ? tagName : ""%>">
+            <input type="submit" value="検索">
+            <div id="orders">
+                <label><input type="radio" name="o" value="<%= SearchTagServlet.Order.MUSIC_CREATED_AT.ordinal()%>">新着順</label>
+                <label><input type="radio" name="o" value="<%= SearchTagServlet.Order.MUSIC_COMMENT_CREATED_AT.ordinal()%>">コメントの新しい順</label>
+                <label><input type="radio" name="o" value="<%= SearchTagServlet.Order.MUSIC_VIEW.ordinal()%>">再生数順</label>
+                <label><input type="radio" name="o" value="<%= SearchTagServlet.Order.MUSIC_MYLIST.ordinal()%>">マイリスト登録数順</label>
+                <label><input type="radio" name="o" value="<%= SearchTagServlet.Order.SCORE_AVERAGE.ordinal()%>">タグの評価順</label>
+            </div>
+        </form>
         <div>
             <% if (tags != null) {%>
             タグ "<%= tagName%>" の検索結果
