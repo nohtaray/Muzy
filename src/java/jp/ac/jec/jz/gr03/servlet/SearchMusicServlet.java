@@ -108,17 +108,19 @@ public class SearchMusicServlet extends HttpServlet {
 
     private MusicResultSet searchMusic(String keyword, int order) throws IOException {
         MusicDAO dao = new MusicDAO();
+        MusicDAO.Order daoOrder;
         if (order == Order.CREATED_AT.ordinal()) {
-            return dao.selectByKeyword(keyword, MusicDAO.Order.CREATED_AT);
+            daoOrder = MusicDAO.Order.CREATED_AT;
         } else if (order == Order.COMMENT_CREATED_AT.ordinal()) {
-            return dao.selectByKeyword(keyword, MusicDAO.Order.COMMENT_CREATED_AT);
+            daoOrder = MusicDAO.Order.COMMENT_CREATED_AT;
         } else if (order == Order.VIEW.ordinal()) {
-            return dao.selectByKeyword(keyword, MusicDAO.Order.VIEW);
+            daoOrder = MusicDAO.Order.VIEW;
         } else if (order == Order.MYLIST.ordinal()) {
-            return dao.selectByKeyword(keyword, MusicDAO.Order.MYLIST);
+            daoOrder = MusicDAO.Order.MYLIST;
         } else {
-            return dao.selectByKeyword(keyword, MusicDAO.Order.UNSPECIFIED);
+            daoOrder = MusicDAO.Order.UNSPECIFIED;
         }
+        return dao.selectByKeyword(keyword, daoOrder);
     }
 
     private TagResultSet searchTag(String tagName, int order) throws IOException {
