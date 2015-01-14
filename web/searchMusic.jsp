@@ -7,7 +7,7 @@
 <%@page import="jp.ac.jec.jz.gr03.entity.Music" %>
 <%
     String keyword = (String) request.getAttribute("keyword");
-    String tag = (String) request.getAttribute("tag");
+    String tagName = (String) request.getAttribute("tagName");
     MusicResultSet musics = (MusicResultSet) request.getAttribute("musics");
     TagResultSet tags = (TagResultSet) request.getAttribute("tags");
 %>
@@ -25,7 +25,7 @@
             <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.COMMENT_CREATED_AT.ordinal()%>">コメントの新しい順</label>
             <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.VIEW.ordinal()%>">再生数順</label>
             <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.MYLIST.ordinal()%>">マイリスト登録数順</label>
-            <% if (tag != null) {%>
+            <% if (tagName != null) {%>
             <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.TAG_SCORE.ordinal()%>">タグの評価順</label>
             <% } %>
         </div>
@@ -40,7 +40,7 @@
                 <% }%>
             </ul>
             <% } else if (tags != null) {%>
-            タグ "<%= tag%>" の検索結果
+            タグ "<%= tagName%>" の検索結果
             <ul>
                 <% for (Tag t : tags) {%>
                 <li>

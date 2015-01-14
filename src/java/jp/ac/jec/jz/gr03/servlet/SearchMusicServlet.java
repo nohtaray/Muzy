@@ -71,7 +71,7 @@ public class SearchMusicServlet extends HttpServlet {
             } else {
                 tags = searchTag(tag, order);
             }
-            request.setAttribute("tag", tag);
+            request.setAttribute("tagName", tag);
             request.setAttribute("tags", tags);
         } else if (keyword != null) {
             MusicResultSet musics = searchMusic(keyword, order);
