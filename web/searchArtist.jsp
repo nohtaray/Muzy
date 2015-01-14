@@ -1,5 +1,6 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="jp.ac.jec.jz.gr03.servlet.SearchArtistServlet"%>
 <%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.ArtistResultSet" %>
 <%@page import="jp.ac.jec.jz.gr03.entity.Artist" %>
 <%
@@ -9,9 +10,16 @@
 <c:import url="/layout/application.jsp">
     <c:param name="title" value="アーティスト検索" />
     <c:param name="header">
+        <script type="text/javascript" src="js/search.js"></script>
     </c:param>
     <c:param name="content">
         
+        並べ替え
+        <div id="orders">
+            <label><input type="radio" name="o" value="<%= SearchArtistServlet.Order.CREATED_AT.ordinal()%>">新着順</label>
+            <label><input type="radio" name="o" value="<%= SearchArtistServlet.Order.MYLIST.ordinal()%>">マイリスト登録数順</label>
+            <label><input type="radio" name="o" value="<%= SearchArtistServlet.Order.VOTE.ordinal()%>">投票数順</label>
+        </div>
         <p>
             <%= keyword %> の検索結果
         </p>
