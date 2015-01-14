@@ -13,24 +13,27 @@
         <script type="text/javascript" src="js/search.js"></script>
     </c:param>
     <c:param name="content">
-        
-        並べ替え
-        <div id="orders">
-            <label><input type="radio" name="o" value="<%= SearchArtistServlet.Order.CREATED_AT.ordinal()%>">新着順</label>
-            <label><input type="radio" name="o" value="<%= SearchArtistServlet.Order.MYLIST.ordinal()%>">マイリスト登録数順</label>
-            <label><input type="radio" name="o" value="<%= SearchArtistServlet.Order.VOTE.ordinal()%>">投票数順</label>
-        </div>
+
+        <form method="GET" action="">
+            <input type="text" name="q" value="<%= keyword%>">
+            <input type="submit" value="検索">
+            <div id="orders">
+                <label><input type="radio" name="o" value="<%= SearchArtistServlet.Order.CREATED_AT.ordinal()%>">新着順</label>
+                <label><input type="radio" name="o" value="<%= SearchArtistServlet.Order.MYLIST.ordinal()%>">マイリスト登録数順</label>
+                <label><input type="radio" name="o" value="<%= SearchArtistServlet.Order.VOTE.ordinal()%>">投票数順</label>
+            </div>
+        </form>
         <p>
-            <%= keyword %> の検索結果
+            <%= keyword%> の検索結果
         </p>
         <ul>
-        <% for (Artist artist : artists) { %>
-        <li>
-            <%= artist.artistId%>
-            <a href="ArtistServlet?id=<%= artist.artistId %>"><%= artist.name%></a>
-        </li>
-        <% } %>
+            <% for (Artist artist : artists) {%>
+            <li>
+                <%= artist.artistId%>
+                <a href="ArtistServlet?id=<%= artist.artistId%>"><%= artist.name%></a>
+            </li>
+            <% }%>
         </ul>
-        
+
     </c:param>
 </c:import>
