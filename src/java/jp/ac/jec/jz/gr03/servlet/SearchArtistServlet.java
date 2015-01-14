@@ -1,9 +1,6 @@
 package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +14,12 @@ import jp.ac.jec.jz.gr03.dao.entityresultset.ArtistResultSet;
  */
 public class SearchArtistServlet extends HttpServlet {
 
+    public enum Order {
+        CREATED_AT,
+        MYLIST,
+        VOTE,
+        UNSPECIFIED,
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,12 +48,21 @@ public class SearchArtistServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
 
+        // ソート順
+        int order = Order.UNSPECIFIED.ordinal();
+        String strOrder = request.getParameter("o");
+        if (strOrder != null) {
+            try {
+                order = Integer.parseInt(strOrder);
+            } catch (NumberFormatException ignored) {}
+        }
+        
         String keyword = request.getParameter("q");
         if (keyword != null) {
-            ArtistResultSet artists = searchArtist(keyword);
+            ArtistResultSet artists = searchArtist(keyword, order);
             request.setAttribute("artists", artists);
         }
-
+        
         request.setAttribute("keyword", keyword);
         request.getRequestDispatcher("searchArtist.jsp").forward(request, response);
     }
@@ -81,8 +93,19 @@ public class SearchArtistServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private ArtistResultSet searchArtist(String keyword) throws IOException {
+    private ArtistResultSet searchArtist(String keyword, int order) throws IOException {
         ArtistDAO dao = new ArtistDAO();
-        return dao.selectByKeyword(keyword);
+        return dao.selectByKeyword(keyword, toArtistDAOOrder(order));
+    }
+    private ArtistDAO.Order toArtistDAOOrder(int order) {
+        if (order == Order.CREATED_AT.ordinal()) {
+            return ArtistDAO.Order.CREATED_AT;
+        } else if (order == Order.MYLIST.ordinal()) {
+            return ArtistDAO.Order.MYLIST;
+        } else if (order == Order.VOTE.ordinal()) {
+            return ArtistDAO.Order.VOTE;
+        } else {
+            return ArtistDAO.Order.UNSPECIFIED;
+        }
     }
 }
