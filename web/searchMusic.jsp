@@ -5,6 +5,7 @@
 <%
     String keyword = (String) request.getAttribute("keyword");
     String tag = (String) request.getAttribute("tag");
+    MusicResultSet musics = (MusicResultSet) request.getAttribute("musics");
 %>
 <c:import url="/layout/application.jsp">
     <c:param name="title" value="楽曲検索結果" />
@@ -12,6 +13,7 @@
     </c:param>
     <c:param name="content">
 
+        <% if (musics != null) { %>
         <p>
             <% if (keyword != null && tag == null) {%>
             キーワード "<%= keyword%>" の検索結果
@@ -24,7 +26,6 @@
         </p>
         <ul>
             <%
-                MusicResultSet musics = (MusicResultSet) request.getAttribute("musics");
                 Music music;
                 while ((music = musics.readRow()) != null) {
                     out.println("<li>");
@@ -34,6 +35,7 @@
                 }
             %>
         </ul>
+        <% }%>
 
     </c:param>
 </c:import>

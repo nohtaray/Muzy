@@ -55,8 +55,6 @@ public class SearchMusicServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
 
-        MusicResultSet musics;
-        
         // ソート順の取得
         int order = Order.UNSPECIFIED.ordinal();
         String strOrder = request.getParameter("o");
@@ -66,6 +64,7 @@ public class SearchMusicServlet extends HttpServlet {
             } catch (NumberFormatException ignored) {}
         }
         
+        MusicResultSet musics = null;
         String keyword = request.getParameter("q");
         String tag = request.getParameter("t");
         if (keyword != null) {
@@ -74,14 +73,8 @@ public class SearchMusicServlet extends HttpServlet {
         } else if (tag != null) {
             musics = searchTag(tag, order);
             request.setAttribute("tag", tag);
-        } else {
-            // キーワードもタグもない
-            // TODO: 単独の検索ページを出す
-            
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータがありません");
-            return;
         }
-        
+
         request.setAttribute("musics", musics);
         request.getRequestDispatcher("searchMusic.jsp").forward(request, response);
     }
@@ -98,7 +91,7 @@ public class SearchMusicServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
         response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
     }
 
@@ -126,6 +119,7 @@ public class SearchMusicServlet extends HttpServlet {
             return dao.selectByKeyword(keyword, MusicDAO.Order.UNSPECIFIED);
         }
     }
+
     private MusicResultSet searchTag(String tagName, int order) throws IOException {
         TagDAO dao = new TagDAO();
         return dao.selectMusicsByName(tagName);
