@@ -8,7 +8,9 @@
 <%
     String keyword = (String) request.getAttribute("keyword");
     String tagName = (String) request.getAttribute("tagName");
+    // 楽曲のみの検索の場合は MusicResultSet
     MusicResultSet musics = (MusicResultSet) request.getAttribute("musics");
+    // タグを含めた検索の場合は TagResultSet
     TagResultSet tags = (TagResultSet) request.getAttribute("tags");
 %>
 <c:import url="/layout/application.jsp">
@@ -18,16 +20,15 @@
     </c:param>
     <c:param name="content">
 
-        <%-- TODO: 見づらいのでリファクタリング --%>
         並べ替え
         <div id="orders">
             <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.CREATED_AT.ordinal()%>">新着順</label>
             <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.COMMENT_CREATED_AT.ordinal()%>">コメントの新しい順</label>
             <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.VIEW.ordinal()%>">再生数順</label>
             <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.MYLIST.ordinal()%>">マイリスト登録数順</label>
-            <% if (tagName != null) {%>
+                <% if (tagName != null) {%>
             <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.TAG_SCORE.ordinal()%>">タグの評価順</label>
-            <% } %>
+                <% } %>
         </div>
         <div>
             <% if (musics != null) {%>
@@ -41,6 +42,9 @@
             </ul>
             <% } else if (tags != null) {%>
             タグ "<%= tagName%>" の検索結果
+            <% if (keyword != null) {%>
+            （キーワード "<%= keyword%>"）
+            <% } %>
             <ul>
                 <% for (Tag t : tags) {%>
                 <li>
@@ -48,9 +52,6 @@
                 </li>
                 <% }%>
             </ul>
-            <% } else { %>
-            なにかがおかしいです。<br>
-            このメッセージを消すには、このJSPまたは呼び出し元のサーブレットを修正してください。
             <% }%>
         </div>
     </c:param>

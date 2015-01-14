@@ -63,22 +63,22 @@ public class SearchMusicServlet extends HttpServlet {
         }
         
         String keyword = request.getParameter("q");
-        String tag = request.getParameter("t");
-        if (tag != null) {
+        String tagName = request.getParameter("t");
+        if (tagName != null) {
             TagResultSet tags;
             if (keyword != null) {
-                tags = searchTag(tag, keyword, order);
+                tags = searchTag(tagName, keyword, order);
             } else {
-                tags = searchTag(tag, order);
+                tags = searchTag(tagName, order);
             }
-            request.setAttribute("tagName", tag);
             request.setAttribute("tags", tags);
         } else if (keyword != null) {
             MusicResultSet musics = searchMusic(keyword, order);
-            request.setAttribute("keyword", keyword);
             request.setAttribute("musics", musics);
         }
         
+        request.setAttribute("keyword", keyword);
+        request.setAttribute("tagName", tagName);
         request.getRequestDispatcher("searchMusic.jsp").forward(request, response);
     }
 
