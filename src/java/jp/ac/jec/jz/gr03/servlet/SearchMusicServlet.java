@@ -109,19 +109,7 @@ public class SearchMusicServlet extends HttpServlet {
 
     private MusicResultSet searchMusic(String keyword, int order) throws IOException {
         MusicDAO dao = new MusicDAO();
-        MusicDAO.Order daoOrder;
-        if (order == Order.CREATED_AT.ordinal()) {
-            daoOrder = MusicDAO.Order.CREATED_AT;
-        } else if (order == Order.COMMENT_CREATED_AT.ordinal()) {
-            daoOrder = MusicDAO.Order.COMMENT_CREATED_AT;
-        } else if (order == Order.VIEW.ordinal()) {
-            daoOrder = MusicDAO.Order.VIEW;
-        } else if (order == Order.MYLIST.ordinal()) {
-            daoOrder = MusicDAO.Order.MYLIST;
-        } else {
-            daoOrder = MusicDAO.Order.UNSPECIFIED;
-        }
-        return dao.selectByKeyword(keyword, daoOrder);
+        return dao.selectByKeyword(keyword, toMusicDAOOrder(order));
     }
 
     private TagResultSet searchTag(String tagName, int order) throws IOException {
@@ -134,6 +122,19 @@ public class SearchMusicServlet extends HttpServlet {
         return dao.selectByNameAndMusicKeyword(tagName, musicKeyword, toTagDAOOrder(order));
     }
     
+    private MusicDAO.Order toMusicDAOOrder(int order) {
+        if (order == Order.CREATED_AT.ordinal()) {
+            return MusicDAO.Order.CREATED_AT;
+        } else if (order == Order.COMMENT_CREATED_AT.ordinal()) {
+            return MusicDAO.Order.COMMENT_CREATED_AT;
+        } else if (order == Order.VIEW.ordinal()) {
+            return MusicDAO.Order.VIEW;
+        } else if (order == Order.MYLIST.ordinal()) {
+            return MusicDAO.Order.MYLIST;
+        } else {
+            return MusicDAO.Order.UNSPECIFIED;
+        }
+    }
     private TagDAO.Order toTagDAOOrder(int order) {
         if (order == Order.TAG_SCORE.ordinal()) {
             return TagDAO.Order.SCORE_AVERAGE;
