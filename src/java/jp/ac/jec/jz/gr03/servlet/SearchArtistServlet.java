@@ -44,19 +44,14 @@ public class SearchArtistServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        
+
         String keyword = request.getParameter("q");
-        if (keyword == null) {
-            // TODO: 単独の検索ページを出す
-            
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが足りません");
-            return;
+        if (keyword != null) {
+            ArtistResultSet artists = searchArtist(keyword);
+            request.setAttribute("artists", artists);
         }
 
-        ArtistResultSet artists = searchArtist(keyword);
         request.setAttribute("keyword", keyword);
-        request.setAttribute("artists", artists);
         request.getRequestDispatcher("searchArtist.jsp").forward(request, response);
     }
 
@@ -72,7 +67,7 @@ public class SearchArtistServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
         response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
     }
 
