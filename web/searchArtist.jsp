@@ -4,6 +4,7 @@
 <%@page import="jp.ac.jec.jz.gr03.entity.Artist" %>
 <%
     String keyword = (String) request.getAttribute("keyword");
+    ArtistResultSet artists = (ArtistResultSet) request.getAttribute("artists");
 %>
 <c:import url="/layout/application.jsp">
     <c:param name="title" value="アーティスト検索" />
@@ -15,16 +16,12 @@
             <%= keyword %> の検索結果
         </p>
         <ul>
-        <%
-            ArtistResultSet artists = (ArtistResultSet)request.getAttribute("artists");
-            Artist artist;
-            while ((artist = artists.readRow()) != null) {
-                out.println("<li>");
-                out.println(artist.artistId);
-                out.println("<a href=\"ArtistServlet?id=" + artist.artistId + "\">" + artist.name + "</a>");
-                out.println("</li>");
-            }
-        %>
+        <% for (Artist artist : artists) { %>
+        <li>
+            artist.artistId
+            <a href="ArtistServlet?id=<%= artist.artistId %>"><%= artist.name%></a>
+        </li>
+        <% } %>
         </ul>
         
     </c:param>
