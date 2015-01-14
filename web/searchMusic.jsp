@@ -34,17 +34,12 @@
             <% } %>
         </p>
         <ul>
-            <%
-                Music music;
-                while ((music = musics.readRow()) != null) {
-                    out.println("<li>");
-                    out.println("<a href=\"MusicServlet?id=" + music.musicId + "\">" + music.title + "</a>");
-                    out.println(music.youtubeVideoId);
-                    out.println("</li>");
-                }
-            %>
+            <% for (Music music : musics) {%>
+            <li>
+                <a href="MusicServlet?id=<%= music.musicId%>"><%= music.title%></a>
+            </li>
+            <% }%>
         </ul>
         <% }%>
-
     </c:param>
 </c:import>
