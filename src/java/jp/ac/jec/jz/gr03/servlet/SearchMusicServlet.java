@@ -22,7 +22,6 @@ public class SearchMusicServlet extends HttpServlet {
         VIEW,
         MYLIST,
         TAG_SCORE,
-        VOTE,
         UNSPECIFIED,
     }
     /**
