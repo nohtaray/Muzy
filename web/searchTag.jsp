@@ -13,13 +13,16 @@
     <c:param name="title" value="楽曲検索結果" />
     <c:param name="header">
         <script type="text/javascript" src="js/search.js"></script>
+        <script type="text/javascript" src="js/searchTag.js"></script>
     </c:param>
     <c:param name="content">
 
 
-        <form method="GET" action="">
+        <form method="GET" action="" id="search-form">
             タグ：<input type="text" name="t" value="<%= tagName != null ? tagName : ""%>">
             <input type="submit" value="検索">
+            <br>
+            キーワードで絞込：<input type="text" id="keyword" value="<%= keyword != null ? keyword : ""%>">
             <div id="orders">
                 <label><input type="radio" name="o" value="<%= SearchTagServlet.Order.MUSIC_CREATED_AT.ordinal()%>">新着順</label>
                 <label><input type="radio" name="o" value="<%= SearchTagServlet.Order.MUSIC_COMMENT_CREATED_AT.ordinal()%>">コメントの新しい順</label>
