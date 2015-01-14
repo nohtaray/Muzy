@@ -64,14 +64,19 @@ public class SearchMusicServlet extends HttpServlet {
         
         String keyword = request.getParameter("q");
         String tag = request.getParameter("t");
-        if (keyword != null) {
+        if (tag != null) {
+            TagResultSet tags;
+            if (keyword != null) {
+                tags = searchTag(tag, keyword, order);
+            } else {
+                tags = searchTag(tag, order);
+            }
+            request.setAttribute("tag", tag);
+            request.setAttribute("tags", tags);
+        } else if (keyword != null) {
             MusicResultSet musics = searchMusic(keyword, order);
             request.setAttribute("keyword", keyword);
             request.setAttribute("musics", musics);
-        } else if (tag != null) {
-            TagResultSet tags = searchTag(tag, order);
-            request.setAttribute("tag", tag);
-            request.setAttribute("tags", tags);
         }
         
         request.getRequestDispatcher("searchMusic.jsp").forward(request, response);
@@ -122,20 +127,27 @@ public class SearchMusicServlet extends HttpServlet {
 
     private TagResultSet searchTag(String tagName, int order) throws IOException {
         TagDAO dao = new TagDAO();
-        TagDAO.Order daoOrder;
+        return dao.selectByName(tagName, toTagDAOOrder(order));
+    }
+    
+    private TagResultSet searchTag(String tagName, String musicKeyword, int order) throws IOException {
+        TagDAO dao = new TagDAO();
+        return dao.selectByNameAndMusicKeyword(tagName, musicKeyword, toTagDAOOrder(order));
+    }
+    
+    private TagDAO.Order toTagDAOOrder(int order) {
         if (order == Order.TAG_SCORE.ordinal()) {
-            daoOrder = TagDAO.Order.SCORE_AVERAGE;
+            return TagDAO.Order.SCORE_AVERAGE;
         } else if (order == Order.CREATED_AT.ordinal()) {
-            daoOrder = TagDAO.Order.MUSIC_CREATED_AT;
+            return TagDAO.Order.MUSIC_CREATED_AT;
         } else if (order == Order.COMMENT_CREATED_AT.ordinal()) {
-            daoOrder = TagDAO.Order.MUSIC_COMMENT_CREATED_AT;
+            return TagDAO.Order.MUSIC_COMMENT_CREATED_AT;
         } else if (order == Order.VIEW.ordinal()) {
-            daoOrder = TagDAO.Order.MUSIC_VIEW;
+            return TagDAO.Order.MUSIC_VIEW;
         } else if (order == Order.MYLIST.ordinal()) {
-            daoOrder = TagDAO.Order.MUSIC_MYLIST;
+            return TagDAO.Order.MUSIC_MYLIST;
         } else {
-            daoOrder = TagDAO.Order.UNSPECIFIED;
+            return TagDAO.Order.UNSPECIFIED;
         }
-        return dao.selectByName(tagName, daoOrder);
     }
 }

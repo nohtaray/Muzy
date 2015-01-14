@@ -81,6 +81,38 @@ public class TagDAO extends DAO {
             throw new IOException(e);
         }
     }
+    public TagResultSet selectByNameAndMusicKeyword(String tagName, String musicKeyword) throws IOException {
+        return selectByNameAndMusicKeyword(tagName, musicKeyword, Order.UNSPECIFIED);
+    }
+    public TagResultSet selectByNameAndMusicKeyword(String tagName, String musicKeyword, Order order) throws IOException {
+        String sql;
+        if (order == Order.SCORE_AVERAGE) {
+            sql = "select * from tags as t join musics as m using(music_id) where t.name = ? and (m.title like ? or m.description like ?) order by t.score_average desc";
+        } else if (order == Order.MUSIC_CREATED_AT) {
+            sql = "select * from tags as t join musics as m using(music_id) where t.name = ? and (m.title like ? or m.description like ?) order by m.created_at desc";
+        } else if (order == Order.MUSIC_COMMENT_CREATED_AT) {
+            sql = "select * from tags as t join musics as m using(music_id) where t.name = ? and (m.title like ? or m.description like ?) order by (select max(created_at) from comments as c where c.music_id = m.music_id) desc";
+        } else if (order == Order.MUSIC_VIEW) {
+            sql = "select * from tags as t join musics as m using(music_id) where t.name = ? and (m.title like ? or m.description like ?) order by m.view_count desc";
+        } else if (order == Order.MUSIC_MYLIST) {
+            sql = "select * from tags as t join musics as m using(music_id) where t.name = ? and (m.title like ? or m.description like ?) order by (select count(*) from mylist_details as md where md.music_id = m.music_id) desc";
+        } else {
+            sql = "select * from tags as t join musics as m using(music_id) where t.name = ? and (m.title like ? or m.description like ?)";
+        }
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            String like = "%" + musicKeyword.replaceAll("[\\\\%_]", "\\$0") + "%";
+            int idx = 1;
+            ps.setObject(idx++, tagName, Types.VARCHAR);
+            ps.setObject(idx++, like, Types.VARCHAR);
+            ps.setObject(idx++, like, Types.VARCHAR);
+
+            return new TagResultSet(ps.executeQuery());
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
     
     public void insert(Tag tag) throws IOException {
         String sql = "insert into tags("
