@@ -1,5 +1,3 @@
-<%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.TagResultSet"%>
-<%@page import="jp.ac.jec.jz.gr03.entity.Tag"%>
 <%@page import="jp.ac.jec.jz.gr03.servlet.SearchMusicServlet"%>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -7,11 +5,7 @@
 <%@page import="jp.ac.jec.jz.gr03.entity.Music" %>
 <%
     String keyword = (String) request.getAttribute("keyword");
-    String tagName = (String) request.getAttribute("tagName");
-    // 楽曲のみの検索の場合は MusicResultSet
     MusicResultSet musics = (MusicResultSet) request.getAttribute("musics");
-    // タグを含めた検索の場合は TagResultSet
-    TagResultSet tags = (TagResultSet) request.getAttribute("tags");
 %>
 <c:import url="/layout/application.jsp">
     <c:param name="title" value="楽曲検索結果" />
@@ -26,9 +20,6 @@
             <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.COMMENT_CREATED_AT.ordinal()%>">コメントの新しい順</label>
             <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.VIEW.ordinal()%>">再生数順</label>
             <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.MYLIST.ordinal()%>">マイリスト登録数順</label>
-                <% if (tagName != null) {%>
-            <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.TAG_SCORE.ordinal()%>">タグの評価順</label>
-                <% } %>
         </div>
         <div>
             <% if (musics != null) {%>
@@ -37,18 +28,6 @@
                 <% for (Music music : musics) {%>
                 <li>
                     <a href="MusicServlet?id=<%= music.musicId%>"><%= music.title%></a>
-                </li>
-                <% }%>
-            </ul>
-            <% } else if (tags != null) {%>
-            タグ "<%= tagName%>" の検索結果
-            <% if (keyword != null) {%>
-            （キーワード "<%= keyword%>"）
-            <% } %>
-            <ul>
-                <% for (Tag t : tags) {%>
-                <li>
-                    <a href="MusicServlet?id=<%= t.music.musicId%>"><%= t.music.title%></a>
                 </li>
                 <% }%>
             </ul>

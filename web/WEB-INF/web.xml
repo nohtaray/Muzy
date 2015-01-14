@@ -281,6 +281,10 @@
         <servlet-name>TicketHistoryServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.TicketHistoryServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchTagServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.SearchTagServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
         <url-pattern>/LoginWithGoogleServlet</url-pattern>
@@ -536,6 +540,10 @@
     <servlet-mapping>
         <servlet-name>TicketHistoryServlet</servlet-name>
         <url-pattern>/TicketHistoryServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchTagServlet</servlet-name>
+        <url-pattern>/SearchTagServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

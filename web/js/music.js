@@ -140,7 +140,7 @@ function loadTags() {
         function makeTagElement(tag) {
             var $tag = $('<div>').addClass('tag').attr('data-tag-id', tag['tag_id']);
             // tag name
-            $('<a>', { href: 'SearchMusicServlet?t=' + tag['name'] }).addClass('tag-name').attr('title', tag['score_average'].toFixed(1)).text(tag['name']).appendTo($tag);
+            $('<a>', { href: 'SearchTagServlet?t=' + tag['name'] }).addClass('tag-name').attr('title', tag['score_average'].toFixed(1)).text(tag['name']).appendTo($tag);
             // 自分が投稿した楽曲の場合
             if ($('#is-my-music').val() === 'true') {
                 // 削除ボタン

@@ -42,7 +42,7 @@
                         </form>
                     </div>
                     <div>
-                        <form action="SearchMusicServlet" method="GET">
+                        <form action="SearchTagServlet" method="GET">
                             <input type="text" name="t" placeholder="タグで検索">
                             <input type="submit" value="検索">
                         </form>
