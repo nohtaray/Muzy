@@ -44,7 +44,7 @@
         </form>
         <div id="messages">
             <% for (Message message : messages) {%>
-            <div class="message <%= message.isDeleted ? "message-deleted" : "" %>">
+            <div class="message <%= message.isDeleted ? "message-deleted" : ""%>">
                 <div class="message-header">
                     <%= message.messageId%>. <%= message.user.name%>
                 </div>
@@ -53,6 +53,9 @@
                 </div>
                 <div class="message-footer">
                     <%= message.createdAt%>
+                    <% if (me != null && (me.userId == message.user.userId || me.userId == message.artist.user.userId || me.isOwner)) {%>
+                    <button class="message-delete-button" data-artist-id="<%=message.artist.artistId%>" data-message-id="<%=message.messageId%>">削除</button>
+                    <%} %>
                 </div>
             </div>
             <% }%>

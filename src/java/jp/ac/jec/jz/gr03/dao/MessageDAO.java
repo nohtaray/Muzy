@@ -73,4 +73,27 @@ public class MessageDAO extends DAO {
         }
         message.createdAt = Date.now();
     }
+    public void update(Message message) throws IOException {
+        String sql = "update messages set "
+                + "user_id = ?, "
+                + "content = ?, "
+                + "response_to_id = ?, "
+                + "is_deleted = ? "
+                + "where artist_id = ? and message_id = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            
+            int idx = 1;
+            ps.setObject(idx++, (message.user != null ? message.user.userId : null), Types.INTEGER);
+            ps.setObject(idx++, message.content, Types.VARCHAR);
+            ps.setObject(idx++, (message.responseTo != null ? message.responseTo.messageId : null), Types.INTEGER);
+            ps.setObject(idx++, expressAsInteger(message.isDeleted), Types.INTEGER);
+            ps.setObject(idx++, (message.artist != null ? message.artist.artistId : null), Types.INTEGER);
+            ps.setObject(idx++, message.messageId, Types.INTEGER);
+            
+            ps.execute();
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
 }

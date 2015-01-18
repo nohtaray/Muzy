@@ -1,4 +1,4 @@
-/*global $ */
+/*global $, Helper */
 $(function() {
     // vote 機能
     $(function() {
@@ -59,5 +59,17 @@ $(function() {
                 $('#vote-now-tickets').text(res['vote_ticket_count']);
             });
         }
+    });
+    // message
+    $(function() {
+        $(document).on('click', '.message-delete-button', function() {
+            var ok = confirm('このメッセージを削除します。よろしいですか？');
+            if (!ok) return;
+
+            Helper.postHref('DeleteMessageServlet', {
+                artist: $(this).data('artistId'),
+                message: $(this).data('messageId')
+            });
+        });
     });
 });
