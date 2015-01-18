@@ -37,8 +37,10 @@
             <%= artist.introduction%>
         </div>
 
-        <form method="post" action="keizibanwrite">
-            <input type="text" placeholder="コメントを入力"><input type="button" value="コメントする" onclick="alert('投稿しました！');">
+        <form method="post" action="NewMessageServlet">
+            <input type="hidden" name="artist" value="<%= artist.artistId %>">
+            <textarea placeholder="コメントを入力" name="content"></textarea>
+            <input type="submit" value="送信">
         </form>
         <div id="messages">
             <% for (Message message : messages) {%>
