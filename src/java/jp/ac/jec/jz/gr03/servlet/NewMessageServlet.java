@@ -6,13 +6,15 @@
 package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.*;
 import javax.servlet.http.HttpSession;
+import jp.ac.jec.jz.gr03.dao.ArtistDAO;
+import jp.ac.jec.jz.gr03.dao.MessageDAO;
+import jp.ac.jec.jz.gr03.entity.Artist;
+import jp.ac.jec.jz.gr03.entity.Message;
 import jp.ac.jec.jz.gr03.util.Authorizer;
 
 /**
@@ -20,14 +22,6 @@ import jp.ac.jec.jz.gr03.util.Authorizer;
  * @author 12jz0112
  */
 public class NewMessageServlet extends HttpServlet {
-
-    static {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -49,8 +43,7 @@ public class NewMessageServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
 
-        request.getRequestDispatcher("artist.jsp").forward(request, response);
-
+        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
     }
 
     /**
@@ -66,74 +59,43 @@ public class NewMessageServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
 
-        Connection con = null;
-        PrintWriter out = response.getWriter();
+        HttpSession session = request.getSession();
+        Authorizer auth = new Authorizer(session);
 
-        try {
-            HttpSession session = request.getSession();
-            Authorizer auth = new Authorizer(session);
-            String text;
-            text = request.getParameter("text");
-
-            //host = request.getRemoteHost(); IPアドレスを取得するらしい
-            if ((text == null) || text.equals("")) {
-                out.println("コメントが入力されていません！");
-                return;
-            }
-            if (text.length() <= 1) {
-                out.println("コメントが短すぎます！");
-                return;
-            }
-
-            //データベースに書き込む処理
-            con = DriverManager.getConnection("jdbc:mysql:muzy", "dbuser", "mypassword");
-
-            //クエリーを実行
-            Integer artistId;
-             try {
-                artistId = Integer.parseInt(request.getParameter("artistId"));
-            } catch (NumberFormatException e) {
-                artistId = null;
-            }
-            
-            String sql = "select max(message_id) from messages where artist_id = ?";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, artistId);
-            ResultSet rs = ps.executeQuery();
-
-            int maxId;
-            if (rs.next()) {
-                // 結果が返ってきてる
-                maxId = rs.getInt(1);
-            } else {
-                maxId = 0;
-            }
-            
-            Integer userId;
-            try {
-                userId = Integer.parseInt(request.getParameter("userId"));
-            } catch (NumberFormatException e) {
-                userId = null;
-            }
-            String content = request.getParameter("content");
-
-            sql = "insert into messages (artist_id,message_id,user_id,content,response_to_id,created_at) values (?,?,?,?,?,now())";
-            ps = con.prepareStatement(sql);
-            //DAOができたらnullチェックを入れます
-            ps.setInt(1, artistId);
-            ps.setInt(2, maxId + 1);
-            ps.setInt(3, userId);
-            ps.setString(4, content);
-            ps.setNull(5, java.sql.Types.INTEGER);
-            ps.execute();
-
-            
-        } catch (SQLException e) {
-            out.println("SQLException:" + e.getMessage());
-        } finally {
-            out.close();
+        if (!auth.hasLoggedIn()) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "ログインしてください");
+            return;
         }
-
+        
+        String content = request.getParameter("content");
+        String artistIdStr = request.getParameter("artist");
+        int artistId;
+        Artist artist;
+        if (content == null || artistIdStr == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが足りません");
+            return;
+        }
+        if (content.isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "入力してください");
+            return;
+        }
+        try {
+            artistId = Integer.parseInt(artistIdStr);
+        } catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "アーティストIDは数値で指定してください");
+            return;
+        }
+        artist = fetchArtist(artistId);
+        if (artist == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "アーティストが存在しません");
+            return;
+        }
+        
+        Message message = new Message();
+        message.artist = artist;
+        message.user = auth.getUserLoggedInAs();
+        message.content = content;
+        insertMessage(message);
     }
 
     /**
@@ -146,4 +108,13 @@ public class NewMessageServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private Artist fetchArtist(int id) throws IOException {
+        ArtistDAO dao = new ArtistDAO();
+        return dao.selectById(id);
+    }
+    
+    private void insertMessage(Message message) throws IOException {
+        MessageDAO dao = new MessageDAO();
+        dao.insert(message);
+    }
 }
