@@ -96,6 +96,8 @@ public class NewMessageServlet extends HttpServlet {
         message.user = auth.getUserLoggedInAs();
         message.content = content;
         insertMessage(message);
+        
+        response.sendRedirect("ArtistServlet?id=" + artist.artistId);
     }
 
     /**
