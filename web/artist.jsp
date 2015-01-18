@@ -38,18 +38,18 @@
         </div>
 
         <form method="post" action="NewMessageServlet">
-            <input type="hidden" name="artist" value="<%= artist.artistId %>">
+            <input type="hidden" name="artist" value="<%= artist.artistId%>">
             <textarea placeholder="コメントを入力" name="content"></textarea>
             <input type="submit" value="送信">
         </form>
         <div id="messages">
             <% for (Message message : messages) {%>
-            <div class="message">
+            <div class="message <%= message.isDeleted ? "message-deleted" : "" %>">
                 <div class="message-header">
                     <%= message.messageId%>. <%= message.user.name%>
                 </div>
                 <div class="message-body">
-                    <%= message.content%>
+                    <%= message.isDeleted ? "削除されました" : message.content%>
                 </div>
                 <div class="message-footer">
                     <%= message.createdAt%>
