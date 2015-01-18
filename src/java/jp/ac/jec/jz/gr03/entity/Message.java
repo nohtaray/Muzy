@@ -13,5 +13,5 @@ public class Message {
     public String content = null;
     public Message responseTo = null;
     public Date createdAt = null;
-    public Boolean isDeleted = null;
+    public Boolean isDeleted = false;
 }
