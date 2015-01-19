@@ -8,66 +8,9 @@
     </c:param>
     <c:param name="title" value="会員登録" />
     <c:param name="content">
-        <style type="text/css">
-        input {width:180px;}
-        </style>
-        
-        
-        <script src="js/lib/prototype.js"></script> 
-        
-        <!--
- <form onsubmit="return funcDispChange()">
-    <input type="text" name="email" onfocus="xx()" onblur="yy()" onkeyup="zz(this)"/><br>
-    <input type="submit" name="bt" value="使用可能なＩＤかチェック" /> 
- </form>
-        
-        <script type="text/javascript">
-            function funcDispChange() {
-                $.ajax({
-                    type     : 'POST',
-                    dataType : 'text',
-                    url      : 'UniqueCheck', //ここにServletのアドレス
-                    //ここがServletに渡される値
-                    data     : {
-                                 email   : 'bastest'
-                               }
-                }).done(function() {
-                    // ajax ok
-                    alert("使用可能です");
-                }).fail(function() {
-                    // ajax error
-                    alert("使用不可です");
-                }).always(function() {
-                    // ajax complete
-                    alert("あああ");
-                });
-            }
-        </script>
-        
-        
-        <script type="text/javascript">
-            function funcDispChange() {
-                new Ajax.Request('UniqueCheckServlet', {
-                    method: 'get',
-                    onSuccess: function() {
-                        alert("成功");
-                    },
-                    onFailure: function() {
-                        alert("失敗");
-                    },
-                    onException: function() {
-                        alert("エラー");
-                    }
-                });
-            }
-        </script>
-        -->
-        
-        
-        
-        
-        
-       
+        <script src="js/lib/jquery-2.1.1.min.js"></script> 
+        <script src="js/signUpUser.js"></script>
+
         <form method="POST" action="SignUpUserServlet">
             <% if (error != null) { %>
 
@@ -76,16 +19,19 @@
             </div>
             <% } %>
             <label>
-                email：<input type="text" name="email">
+                email：<input type="text" name="email" id="email" onChange="checkEmail()">
+                <p id="OK" style="display: none;">このemailは使用可能です。</p><p id="NG" style="display: none;">このemailは使用できません。</p>
             </label><br>
             <label>
                 ユーザ名：<input type="text" name="name">
             </label><br>
             <label>
                 パスワード：<input type="password" name="password">
+                パスワードの確認 : 
             </label><br>
             <label>
-                自己紹介文：<input type="text" name="introduction">
+                自己紹介文：<!--<input type="text" name="introduction">-->
+                <textarea name="introduction" cols="30" rows="5"></textarea>
             </label><br>
             
             <input type="submit" value="会員登録">

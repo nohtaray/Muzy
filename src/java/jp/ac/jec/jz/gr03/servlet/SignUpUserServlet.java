@@ -24,7 +24,6 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
-import java.sql.*;
 import jp.ac.jec.jz.gr03.dao.UserDAO;
 /**
  *
@@ -43,7 +42,7 @@ public class SignUpUserServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException, ClassNotFoundException {
     response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
+    /*PrintWriter out = response.getWriter();
     PreparedStatement ps;
     Connection con = null;
   //  UserDAO userDAO = null;
@@ -54,6 +53,7 @@ public class SignUpUserServlet extends HttpServlet {
             //パスワードのハッシュ化
             user.setPassword(request.getParameter("password"));
 
+            //DAOでやるようにｂｙ小菅さん
             //ユーザ追加
             //デフォルト値追加後変更
             ps = con.prepareStatement("insert into users(email, name, password_hash, introduction, created_at, updated_at)values(?,?,?,?,now(),now())");
@@ -65,9 +65,6 @@ public class SignUpUserServlet extends HttpServlet {
 
             con.close();
 
-            ///登録完了後開くページ
-            request.getRequestDispatcher("index.jsp").forward(request, response);
-            
             } catch (SQLException e) {
                 out.print("エラー");
                 if(e.getErrorCode() == 1062){
@@ -76,7 +73,8 @@ public class SignUpUserServlet extends HttpServlet {
             } catch (Exception e2) {
                     System.out.println("Exception: " + e2.getMessage());
             }
-    }
+    */
+    }  
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -91,9 +89,12 @@ public class SignUpUserServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
+            request.getRequestDispatcher("signUpUser.jsp").forward(request, response);
+            
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(SignUpUserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     /**
@@ -109,6 +110,41 @@ public class SignUpUserServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
+            HttpSession session = request.getSession();
+            
+            User user = new User();
+            user.email = request.getParameter("email");
+            if (user.email == null) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが足りません");
+                return;
+            }
+            
+            user.name = request.getParameter("name");
+            if (user.name == null) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが足りません");
+                return;
+            }
+            
+            user.introduction = request.getParameter("introduction");
+            
+            //パスワードのハッシュ化
+            user.setPassword(request.getParameter("password"));
+            if (user.passwordHash == null) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが足りません");
+                return;
+            }
+            
+            user.isValid = true;
+            user.isOwner = false;
+            
+            registerUser(user);
+            
+            session.invalidate();
+            session = request.getSession(true);
+            Authorizer auth = new Authorizer(session);
+            auth.loginAs(user);
+            response.sendRedirect("IndexServlet");
+            
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(SignUpUserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -123,5 +159,10 @@ public class SignUpUserServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    
+    private void registerUser(User user)
+            throws IOException {
+        UserDAO dao = new UserDAO();
+        dao.insert(user);
+    }
 }
