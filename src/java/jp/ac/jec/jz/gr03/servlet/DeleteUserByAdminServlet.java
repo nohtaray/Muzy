@@ -6,8 +6,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import jp.ac.jec.jz.gr03.dao.UserDAO;
 import jp.ac.jec.jz.gr03.entity.User;
+import jp.ac.jec.jz.gr03.util.Authorizer;
 
 /**
  *
@@ -43,6 +45,8 @@ public class DeleteUserByAdminServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
     }
 
     /**
@@ -58,9 +62,16 @@ public class DeleteUserByAdminServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
 
+        HttpSession session = request.getSession();
+        Authorizer auth = new Authorizer(session);
+        if (!auth.hasLoggedIn() || !auth.getUserLoggedInAs().isOwner) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "管理者としてログインしてください");
+            return;
+        }
+        
         String idStr = request.getParameter("id");
         if (idStr == null) {
-            // パラメータがない。どうするか
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが足りません");
             return;
         }
 
@@ -68,12 +79,16 @@ public class DeleteUserByAdminServlet extends HttpServlet {
         try {
             id = Integer.parseInt(idStr);
         } catch (NumberFormatException e) {
-            // idが不正。どうするか
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "数値で指定してください");
             return;
         }
 
         UserDAO userDAO = new UserDAO();
         User user = userDAO.selectById(id);
+        if (user == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ユーザが存在しません");
+            return;
+        }
         userDAO.delete(user);
         response.sendRedirect("AdminUserServlet");
     }

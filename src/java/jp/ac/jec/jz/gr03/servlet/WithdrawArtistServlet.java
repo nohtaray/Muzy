@@ -29,6 +29,7 @@ import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
+import jp.ac.jec.jz.gr03.dao.ArtistDAO;
 import jp.ac.jec.jz.gr03.entity.User;
 
 /**
@@ -79,7 +80,14 @@ public class WithdrawArtistServlet extends HttpServlet {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(WithdrawArtistServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
+        HttpSession session = request.getSession();
+        Authorizer auth = new Authorizer(session);
+
+        if (!auth.hasLoggedIn() || !isUserArtist(auth.getUserLoggedInAs())) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "アーティストとしてログインしてください");
+            return;
+        }
         request.getRequestDispatcher("withdrawArtist.jsp").forward(request, response);
     }
 
@@ -99,7 +107,14 @@ public class WithdrawArtistServlet extends HttpServlet {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(WithdrawArtistServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
+        HttpSession session = request.getSession();
+        Authorizer auth = new Authorizer(session);
+        if (!auth.hasLoggedIn() || !isUserArtist(auth.getUserLoggedInAs())) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "アーティストとしてログインしてください");
+            return;
+        }
+
         PrintWriter out = response.getWriter();
         PreparedStatement ps;
         Connection con = null;
@@ -107,10 +122,6 @@ public class WithdrawArtistServlet extends HttpServlet {
 
             //データベースアクセス
             con = DriverManager.getConnection("jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull", "root", "rootroot");
-
-            //セッション作成
-            HttpSession session = request.getSession();
-            Authorizer auth = new Authorizer(session);
 
             //Userは別ファイルから取り出し可能
             User user = auth.getUserLoggedIn();
@@ -142,4 +153,8 @@ public class WithdrawArtistServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private boolean isUserArtist(User user) throws IOException {
+        ArtistDAO dao = new ArtistDAO();
+        return dao.selectByUserId(user.userId) != null;
+    }
 }

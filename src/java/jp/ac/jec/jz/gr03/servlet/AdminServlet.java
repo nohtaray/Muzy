@@ -12,6 +12,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import jp.ac.jec.jz.gr03.util.Authorizer;
 
 /**
  *
@@ -31,7 +33,6 @@ public class AdminServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.getRequestDispatcher("admin.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -47,6 +48,15 @@ public class AdminServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        HttpSession session = request.getSession();
+        Authorizer auth = new Authorizer(session);
+        if (!auth.hasLoggedIn() || !auth.getUserLoggedInAs().isOwner) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "ログインしてください");
+            return;
+        }
+        
+        request.getRequestDispatcher("admin.jsp").forward(request, response);
     }
 
     /**
@@ -61,6 +71,8 @@ public class AdminServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
     }
 
     /**

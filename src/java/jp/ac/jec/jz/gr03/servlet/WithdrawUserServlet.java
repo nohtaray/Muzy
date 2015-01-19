@@ -80,6 +80,12 @@ public class WithdrawUserServlet extends HttpServlet {
             Logger.getLogger(WithdrawUserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        HttpSession session = request.getSession();
+        Authorizer auth = new Authorizer(session);
+        if (!auth.hasLoggedIn()) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "ログインしてください");
+            return;
+        }
         request.getRequestDispatcher("withdrawUser.jsp").forward(request, response);
     }
 
@@ -100,6 +106,12 @@ public class WithdrawUserServlet extends HttpServlet {
             Logger.getLogger(WithdrawUserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        HttpSession session = request.getSession();
+        Authorizer auth = new Authorizer(session);
+        if (!auth.hasLoggedIn()) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "ログインしてください");
+            return;
+        }
         
         PrintWriter out = response.getWriter();
         PreparedStatement ps;
@@ -108,10 +120,6 @@ public class WithdrawUserServlet extends HttpServlet {
 
             //データベースアクセス
             con = DriverManager.getConnection("jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull", "root", "rootroot");
-
-            //セッション作成
-            HttpSession session = request.getSession();
-            Authorizer auth = new Authorizer(session);
 
             //Userは別ファイルから取り出し可能
             User user = auth.getUserLoggedIn();

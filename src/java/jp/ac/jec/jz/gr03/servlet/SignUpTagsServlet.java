@@ -62,43 +62,8 @@ public class SignUpTagsServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ClassNotFoundException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        HttpSession session = request.getSession();
-        Authorizer auth = new Authorizer(session);
-        User user = auth.getUserLoggedInAs();
-
-        String tagName = request.getParameter("tagname");
-        String strMusicId = request.getParameter("musicid");
-        if (tagName == null || strMusicId == null) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが足りません");
-            return;
-        }
-        if (tagName.isEmpty()) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "タグ名が空です");
-            return;
-        }
-        
-        int musicId;
-        try {
-            musicId = Integer.parseInt(strMusicId);
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "楽曲IDが不正です");
-            return;
-        }
-        
-        Music music = fetchMusic(musicId);
-        if (music == null) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "楽曲が存在しません");
-            return;
-        }
-        
-        Tag tag = new Tag();
-        tag.music = music;
-        tag.name = tagName;
-        
-        insertTag(tag);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -113,11 +78,7 @@ public class SignUpTagsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(SignUpTagsServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -131,11 +92,45 @@ public class SignUpTagsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(SignUpTagsServlet.class.getName()).log(Level.SEVERE, null, ex);
+        processRequest(request, response);
+
+        HttpSession session = request.getSession();
+        Authorizer auth = new Authorizer(session);
+        if (!auth.hasLoggedIn()) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "ログインしてください");
+            return;
         }
+
+        String tagName = request.getParameter("tagname");
+        String strMusicId = request.getParameter("musicid");
+        if (tagName == null || strMusicId == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが足りません");
+            return;
+        }
+        if (tagName.isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "タグ名が空です");
+            return;
+        }
+
+        int musicId;
+        try {
+            musicId = Integer.parseInt(strMusicId);
+        } catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "楽曲IDが不正です");
+            return;
+        }
+
+        Music music = fetchMusic(musicId);
+        if (music == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "楽曲が存在しません");
+            return;
+        }
+
+        Tag tag = new Tag();
+        tag.music = music;
+        tag.name = tagName;
+
+        insertTag(tag);
     }
 
     /**
@@ -152,6 +147,7 @@ public class SignUpTagsServlet extends HttpServlet {
         MusicDAO dao = new MusicDAO();
         return dao.selectById(musicId);
     }
+
     private void insertTag(Tag tag) throws IOException {
         TagDAO dao = new TagDAO();
         dao.insert(tag);

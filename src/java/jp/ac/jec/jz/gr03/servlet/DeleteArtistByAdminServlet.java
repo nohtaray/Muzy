@@ -42,6 +42,8 @@ public class DeleteArtistByAdminServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
     }
 
     /**
