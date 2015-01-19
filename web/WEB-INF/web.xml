@@ -110,10 +110,6 @@
         <servlet-class>jp.ac.jec.jz.gr03.servlet.WithdrawArtistServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ArtistStopServlet</servlet-name>
-        <servlet-class>jp.ac.jec.jz.gr03.servlet.ArtistStopServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>SignUpTagsServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.SignUpTagsServlet</servlet-class>
     </servlet>
@@ -364,10 +360,6 @@
     <servlet-mapping>
         <servlet-name>WithdrawArtistServlet</servlet-name>
         <url-pattern>/WithdrawArtistServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ArtistStopServlet</servlet-name>
-        <url-pattern>/ArtistStopServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SignUpTagsServlet</servlet-name>
