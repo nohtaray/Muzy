@@ -2,7 +2,6 @@
 package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +31,7 @@ public class LogoutServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Authorizer auth = new Authorizer(session);
         auth.logout();
-        request.getRequestDispatcher("logout.jsp").forward(request, response);
+        response.sendRedirect("");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
