@@ -178,4 +178,17 @@ public class TagDAO extends DAO {
         }
     }
 
+    public void delete(Tag tag) throws IOException {
+        String sql = "delete from tags where tag_id = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            
+            int idx = 1;
+            ps.setObject(idx++, tag.tagId, Types.INTEGER);
+            
+            ps.execute();
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
 }
