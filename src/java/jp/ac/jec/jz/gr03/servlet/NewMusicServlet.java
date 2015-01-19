@@ -63,7 +63,7 @@ public class NewMusicServlet extends HttpServlet {
 
         User user = auth.getUserLoggedInAs();
         if (!isUserArtist(user)) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "アーティスト登録してください");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "アーティスト登録してください");
             return;
         }
 
@@ -92,7 +92,7 @@ public class NewMusicServlet extends HttpServlet {
 
         User user = auth.getUserLoggedInAs();
         if (!isUserArtist(user)) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "アーティスト登録してください");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "アーティスト登録してください");
             return;
         }
 

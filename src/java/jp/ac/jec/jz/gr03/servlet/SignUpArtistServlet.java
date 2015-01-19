@@ -54,11 +54,11 @@ public class SignUpArtistServlet extends HttpServlet {
         }
         User user = auth.getUserLoggedInAs();
         if (user.googleUID == null) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Google の認証情報がありません。");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Google の認証情報がありません。");
             return;
         }
         if (userIsArtist(user)) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "すでに登録されています");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "すでに登録されています");
             return;
         }
 
@@ -87,7 +87,7 @@ public class SignUpArtistServlet extends HttpServlet {
         }
         User user = auth.getUserLoggedInAs();
         if (userIsArtist(user)) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "すでに登録されています");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "すでに登録されています");
             return;
         }
 

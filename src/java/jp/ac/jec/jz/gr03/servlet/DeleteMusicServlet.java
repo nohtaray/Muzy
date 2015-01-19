@@ -86,7 +86,7 @@ public class DeleteMusicServlet extends HttpServlet {
             return;
         } else if (!auth.hasLoggedInAs(music.artist.user)) {
             // 自分の楽曲じゃない
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "許可がありません");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "許可がありません");
             return;
         }
         

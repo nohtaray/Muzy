@@ -53,7 +53,7 @@ public class EditArtistServlet extends HttpServlet {
         }
         Artist artist = selectOwnArtist(auth.getUserLoggedInAs());
         if (artist == null) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "アーティスト登録してください");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "アーティスト登録してください");
             return;
         }
 
@@ -75,7 +75,7 @@ public class EditArtistServlet extends HttpServlet {
         }
         Artist artist = selectOwnArtist(auth.getUserLoggedInAs());
         if (artist == null) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "アーティスト登録してください");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "アーティスト登録してください");
             return;
         }
 

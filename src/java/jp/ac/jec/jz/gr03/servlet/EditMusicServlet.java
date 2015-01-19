@@ -78,7 +78,7 @@ public class EditMusicServlet extends HttpServlet {
             return;
         } else if (!auth.hasLoggedInAs(music.artist.user)) {
             // 自分の楽曲じゃない
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "許可がありません");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "許可がありません");
             return;
         }
         
@@ -124,7 +124,7 @@ public class EditMusicServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "楽曲が存在しません");
             return;
         } else if (!auth.hasLoggedInAs(music.artist.user)) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "許可がありません");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "許可がありません");
             return;
         }
         
