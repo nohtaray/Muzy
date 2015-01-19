@@ -28,6 +28,13 @@
         ${param.header}
     </head>
     <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="./">Muzy</a>
+                </div>
+            </div>
+        </nav>
         <header id="header">
             <h1><a href="./">Muzy</a></h1>
             <div>
@@ -60,18 +67,18 @@
                         <li><a href="SignUpUserServlet">パスワードで新規登録</a></li>
                         <li><a href="LoginWithGoogleServlet">Googleで登録・ログイン</a></li>
                     </ul>
-                    <% } else { %>
+                    <% } else {%>
                     <%-- ログインしている --%>
-                    <%= userLoggedIn.name %>としてログイン中
+                    <%= userLoggedIn.name%>としてログイン中
                     <ul>
                         <li><a href="MyPageServlet">マイページ</a></li>
                         <li><a href="LogoutServlet">ログアウト</a></li>
                     </ul>
-                    <% } %>
+                    <% }%>
                 </div>
             </div>
         </header>
-        
+
         <nav id="nav">
             <ul>
                 <li><a href="SponsorServlet">スポンサー</a></li>

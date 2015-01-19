@@ -4,6 +4,11 @@
     Author     : yada
 */
 
+body {
+    padding-top: 50px;
+}
+
+
 #nav {
     float: left;
     width: 300px;
