@@ -6,12 +6,6 @@
 <c:import url="/layout/application.jsp">
     <c:param name="title" value="new music" />
     <c:param name="header">
-        <!-- あとでけす -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-        <!-- /あとでけす -->
-
         <link rel="stylesheet" type="text/css" href="css/newMusic.css">
         <script type="text/javascript" src="js/newMusic.js"></script>
     </c:param>

@@ -13,10 +13,6 @@
 <c:import url="/layout/application.jsp">
     <c:param name="title" value="<%= music.title%>" />
     <c:param name="header">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-
         <link rel="stylesheet" href="css/music.css">
         <script src="js/lib/jquery.raty.js"></script>
         <script src="js/music.js"></script>

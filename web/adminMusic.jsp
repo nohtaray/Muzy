@@ -6,12 +6,6 @@
 <c:import url="/layout/admin.jsp">
     <c:param name="title" value="楽曲管理" />
     <c:param name="header">
-        <!-- あとでけす -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-        <!-- /あとでけす -->
-        
         <script src="js/adminMusic.js"></script>
     </c:param>
     <c:param name="content">
