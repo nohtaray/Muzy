@@ -108,9 +108,7 @@ public class LoginWithPasswordServlet extends HttpServlet {
             session = request.getSession(true);
             auth = new Authorizer(session);
             auth.loginAs(user);
-
-            PrintWriter out = response.getWriter();
-            out.println("login success");
+            response.sendRedirect("MyPageServlet");
         } else {
             request.setAttribute("error", "メールアドレスかパスワードが違います");
             request.getRequestDispatcher("loginWithPassword.jsp").forward(request, response);
