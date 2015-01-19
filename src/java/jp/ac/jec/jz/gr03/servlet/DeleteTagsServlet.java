@@ -65,7 +65,7 @@ public class DeleteTagsServlet extends HttpServlet {
         Connection con = null;
 		try {
             //データベースアクセス
-            con = DriverManager.getConnection("jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull", "12jz0129", "12jz0129");
+            con = DriverManager.getConnection("jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull", "root", "rootroot");
             
             HttpSession session = request.getSession();
             Authorizer auth = new Authorizer(session);

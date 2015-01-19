@@ -106,7 +106,7 @@ public class WithdrawArtistServlet extends HttpServlet {
         try {
 
             //データベースアクセス
-            con = DriverManager.getConnection("jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull", "12jz0129", "12jz0129");
+            con = DriverManager.getConnection("jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull", "root", "rootroot");
 
             //セッション作成
             HttpSession session = request.getSession();
