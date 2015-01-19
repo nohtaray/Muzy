@@ -16,6 +16,7 @@ import jp.ac.jec.jz.gr03.util.Date;
 import jp.ac.jec.jz.gr03.util.GoogleProxy;
 import jp.ac.jec.jz.gr03.util.GoogleUserInfo;
 import jp.ac.jec.jz.gr03.util.Json;
+import org.apache.http.HttpStatus;
 
 
 /**
@@ -121,19 +122,19 @@ public class LoginWithGoogleServlet extends HttpServlet {
                 session = request.getSession(true);
                 auth = new Authorizer(session);
                 auth.loginAs(dbUser);
-
-                PrintWriter out = response.getWriter();
-                out.println("ログインに成功しました！");
+                response.sendRedirect("MyPageServlet");
+                return;
             } else {
                 // 未登録の Google アカウント。認証情報をセッションに入れて新規登録へ
                 session.setAttribute("googleUserInfoForSignUp", gu);
                 response.sendRedirect("SignUpWithGoogleServlet");
+                return;
             }
         } else {
             // ログイン済み。Google で追加認証したい。
             if (googleAccountRegistered) {
-                PrintWriter out = response.getWriter();
-                out.println("この Google アカウントはすでに登録されているため使用できません");
+                response.sendError(HttpStatus.SC_CONFLICT, "この Google アカウントはすでに登録されているため使用できません");
+                return;
             } else {
                 // 未登録の Google アカウント
                 User me = auth.getUserLoggedInAs();
@@ -142,8 +143,8 @@ public class LoginWithGoogleServlet extends HttpServlet {
                 me.googleRefreshToken = gu.refreshToken;
                 me.googleExpiresAt = new Date(gu.expiresAt * 1000);
                 updateUser(me);
-                PrintWriter out = response.getWriter();
-                out.println("認証が成功しました");
+                response.sendRedirect("MyPageServlet");
+                return;
             }
         }
     }
