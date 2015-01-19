@@ -1,4 +1,3 @@
-
 package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
@@ -14,8 +13,6 @@ import jp.ac.jec.jz.gr03.entity.User;
  *
  * @author 12jz0112
  */
-
-
 public class DeleteUserByAdminServlet extends HttpServlet {
 
     /**
@@ -30,7 +27,7 @@ public class DeleteUserByAdminServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -60,8 +57,8 @@ public class DeleteUserByAdminServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-         String idStr = request.getParameter("id");
+
+        String idStr = request.getParameter("id");
         if (idStr == null) {
             // パラメータがない。どうするか
             return;
@@ -74,10 +71,11 @@ public class DeleteUserByAdminServlet extends HttpServlet {
             // idが不正。どうするか
             return;
         }
-        
+
         UserDAO userDAO = new UserDAO();
         User user = userDAO.selectById(id);
         userDAO.delete(user);
+        response.sendRedirect("AdminUserServlet");
     }
 
     /**
