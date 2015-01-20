@@ -277,6 +277,10 @@
         <servlet-name>DeleteMessageServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.DeleteMessageServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RankingArtistVoteJsonServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.RankingArtistVoteJsonServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
         <url-pattern>/LoginWithGoogleServlet</url-pattern>
@@ -528,6 +532,10 @@
     <servlet-mapping>
         <servlet-name>DeleteMessageServlet</servlet-name>
         <url-pattern>/DeleteMessageServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RankingArtistVoteJsonServlet</servlet-name>
+        <url-pattern>/RankingArtistVoteJsonServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
