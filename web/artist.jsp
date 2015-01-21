@@ -84,44 +84,42 @@
                 </div>
             </div>
         </div>
-    </div>
 
-
-    <% if (loggedIn) {%>
-    <div id="vote-modal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4>アーティスト投票</h4>
-                </div>
-                <div class="modal-body">
-                    <div id="vote-roles">
-                        <form id="vote-form">
-                            <p>
-                                持っているチケットを使ってアーティストに投票します。<br>
-                                投票数が多いアーティストはランキングに表示されます。
-                            </p>
-                            <div id="vote-error" class="hidden error"></div>
-                            保有チケット：<span id="vote-now-tickets">0</span><br>
-                            利用チケット：<input type="text" id="vote-use-tickets">
-                            <input type="hidden" id="vote-artist-id" value="<%= artist.artistId%>">
-                            <input type="submit" class="btn btn-primary" value="投票">
-                        </form>
-                        <div id="vote-sending" class="hidden">
-                            <img src="img/ajax-loader.gif">通信中です...
-                        </div>
-                        <div id="vote-done" class="hidden">
-                            投票しました！
+        <% if (loggedIn) {%>
+        <div id="vote-modal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4>アーティスト投票</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="vote-roles">
+                            <form id="vote-form">
+                                <p>
+                                    持っているチケットを使ってアーティストに投票します。<br>
+                                    投票数が多いアーティストはランキングに表示されます。
+                                </p>
+                                <div id="vote-error" class="hidden error"></div>
+                                保有チケット：<span id="vote-now-tickets">0</span><br>
+                                利用チケット：<input type="text" id="vote-use-tickets">
+                                <input type="hidden" id="vote-artist-id" value="<%= artist.artistId%>">
+                                <input type="submit" class="btn btn-primary" value="投票">
+                            </form>
+                            <div id="vote-sending" class="hidden">
+                                <img src="img/ajax-loader.gif">通信中です...
+                            </div>
+                            <div id="vote-done" class="hidden">
+                                投票しました！
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <% }%>
-</c:param>
+        <% }%>
+    </c:param>
 </c:import>
