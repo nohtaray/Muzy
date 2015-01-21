@@ -69,7 +69,7 @@
                             <ul class="media-list">
                                 <% for (Music music : musics) {%>
                                 <li class="media">
-                                    <a class="pull-left" href="MusicServlet?id=<%= music.musicId%>">
+                                    <a class="media-left" href="MusicServlet?id=<%= music.musicId%>">
                                         <img class="media-object" src="http://img.youtube.com/vi/<%= music.youtubeVideoId%>/1.jpg">
                                     </a>
                                     <div class="media-body">
