@@ -11,60 +11,58 @@
     </c:param>
     <c:param name="content">
 
-        <div class="container">
-            <% if (error != null) { %>
-            <div class="has-error">
-                <%= error %>
-            </div>
-            <% }%>
-            <div class="row">
-                <div class="col-md-7">
-                    <div id="music-youtube-video-area">
-                        公開する動画を一覧から選択してください。<br>
-                        YouTubeで非公開の動画は表示されません。
-                    </div>
-                    <div id="new-music-form-area" class="hidden">
-                        <form action="NewMusicServlet" method="post" class="form-horizontal">
-                            <input type="hidden" name="youtubeVideoId" id="music-youtube-video-id">
-                            <div class="form-group">
-                                <label for="music-title" class="col-sm-2 control-label">Title</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="music-title" placeholder="Title" name="title">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="music-description" class="col-sm-2 control-label">Description</label>
-                                <div class="col-sm-10">
-                                    <textarea class="form-control" id="music-description" placeholder="Description" name="description"></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="music-tags" class="col-sm-2 control-label">Tags</label>
-                                <div class="col-sm-10">
-                                    <textarea class="form-control" id="music-tags" placeholder="Tags（改行で区切ります）" name="tags"></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-default">登録！</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+        <div class="row">
+            <div class="col-md-7">
+                <% if (error != null) {%>
+                <div class="text-danger bg-danger">
+                    <%= error%>
                 </div>
-                <div class="col-md-5">
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <div class="panel-title">
-                                YouTubeにアップロードした動画
+                <% }%>
+                <div id="music-youtube-video-area" class="text-center">
+                    公開する動画を一覧から選択してください。<br>
+                    YouTubeで非公開の動画は表示されません。
+                </div>
+                <div id="new-music-form-area" class="hidden">
+                    <form action="NewMusicServlet" method="post" class="form-horizontal">
+                        <input type="hidden" name="youtubeVideoId" id="music-youtube-video-id">
+                        <div class="form-group">
+                            <label for="music-title" class="col-sm-2 control-label">タイトル</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="music-title" placeholder="タイトル" name="title" required>
                             </div>
                         </div>
-                        <div class="panel-body">
-                            <div id="new-music-youtube-videos">
-                                <div id="new-music-youtube-loading">
-                                    <img src="img/ajax-loader.gif">
-                                </div>
+                        <div class="form-group">
+                            <label for="music-description" class="col-sm-2 control-label">説明</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="music-description" placeholder="説明" name="description"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="music-tags" class="col-sm-2 control-label">タグ</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="music-tags" placeholder="タグ（改行で区切ります）" name="tags"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary">投稿</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-5">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            YouTubeにアップロードした動画
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div id="new-music-youtube-videos">
+                            <div id="new-music-youtube-loading">
+                                <img src="img/ajax-loader.gif">
                             </div>
                         </div>
                     </div>

@@ -3,6 +3,10 @@
     Author     : yada
 */
 
+#music-youtube-video-area {
+    margin: 20px 0;
+}
+
 #new-music-youtube-videos {
     height: 585px;
     overflow: scroll;
