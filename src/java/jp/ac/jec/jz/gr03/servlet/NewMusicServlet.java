@@ -3,8 +3,6 @@ package jp.ac.jec.jz.gr03.servlet;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -106,6 +104,8 @@ public class NewMusicServlet extends HttpServlet {
             paramError = "パラメータが足りません";
         } else if (!isOwnedYouTubeVideo(youtubeVideoId, user)) {
             paramError = "不正な動画です";
+        } else if (youtubeVideoExists(youtubeVideoId)) {
+            paramError = "投稿済みです";
         } else if (title.isEmpty()) {
             paramError = "タイトルを入力してください";
         }
@@ -151,6 +151,11 @@ public class NewMusicServlet extends HttpServlet {
         return artist != null;
     }
 
+    private boolean youtubeVideoExists(String youtubeVideoId) throws IOException {
+        MusicDAO dao = new MusicDAO();
+        return dao.selectByYoutubeVideoId(youtubeVideoId) != null;
+    }
+    
     private boolean isOwnedYouTubeVideo(String youtubeVideoId, User user) {
         // TODO: 書く
         // 自分がYouTubeに投稿した動画か？

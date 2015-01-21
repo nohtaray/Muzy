@@ -37,6 +37,21 @@ public class MusicDAO extends DAO {
             throw new IOException(e);
         }
     }
+    public Object selectByYoutubeVideoId(String youtubeVideoId) throws IOException {
+        String sql = "select * from musics where youtube_video_id = ? limit 1";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            
+            int idx = 1;
+            ps.setObject(idx++, youtubeVideoId, Types.VARCHAR);
+            
+            MusicResultSet results = new MusicResultSet(ps.executeQuery());
+            
+            return results.readRow();
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
 
     public MusicResultSet selectByArtistId(int artistId) throws IOException {
         try {
