@@ -19,6 +19,7 @@
         <%= h(artist.name)%> さんのページ
     </c:param>
     <c:param name="header">
+        <link rel="stylesheet" type="text/css" href="css/artist.css">
         <script type="text/javascript" src="js/artist.js"></script>
     </c:param>
     <c:param name="content">
@@ -35,11 +36,16 @@
                     <%= br(h(artist.introduction))%>
                 </div>
 
-                <form method="post" action="NewMessageServlet">
+                <% if (loggedIn) {%>
+                <form method="post" action="NewMessageServlet" class="clearfix" id="new-message-form">
                     <input type="hidden" name="artist" value="<%= artist.artistId%>">
-                    <textarea placeholder="コメントを入力" name="content"></textarea>
-                    <input type="submit" value="送信">
+                    <div class="form-group">
+                        <label for="new-message-content">メッセージを送る</label>
+                        <textarea placeholder="メッセージ" name="content" id="new-message-content" class="form-control" rows="3"></textarea>
+                    </div>
+                    <input type="submit" class="btn btn-primary pull-right" value="送信する">
                 </form>
+                <% } %>
 
                 <div id="messages">
                     <% for (Message message : messages) {%>
