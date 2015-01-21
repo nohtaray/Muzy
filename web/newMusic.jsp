@@ -35,13 +35,13 @@
                         <div class="form-group row">
                             <label for="music-description" class="col-sm-2 control-label">説明</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" id="music-description" placeholder="説明" name="description"></textarea>
+                                <textarea class="form-control" id="music-description" rows="5" placeholder="説明" name="description"></textarea>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="music-tags" class="col-sm-2 control-label">タグ</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" id="music-tags" placeholder="タグ（改行で区切ります）" name="tags"></textarea>
+                                <textarea class="form-control" id="music-tags" rows="3" placeholder="タグ（改行で区切ります）" name="tags"></textarea>
                             </div>
                         </div>
                         <div class="form-group row">
