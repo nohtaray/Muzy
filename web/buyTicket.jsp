@@ -3,7 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
     Point point = (Point) request.getAttribute("point");
-    int price = (int) request.getAttribute("price");
+    Integer price = (Integer) request.getAttribute("price");
 %>
 <c:import url="/layout/application.jsp">
     <c:param name="title" value="チケット購入" />
