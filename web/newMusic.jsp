@@ -26,25 +26,25 @@
                 <div id="new-music-form-area" class="hidden">
                     <form action="NewMusicServlet" method="post" class="form-horizontal">
                         <input type="hidden" name="youtubeVideoId" id="music-youtube-video-id">
-                        <div class="form-group">
+                        <div class="form-group row">
                             <label for="music-title" class="col-sm-2 control-label">タイトル</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="music-title" placeholder="タイトル" name="title" required>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group row">
                             <label for="music-description" class="col-sm-2 control-label">説明</label>
                             <div class="col-sm-10">
                                 <textarea class="form-control" id="music-description" placeholder="説明" name="description"></textarea>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group row">
                             <label for="music-tags" class="col-sm-2 control-label">タグ</label>
                             <div class="col-sm-10">
                                 <textarea class="form-control" id="music-tags" placeholder="タグ（改行で区切ります）" name="tags"></textarea>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group row">
                             <div class="col-sm-offset-2 col-sm-10">
                                 <button type="submit" class="btn btn-primary">投稿</button>
                             </div>
