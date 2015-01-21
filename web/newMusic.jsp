@@ -14,8 +14,9 @@
         <div class="row">
             <div class="col-md-7">
                 <% if (error != null) {%>
-                <div class="text-danger bg-danger">
-                    <%= error%>
+                <div class="alert alert-danger">
+                    <a class="close" data-dismiss="alert">×</a>
+                    エラー：<%= error%>
                 </div>
                 <% }%>
                 <div id="music-youtube-video-area" class="text-center">
