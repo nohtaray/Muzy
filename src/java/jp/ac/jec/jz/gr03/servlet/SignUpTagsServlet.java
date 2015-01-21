@@ -8,49 +8,21 @@ package jp.ac.jec.jz.gr03.servlet;
 import jp.ac.jec.jz.gr03.util.Authorizer;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.Resource;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
-import javax.sql.DataSource;
 import jp.ac.jec.jz.gr03.dao.MusicDAO;
 import jp.ac.jec.jz.gr03.dao.TagDAO;
 import jp.ac.jec.jz.gr03.entity.Music;
 import jp.ac.jec.jz.gr03.entity.Tag;
-import jp.ac.jec.jz.gr03.entity.User;
 
 /**
  *
  * @author 12jz0129
  */
 public class SignUpTagsServlet extends HttpServlet {
-
-    @Resource(name = "jdbcTest")
-    private DataSource jdbcTest;
-
-    static {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
