@@ -38,10 +38,10 @@
                             <a href="MusicServlet?id=<%= music.musicId%>"><%= music.title%></a>
                         </td>
                         <td>
-                            <%= music.createdAt%>
+                            <%= dateToString(music.createdAt)%>
                         </td>
                         <td>
-                            <%= music.updatedAt%>
+                            <%= dateToString(music.updatedAt)%>
                         </td>
                         <td>
                             <button class="delete-button btn btn-danger" data-music-id="<%= music.musicId%>">削除</button>

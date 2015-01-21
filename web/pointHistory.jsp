@@ -30,7 +30,7 @@
             <tbody>
                 <% for (PointGetHistory history : histories) {%>
                 <tr>
-                    <td><%= history.createdAt%></td>
+                    <td><%= dateToString(history.createdAt)%></td>
                     <td><%= history.gotPoints%></td>
                     <td><%= history.description%></td>
                 </tr>

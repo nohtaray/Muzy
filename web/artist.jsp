@@ -50,7 +50,7 @@
                             <%= message.isDeleted ? "削除されました" : message.content%>
                         </div>
                         <div class="message-footer">
-                            <%= message.createdAt%>
+                            <%= dateToString(message.createdAt)%>
                             <% if (me != null && (me.userId == message.user.userId || me.userId == message.artist.user.userId || me.isOwner)) {%>
                             <button class="message-delete-button" data-artist-id="<%=message.artist.artistId%>" data-message-id="<%=message.messageId%>">削除</button>
                             <%} %>

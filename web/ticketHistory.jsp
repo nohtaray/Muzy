@@ -30,7 +30,7 @@
             <tbody>
                 <% for (VoteTicketGetHistory history : histories) {%>
                 <tr>
-                    <td><%= history.createdAt%></td>
+                    <td><%= dateToString(history.createdAt)%></td>
                     <td><%= history.gotTickets%></td>
                     <td><%= history.description%></td>
                 </tr>
