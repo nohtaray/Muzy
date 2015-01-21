@@ -38,9 +38,6 @@ import jp.ac.jec.jz.gr03.entity.User;
  */
 public class WithdrawArtistServlet extends HttpServlet {
 
-    @Resource(name = "jdbcTest")
-    private DataSource jdbcTest;
-
     static {
         try {
             Class.forName("com.mysql.jdbc.Driver");

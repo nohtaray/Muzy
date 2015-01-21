@@ -31,8 +31,6 @@ import jp.ac.jec.jz.gr03.dao.UserDAO;
  * @author 12jz0121
  */
 public class SignUpUserServlet extends HttpServlet {
-    @Resource(name = "jdbcTest")
-    private DataSource jdbcTest;
     
     static {
         try {

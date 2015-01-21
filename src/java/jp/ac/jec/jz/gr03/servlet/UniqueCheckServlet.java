@@ -27,8 +27,6 @@ import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
 
 public class UniqueCheckServlet extends HttpServlet {
-    @Resource(name = "jdbcTest")
-    private DataSource jdbcTest;
     
     static {
         try {
