@@ -19,4 +19,7 @@ String truncate(String src, int maxLength) {
 String dateToString(Date date) {
     return df.format(date);
 }
+String br(String src) {
+    return src.replaceAll("(\\r\\n|\\r|\\n)", "<br>");
+}
 %>

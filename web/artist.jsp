@@ -16,7 +16,7 @@
 %>
 <c:import url="/layout/application.jsp">
     <c:param name="title">
-        <%= artist.name%> さんのページ
+        <%= h(artist.name)%> さんのページ
     </c:param>
     <c:param name="header">
         <script type="text/javascript" src="js/artist.js"></script>
@@ -24,7 +24,7 @@
     <c:param name="content">
         <div class="row">
             <div class="col-sm-7">
-                <h1><%= artist.name%> さんのページ</h1>
+                <h1><%= h(artist.name)%> さんのページ</h1>
                 <% if (loggedIn) { %>
                 <div>
                     <a class="modal-open btn" data-toggle="modal" data-target="#vote-modal" id="vote-button">このアーティストを応援する</a>
@@ -32,7 +32,7 @@
                 </div>
                 <% }%>
                 <div id="profile">
-                    <%= artist.introduction%>
+                    <%= br(h(artist.introduction))%>
                 </div>
 
                 <form method="post" action="NewMessageServlet">
@@ -45,7 +45,7 @@
                     <% for (Message message : messages) {%>
                     <div class="media">
                         <a class="media-left">
-                            <img class="media-object" src="img/<%= !message.isDeleted && message.user.iconImageFile != null ? message.user.iconImageFile : "default.png"%>" width="64">
+                            <img class="media-object" src="img/<%= !message.isDeleted && message.user.iconImageFile != null ? h(message.user.iconImageFile) : "default.png"%>" width="64">
                         </a>
                         <div class="media-body thumbnail">
                             <% if (message.isDeleted) {%>
@@ -55,10 +55,10 @@
                             <div class="text-muted">削除されました</div>
                             <% } else {%>
                             <h4>
-                                <%= message.messageId%>. <a href="UserServlet?id=<%= message.user.userId%>"><%= message.user.name%></a>
+                                <%= message.messageId%>. <a href="UserServlet?id=<%= message.user.userId%>"><%= h(message.user.name)%></a>
                                 <small><%= dateToString(message.createdAt)%></small>
                             </h4>
-                            <%= message.content%>
+                            <%= br(h(message.content))%>
                             <% if (me != null && (me.userId == message.user.userId || me.userId == message.artist.user.userId || me.isOwner)) {%>
                             <div class="pull-right">
                                 <small><a class="message-delete-button" data-artist-id="<%=message.artist.artistId%>" data-message-id="<%=message.messageId%>" href="#">削除</a></small>
@@ -81,11 +81,11 @@
                                 <% for (Music music : musics) {%>
                                 <li class="media">
                                     <a class="media-left" href="MusicServlet?id=<%= music.musicId%>">
-                                        <img class="media-object" src="http://img.youtube.com/vi/<%= music.youtubeVideoId%>/1.jpg">
+                                        <img class="media-object" src="http://img.youtube.com/vi/<%= h(music.youtubeVideoId)%>/1.jpg">
                                     </a>
                                     <div class="media-body">
-                                        <h4 class="media-heading"><%= truncate(music.title, 30)%></h4>
-                                        <%= truncate(music.description, 150)%>
+                                        <h4 class="media-heading"><%= h(truncate(music.title, 30))%></h4>
+                                        <%= br(h(truncate(music.description, 150)))%>
                                     </div>
                                 </li>
                                 <% } %>
