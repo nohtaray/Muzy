@@ -8,8 +8,13 @@
     <c:param name="content">
 
         <p>
-            こんにちは！Muzyです！
+            動画ランキング！！
         </p>
+        <ul class="nav nav-tabs">
+            <li role="presentation" class="active"><a href="#">再生数！</a></li>
+            <li role="presentation"><a href="#">評価数！</a></li>
+            <li role="presentation"><a href="#">マイリスト数！</a></li>
+        </ul>
 
         <div id="rankings">
             アーティストランキング
@@ -27,6 +32,6 @@
                 </div>
             </div>
         </div>
-        
-</c:param>
+
+    </c:param>
 </c:import>

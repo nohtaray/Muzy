@@ -4,6 +4,11 @@
     Author     : yada
 */
 
+body {
+	background-color: #efefef;
+	color: #333333;
+	font-size: 17px;
+}
 .error {
     color: red;
 }

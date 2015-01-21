@@ -32,12 +32,11 @@
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="./">Muzy</a>
+                    <h1><a href="./"><img src="img/logo.png" Border="0" Width="200" Height="70"></a></h1>
                 </div>
             </div>
         </nav>
         <header id="header">
-            <h1><a href="./"><img src="img/muzy.png" Border="0" Width="200" Height="80"></a></h1>
             <div>
                 <div>
                     <div>
@@ -52,7 +51,7 @@
                                 <input type="radio" name="type" class="search-form-type" value="tag" /> タグで検索
                             </label>
                             <input type="text" id="search-form-text" placeholder="キーワードを入力">
-                            <input type="submit" class="btn btn-danger" value="検索">
+                            <input type="submit" class="btn btn-info" value="検索">
                         </form>
                     </div>
                 </div>
@@ -60,7 +59,7 @@
                 <div>
                     <% if (userLoggedIn == null) { %>
                     <%-- ログインしてない --%>
-                    未ログイン
+                    <h1>未ログイン状態です</h1>
                     <ul>
                         <li><a href="LoginWithPasswordServlet">パスワードでログイン</a></li>
                         <li><a href="SignUpUserServlet">パスワードで新規登録</a></li>
@@ -70,15 +69,13 @@
                     <%-- ログインしている --%>
                     <%= userLoggedIn.name%>としてログイン中
                     <ul>
-                        <li><a href="MyPageServlet">マイページ</a></li>
+                        <li><a href="MyPageServlet" class="label label-info">マイページ</a>
                         <li><a href="LogoutServlet">ログアウト</a></li>
                     </ul>
                     <% }%>
                 </div>
                 <ul>
                     <li><a href="SponsorServlet">スポンサー</a></li>
-                    <li><a href="RankingMusicServlet">楽曲ランキング</a></li>
-                    <li><a href="RankingArtistServlet">アーティストランキング</a></li>
                     <li><a href="LatestMusicServlet">最新楽曲</a></li>
                 </ul>
             </div>
