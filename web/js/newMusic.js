@@ -35,7 +35,7 @@ $(function() {
 
     function appendVideoItem(item) {
         console.log(item);
-        var $video = $('<div class="new-music-youtube-video clearfix">').append(
+        var $video = $('<div class="new-music-youtube-video clearfix thumbnail">').append(
             $('<img class="pull-left" width="120" height="90">').attr('src', item.snippet.thumbnails.default.url)
         ).append(
             $('<div class="title">').text(item.snippet.title)
