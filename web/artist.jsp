@@ -40,20 +40,31 @@
                     <textarea placeholder="コメントを入力" name="content"></textarea>
                     <input type="submit" value="送信">
                 </form>
+
                 <div id="messages">
                     <% for (Message message : messages) {%>
-                    <div class="message <%= message.isDeleted ? "message-deleted" : ""%>">
-                        <div class="message-header">
-                            <%= message.messageId%>. <%= message.user.name%>
-                        </div>
-                        <div class="message-body">
-                            <%= message.isDeleted ? "削除されました" : message.content%>
-                        </div>
-                        <div class="message-footer">
-                            <%= dateToString(message.createdAt)%>
+                    <div class="media">
+                        <a class="media-left">
+                            <img class="media-object" src="img/<%= !message.isDeleted && message.user.iconImageFile != null ? message.user.iconImageFile : "default.png"%>" width="64">
+                        </a>
+                        <div class="media-body thumbnail">
+                            <% if (message.isDeleted) {%>
+                            <h4>
+                                <%= message.messageId%>.
+                            </h4>
+                            <div class="text-muted">削除されました</div>
+                            <% } else {%>
+                            <h4>
+                                <%= message.messageId%>. <a href="UserServlet?id=<%= message.user.userId%>"><%= message.user.name%></a>
+                                <small><%= dateToString(message.createdAt)%></small>
+                            </h4>
+                            <%= message.content%>
                             <% if (me != null && (me.userId == message.user.userId || me.userId == message.artist.user.userId || me.isOwner)) {%>
-                            <button class="message-delete-button" data-artist-id="<%=message.artist.artistId%>" data-message-id="<%=message.messageId%>">削除</button>
-                            <%} %>
+                            <div class="pull-right">
+                                <small><a class="message-delete-button" data-artist-id="<%=message.artist.artistId%>" data-message-id="<%=message.messageId%>" href="#">削除</a></small>
+                            </div>
+                            <%}%>
+                            <% } %>
                         </div>
                     </div>
                     <% }%>
