@@ -5,9 +5,8 @@
 */
 
 body {
-	background-color: #efefef;
-	color: #333333;
-	font-size: 16px;
+    background-color: #efefef;
+    color: #333333;
 }
 .error {
     color: red;
