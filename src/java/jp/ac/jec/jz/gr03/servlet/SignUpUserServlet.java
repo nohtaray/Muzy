@@ -42,38 +42,6 @@ public class SignUpUserServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException, ClassNotFoundException {
     response.setContentType("text/html;charset=UTF-8");
-    /*PrintWriter out = response.getWriter();
-    PreparedStatement ps;
-    Connection con = null;
-  //  UserDAO userDAO = null;
-    try {
-            con = DriverManager.getConnection("jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull", "root", "rootroot");
-            User user = new User();
-            
-            //パスワードのハッシュ化
-            user.setPassword(request.getParameter("password"));
-
-            //DAOでやるようにｂｙ小菅さん
-            //ユーザ追加
-            //デフォルト値追加後変更
-            ps = con.prepareStatement("insert into users(email, name, password_hash, introduction, created_at, updated_at)values(?,?,?,?,now(),now())");
-            ps.setString(1, request.getParameter("email"));
-            ps.setString(2, request.getParameter("name"));
-            ps.setString(3, user.passwordHash);
-            ps.setString(4, request.getParameter("introduction"));
-            ps.executeUpdate();
-
-            con.close();
-
-            } catch (SQLException e) {
-                out.print("エラー");
-                if(e.getErrorCode() == 1062){
-                    out.print("重複");
-                }
-            } catch (Exception e2) {
-                    System.out.println("Exception: " + e2.getMessage());
-            }
-    */
     }  
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -116,6 +84,13 @@ public class SignUpUserServlet extends HttpServlet {
             user.email = request.getParameter("email");
             if (user.email == null) {
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが足りません");
+                return;
+            }
+            
+            String mailFormat = "^[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+(\\.[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+)*+(.*)@[a-zA-Z0-9][a-zA-Z0-9\\-]*(\\.[a-zA-Z0-9\\-]+)+$";
+            if(!user.email.matches(mailFormat)){
+                //エラー番号適当
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "メールフォーマットが不正です");
                 return;
             }
             

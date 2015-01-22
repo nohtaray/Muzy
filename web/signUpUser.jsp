@@ -19,14 +19,14 @@
             </div>
             <% } %>
             <label>
-                email：<input type="text" name="email" id="email" onChange="checkEmail()">
+                email：<input type="text" name="email" id="email" onChange="checkEmail()" required>
                 <p id="OK" style="display: none;">このemailは使用可能です。</p><p id="NG" style="display: none;">このemailは使用できません。</p>
             </label><br>
             <label>
-                ユーザ名：<input type="text" name="name">
+                ユーザ名：<input type="text" name="name" required>
             </label><br>
             <label>
-                パスワード：<input type="password" name="password">
+                パスワード：<input type="password" name="password" required>
                 パスワードの確認 : 
             </label><br>
             <label>
