@@ -107,6 +107,8 @@ public class SignUpArtistServlet extends HttpServlet {
         artist.name = name;
         artist.introduction = introduction;
         insertArtist(artist);
+        
+        response.sendRedirect("MyPageServlet");
     }
 
     /**
