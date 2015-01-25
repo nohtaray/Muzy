@@ -23,19 +23,24 @@
         <script type="text/javascript" src="js/artist.js"></script>
     </c:param>
     <c:param name="content">
+        <div id="artist-header">
+            <img id="header-image" src="img/artist/<%= artist.headerImageFile%>">
+        </div>
         <div class="row">
             <div class="col-sm-7">
-                <h1><%= h(artist.name)%> さんのページ</h1>
+        <h2><%= h(artist.name)%></h2>
                 <% if (loggedIn) { %>
-                <div>
-                    <a class="modal-open btn" data-toggle="modal" data-target="#vote-modal" id="vote-button">このアーティストを応援する</a>
-                    <a href="#" id="addto">マイリストに追加する</a>
+                <div class="clearfix">
+                    <div class="pull-right">
+                        <a class="modal-open btn btn-xs" data-toggle="modal" data-target="#vote-modal" id="vote-button">このアーティストを応援する</a>
+                        <a class="btn btn-xs" href="#" id="addto">マイリストに追加する</a>
+                    </div>
                 </div>
                 <% }%>
+
                 <div id="profile">
                     <%= br(h(artist.introduction))%>
                 </div>
-
                 <% if (loggedIn) {%>
                 <form method="post" action="NewMessageServlet" class="clearfix" id="new-message-form">
                     <input type="hidden" name="artist" value="<%= artist.artistId%>">
@@ -77,7 +82,7 @@
                 </div>
             </div>
             <div class="col-sm-5">
-                <div id="musics">
+                <div id="uploaded-musics">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             投稿楽曲一覧

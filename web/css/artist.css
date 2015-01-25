@@ -3,6 +3,20 @@
     Author     : yada
 */
 
+#header-image {
+    width: 940px;
+    height: 240px;
+}
+
 #new-message-form {
+    margin-top: 10px;
     padding-bottom: 20px;
+}
+
+#profile {
+    padding: 10px 0 0 15px;
+}
+
+#uploaded-musics {
+    margin-top: 20px;
 }
