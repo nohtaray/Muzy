@@ -19,10 +19,10 @@
 
 
         <form method="GET" action="" id="tag-search-form">
-            タグ：<input type="text" name="t" value="<%= tagName != null ? tagName : ""%>">
+            タグ：<input type="text" name="t" value="<%= tagName != null ? h(tagName) : ""%>">
             <input type="submit" value="検索">
             <br>
-            キーワードで絞込：<input type="text" id="keyword" value="<%= keyword != null ? keyword : ""%>">
+            キーワードで絞込：<input type="text" id="keyword" value="<%= keyword != null ? h(keyword) : ""%>">
             <div id="orders">
                 <label><input type="radio" name="o" value="<%= SearchTagServlet.Order.MUSIC_CREATED_AT.ordinal()%>">新着順</label>
                 <label><input type="radio" name="o" value="<%= SearchTagServlet.Order.MUSIC_COMMENT_CREATED_AT.ordinal()%>">コメントの新しい順</label>
@@ -31,20 +31,25 @@
                 <label><input type="radio" name="o" value="<%= SearchTagServlet.Order.SCORE_AVERAGE.ordinal()%>">タグの評価順</label>
             </div>
         </form>
-        <div>
-            <% if (tags != null) {%>
-            タグ "<%= tagName%>" の検索結果
-            <% if (keyword != null) {%>
-            （キーワード "<%= keyword%>"）
-            <% } %>
-            <ul>
-                <% for (Tag tag : tags) {%>
-                <li>
-                    <a href="MusicServlet?id=<%= tag.music.musicId%>"><%= tag.music.title%></a>
-                </li>
-                <% }%>
-            </ul>
+            
+        <% if (tags != null) {%>
+        <h3>タグ "<%= h(tagName)%>" の検索結果</h3>
+        <% if (keyword != null) {%>
+        （キーワード "<%= h(keyword)%>"）
+        <% } %>
+        <div id="musics">
+            <% for (Tag tag : tags) {%>
+            <div class="music thumbnail clearfix media">
+                <a class="pull-left" href="MusicServlet?id=<%= tag.music.musicId%>">
+                    <img class="media-object" src="http://img.youtube.com/vi/<%= h(tag.music.youtubeVideoId)%>/1.jpg">
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading"><a href="MusicServlet?id=<%= tag.music.musicId%>"><%= h(truncate(tag.music.title, 30))%></a></h4>
+                        <%= h(truncate(tag.music.description, 200))%>
+                </div>
+            </div>
             <% }%>
         </div>
+        <% }%>
     </c:param>
 </c:import>
