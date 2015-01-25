@@ -18,7 +18,7 @@
     <c:param name="content">
 
 
-        <form method="GET" action="" id="search-form">
+        <form method="GET" action="" id="tag-search-form">
             タグ：<input type="text" name="t" value="<%= tagName != null ? tagName : ""%>">
             <input type="submit" value="検索">
             <br>
