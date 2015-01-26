@@ -34,6 +34,32 @@
                 <div class="navbar-header">
                     <h1><a href="./"><img src="img/logo.png" Border="0" Width="200" Height="70"></a></h1>
                 </div>
+                <div align="right">
+                    <% if (userLoggedIn == null) { %>
+                    <%-- ログインしてない --%>
+
+                    <div id="login-box" class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            ログイン・新規登録
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="LoginWithGoogleServlet">ログイン・新規登録</a></li>
+                            <li><a href="LoginWithPasswordServlet">メールアドレスでログイン</a></li>
+                            <li><a href="SignUpUserServlet">メールアドレスで新規登録</a></li>
+                        </ul>
+                    </div>
+
+                    <% } else {%>
+                    <%-- ログインしている --%>
+                    <%= userLoggedIn.name%>としてログイン中
+                    <ul>
+                        <li><a href="MyPageServlet" class="label label-info">マイページ</a>
+                        <li><a href="LogoutServlet">ログアウト</a></li>
+                    </ul>
+                    <% }%>
+                </div>
             </div>
         </nav>
         <header id="header">
@@ -55,25 +81,13 @@
                         </form>
                     </div>
                 </div>
-
-                <div>
-                    <% if (userLoggedIn == null) { %>
-                    <%-- ログインしてない --%>
-                    <h1>未ログイン状態です</h1>
-                    <ul>
-                        <li><a href="LoginWithPasswordServlet">パスワードでログイン</a></li>
-                        <li><a href="SignUpUserServlet">パスワードで新規登録</a></li>
-                        <li><a href="LoginWithGoogleServlet">Googleで登録・ログイン</a></li>
-                    </ul>
-                    <% } else {%>
-                    <%-- ログインしている --%>
-                    <%= userLoggedIn.name%>としてログイン中
-                    <ul>
-                        <li><a href="MyPageServlet" class="label label-info">マイページ</a>
-                        <li><a href="LogoutServlet">ログアウト</a></li>
-                    </ul>
-                    <% }%>
-                </div>
+                <% if (userLoggedIn == null) { %>
+                <%-- ログインしてない --%>
+                <h1>未ログイン状態です</h1>
+                <% } else {%>
+                <%-- ログインしている --%>
+                <%= userLoggedIn.name%>としてログイン中
+                <% }%>
                 <ul>
                     <li><a href="SponsorServlet">スポンサー</a></li>
                     <li><a href="LatestMusicServlet">最新楽曲</a></li>

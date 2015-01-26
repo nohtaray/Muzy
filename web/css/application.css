@@ -11,3 +11,7 @@ body {
 .container {
     max-width: 970px;
 }
+
+#login-box {
+    margin-top: 20px;
+}
