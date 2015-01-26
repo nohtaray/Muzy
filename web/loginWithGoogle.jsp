@@ -17,7 +17,7 @@
                 data-cookiepolicy="single_host_origin"
                 data-redirecturi="postmessage"
                 data-requestvisibleactions="http://schemas.google.com/AddActivity"
-                data-scope="https://www.googleapis.com/auth/plus.login email https://www.googleapis.com/auth/youtube.readonly"
+                data-scope="https://www.googleapis.com/auth/plus.login profile email https://www.googleapis.com/auth/youtube.readonly"
             ></span>
         </span>
         
