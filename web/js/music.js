@@ -200,17 +200,33 @@ function funcReview() {
         // ajax complete
     });
 }
-//------------ここまで実行可能確認------------------
-
-function evaluationCommentGood() {
+function addMyListDetail(mylistId, musicId){
     $.ajax({
         type: 'POST',
         dataType: 'text',
-        url: 'EvaluationCommentsServlet', //ここにServletのアドレス
+        url: 'AddMyListDetailServlet', //ここにServletのアドレス
         //ここがServletに渡される値
         //複数渡せる左が変数で右が値
         data: {
-            commentid: 3, //仮
+            mylistid: mylistId,
+            musicid: musicId
+        }
+    }).done(function () {
+        alert("マイリストに追加しました");
+    }).fail(function () {
+        alert("マイリストに追加済みです");
+    }).always(function () {
+    });
+}
+//------------ここまで実行可能確認------------------
+
+function evaluationCommentGood(commentid, target) {
+    $.ajax({
+        type: 'POST',
+        dataType: 'text',
+        url: 'EvaluationCommentsServlet',
+        data: {
+            commentid: commentid,
             eva: 1
         }
     }).done(function () {
@@ -220,18 +236,17 @@ function evaluationCommentGood() {
     }).always(function () {
     });
 }
-function evaluationCommentBad() {
+function evaluationCommentBad(commentid, target) {
     $.ajax({
         type: 'POST',
         dataType: 'text',
-        url: 'EvaluationCommentsServlet', //ここにServletのアドレス
-        //ここがServletに渡される値
-        //複数渡せる左が変数で右が値
+        url: 'EvaluationCommentsServlet',
         data: {
-            commentid: 3, //仮
+            commentid: commentid,
             eva: -1
         }
     }).done(function () {
+        $(target).parent().parent().children('label').html();
         alert("悪い成功");
     }).fail(function () {
         alert("悪い失敗");
@@ -239,20 +254,21 @@ function evaluationCommentBad() {
     });
 }
 
-function deleteComment() {
+function deleteComment(commentid, target) {
     $.ajax({
-        type: 'POST',
+        type: 'GET',
         dataType: 'text',
-        url: 'DeleteCommentServlet', //ここにServletのアドレス
-        //ここがServletに渡される値
-        //複数渡せる左が変数で右が値
+        url: 'DeleteCommentServlet',
         data: {
-            commentid: 3 //仮
+            commentid: commentid
         }
     }).done(function () {
-        alert("削除成功");
+        //$("div." + commentid).remove();
+        $(target).parent().parent().remove();
+        //$("#" + commentid).remove();
+        alert("コメントを削除しました。");
     }).fail(function () {
-        alert("削除失敗");
+        alert("コメントを削除できません。");
     }).always(function () {
     });
 }

@@ -24,4 +24,18 @@ public class CommentDAO extends DAO {
             throw new IOException(e);
         }
     }
+    public void delete(int userId, int commentId) throws IOException {
+        try {
+            String sql = "delete from comments where user_id = ? AND comment_id = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            int idx = 1;
+            ps.setObject(idx++, userId, Types.INTEGER);
+            ps.setObject(idx++, commentId, Types.INTEGER);
+
+            ps.execute();
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
 }

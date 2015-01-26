@@ -3,6 +3,8 @@ package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -12,7 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import jp.ac.jec.jz.gr03.dao.CommentDAO;
 import jp.ac.jec.jz.gr03.dao.MusicDAO;
+import jp.ac.jec.jz.gr03.dao.MyListDAO;
+import jp.ac.jec.jz.gr03.dao.MyListDetailDAO;
 import jp.ac.jec.jz.gr03.dao.entityresultset.CommentResultSet;
+import jp.ac.jec.jz.gr03.dao.entityresultset.MyListDetailResultSet;
+import jp.ac.jec.jz.gr03.dao.entityresultset.MyListResultSet;
 import jp.ac.jec.jz.gr03.entity.Music;
 import jp.ac.jec.jz.gr03.util.Authorizer;
 
@@ -67,6 +73,10 @@ public class MusicServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID は数値で指定してください");
             return;
         }
+        if (auth.getUserLoggedInAs() != null){
+            MyListResultSet mylists = fetchMyLists(auth.getUserLoggedInAs().userId);
+            request.setAttribute("mylists", mylists);
+        }
         
         Music music = selectMusic(id);
         if (music != null) {
@@ -118,5 +128,9 @@ public class MusicServlet extends HttpServlet {
     private void update(Music music) throws IOException {
         MusicDAO dao = new MusicDAO();
         dao.update(music);
+    }
+    private MyListResultSet fetchMyLists(int userId) throws IOException {
+        MyListDAO dao = new MyListDAO();
+        return dao.selectByUserId(userId);
     }
 }

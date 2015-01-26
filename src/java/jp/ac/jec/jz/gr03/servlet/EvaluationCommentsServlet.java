@@ -51,16 +51,17 @@ public class EvaluationCommentsServlet extends HttpServlet {
             con = DriverManager.getConnection("jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull", "root", "rootroot");
             HttpSession session = request.getSession();
             Authorizer auth = new Authorizer(session);
-            User user = auth.getUserLoggedIn();
+            User user = auth.getUserLoggedInAs();
 
-            //仮
-            if (user == null) {user = new User(); user.userId = 29;}
-
+            if (!auth.hasLoggedIn()) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "ログインしてください");
+            return;
+            }
             //登録したcomment_idを引っ張ってくる
             int commentid = Integer.parseInt(request.getParameter("commentid"));
             //評価を受け取る
             int eva = Integer.parseInt(request.getParameter("eva"));
-
+            
             
             if (user.userId != null) {
                 try {

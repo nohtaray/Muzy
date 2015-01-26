@@ -71,7 +71,7 @@ public class UserDAO extends DAO {
             throw new IOException(e);
         }
     }
-
+    
     public void update(User user) throws IOException {
         // うーん
         String sql = "update users set "

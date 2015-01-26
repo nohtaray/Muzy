@@ -39,25 +39,7 @@ public class AddMyListDetailServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        PreparedStatement ps;
-        Connection con = null;
-        try (PrintWriter out = response.getWriter()) {
-            con = DriverManager.getConnection("jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull", "12jz0121", "12jz0121");  
-            HttpSession session = request.getSession();
-            Authorizer auth = new Authorizer(session);
-            User user = auth.getUserLoggedIn();
-            
-            ps = con.prepareStatement("isnert into mylist_details(mylist_id, music_id, artist_id, created_at, updated_at)"
-                                    + "values(?, ?, ?, now(), now())");
-            ///               mylist_id ページから取得あとで書く
-            ps.setInt(1, user.userId);
-            ///               music_id
-            ps.setInt(2, 1);
-            ///               artist_id
-            ps.setInt(3, 1);
-            
-            ps.executeUpdate();
-        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -77,6 +59,23 @@ public class AddMyListDetailServlet extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(AddMyListDetailServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        PreparedStatement ps;
+        Connection con = null;
+        try  {
+            con = DriverManager.getConnection("jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull", "root", "rootroot");  
+            HttpSession session = request.getSession();
+            Authorizer auth = new Authorizer(session);
+            User user = auth.getUserLoggedInAs();
+            
+            ps = con.prepareStatement("insert into mylist_details(mylist_id, artist_id, created_at, updated_at)"
+                                    + "values(?, ?, now(), now())");
+            ps.setInt(1, Integer.parseInt(request.getParameter("mylistid")));
+            ps.setInt(2, Integer.parseInt(request.getParameter("artistid")));
+            ps.executeUpdate();
+            con.close();
+        }catch(SQLException e){
+            if(e.getErrorCode() == 1062) response.sendError(400);
+        }
     }
 
     /**
@@ -95,6 +94,24 @@ public class AddMyListDetailServlet extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(AddMyListDetailServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+            PreparedStatement ps;
+        Connection con = null;
+        try  {
+            con = DriverManager.getConnection("jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull", "root", "rootroot");  
+            HttpSession session = request.getSession();
+            Authorizer auth = new Authorizer(session);
+            User user = auth.getUserLoggedInAs();
+            
+            ps = con.prepareStatement("insert into mylist_details(mylist_id, music_id, created_at, updated_at)"
+                                    + "values(?, ?, now(), now())");
+            ps.setInt(1, Integer.parseInt(request.getParameter("mylistid")));
+            ps.setInt(2, Integer.parseInt(request.getParameter("musicid")));
+            ps.executeUpdate();
+            con.close();
+        }catch(SQLException e){
+            if(e.getErrorCode() == 1062) response.sendError(400);
+        }
+        
     }
 
     /**

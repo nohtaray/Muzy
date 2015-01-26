@@ -1,3 +1,6 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="jp.ac.jec.jz.gr03.entity.MyList"%>
+<%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.MyListResultSet"%>
 <%@page import="jp.ac.jec.jz.gr03.entity.Music"%>
 <%@page import="jp.ac.jec.jz.gr03.entity.User"%>
 <%@page import="jp.ac.jec.jz.gr03.entity.Comment"%>
@@ -19,12 +22,14 @@
     </c:param>
     <c:param name="content">
 
-        
+
         <h2><%= music.title%></h2>
         <hr>
         <div id="tools">
             <% if (loggedIn) { %>
             <a class="modal-open btn" data-toggle="modal" data-target="#advertise-modal" id="advertise-button">この動画を広告する！</a>
+
+            <a class="modal-open btn" data-toggle="modal" data-target="#add-mylist-modal" id="add-mylist-button">マイリストに追加</a>
             <% }%>
         </div>
         <div>
@@ -32,7 +37,7 @@
         </div>
         <div>
             <div>
-                再生： <%= music.viewCount %> 回
+                再生： <%= music.viewCount%> 回
             </div>
             <%= music.description%>
         </div>
@@ -41,7 +46,7 @@
 
         <%--既存登録タグ(暫定的)--%>
         <div id="tags">
-            
+
         </div>
 
         <%--タグ追加スペース--%>
@@ -53,7 +58,7 @@
                 </div>
                 <input type="button" onclick="funcSignUpTags();" value="新規タグを登録する">
             </div>
-            <input type="hidden" id="musicid" value="<%= music.musicId %>">
+            <input type="hidden" id="musicid" value="<%= music.musicId%>">
         </div>
 
         レビュー<br />
@@ -65,12 +70,18 @@
         <br /><br /><br />
         <h2>レビュー一覧</h2>
         <div id="reviewarea">
-            <% for (Comment comment : comments) { %>
-            <div class="comment" data-comment-id="<%= comment.commentId %>">
-                <div class="comment-content"><%= comment.content %></div>
-                <input type="button" onclick="evaluationCommentGood()" value="良い" />
-                <input type="button" onclick="evaluationCommentBad()" value="悪い" />
-                <input type="button" onclick="deleteComment()" value="削除" />
+            <%for (Comment comment : comments) {%>
+            <div class="comment" data-comment-id="<%= comment.commentId%>">
+                <div class="comment-content"><%= comment.content%>
+                    評価値 : <label><%= (comment.scorePlusCount - comment.scoreMinusCount) %></label>
+                    <%if(me != null){%>
+                    <input type="button" onclick="evaluationCommentGood(<%= comment.commentId%>, this)" value="良い" /><%= (comment.scorePlusCount) %>
+                    <input type="button" onclick="evaluationCommentBad(<%= comment.commentId%>, this)" value="悪い" /><%= (comment.scoreMinusCount) %>
+                    <%}%>
+                    <%if(me != null && me.userId == comment.user.userId){%>
+                    <input type="button" onclick="deleteComment(<%= comment.commentId %>, this)" value="削除" />
+                    <%}%>
+                </div>
             </div>
             <% } %>
         </div>
@@ -119,12 +130,42 @@
                 </div>
             </div>
         </div>
+
+        <div id="add-mylist-modal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4>マイリスト追加</h4>
+                    </div>
+                    <div class="modal-body">
+                        <%
+                            MyListResultSet mylists = (MyListResultSet) request.getAttribute("mylists");
+                            MyList mylist;
+                            
+                            out.print("<table>");
+                            while ((mylist = mylists.readRow()) != null) {
+                                out.println("<tr>");
+                                out.println("<td>" + mylist.name + "</td>");
+                                out.println("<td><input type=\"button\" onclick=\"addMyListDetail(" + mylist.mylist_id + "," + music.musicId + ")\" value=\"追加\" /></td></tr>");
+                            }
+                            out.print("</table>");
+
+                        %>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <% }%>
-        
-        
+
+
         <%-- 投稿者かどうか --%>
-        <input type="hidden" id="is-my-music" value="<%= me != null && me.userId == music.artist.user.userId %>">
+        <input type="hidden" id="is-my-music" value="<%= me != null && me.userId == music.artist.user.userId%>">
         <%-- ログインしてるか --%>
-        <input type="hidden" id="is-logged-in" value="<%= loggedIn %>">
+        <input type="hidden" id="is-logged-in" value="<%= loggedIn%>">
     </c:param>
 </c:import>

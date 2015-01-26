@@ -49,8 +49,8 @@ public class AddMyListServlet extends HttpServlet {
             con = DriverManager.getConnection("jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull", "root", "rootroot");
             HttpSession session = request.getSession();
             Authorizer auth = new Authorizer(session);
-            User user = auth.getUserLoggedIn();
-
+            User user = auth.getUserLoggedInAs();
+            
             //仮
             if (user == null) {user = new User(); user.userId = 29;}
 
@@ -65,6 +65,7 @@ public class AddMyListServlet extends HttpServlet {
                 
             }
             else{
+                
                 //ログインしてないエラー
             }
             con.close();

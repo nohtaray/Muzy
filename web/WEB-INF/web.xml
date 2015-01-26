@@ -134,10 +134,25 @@
         <servlet-class>jp.ac.jec.jz.gr03.servlet.LoginWithPassword</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
+=======
+        <servlet-name>taikaiServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.taikaiServlet</servlet-class>
+    </servlet>
+    <servlet>
+>>>>>>> コージ編集分 15/01/26 11:56
         <servlet-name>SignUpUserServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.SignUpUserServlet</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
+=======
+        <servlet-name>SignUpArtistServlet
+        </servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.SignUpArtistServlet</servlet-class>
+    </servlet>
+    <servlet>
+>>>>>>> コージ編集分 15/01/26 11:56
         <servlet-name>AddMyListServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.AddMyListServlet</servlet-class>
     </servlet>
@@ -254,6 +269,7 @@
         <servlet-class>jp.ac.jec.jz.gr03.servlet.RankingArtistMylistServlet</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
         <servlet-name>SignUpArtistServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.SignUpArtistServlet</servlet-class>
     </servlet>
@@ -284,6 +300,10 @@
     <servlet>
         <servlet-name>RankingMusicAdvertisementJsonServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.RankingMusicAdvertisementJsonServlet</servlet-class>
+=======
+        <servlet-name>MyListDetailServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.MyListDetailServlet</servlet-class>
+>>>>>>> コージ編集分 15/01/26 11:56
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
@@ -394,8 +414,21 @@
         <url-pattern>/LoginWithPassword</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>SignUpUserServlet</servlet-name>
         <url-pattern>/SignUpUserServlet</url-pattern>
+=======
+        <servlet-name>taikaiServlet</servlet-name>
+        <url-pattern>/taikaiServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SignUpUserServlet</servlet-name>
+        <url-pattern>/SignUpUserServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SignUpArtistServlet</servlet-name>
+        <url-pattern>/SignUpArtistServlet</url-pattern>
+>>>>>>> コージ編集分 15/01/26 11:56
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddMyListServlet</servlet-name>
@@ -514,6 +547,7 @@
         <url-pattern>/RankingArtistMylistServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>SignUpArtistServlet</servlet-name>
         <url-pattern>/SignUpArtistServlet</url-pattern>
     </servlet-mapping>
@@ -544,6 +578,10 @@
     <servlet-mapping>
         <servlet-name>RankingMusicAdvertisementJsonServlet</servlet-name>
         <url-pattern>/RankingMusicAdvertisementJsonServlet</url-pattern>
+=======
+        <servlet-name>MyListDetailServlet</servlet-name>
+        <url-pattern>/MyListDetailServlet</url-pattern>
+>>>>>>> コージ編集分 15/01/26 11:56
     </servlet-mapping>
     <session-config>
         <session-timeout>

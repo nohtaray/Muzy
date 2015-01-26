@@ -1,6 +1,8 @@
+
 package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -9,8 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import jp.ac.jec.jz.gr03.dao.CommentDAO;
-import jp.ac.jec.jz.gr03.entity.User;
+import jp.ac.jec.jz.gr03.dao.MyListDAO;
+import jp.ac.jec.jz.gr03.dao.MyListDetailDAO;
+import jp.ac.jec.jz.gr03.dao.entityresultset.MyListDetailResultSet;
 import jp.ac.jec.jz.gr03.util.Authorizer;
 
 /**
@@ -19,15 +22,8 @@ import jp.ac.jec.jz.gr03.util.Authorizer;
  */
 
 
-public class DeleteCommentServlet extends HttpServlet {
-    static {
-    	 try {
-		 Class.forName("com.mysql.jdbc.Driver");
-		 }
-		 catch(ClassNotFoundException e ){
-			 throw new RuntimeException(e);
-		 }
-    }
+public class MyListDetailServlet extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,8 +34,9 @@ public class DeleteCommentServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -54,17 +51,31 @@ public class DeleteCommentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-        try {
-            processRequest(request, response);
+        processRequest(request, response);
+        try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
             Authorizer auth = new Authorizer(session);
-            User user = auth.getUserLoggedInAs();
+            MyListDetailDAO dao = new MyListDetailDAO();
+            MyListDAO mylistdao = new MyListDAO();
             
-            deleteComment(user.userId, Integer.parseInt(request.getParameter("commentid")));
+            if (!auth.hasLoggedIn()) {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "ログインしてください");
+            }
+            String idStr = request.getParameter("id");
+            if (idStr == null) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが足りません");
+                return;
+            }
+            //MyListDetailResultSet mylistDetails = dao.selectByMylistId(Integer.parseInt(idStr));
             
+            request.setAttribute("musicThumbnail", dao.musicThumbnailById(Integer.parseInt(idStr)));
+            request.setAttribute("artistThumbnail", dao.artistThumbnailById(Integer.parseInt(idStr)));
+            
+            //request.setAttribute("mylistDetails", mylistDetails);
+            request.getRequestDispatcher("mylistDetail.jsp").forward(request, response);
+
         } catch (SQLException ex) {
-            Logger.getLogger(DeleteCommentServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MyListDetailServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -79,11 +90,10 @@ public class DeleteCommentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(DeleteCommentServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
+        
+        MyListDetailDAO dao = new MyListDetailDAO();
+        dao.delete(Integer.parseInt(request.getParameter("id")));
     }
 
     /**
@@ -96,8 +106,4 @@ public class DeleteCommentServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void deleteComment(int userId, int commentId) throws IOException {
-        CommentDAO dao = new CommentDAO();
-        dao.delete(userId, commentId);
-    }
 }

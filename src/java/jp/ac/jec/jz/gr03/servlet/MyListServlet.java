@@ -3,15 +3,24 @@ package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import jp.ac.jec.jz.gr03.dao.MyListDAO;
+import jp.ac.jec.jz.gr03.dao.entityresultset.MyListResultSet;
 import jp.ac.jec.jz.gr03.entity.MyList;
 import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
+import jp.ac.jec.jz.gr03.entity.MyList_Details;
+import jp.ac.jec.jz.gr03.dao.MusicMylistDetailDAO;
+import jp.ac.jec.jz.gr03.dao.MyListDetailDAO;
+import jp.ac.jec.jz.gr03.dao.entityresultset.MyListDetailResultSet;
 
 /**
  *
@@ -33,23 +42,6 @@ public class MyListServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        MyList mylist = new MyList();
-        MyListDAO mylistDAO = new MyListDAO();
-        Authorizer auth = new Authorizer(session);
-        User user = auth.getUserLoggedInAs();
-        
-        //仮
-        user.userId = 22;
-        if(user.userId != null){
-            mylist.user.userId = user.userId;
-            try {
-                                                                            //mylist.user.userId
-                request.setAttribute("mylists", mylistDAO.selectNameByUserId(22));
-            } catch (IOException e) {
-                response.sendError(401);
-            }
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -65,7 +57,23 @@ public class MyListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-    }
+        try (PrintWriter out = response.getWriter()) {
+            HttpSession session = request.getSession();
+            Authorizer auth = new Authorizer(session);
+            if (!auth.hasLoggedIn()) {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "ログインしてください");
+            }
+
+            MyListResultSet mylists = fetchLatestMusics(auth.getUserLoggedInAs().userId);
+            //MyListDetailResultSet mylistDetail = fetchMyListDetails(mylists.readRow().mylist_id);
+            //request.setAttribute("mylistDetail", mylistDetail);
+            ResultSet rs = fetchYoutube(auth.getUserLoggedInAs().userId);
+            request.setAttribute("mylistThumbnail", rs);
+            request.setAttribute("mylists", mylists);
+            request.getRequestDispatcher("myList-edit.jsp").forward(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(MyListServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }    }
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -79,6 +87,9 @@ public class MyListServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        MyListDAO dao = new MyListDAO();
+        dao.delete(Integer.parseInt(request.getParameter("id")));
     }
 
     /**
@@ -90,5 +101,16 @@ public class MyListServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    private MyListResultSet fetchLatestMusics(int userId) throws IOException {
+        MyListDAO dao = new MyListDAO();
+        return dao.selectByUserId(userId);
+    }
+    private MyListDetailResultSet fetchMyListDetails(int myListId) throws IOException, SQLException {
+        MyListDetailDAO dao = new MyListDetailDAO();
+        return dao.selectLatestsByMylistId(myListId);
+    }
+    private ResultSet fetchYoutube(int userId) throws IOException, SQLException {
+        MyListDAO dao = new MyListDAO();
+        return dao.mylistDetailById(userId);
+    }
 }

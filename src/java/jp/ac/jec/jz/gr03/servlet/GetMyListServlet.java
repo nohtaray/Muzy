@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import jp.ac.jec.jz.gr03.dao.MyListDAO;
 import jp.ac.jec.jz.gr03.entity.MyList;
+import jp.ac.jec.jz.gr03.dao.entityresultset.MyListResultSet;
 import jp.ac.jec.jz.gr03.util.Authorizer;
 
 /**
@@ -32,17 +33,6 @@ public class GetMyListServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        MyList mylist = new MyList();
-        MyListDAO mylistDAO = new MyListDAO();
-            
-        try (PrintWriter out = response.getWriter()) {
-            HttpSession session = request.getSession();
-            Authorizer auth = new Authorizer(session);
-            mylist.user.userId = auth.getUserLoggedInAs().userId;
-            
-            mylist.name = request.getParameter("name");
-            mylistDAO.insert(mylist);
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -58,6 +48,10 @@ public class GetMyListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        
+        
+        
     }
 
     /**
@@ -83,5 +77,4 @@ public class GetMyListServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }
