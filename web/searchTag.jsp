@@ -19,9 +19,13 @@
 
 
         <form method="GET" action="" id="tag-search-form">
-            タグ：<input type="text" name="t" placeholder="タグ" value="<%= tagName != null ? h(tagName) : ""%>">
-            <a id="show-keywordform" href="#">キーワードで絞込</a>
-            <input class="hidden" type="text" id="keyword" placeholder="キーワード" value="<%= keyword != null ? h(keyword) : ""%>">
+            <label>
+                タグ：<input type="text" name="t" placeholder="タグ" value="<%= tagName != null ? h(tagName) : ""%>">
+            </label>
+            <label>
+                <a id="show-keywordform" href="#">キーワードで絞込</a>
+                <input class="hidden" type="text" id="keyword" placeholder="キーワード" value="<%= keyword != null ? h(keyword) : ""%>">
+            </label>
             <input type="submit" class="btn btn-primary" value="検索">
             <div id="orders">
                 <label><input type="radio" name="o" value="<%= SearchTagServlet.Order.MUSIC_CREATED_AT.ordinal()%>">新着順</label>
