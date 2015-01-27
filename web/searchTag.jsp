@@ -19,10 +19,10 @@
 
 
         <form method="GET" action="" id="tag-search-form">
-            タグ：<input type="text" name="t" value="<%= tagName != null ? h(tagName) : ""%>">
-            <input type="submit" value="検索">
-            <br>
-            キーワードで絞込：<input type="text" id="keyword" value="<%= keyword != null ? h(keyword) : ""%>">
+            タグ：<input type="text" name="t" placeholder="タグ" value="<%= tagName != null ? h(tagName) : ""%>">
+            <a id="show-keywordform" href="#">キーワードで絞込</a>
+            <input class="hidden" type="text" id="keyword" placeholder="キーワード" value="<%= keyword != null ? h(keyword) : ""%>">
+            <input type="submit" class="btn btn-primary" value="検索">
             <div id="orders">
                 <label><input type="radio" name="o" value="<%= SearchTagServlet.Order.MUSIC_CREATED_AT.ordinal()%>">新着順</label>
                 <label><input type="radio" name="o" value="<%= SearchTagServlet.Order.MUSIC_COMMENT_CREATED_AT.ordinal()%>">コメントの新しい順</label>
