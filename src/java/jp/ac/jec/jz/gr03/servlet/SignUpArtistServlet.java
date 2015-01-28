@@ -10,6 +10,8 @@ import jp.ac.jec.jz.gr03.dao.ArtistDAO;
 import jp.ac.jec.jz.gr03.entity.Artist;
 import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
+import jp.ac.jec.jz.gr03.util.Flash;
+import jp.ac.jec.jz.gr03.util.Flash.FlashQueue;
 
 /**
  *
@@ -97,18 +99,27 @@ public class SignUpArtistServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが足りません");
             return;
         }
-        if (name.isEmpty() || introduction.isEmpty()) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "必須のフォームを入力してください");
-            return;
+        FlashQueue errorFlashes = Flash.get(session).danger;
+        if (name.isEmpty()) {
+            errorFlashes.offer("アーティスト名を入力してください");
         }
-        
-        Artist artist = new Artist();
-        artist.user = user;
-        artist.name = name;
-        artist.introduction = introduction;
-        insertArtist(artist);
-        
-        response.sendRedirect("MyPageServlet");
+        if (introduction.isEmpty()) {
+            errorFlashes.offer("プロフィールを入力してください");
+        }
+
+        if (errorFlashes.isEmpty()) {
+            Artist artist = new Artist();
+            artist.user = user;
+            artist.name = name;
+            artist.introduction = introduction;
+            Flash.get(session).success.offer("アーティスト登録しました。");
+            insertArtist(artist);
+
+            response.sendRedirect("MyPageServlet");
+        } else {
+            request.getRequestDispatcher("signUpArtist.jsp").forward(request, response);
+        }
+
     }
 
     /**
