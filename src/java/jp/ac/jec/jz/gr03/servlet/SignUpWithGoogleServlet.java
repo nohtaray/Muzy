@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import jp.ac.jec.jz.gr03.dao.UserDAO;
 import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
+import jp.ac.jec.jz.gr03.util.Flash;
 
 /**
  *
@@ -137,7 +138,7 @@ public class SignUpWithGoogleServlet extends HttpServlet {
 
         session.removeAttribute("googleUserInfoForSignUp");
         
-        // request.setAttribute("flush", "アカウント登録しました");
+        Flash.get(session).success.offer("アカウント登録しました。");
         response.sendRedirect("MyPageServlet");
     }
 
