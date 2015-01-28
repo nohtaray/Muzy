@@ -100,8 +100,8 @@
             <div class="row">
                 <div class="col-md-3">
                     <ul class="list-unstyled">
-                        <li><a href="SponsorServlet"><img src="img/062580.jpg" width="230" height="165" alt="Sponsor ATreat" border="0"></a></li>
-                        <li><a href="SponsorServlet"><img src="img/081510.jpg" width="230" height="165" alt="Sponsor ATreat" border="0"></a></li>
+                        <li><a href="SponsorServlet"><img src="img/sponsor/062580.jpg" width="230" height="165" alt="Sponsor ATreat" border="0"></a></li>
+                        <li><a href="SponsorServlet"><img src="img/sponsor/081510.jpg" width="230" height="165" alt="Sponsor ATreat" border="0"></a></li>
                     </ul>
                 </div>
                 <div class="col-md-9">
