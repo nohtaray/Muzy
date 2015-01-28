@@ -58,9 +58,11 @@ public class SignUpWithGoogleServlet extends HttpServlet {
             return;
         }
         
-        boolean googleAuthenticated = session.getAttribute("googleUserInfoForSignUp") != null;
+        GoogleUserInfo gu = (GoogleUserInfo) session.getAttribute("googleUserInfoForSignUp");
+        boolean googleAuthenticated = gu != null;
         if (googleAuthenticated) {
             // サインアップページを表示
+            request.setAttribute("name", gu.name);
             request.getRequestDispatcher("signUpWithGoogle.jsp").forward(request, response);
         } else {
             // 認証ページを表示
@@ -167,6 +169,7 @@ public class SignUpWithGoogleServlet extends HttpServlet {
         user.googleToken = gu.accessToken;
         user.googleRefreshToken = gu.refreshToken;
         user.googleExpiresAt = new Date(gu.expiresAt * 1000);
+        user.iconImageFile = gu.image;
         user.isValid = true;
         user.isOwner = false;
         

@@ -12,4 +12,6 @@ public class GoogleUserInfo {
     public long expiresAt;
     public String userId;
     public String email;
+    public String image;
+    public String name;
 }
