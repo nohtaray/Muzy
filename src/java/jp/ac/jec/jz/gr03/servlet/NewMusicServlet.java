@@ -16,6 +16,7 @@ import jp.ac.jec.jz.gr03.entity.Music;
 import jp.ac.jec.jz.gr03.entity.Tag;
 import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
+import jp.ac.jec.jz.gr03.util.Flash;
 
 /**
  *
@@ -111,7 +112,7 @@ public class NewMusicServlet extends HttpServlet {
         }
         // エラーあった？
         if (paramError != null) {
-            request.setAttribute("error", paramError);
+            Flash.get(session).danger.offer(paramError);
             request.getRequestDispatcher("newMusic.jsp").forward(request, response);
             return;
         }
@@ -123,7 +124,7 @@ public class NewMusicServlet extends HttpServlet {
             Set<String> tags = parseTags(strTags);
             insertTags(music, tags);
         } catch (IOException e) {
-            request.setAttribute("error", "サーバ内部エラー：" + e.toString());
+            Flash.get(session).danger.offer("サーバ内部エラー：" + e.toString());
             request.getRequestDispatcher("newMusic.jsp").forward(request, response);
             return;
         }

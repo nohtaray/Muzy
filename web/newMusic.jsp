@@ -1,8 +1,5 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-    String error = (String) request.getAttribute("error");
-%>
 <c:import url="/layout/application.jsp">
     <c:param name="title" value="new music" />
     <c:param name="header">
@@ -13,12 +10,6 @@
 
         <div class="row">
             <div class="col-md-7">
-                <% if (error != null) {%>
-                <div class="alert alert-danger">
-                    <a class="close" data-dismiss="alert">×</a>
-                    エラー：<%= error%>
-                </div>
-                <% }%>
                 <div id="music-youtube-video-area" class="text-center">
                     公開する動画を一覧から選択してください。<br>
                     YouTubeで非公開の動画は表示されません。
