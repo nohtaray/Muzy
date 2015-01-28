@@ -27,7 +27,7 @@ $(function() {
             appendVideoItem(item);
         });
         if ($videoArea.children().size() === 0) {
-            $('<p>').html('<a href="http://youtube.com">YouTube</a>に動画をアップロードしてください。')
+            $('<p>').html('YouTube に動画をアップロードしてください。')
                 .attr('id', 'new-music-youtube-load-failed')
                 .appendTo($videoArea);
         }
