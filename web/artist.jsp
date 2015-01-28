@@ -26,7 +26,7 @@
     </c:param>
     <c:param name="content">
         <div id="artist-header">
-            <img id="header-image" src="img/artist/<%= artist.headerImageFile%>">
+            <img id="header-image" src="<%= h(artist.headerImageFile)%>">
         </div>
         <div class="row">
             <div class="col-sm-7">
@@ -58,7 +58,7 @@
                     <% for (Message message : messages) {%>
                     <div class="media">
                         <a class="media-left">
-                            <img class="media-object" src="img/<%= !message.isDeleted && message.user.iconImageFile != null ? h(message.user.iconImageFile) : "default.png"%>" width="64">
+                            <img class="media-object" src="<%= !message.isDeleted && message.user.iconImageFile != null ? h(message.user.iconImageFile) : "img/default.png"%>" width="64">
                         </a>
                         <div class="media-body thumbnail">
                             <% if (message.isDeleted) {%>
