@@ -91,62 +91,71 @@
                 <%= userLoggedIn.name%>としてログイン中
                 <% }%>
                 <ul>
-                    <li><a href="SponsorServlet">スポンサー</a></li>
                     <li><a href="LatestMusicServlet">最新楽曲</a></li>
                 </ul>
             </div>
         </header>
 
         <div class="container">
-            <%
-                if (!flash.success.isEmpty()) {
-                    String message;
-                    while ((message = flash.success.poll()) != null) {
-            %>
-            <div class="alert alert-success">
-                <a class="close" data-dismiss="alert">×</a>
-                <%= br(h(message))%>
-            </div>
-            <%
-                    }
-                }
-                if (!flash.info.isEmpty()) {
-                    String message;
-                    while ((message = flash.info.poll()) != null) {
-            %>
-            <div class="alert alert-info">
-                <a class="close" data-dismiss="alert">×</a>
-                <%= br(h(message))%>
-            </div>
-            <%
-                    }
-                }
-                if (!flash.warning.isEmpty()) {
-                    String message;
-                    while ((message = flash.warning.poll()) != null) {
-            %>
-            <div class="alert alert-warning">
-                <a class="close" data-dismiss="alert">×</a>
-                <%= br(h(message))%>
-            </div>
-            <%
-                    }
-                }
-                if (!flash.danger.isEmpty()) {
-                    String message;
-                    while ((message = flash.danger.poll()) != null) {
-            %>
-            <div class="alert alert-danger">
-                <a class="close" data-dismiss="alert">×</a>
-                <%= br(h(message))%>
-            </div>
-            <%
-                    }
-                }
-            %>
-            <div id="main">
-                ${param.content}
-            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="list-unstyled">
+                        <li><a href="SponsorServlet"><img src="img/062580.jpg" width="230" height="165" alt="Sponsor ATreat" border="0"></a></li>
+                        <li><a href="SponsorServlet"><img src="img/081510.jpg" width="230" height="165" alt="Sponsor ATreat" border="0"></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-9">
+                    <%
+                        if (!flash.success.isEmpty()) {
+                            String message;
+                            while ((message = flash.success.poll()) != null) {
+                    %>
+                    <div class="alert alert-success">
+                        <a class="close" data-dismiss="alert">×</a>
+                        <%= br(h(message))%>
+                    </div>
+                    <%
+                            }
+                        }
+                        if (!flash.info.isEmpty()) {
+                            String message;
+                            while ((message = flash.info.poll()) != null) {
+                    %>
+                    <div class="alert alert-info">
+                        <a class="close" data-dismiss="alert">×</a>
+                        <%= br(h(message))%>
+                    </div>
+                    <%
+                            }
+                        }
+                        if (!flash.warning.isEmpty()) {
+                            String message;
+                            while ((message = flash.warning.poll()) != null) {
+                    %>
+                    <div class="alert alert-warning">
+                        <a class="close" data-dismiss="alert">×</a>
+                        <%= br(h(message))%>
+                    </div>
+                    <%
+                            }
+                        }
+                        if (!flash.danger.isEmpty()) {
+                            String message;
+                            while ((message = flash.danger.poll()) != null) {
+                    %>
+                    <div class="alert alert-danger">
+                        <a class="close" data-dismiss="alert">×</a>
+                        <%= br(h(message))%>
+                    </div>
+                    <%
+                            }
+                        }
+                    %>
+                    <div id="main">
+                        ${param.content}
+                    </div>
+                </div>
+            </div><!-- /#row -->
         </div><!-- /#main -->
     </body>
 </html>
