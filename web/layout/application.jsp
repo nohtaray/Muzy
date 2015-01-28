@@ -5,11 +5,13 @@
 
     全画面共通の部分
 --%>
+<%@page import="jp.ac.jec.jz.gr03.util.Flash"%>
 <%@page import="jp.ac.jec.jz.gr03.entity.User"%>
 <%@page import="jp.ac.jec.jz.gr03.util.Authorizer"%>
 <%
     Authorizer auth = new Authorizer(session);
     User userLoggedIn = auth.getUserLoggedInAs();
+    Flash flash = Flash.get(session);
 %>
 <%@page pageEncoding="UTF-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -95,8 +97,56 @@
             </div>
         </header>
 
-        <div id="main" class="container">
-            ${param.content}
+        <div class="container">
+            <%
+                if (!flash.success.isEmpty()) {
+                    String message;
+                    while ((message = flash.success.poll()) != null) {
+            %>
+            <div class="alert alert-success">
+                <a class="close" data-dismiss="alert">×</a>
+                <%= br(h(message))%>
+            </div>
+            <%
+                    }
+                }
+                if (!flash.info.isEmpty()) {
+                    String message;
+                    while ((message = flash.info.poll()) != null) {
+            %>
+            <div class="alert alert-info">
+                <a class="close" data-dismiss="alert">×</a>
+                <%= br(h(message))%>
+            </div>
+            <%
+                    }
+                }
+                if (!flash.warning.isEmpty()) {
+                    String message;
+                    while ((message = flash.warning.poll()) != null) {
+            %>
+            <div class="alert alert-warning">
+                <a class="close" data-dismiss="alert">×</a>
+                <%= br(h(message))%>
+            </div>
+            <%
+                    }
+                }
+                if (!flash.danger.isEmpty()) {
+                    String message;
+                    while ((message = flash.danger.poll()) != null) {
+            %>
+            <div class="alert alert-danger">
+                <a class="close" data-dismiss="alert">×</a>
+                <%= br(h(message))%>
+            </div>
+            <%
+                    }
+                }
+            %>
+            <div id="main">
+                ${param.content}
+            </div>
         </div><!-- /#main -->
     </body>
 </html>
