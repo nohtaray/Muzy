@@ -64,6 +64,7 @@ public class SignUpArtistServlet extends HttpServlet {
             return;
         }
 
+        request.setAttribute("me", user);
         request.getRequestDispatcher("signUpArtist.jsp").forward(request, response);
     }
 
@@ -117,6 +118,8 @@ public class SignUpArtistServlet extends HttpServlet {
 
             response.sendRedirect("MyPageServlet");
         } else {
+            request.setAttribute("name", name);
+            request.setAttribute("introduction", introduction);
             request.getRequestDispatcher("signUpArtist.jsp").forward(request, response);
         }
 
