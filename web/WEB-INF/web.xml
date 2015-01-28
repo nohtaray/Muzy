@@ -553,6 +553,9 @@
         <servlet-name>MyListDetailServlet</servlet-name>
         <url-pattern>/MyListDetailServlet</url-pattern>
     </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>IndexServlet</welcome-file>
+    </welcome-file-list>
     <session-config>
         <session-timeout>
             30
