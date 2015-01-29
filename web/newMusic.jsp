@@ -53,7 +53,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="clearfix" id="upload-link">
-                            <a class="pull-right" href="https://www.youtube.com/upload">動画のアップロードはこちら</a>
+                            <a class="pull-right" href="https://www.youtube.com/upload" target="_blank">動画のアップロードはこちら</a>
                         </div>
                         <div id="new-music-youtube-videos">
                             <div id="new-music-youtube-loading">

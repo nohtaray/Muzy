@@ -1,7 +1,7 @@
 package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -16,6 +16,7 @@ import jp.ac.jec.jz.gr03.util.Date;
 import jp.ac.jec.jz.gr03.util.GoogleProxy;
 import jp.ac.jec.jz.gr03.util.GoogleUserInfo;
 import jp.ac.jec.jz.gr03.util.Json;
+import net.arnx.jsonic.JSON;
 import org.apache.http.HttpStatus;
 
 
@@ -161,6 +162,9 @@ public class LoginWithGoogleServlet extends HttpServlet {
 
     private GoogleUserInfo retrieveGoogleUserInfo(String code)
             throws IOException {
+        // TODO: メソッド分割・見やすくする
+        // people の取得は、既存ユーザにとって不要
+        // JSON はライブラリを使って処理（util.Json を使わない）
         GoogleUserInfo gu = new GoogleUserInfo();
         GoogleProxy googleProxy = new GoogleProxy();
 
@@ -177,6 +181,12 @@ public class LoginWithGoogleServlet extends HttpServlet {
         Json tokenInfo = new Json(googleProxy.retrieveTokenInfo(gu.accessToken));
         gu.userId = tokenInfo.get("user_id");
         gu.email  = tokenInfo.get("email");
+
+        Map<String, Object> people = JSON.decode(googleProxy.retrievePeople(gu.userId, gu.accessToken), Map.class);
+        gu.name = (String)people.get("displayName");
+        // TODO: 見やすくする
+        gu.image = (String)((Map<String, Object>)people.get("image")).get("url");
+        gu.image = gu.image.substring(0, gu.image.indexOf("?"));    // ?sz=50 って付いてるので取り除く
 
         return gu;
     }
