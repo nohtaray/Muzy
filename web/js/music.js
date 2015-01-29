@@ -220,7 +220,7 @@ function addMyListDetail(mylistId, musicId){
 }
 //------------ここまで実行可能確認------------------
 
-function evaluationCommentGood(commentid, target) {
+function evaluationCommentGood(commentid, target, eva) {
     $.ajax({
         type: 'POST',
         dataType: 'text',
@@ -230,13 +230,14 @@ function evaluationCommentGood(commentid, target) {
             eva: 1
         }
     }).done(function () {
-        alert("良い成功");
+        $(target).parent().children('input').attr({disabled:"disabled"});
+        $(target).parent().children('label').text(eva + 1);
     }).fail(function () {
-        alert("良い失敗");
+        alert("評価できません。");
     }).always(function () {
     });
 }
-function evaluationCommentBad(commentid, target) {
+function evaluationCommentBad(commentid, target, eva) {
     $.ajax({
         type: 'POST',
         dataType: 'text',
@@ -246,13 +247,20 @@ function evaluationCommentBad(commentid, target) {
             eva: -1
         }
     }).done(function () {
-        $(target).parent().parent().children('label').html();
-        alert("悪い成功");
+        $(target).parent().children('var').text(eva + 1);
+        $(target).parent().children('input').attr({disabled:"disabled"});
     }).fail(function () {
-        alert("悪い失敗");
+        alert("評価できません。");
     }).always(function () {
     });
 }
+
+
+$("img").attr({ 
+      src: "/images/hat.gif",
+      title: "jQuery",
+      alt: "jQuery Logo"
+    });
 
 function deleteComment(commentid, target) {
     $.ajax({

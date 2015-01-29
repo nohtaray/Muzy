@@ -73,10 +73,10 @@
             <%for (Comment comment : comments) {%>
             <div class="comment" data-comment-id="<%= comment.commentId%>">
                 <div class="comment-content"><%= comment.content%>
-                    評価値 : <label><%= (comment.scorePlusCount - comment.scoreMinusCount) %></label>
+                    <!--評価値 : <label><%= (comment.scorePlusCount - comment.scoreMinusCount) %></label>-->
                     <%if(me != null){%>
-                    <input type="button" onclick="evaluationCommentGood(<%= comment.commentId%>, this)" value="良い" /><%= (comment.scorePlusCount) %>
-                    <input type="button" onclick="evaluationCommentBad(<%= comment.commentId%>, this)" value="悪い" /><%= (comment.scoreMinusCount) %>
+                    <input type="button" class="glyphicon glyphicon-thumbs-up" aria-hidden="true" onclick="evaluationCommentGood(<%= comment.commentId%>, this, <%= comment.scorePlusCount %>)" /><label><%= (comment.scorePlusCount) %></label>
+                    <input type="button" class="glyphicon glyphicon-thumbs-down"　onclick="evaluationCommentBad(<%= comment.commentId%>, this, <%= comment.scoreMinusCount %>)" /><var><%= (comment.scoreMinusCount) %></var>
                     <%}%>
                     <%if(me != null && me.userId == comment.user.userId){%>
                     <input type="button" onclick="deleteComment(<%= comment.commentId %>, this)" value="削除" />
