@@ -60,30 +60,36 @@
                 </div>
             </div>
         </nav>
-        <div>
-            <div>
-                <div>
-                    <form id="search-form" method="GET">
-                        <label class="radio-inline">
-                            <input type="radio" name="type" class="search-form-type" value="music" checked /> 楽曲を検索
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="type" class="search-form-type" value="artist" /> アーティストを検索
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="type" class="search-form-type" value="tag" /> タグで検索
-                        </label>
-                        <input type="text" id="search-form-text" placeholder="キーワードを入力">
-                        <input type="submit" class="btn btn-info" value="検索">
-                    </form>
-                </div>
-            </div>
-        </div>
 
         <div class="container">
-            <div class="clearfix">
-                <div id="sponsors" class="pull-right">
-                    <ul class="list-inline">
+            <div class="row">
+                <div class="col-sm-6">
+                        <form id="search-form" method="GET" class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="type" class="search-form-type" value="music" checked /> 楽曲
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="type" class="search-form-type" value="artist" /> アーティスト
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="type" class="search-form-type" value="tag" /> タグ
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <input type="text" id="search-form-text" placeholder="キーワードを入力" class="form-control">
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="submit" class="btn btn-primary" value="検索">
+                                </div>
+                            </div>
+                        </form>
+                </div>
+                <div id="sponsors" class="col-sm-6">
+                    <ul class="list-inline pull-right">
                         <li><a href="SponsorServlet"><img src="img/sponsor/062580.jpg" width="230" height="165" alt="Sponsor ATreat" border="0"></a></li>
                         <li><a href="SponsorServlet"><img src="img/sponsor/081510.jpg" width="230" height="165" alt="Sponsor ATreat" border="0"></a></li>
                     </ul>
