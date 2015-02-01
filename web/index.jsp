@@ -17,11 +17,14 @@
             <li role="presentation"><a href="#">マイリスト数！</a></li>
         </ul>
         -->
-        
+
         <div class="row">
             <div class="col-md-8">
                 <h3>アーティストランキング</h3>
                 <div id="ranking-artists">
+                    <div class="text-center">
+                        <img src="img/ajax-loader.gif">
+                    </div>
                     <div id="ranking-artist-template" class="ranking-artist hidden">
                         <div class="ranking-artist-name"></div>
                         <div class="ranking-artist-introduction"></div>
@@ -29,6 +32,9 @@
                 </div>
                 <h3>楽曲ランキング</h3>
                 <div id="ranking-musics">
+                    <div class="text-center">
+                        <img src="img/ajax-loader.gif">
+                    </div>
                     <div id="ranking-music-template" class="ranking-music hidden">
                         <div class="ranking-music-title"></div>
                         <div class="ranking-music-description"></div>
@@ -38,6 +44,9 @@
             <div class="col-md-4">
                 <h4>最新楽曲</h4>
                 <div id="latest-musics">
+                    <div class="text-center">
+                        <img src="img/ajax-loader.gif">
+                    </div>
                     <div id="latest-music-template" class="latest-music hidden">
                         <div class="latest-music-title"></div>
                         <div class="latest-music-description"></div>

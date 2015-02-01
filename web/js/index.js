@@ -1,8 +1,8 @@
 /*global $ */
 $(function() {
     loadJson('RankingArtistVoteJsonServlet', function(artistVotes) {
-        var $container = $('#ranking-artists');
-        var $template = $('#ranking-artist-template');
+        var $template = $('#ranking-artist-template').clone();
+        var $container = $('#ranking-artists').empty();
         artistVotes.forEach(function(artistVote) {
             var $artist = $template.clone();
             var $name = $('<a>', {
@@ -14,8 +14,8 @@ $(function() {
         });
     });
     loadJson('RankingMusicAdvertisementJsonServlet', function(musicAdvertisements) {
-        var $container = $('#ranking-musics');
-        var $template = $('#ranking-music-template');
+        var $template = $('#ranking-music-template').clone();
+        var $container = $('#ranking-musics').empty();
         musicAdvertisements.forEach(function(musicAdvertisement) {
             var $music = $template.clone();
             var $title = $('<a>', {
@@ -27,8 +27,8 @@ $(function() {
         });
     });
     loadJson('LatestMusicJsonServlet', function(musics) {
-        var $container = $('#latest-musics');
-        var $template = $('#latest-music-template');
+        var $template = $('#latest-music-template').clone();
+        var $container = $('#latest-musics').empty();
         musics.forEach(function(music) {
             var $music = $template.clone();
             var $title = $('<a>', {
