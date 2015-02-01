@@ -90,9 +90,6 @@
                 <%-- ログインしている --%>
                 <%= userLoggedIn.name%>としてログイン中
                 <% }%>
-                <ul>
-                    <li><a href="LatestMusicServlet">最新楽曲</a></li>
-                </ul>
             </div>
         </header>
 
