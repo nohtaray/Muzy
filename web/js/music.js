@@ -256,12 +256,6 @@ function evaluationCommentBad(commentid, target, eva) {
 }
 
 
-$("img").attr({ 
-      src: "/images/hat.gif",
-      title: "jQuery",
-      alt: "jQuery Logo"
-    });
-
 function deleteComment(commentid, target) {
     $.ajax({
         type: 'GET',
