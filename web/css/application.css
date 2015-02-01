@@ -5,13 +5,26 @@
 */
 
 body {
-    padding-top: 110px;
+    padding-top: 77px;
 }
 
 .container {
 }
 
+#header {
+    height: 60px;
+}
+
+.navbar-brand {
+  background: url("../img/logo.png") no-repeat left center;
+  background-size: contain;
+  height: 50px;
+  width: 143px;
+  margin-top: 5px;
+}
+
+
+
 #login-box {
-    margin-top: 20px;
-    margin-right: 40px;
+    margin-top: 14px;
 }

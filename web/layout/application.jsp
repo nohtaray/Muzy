@@ -31,10 +31,10 @@
         ${param.header}
     </head>
     <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top">
+        <nav id="header" class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <h1><a href="./"><img src="img/logo.png" Border="0" Width="200" Height="70"></a></h1>
+                    <a class="navbar-brand" href="./"></a>
                 </div>
                 <div class="pull-right">
                     <% if (userLoggedIn == null) { %>
