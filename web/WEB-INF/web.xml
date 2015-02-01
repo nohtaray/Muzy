@@ -289,6 +289,10 @@
         <servlet-name>MyListDetailServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.MyListDetailServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LatestMusicJsonServlet</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.LatestMusicJsonServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
         <url-pattern>/LoginWithGoogleServlet</url-pattern>
@@ -556,6 +560,10 @@
     <welcome-file-list>
         <welcome-file>IndexServlet</welcome-file>
     </welcome-file-list>
+    <servlet-mapping>
+        <servlet-name>LatestMusicJsonServlet</servlet-name>
+        <url-pattern>/LatestMusicJsonServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
