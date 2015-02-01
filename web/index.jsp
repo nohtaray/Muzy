@@ -7,6 +7,7 @@
     </c:param>
     <c:param name="content">
 
+        <!--
         <p>
             動画ランキング！！
         </p>
@@ -15,20 +16,32 @@
             <li role="presentation"><a href="#">評価数！</a></li>
             <li role="presentation"><a href="#">マイリスト数！</a></li>
         </ul>
-
-        <div id="rankings">
-            アーティストランキング
-            <div id="ranking-artists">
-                <div id="ranking-artist-template" class="ranking-artist hidden">
-                    <div class="ranking-artist-name"></div>
-                    <div class="ranking-artist-introduction"></div>
+        -->
+        
+        <div class="row">
+            <div class="col-md-8">
+                <h3>アーティストランキング</h3>
+                <div id="ranking-artists">
+                    <div id="ranking-artist-template" class="ranking-artist hidden">
+                        <div class="ranking-artist-name"></div>
+                        <div class="ranking-artist-introduction"></div>
+                    </div>
+                </div>
+                <h3>楽曲ランキング</h3>
+                <div id="ranking-musics">
+                    <div id="ranking-music-template" class="ranking-music hidden">
+                        <div class="ranking-music-title"></div>
+                        <div class="ranking-music-description"></div>
+                    </div>
                 </div>
             </div>
-            楽曲ランキング
-            <div id="ranking-musics">
-                <div id="ranking-music-template" class="ranking-music hidden">
-                    <div class="ranking-music-title"></div>
-                    <div class="ranking-music-description"></div>
+            <div class="col-md-4">
+                <h4>最新楽曲</h4>
+                <div id="latest-musics">
+                    <div id="latest-music-template" class="latest-music hidden">
+                        <div class="latest-music-title"></div>
+                        <div class="latest-music-description"></div>
+                    </div>
                 </div>
             </div>
         </div>

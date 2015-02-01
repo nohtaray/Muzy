@@ -26,6 +26,19 @@ $(function() {
             $music.removeAttr('id').removeClass('hidden').appendTo($container);
         });
     });
+    loadJson('LatestMusicJsonServlet', function(musics) {
+        var $container = $('#latest-musics');
+        var $template = $('#latest-music-template');
+        musics.forEach(function(music) {
+            var $music = $template.clone();
+            var $title = $('<a>', {
+                href: 'MusicServlet?id=' + music['music_id']
+            }).text(music['title']);
+            $music.find('.latest-music-title').append($title);
+            $music.find('.latest-music-description').text(music['description']);
+            $music.removeAttr('id').removeClass('hidden').appendTo($container);
+        });
+    });
 
     function loadJson(url, onSuccess) {
         $.ajax({
