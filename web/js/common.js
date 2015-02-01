@@ -14,5 +14,12 @@ window.Helper = (function($) {
             });
             $form.submit();
         },
+        truncateString: function(src, maxLength) {
+            if (src.length <= maxLength) {
+                return src;
+            } else {
+                return src.slice(0, maxLength) + '...';
+            }
+        },
     };
 })(jQuery);
