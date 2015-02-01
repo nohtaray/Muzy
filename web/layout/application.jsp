@@ -5,6 +5,7 @@
 
     全画面共通の部分
 --%>
+<%@page import="jp.ac.jec.jz.gr03.util.GoogleProxy"%>
 <%@page import="jp.ac.jec.jz.gr03.util.Flash"%>
 <%@page import="jp.ac.jec.jz.gr03.entity.User"%>
 <%@page import="jp.ac.jec.jz.gr03.util.Authorizer"%>
@@ -24,6 +25,7 @@
         <script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/common.js"></script>
         <script type="text/javascript" src="js/application.js"></script>
+        <script type="text/javascript" src="js/loginWithGoogle.js"></script>
         <link rel="stylesheet" type="text/css" href="css/lib/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="css/lib/bootstrap-theme.min.css">
         <link rel="stylesheet" type="text/css" href="css/common.css">
@@ -37,19 +39,22 @@
                     <a class="navbar-brand" href="./"></a>
                 </div>
                 <div class="pull-right">
-                    <% if (userLoggedIn == null) { %>
+                    <% if (userLoggedIn == null) {%>
                     <%-- ログインしてない --%>
                     <div id="login-box" class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            ログイン・新規登録
-                            <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="LoginWithGoogleServlet">ログイン・新規登録</a></li>
-                            <li><a href="LoginWithPasswordServlet">メールアドレスでログイン</a></li>
-                            <li><a href="SignUpUserServlet">メールアドレスで新規登録</a></li>
-                        </ul>
+                        <span id="signinButton">
+                            <span
+                                class="g-signin"
+                                data-accesstype="offline"
+                                data-approvalprompt="force"
+                                data-callback="googleLoginCallback"
+                                data-clientid="<%= GoogleProxy.CLIENT_ID%>"
+                                data-cookiepolicy="single_host_origin"
+                                data-redirecturi="postmessage"
+                                data-requestvisibleactions="http://schemas.google.com/AddActivity"
+                                data-scope="https://www.googleapis.com/auth/plus.login profile email https://www.googleapis.com/auth/youtube.readonly"
+                                ></span>
+                        </span>
                     </div>
                     <% } else {%>
                     <%-- ログインしている --%>
@@ -64,29 +69,29 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                        <form id="search-form" method="GET" class="form-horizontal">
-                            <div class="form-group">
-                                <div class="col-sm-10">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="type" class="search-form-type" value="music" checked /> 楽曲
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="type" class="search-form-type" value="artist" /> アーティスト
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="type" class="search-form-type" value="tag" /> タグ
-                                    </label>
-                                </div>
+                    <form id="search-form" method="GET" class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-10">
+                                <label class="radio-inline">
+                                    <input type="radio" name="type" class="search-form-type" value="music" checked /> 楽曲
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="type" class="search-form-type" value="artist" /> アーティスト
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="type" class="search-form-type" value="tag" /> タグ
+                                </label>
                             </div>
-                            <div class="form-group">
-                                <div class="col-sm-9">
-                                    <input type="text" id="search-form-text" placeholder="キーワードを入力" class="form-control">
-                                </div>
-                                <div class="col-sm-2">
-                                    <input type="submit" class="btn btn-primary" value="検索">
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <input type="text" id="search-form-text" placeholder="キーワードを入力" class="form-control">
                             </div>
-                        </form>
+                            <div class="col-sm-2">
+                                <input type="submit" class="btn btn-primary" value="検索">
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <div id="sponsors" class="col-sm-6">
                     <ul class="list-inline pull-right">
@@ -145,5 +150,16 @@
                 ${param.content}
             </div><!-- /#main -->
         </div>
+
+        <script type="text/javascript">
+            (function () {
+                var po = document.createElement('script');
+                po.type = 'text/javascript';
+                po.async = true;
+                po.src = 'https://apis.google.com/js/client:plusone.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(po, s);
+            })();
+        </script>
     </body>
 </html>
