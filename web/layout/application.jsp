@@ -36,10 +36,9 @@
                 <div class="navbar-header">
                     <h1><a href="./"><img src="img/logo.png" Border="0" Width="200" Height="70"></a></h1>
                 </div>
-                <div align="right">
+                <div class="pull-right">
                     <% if (userLoggedIn == null) { %>
                     <%-- ログインしてない --%>
-
                     <div id="login-box" class="btn-group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             ログイン・新規登録
@@ -52,46 +51,34 @@
                             <li><a href="SignUpUserServlet">メールアドレスで新規登録</a></li>
                         </ul>
                     </div>
-
                     <% } else {%>
                     <%-- ログインしている --%>
-                    <%= userLoggedIn.name%>としてログイン中
-                    <ul>
-                        <li><a href="MyPageServlet" class="label label-info">マイページ</a>
-                        <li><a href="LogoutServlet">ログアウト</a></li>
-                    </ul>
+                    <%= userLoggedIn.name%> さん
+                    <a href="MyPageServlet" class="label label-info">マイページ</a>
+                    <a href="LogoutServlet">ログアウト</a>
                     <% }%>
                 </div>
             </div>
         </nav>
-        <header id="header">
+        <div>
             <div>
                 <div>
-                    <div>
-                        <form id="search-form" method="GET">
-                            <label class="radio-inline">
-                                <input type="radio" name="type" class="search-form-type" value="music" checked /> 楽曲を検索
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="type" class="search-form-type" value="artist" /> アーティストを検索
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="type" class="search-form-type" value="tag" /> タグで検索
-                            </label>
-                            <input type="text" id="search-form-text" placeholder="キーワードを入力">
-                            <input type="submit" class="btn btn-info" value="検索">
-                        </form>
-                    </div>
+                    <form id="search-form" method="GET">
+                        <label class="radio-inline">
+                            <input type="radio" name="type" class="search-form-type" value="music" checked /> 楽曲を検索
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="type" class="search-form-type" value="artist" /> アーティストを検索
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="type" class="search-form-type" value="tag" /> タグで検索
+                        </label>
+                        <input type="text" id="search-form-text" placeholder="キーワードを入力">
+                        <input type="submit" class="btn btn-info" value="検索">
+                    </form>
                 </div>
-                <% if (userLoggedIn == null) { %>
-                <%-- ログインしてない --%>
-                <h1>未ログイン状態です</h1>
-                <% } else {%>
-                <%-- ログインしている --%>
-                <%= userLoggedIn.name%>としてログイン中
-                <% }%>
             </div>
-        </header>
+        </div>
 
         <div class="container">
             <div class="clearfix">
