@@ -1,6 +1,6 @@
 /*global $ */
 $(function() {
-    loadRankingJson('RankingArtistVoteJsonServlet', function(artistVotes) {
+    loadJson('RankingArtistVoteJsonServlet', function(artistVotes) {
         var $container = $('#ranking-artists');
         var $template = $('#ranking-artist-template');
         artistVotes.forEach(function(artistVote) {
@@ -13,7 +13,7 @@ $(function() {
             $artist.removeAttr('id').removeClass('hidden').appendTo($container);
         });
     });
-    loadRankingJson('RankingMusicAdvertisementJsonServlet', function(musicAdvertisements) {
+    loadJson('RankingMusicAdvertisementJsonServlet', function(musicAdvertisements) {
         var $container = $('#ranking-musics');
         var $template = $('#ranking-music-template');
         musicAdvertisements.forEach(function(musicAdvertisement) {
@@ -27,7 +27,7 @@ $(function() {
         });
     });
 
-    function loadRankingJson(url, onSuccess) {
+    function loadJson(url, onSuccess) {
         $.ajax({
             type: 'GET',
             url: url,
