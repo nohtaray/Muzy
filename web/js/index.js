@@ -1,8 +1,13 @@
 /*global $, Helper */
 $(function() {
-    var LENGTH_RANKING_ARTIST = 200;
-    var LENGTH_RANKING_MUSIC = 200;
-    var LENGTH_LATEST_MUSIC = 100;
+    var Lengths = {
+        rankingArtistIntroduction: 200,
+        rankingArtistTitle: 30,
+        rankingMusicDescription: 200,
+        rankingMusicTitle: 30,
+        latestMusicDescription: 50,
+        latestMusicTitle: 30,
+    };
 
     loadJson('RankingArtistVoteJsonServlet', function(artistVotes) {
         var $template = $('#ranking-artist-template').clone();
@@ -13,7 +18,7 @@ $(function() {
                 href: 'ArtistServlet?id=' + artistVote['artist']['artist_id']
             }).text(artistVote['artist']['name']);
             $artist.find('.ranking-artist-name').append($name);
-            $artist.find('.ranking-artist-introduction').text(Helper.truncateString(artistVote['artist']['introduction'], LENGTH_RANKING_ARTIST));
+            $artist.find('.ranking-artist-introduction').text(Helper.truncateString(artistVote['artist']['introduction'], Lengths.rankingArtistIntroduction));
             $artist.removeAttr('id').removeClass('hidden').appendTo($container);
         });
     });
@@ -26,7 +31,7 @@ $(function() {
                 href: 'MusicServlet?id=' + musicAdvertisement['music']['music_id']
             }).text(musicAdvertisement['music']['title']);
             $music.find('.ranking-music-title').append($title);
-            $music.find('.ranking-music-description').text(Helper.truncateString(musicAdvertisement['music']['description'], LENGTH_RANKING_MUSIC));
+            $music.find('.ranking-music-description').text(Helper.truncateString(musicAdvertisement['music']['description'], Lengths.rankingMusicDescription));
             $music.removeAttr('id').removeClass('hidden').appendTo($container);
         });
     });
@@ -35,11 +40,10 @@ $(function() {
         var $container = $('#latest-musics').empty();
         musics.forEach(function(music) {
             var $music = $template.clone();
-            var $title = $('<a>', {
-                href: 'MusicServlet?id=' + music['music_id']
-            }).text(music['title']);
-            $music.find('.latest-music-title').append($title);
-            $music.find('.latest-music-description').text(Helper.truncateString(music['description'], LENGTH_LATEST_MUSIC));
+            $music.find('.latest-music-a').attr('href', 'MusicServlet?id=' + music['music_id']);
+            $music.find('.latest-music-img').attr('src', 'http://img.youtube.com/vi/' + music['youtube_video_id'] + '/1.jpg');
+            $music.find('.latest-music-title').text(Helper.truncateString(music['title'], Lengths.latestMusicTitle));
+            $music.find('.latest-music-description').text(Helper.truncateString(music['description'], Lengths.latestMusicDescription));
             $music.removeAttr('id').removeClass('hidden').appendTo($container);
         });
     });

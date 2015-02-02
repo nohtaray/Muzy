@@ -43,14 +43,21 @@
             </div>
             <div class="col-md-4">
                 <h4>最新楽曲</h4>
-                <div id="latest-musics">
+                <div id="latest-musics" class="">
                     <div class="text-center">
                         <img src="img/ajax-loader.gif">
                     </div>
-                    <div id="latest-music-template" class="latest-music hidden">
-                        <div class="latest-music-title"></div>
-                        <div class="latest-music-description"></div>
-                    </div>
+                    <ul class="media-list">
+                        <li id="latest-music-template" class="latest-music hidden media list-unstyled">
+                            <a class="media-left latest-music-a">
+                                <img class="media-object latest-music-img">
+                            </a>
+                            <div class="media-body">
+                                <h4 class="media-heading latest-music-title"></h4>
+                                <div class="latest-music-description"></div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
