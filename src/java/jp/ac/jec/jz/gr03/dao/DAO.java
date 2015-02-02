@@ -12,16 +12,11 @@ import java.sql.SQLException;
  * @author yada
  */
 abstract class DAO {
-    // 特に短時間に連続でアクセスしたときなどに、
-    // コネクションが閉じられてしまっていて
-    // 例外が発生することがあるため（原因未調査）、static にしている。
-    // コネクションが1つになるので、
-    // 短時間に大量のアクセスがあるとサイト全体が止まるが、
-    // 小規模サイトなので問題ない想定。
     protected static Connection conn;
     
     // ファイルに切り出したほうがいい
-    private final static String DRIVER_URL = "jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull&connectTimeout=5000";
+    // http://stackoverflow.com/questions/14556980/too-many-connection-error-in-tomcat-7-with-mysql
+    private final static String DRIVER_URL = "jdbc:mysql://gr03.jz.jec.ac.jp:3306/muzy?zeroDateTimeBehavior=convertToNull&connectTimeout=5000&cachePrepStmts=false";
     private final static String DB_USER = "root";
     private final static String DB_PASS = "rootroot";
     
