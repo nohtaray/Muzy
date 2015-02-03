@@ -35,10 +35,17 @@
                     <div class="text-center">
                         <img src="img/ajax-loader.gif">
                     </div>
-                    <div id="ranking-music-template" class="ranking-music hidden">
-                        <div class="ranking-music-title"></div>
-                        <div class="ranking-music-description"></div>
-                    </div>
+                    <ul class="media-list">
+                        <li id="ranking-music-template" class="ranking-music hidden media list-unstyled">
+                            <a class="media-left ranking-music-a">
+                                <img class="media-object ranking-music-img">
+                            </a>
+                            <div class="media-body">
+                                <h4 class="media-heading ranking-music-title"></h4>
+                                <div class="ranking-music-description"></div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="col-md-4">

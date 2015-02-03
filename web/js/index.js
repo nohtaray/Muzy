@@ -27,10 +27,9 @@ $(function() {
         var $container = $('#ranking-musics').empty();
         musicAdvertisements.forEach(function(musicAdvertisement) {
             var $music = $template.clone();
-            var $title = $('<a>', {
-                href: 'MusicServlet?id=' + musicAdvertisement['music']['music_id']
-            }).text(musicAdvertisement['music']['title']);
-            $music.find('.ranking-music-title').append($title);
+            $music.find('.ranking-music-a').attr('href', 'MusicServlet?id=' + musicAdvertisement['music']['music_id']);
+            $music.find('.ranking-music-img').attr('src', 'http://img.youtube.com/vi/' + musicAdvertisement['music']['youtube_video_id'] + '/1.jpg');
+            $music.find('.ranking-music-title').text(Helper.truncateString(musicAdvertisement['music']['title'], Lengths.rankingMusicTitle));
             $music.find('.ranking-music-description').text(Helper.truncateString(musicAdvertisement['music']['description'], Lengths.rankingMusicDescription));
             $music.removeAttr('id').removeClass('hidden').appendTo($container);
         });
