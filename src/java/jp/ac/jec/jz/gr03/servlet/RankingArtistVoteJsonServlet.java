@@ -57,8 +57,15 @@ public class RankingArtistVoteJsonServlet extends HttpServlet {
         for (ArtistVote artistVote : artistVotes) {
             Map<String, Object> row = new HashMap<>();
             Map<String, Object> artist = new HashMap<>();
+            Map<String, Object> user = new HashMap<>();
             artist.put("artist_id", artistVote.artist.artistId);
-            artist.put("user_id", artistVote.artist.user.userId);
+            user.put("user_id", artistVote.artist.user.userId);
+            user.put("name", artistVote.artist.user.name);
+            user.put("introduction", artistVote.artist.user.introduction);
+            user.put("icon_image_file", artistVote.artist.user.iconImageFile);
+            user.put("created_at", artistVote.artist.user.createdAt);
+            user.put("updated_at", artistVote.artist.user.updatedAt);
+            artist.put("user", user);
             artist.put("name", artistVote.artist.name);
             artist.put("introduction", artistVote.artist.introduction);
             artist.put("header_image_file", artistVote.artist.headerImageFile);
