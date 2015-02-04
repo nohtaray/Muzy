@@ -9,12 +9,12 @@ import java.util.Map;
  * @author yada
  */
 public class GoogleProxy {
-    // gr03.jz.jec.ac.jp 用
-    public final static String CLIENT_ID = "559025456855-gajv2tv65v98n6mbnb9ucv67sha9srni.apps.googleusercontent.com";
-    public final static String CLIENT_SECRET = "sfdCLPDuhIupeTrPOx4SYU12";
-//    // localhost 用
-//    public final static String CLIENT_ID = "166700389458-3uhb2ncoloh1dstm2fact283csovd1us.apps.googleusercontent.com";
-//    public final static String CLIENT_SECRET = "bPmqDaslssGTLVvPByJDQLxj";
+//    // gr03.jz.jec.ac.jp 用
+//    public final static String CLIENT_ID = "559025456855-gajv2tv65v98n6mbnb9ucv67sha9srni.apps.googleusercontent.com";
+//    public final static String CLIENT_SECRET = "sfdCLPDuhIupeTrPOx4SYU12";
+    // localhost 用
+    public final static String CLIENT_ID = "166700389458-3uhb2ncoloh1dstm2fact283csovd1us.apps.googleusercontent.com";
+    public final static String CLIENT_SECRET = "bPmqDaslssGTLVvPByJDQLxj";
     private final HttpClient http;
 
     public GoogleProxy() {

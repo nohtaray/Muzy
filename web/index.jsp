@@ -49,7 +49,7 @@
                     <ul class="media-list">
                         <li id="ranking-music-template" class="ranking-music hidden media list-unstyled">
                             <a class="media-left ranking-music-a">
-                                <img class="media-object ranking-music-img">
+                                <img class="media-object ranking-music-img" width="120" height="90">
                             </a>
                             <div class="media-body">
                                 <h4 class="media-heading ranking-music-title"></h4>
@@ -68,7 +68,7 @@
                     <ul class="media-list">
                         <li id="latest-music-template" class="latest-music hidden media list-unstyled">
                             <a class="media-left latest-music-a">
-                                <img class="media-object latest-music-img">
+                                <img class="media-object latest-music-img" width="120" height="90">
                             </a>
                             <div class="media-body">
                                 <h4 class="media-heading latest-music-title"></h4>
