@@ -25,6 +25,17 @@
                     <div class="text-center">
                         <img src="img/ajax-loader.gif">
                     </div>
+                    <ul class="media-list">
+                        <li id="ranking-artist-template" class="ranking-artist hidden media list-unstyled">
+                            <a class="media-left ranking-artist-a">
+                                <img class="media-object ranking-artist-img" width="80" height="80">
+                            </a>
+                            <div class="media-body">
+                                <h4 class="media-heading ranking-artist-name"></h4>
+                                <div class="ranking-artist-introduction"></div>
+                            </div>
+                        </li>
+                    </ul>
                     <div id="ranking-artist-template" class="ranking-artist hidden">
                         <div class="ranking-artist-name"></div>
                         <div class="ranking-artist-introduction"></div>

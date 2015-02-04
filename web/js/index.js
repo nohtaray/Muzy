@@ -14,10 +14,9 @@ $(function() {
         var $container = $('#ranking-artists').empty();
         artistVotes.forEach(function(artistVote) {
             var $artist = $template.clone();
-            var $name = $('<a>', {
-                href: 'ArtistServlet?id=' + artistVote['artist']['artist_id']
-            }).text(artistVote['artist']['name']);
-            $artist.find('.ranking-artist-name').append($name);
+            $artist.find('.ranking-artist-a').attr('href', 'ArtistServlet?id=' + artistVote['artist']['artist_id']);
+            $artist.find('.ranking-artist-img').attr('src', artistVote['artist']['user']['icon_image_file']);
+            $artist.find('.ranking-artist-name').text(artistVote['artist']['name']);
             $artist.find('.ranking-artist-introduction').text(Helper.truncateString(artistVote['artist']['introduction'], Lengths.rankingArtistIntroduction));
             $artist.removeAttr('id').removeClass('hidden').appendTo($container);
         });
