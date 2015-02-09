@@ -14,6 +14,7 @@ import jp.ac.jec.jz.gr03.entity.PointGetHistory;
 import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.entity.VoteTicketGetHistory;
 import jp.ac.jec.jz.gr03.util.Authorizer;
+import jp.ac.jec.jz.gr03.util.Flash;
 
 /**
  *
@@ -116,6 +117,7 @@ public class BuyTicketServlet extends HttpServlet {
             return;
         }
         
+        Flash.get(session).success.offer(ticket + "枚購入しました。");
         request.setAttribute("point", fetchPoint(user));
         request.setAttribute("price", PRICE);
         request.getRequestDispatcher("buyTicket.jsp").forward(request, response);
