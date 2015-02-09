@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import jp.ac.jec.jz.gr03.dao.MessageDAO;
 import jp.ac.jec.jz.gr03.entity.Message;
 import jp.ac.jec.jz.gr03.util.Authorizer;
+import jp.ac.jec.jz.gr03.util.Flash;
 
 /**
  *
@@ -91,13 +92,17 @@ public class DeleteMessageServlet extends HttpServlet {
         }
 
         if (auth.hasLoggedInAs(message.user) || auth.hasLoggedInAs(message.artist.user) || auth.getUserLoggedInAs().isOwner) {
-            message.isDeleted = true;
-            updateMessage(message);
-            response.sendRedirect("ArtistServlet?id=" + message.artist.artistId);
+            // 削除可能
         } else {
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "許可がありません");
             return;
         }
+
+        message.isDeleted = true;
+        updateMessage(message);
+
+        Flash.get(session).success.offer("メッセージを削除しました");
+        response.sendRedirect("ArtistServlet?id=" + message.artist.artistId);
     }
 
     /**
