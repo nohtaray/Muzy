@@ -66,6 +66,7 @@ public class SignUpWithGoogleServlet extends HttpServlet {
             request.getRequestDispatcher("signUpWithGoogle.jsp").forward(request, response);
         } else {
             // 認証ページを表示
+            Flash.get(session).danger.offer("認証が必要です。");
             request.getRequestDispatcher("loginWithGoogle.jsp").forward(request, response);
         }
     }
@@ -95,6 +96,7 @@ public class SignUpWithGoogleServlet extends HttpServlet {
         GoogleUserInfo gu = (GoogleUserInfo)session.getAttribute("googleUserInfoForSignUp");
         if (gu == null) {
             // 認証まだ。認証ページを表示
+            Flash.get(session).danger.offer("認証が必要です。");
             request.getRequestDispatcher("loginWithGoogle.jsp").forward(request, response);
             return;
         }
@@ -117,7 +119,7 @@ public class SignUpWithGoogleServlet extends HttpServlet {
         
         // なんかエラーあった？
         if (paramError != null) {
-            request.setAttribute("error", paramError);
+            Flash.get(session).danger.offer(paramError);
             request.getRequestDispatcher("signUpWithGoogle.jsp").forward(request, response);
             return;
         }
@@ -128,7 +130,8 @@ public class SignUpWithGoogleServlet extends HttpServlet {
             user = createUserAndRegister(name, introduction, gu);
         } catch (IOException ex) {
             Logger.getLogger(LoginWithGoogleServlet.class.getName()).log(Level.SEVERE, null, ex);
-            request.setAttribute("error", "システム内部エラー。" + ex.toString());
+            
+            Flash.get(session).danger.offer("システム内部エラー：" + ex.toString());
             request.getRequestDispatcher("signUpWithGoogle.jsp").forward(request, response);
             return;
         }
