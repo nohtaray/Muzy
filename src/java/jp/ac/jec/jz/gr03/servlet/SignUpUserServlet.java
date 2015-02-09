@@ -102,12 +102,13 @@ public class SignUpUserServlet extends HttpServlet {
             
             user.introduction = request.getParameter("introduction");
             
-            //パスワードのハッシュ化
-            user.setPassword(request.getParameter("password"));
-            if (user.passwordHash == null) {
+            String rawPassword = request.getParameter("password");
+            if (rawPassword == null) {
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが足りません");
                 return;
             }
+            //パスワードのハッシュ化
+            user.setPassword(rawPassword);
             
             user.isValid = true;
             user.isOwner = false;
