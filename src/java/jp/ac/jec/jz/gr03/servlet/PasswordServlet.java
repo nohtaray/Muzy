@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import jp.ac.jec.jz.gr03.dao.UserDAO;
 import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
+import jp.ac.jec.jz.gr03.util.Flash;
 
 /**
  *
@@ -87,7 +88,8 @@ public class PasswordServlet extends HttpServlet {
         User user = auth.getUserLoggedInAs();
         user.setPassword(rawPass);
         updateUser(user);
-        // TODO: 何かメッセージ出す。わかりにくい
+        
+        Flash.get(session).success.offer("パスワードを設定しました。");
         response.sendRedirect("MyPageServlet");
     }
 
