@@ -258,7 +258,7 @@ function evaluationCommentBad(commentid, target, eva) {
 
 function deleteComment(commentid, target) {
     $.ajax({
-        type: 'GET',
+        type: 'POST',
         dataType: 'text',
         url: 'DeleteCommentServlet',
         data: {

@@ -12,22 +12,22 @@ import javax.servlet.http.HttpSession;
 import jp.ac.jec.jz.gr03.dao.CommentDAO;
 import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
+import jp.ac.jec.jz.gr03.util.Flash;
 
 /**
  *
  * @author 12jz0121
  */
-
-
 public class DeleteCommentServlet extends HttpServlet {
+
     static {
-    	 try {
-		 Class.forName("com.mysql.jdbc.Driver");
-		 }
-		 catch(ClassNotFoundException e ){
-			 throw new RuntimeException(e);
-		 }
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -54,15 +54,8 @@ public class DeleteCommentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
         try {
             processRequest(request, response);
-            HttpSession session = request.getSession();
-            Authorizer auth = new Authorizer(session);
-            User user = auth.getUserLoggedInAs();
-            
-            deleteComment(user.userId, Integer.parseInt(request.getParameter("commentid")));
-            
         } catch (SQLException ex) {
             Logger.getLogger(DeleteCommentServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -84,6 +77,12 @@ public class DeleteCommentServlet extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(DeleteCommentServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        HttpSession session = request.getSession();
+        Authorizer auth = new Authorizer(session);
+        User user = auth.getUserLoggedInAs();
+
+        deleteComment(user.userId, Integer.parseInt(request.getParameter("commentid")));
     }
 
     /**
