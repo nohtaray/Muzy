@@ -95,7 +95,7 @@ public class DeleteMessageServlet extends HttpServlet {
             updateMessage(message);
             response.sendRedirect("ArtistServlet?id=" + message.artist.artistId);
         } else {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "権限がありません");
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "許可がありません");
             return;
         }
     }

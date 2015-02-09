@@ -68,7 +68,7 @@ public class UserServlet extends HttpServlet {
 
         User user = fetchUser(id);
         if (user == null) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ユーザが存在しません");
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "ユーザが存在しません");
             return;
         }
         

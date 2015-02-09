@@ -81,8 +81,12 @@ public class WithdrawArtistServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Authorizer auth = new Authorizer(session);
 
-        if (!auth.hasLoggedIn() || !isUserArtist(auth.getUserLoggedInAs())) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "アーティストとしてログインしてください");
+        if (!auth.hasLoggedIn()) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "ログインしてください");
+            return;
+        }
+        if (!isUserArtist(auth.getUserLoggedInAs())) {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "許可がありません");
             return;
         }
         request.getRequestDispatcher("withdrawArtist.jsp").forward(request, response);
