@@ -23,6 +23,7 @@ import javax.sql.DataSource;
 import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
 import jp.ac.jec.jz.gr03.dao.UserDAO;
+import jp.ac.jec.jz.gr03.util.Flash;
 
 /**
  *
@@ -89,7 +90,6 @@ public class SignUpUserServlet extends HttpServlet {
 
             String mailFormat = "^[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+(\\.[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+)*+(.*)@[a-zA-Z0-9][a-zA-Z0-9\\-]*(\\.[a-zA-Z0-9\\-]+)+$";
             if (!user.email.matches(mailFormat)) {
-                //エラー番号適当
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, "メールフォーマットが不正です");
                 return;
             }
@@ -119,7 +119,9 @@ public class SignUpUserServlet extends HttpServlet {
             session = request.getSession(true);
             Authorizer auth = new Authorizer(session);
             auth.loginAs(user);
-            response.sendRedirect("IndexServlet");
+            
+            Flash.get(session).success.offer("ユーザ登録しました");
+            response.sendRedirect("MyPageServlet");
 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(SignUpUserServlet.class.getName()).log(Level.SEVERE, null, ex);
