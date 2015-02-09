@@ -25,6 +25,30 @@
             <include-prelude>/common/common.jsp</include-prelude>
         </jsp-property-group>
     </jsp-config>
+    <error-page>
+        <error-code>400</error-code>
+        <location>/error/400.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>401</error-code>
+        <location>/error/401.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/error/403.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error/404.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>405</error-code>
+        <location>/error/405.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error/500.jsp</location>
+    </error-page>
     <servlet>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.LoginWithGoogleServlet</servlet-class>
