@@ -31,6 +31,7 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import jp.ac.jec.jz.gr03.dao.ArtistDAO;
 import jp.ac.jec.jz.gr03.entity.User;
+import jp.ac.jec.jz.gr03.util.Flash;
 
 /**
  *
@@ -134,7 +135,8 @@ public class WithdrawArtistServlet extends HttpServlet {
                 ps.setInt(1, user.userId);
                 ps.executeUpdate();
 
-                request.getRequestDispatcher("withdrawedArtist.jsp").forward(request, response);
+                Flash.get(session).success.offer("アーティスト退会が完了しました。");
+                response.sendRedirect("MyPageServlet");
             }
         } catch (SQLException ex) {
             Logger.getLogger(WithdrawUserServlet.class.getName()).log(Level.SEVERE, null, ex);
