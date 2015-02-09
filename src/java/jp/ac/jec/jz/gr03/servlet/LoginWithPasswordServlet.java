@@ -13,6 +13,8 @@ import jp.ac.jec.jz.gr03.dao.UserDAO;
 import jp.ac.jec.jz.gr03.entity.*;
 import jp.ac.jec.jz.gr03.util.Authorizer;
 import jp.ac.jec.jz.gr03.util.CSRFTokenSet;
+import jp.ac.jec.jz.gr03.util.Flash;
+import jp.ac.jec.jz.gr03.util.Flash.FlashQueue;
 
 /**
  *
@@ -53,7 +55,8 @@ public class LoginWithPasswordServlet extends HttpServlet {
         Authorizer auth = new Authorizer(session);
 
         if (auth.hasLoggedIn()) {
-            response.sendRedirect("");
+            Flash.get(session).danger.offer("すでにログイン済みです。");
+            response.sendRedirect("MyPageServlet");
             return;
         }
         request.setAttribute("token", CSRFTokenSet.get(session));
@@ -77,24 +80,25 @@ public class LoginWithPasswordServlet extends HttpServlet {
         Authorizer auth = new Authorizer(session);
 
         if (auth.hasLoggedIn()) {
-            response.sendRedirect("");
+            Flash.get(session).danger.offer("すでにログイン済みです。");
+            response.sendRedirect("MyPageServlet");
             return;
         }
         
         // パラメータちゃんとある？
+        FlashQueue errors = Flash.get(session).danger;
         String paramError = null;
         String email = request.getParameter("email");
         String rawPass = request.getParameter("password");
         String token = request.getParameter("token");
         if (email == null || rawPass == null || token == null) {
-            paramError = "パラメータが足りません";
+            errors.offer("パラメータが足りません");
         } else if (!token.equals(CSRFTokenSet.get(session))) {
-            paramError = "CSRF を検出";
+            errors.offer("CSRF を検出");
         }
         
         // なんかエラーあった？
-        if (paramError != null) {
-            request.setAttribute("error", paramError);
+        if (!errors.isEmpty()) {
             request.getRequestDispatcher("loginWithPassword.jsp").forward(request, response);
             return;
         }
@@ -110,7 +114,7 @@ public class LoginWithPasswordServlet extends HttpServlet {
             auth.loginAs(user);
             response.sendRedirect("MyPageServlet");
         } else {
-            request.setAttribute("error", "メールアドレスかパスワードが違います");
+            errors.offer("メールアドレスかパスワードが違います");
             request.getRequestDispatcher("loginWithPassword.jsp").forward(request, response);
         }
     }
