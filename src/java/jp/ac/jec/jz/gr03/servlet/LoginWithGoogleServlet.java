@@ -13,6 +13,7 @@ import jp.ac.jec.jz.gr03.dao.UserDAO;
 import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
 import jp.ac.jec.jz.gr03.util.Date;
+import jp.ac.jec.jz.gr03.util.Flash;
 import jp.ac.jec.jz.gr03.util.GoogleProxy;
 import jp.ac.jec.jz.gr03.util.GoogleUserInfo;
 import jp.ac.jec.jz.gr03.util.Json;
@@ -60,7 +61,8 @@ public class LoginWithGoogleServlet extends HttpServlet {
 
         // すでに Google でログインしている？
         if (auth.hasLoggedIn() && auth.getUserLoggedInAs().googleUID != null) {
-            response.sendRedirect("");
+            Flash.get(session).danger.offer("すでに Google でログイン済みです");
+            response.sendRedirect("MyPageServlet");
         } else {
             request.getRequestDispatcher("loginWithGoogle.jsp").forward(request, response);
         }
@@ -123,6 +125,7 @@ public class LoginWithGoogleServlet extends HttpServlet {
                 session = request.getSession(true);
                 auth = new Authorizer(session);
                 auth.loginAs(dbUser);
+                Flash.get(session).success.offer("ログインしました。");
                 response.sendRedirect("MyPageServlet");
                 return;
             } else {
@@ -134,7 +137,8 @@ public class LoginWithGoogleServlet extends HttpServlet {
         } else {
             // ログイン済み。Google で追加認証したい。
             if (googleAccountRegistered) {
-                response.sendError(HttpStatus.SC_CONFLICT, "この Google アカウントはすでに登録されているため使用できません");
+                Flash.get(session).danger.offer("この Google アカウントはすでに登録されているため使用できません。");
+                response.sendRedirect("MyPageServlet");
                 return;
             } else {
                 // 未登録の Google アカウント
@@ -144,6 +148,8 @@ public class LoginWithGoogleServlet extends HttpServlet {
                 me.googleRefreshToken = gu.refreshToken;
                 me.googleExpiresAt = new Date(gu.expiresAt * 1000);
                 updateUser(me);
+                
+                Flash.get(session).success.offer("Google アカウントの認証に成功しました。");
                 response.sendRedirect("MyPageServlet");
                 return;
             }
