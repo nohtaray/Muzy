@@ -1,4 +1,3 @@
-
 package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
@@ -14,6 +13,7 @@ import jp.ac.jec.jz.gr03.dao.MusicDAO;
 import jp.ac.jec.jz.gr03.entity.Music;
 import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
+import jp.ac.jec.jz.gr03.util.Flash;
 
 /**
  *
@@ -48,7 +48,7 @@ public class DeleteMusicByAdminServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
         response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
     }
 
@@ -64,7 +64,7 @@ public class DeleteMusicByAdminServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
         // 管理者ですか？
         HttpSession session = request.getSession();
         Authorizer auth = new Authorizer(session);
@@ -76,7 +76,7 @@ public class DeleteMusicByAdminServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "許可がありません");
             return;
         }
-        
+
         // id はある？
         String idStr = request.getParameter("id");
         if (idStr == null) {
@@ -92,15 +92,15 @@ public class DeleteMusicByAdminServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "id は数値で指定してください");
             return;
         }
-        
-        if (idExists(id)) {
-            deleteMusic(id);
-            response.sendRedirect("AdminMusicServlet");
-            return;
-        } else {
+
+        if (!idExists(id)) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "指定した id は存在しません");
             return;
         }
+
+        deleteMusic(id);
+        Flash.get(session).success.offer("楽曲を削除しました");
+        response.sendRedirect("AdminMusicServlet");
     }
 
     /**
@@ -118,6 +118,7 @@ public class DeleteMusicByAdminServlet extends HttpServlet {
         Music music = dao.selectById(id);
         return music != null;
     }
+
     private void deleteMusic(int id) throws IOException {
         MusicDAO dao = new MusicDAO();
         Music music = dao.selectById(id);
