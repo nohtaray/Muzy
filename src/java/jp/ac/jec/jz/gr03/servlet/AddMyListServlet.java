@@ -51,8 +51,10 @@ public class AddMyListServlet extends HttpServlet {
             Authorizer auth = new Authorizer(session);
             User user = auth.getUserLoggedInAs();
             
-            //仮
-            if (user == null) {user = new User(); user.userId = 29;}
+            if (user == null) {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "ログインしてください");
+                return;
+            }
 
             String name = request.getParameter("name");
             
@@ -70,27 +72,6 @@ public class AddMyListServlet extends HttpServlet {
             }
             con.close();
         }
-        /*うまくいかなかったやつ
-        MyList mylist = new MyList();
-        MyListDAO mylistDAO = new MyListDAO();
-
-        HttpSession session = request.getSession();
-        Authorizer auth = new Authorizer(session);
-        User user = auth.getUserLoggedInAs();
-
-        
-        if(mylist.user.userId != null){
-            mylist.user.userId = user.userId;
-            mylist.name = request.getParameter("name");
-            try {
-                mylistDAO.insert(mylist);
-            } catch (IOException e) {
-                response.sendError(401);
-            }
-        }else {
-            ///ログインしてないエラー
-        }
-           */ 
     }
 
         
