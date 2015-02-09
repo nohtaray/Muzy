@@ -17,6 +17,7 @@ import jp.ac.jec.jz.gr03.dao.ArtistDAO;
 import jp.ac.jec.jz.gr03.entity.Artist;
 import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
+import jp.ac.jec.jz.gr03.util.Flash;
 
 /**
  *
@@ -93,7 +94,9 @@ public class EditArtistServlet extends HttpServlet {
         artist.name = name;
         artist.introduction = introduction;
         updateArtist(artist);
-        response.getWriter().println("こうしんしました");
+        
+        Flash.get(session).success.offer("アーティスト情報を更新しました。");
+        response.sendRedirect("MyPageServlet");
     }
 
     /**

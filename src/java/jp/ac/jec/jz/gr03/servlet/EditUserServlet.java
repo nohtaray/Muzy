@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import jp.ac.jec.jz.gr03.dao.UserDAO;
 import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
+import jp.ac.jec.jz.gr03.util.Flash;
 
 /**
  *
@@ -87,7 +88,8 @@ public class EditUserServlet extends HttpServlet {
         user.introduction = introduction;
         updateUser(user);
         
-        response.getWriter().println("こうしんしました");
+        Flash.get(session).success.offer("登録情報を更新しました。");
+        response.sendRedirect("MyPageServlet");
     }
 
     /**
