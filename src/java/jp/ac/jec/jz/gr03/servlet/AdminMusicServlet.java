@@ -52,10 +52,12 @@ public class AdminMusicServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         Authorizer auth = new Authorizer(session);
-        User user = auth.getUserLoggedInAs();
-            // 管理者としてログインしていなければエラー
-        if (user == null || !user.isOwner) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+        if (!auth.hasLoggedIn()) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "ログインしてください");
+            return;
+        }
+        if (!auth.getUserLoggedInAs().isOwner) {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "許可がありません");
             return;
         }
         

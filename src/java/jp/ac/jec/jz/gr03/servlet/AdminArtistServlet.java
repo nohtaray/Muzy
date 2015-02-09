@@ -48,8 +48,12 @@ public class AdminArtistServlet extends HttpServlet {
             
             HttpSession session = request.getSession();
             Authorizer auth = new Authorizer(session);
-            if (!auth.hasLoggedIn() || !auth.getUserLoggedInAs().isOwner) {
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            if (!auth.hasLoggedIn()) {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "ログインしてください");
+                return;
+            }
+            if (!auth.getUserLoggedInAs().isOwner) {
+                response.sendError(HttpServletResponse.SC_FORBIDDEN, "許可がありません");
                 return;
             }
             
