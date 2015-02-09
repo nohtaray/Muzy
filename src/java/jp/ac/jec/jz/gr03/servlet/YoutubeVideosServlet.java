@@ -50,7 +50,7 @@ public class YoutubeVideosServlet extends HttpServlet {
         Authorizer auth = new Authorizer(session);
         
         if (!auth.hasLoggedIn()) {
-            response.sendError(401);
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
         
@@ -63,7 +63,7 @@ public class YoutubeVideosServlet extends HttpServlet {
             // これ！ → https://developers.google.com/youtube/v3/docs/playlistItems
             videos = retrieveVideosFromYoutubeOwnedBy(user);
         } catch (IOException e) {
-            response.sendError(404);
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
         // JSON 文字列として出力

@@ -74,7 +74,7 @@ public class AddMyListDetailServlet extends HttpServlet {
             ps.executeUpdate();
             con.close();
         }catch(SQLException e){
-            if(e.getErrorCode() == 1062) response.sendError(400);
+            if(e.getErrorCode() == 1062) response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 
@@ -109,7 +109,7 @@ public class AddMyListDetailServlet extends HttpServlet {
             ps.executeUpdate();
             con.close();
         }catch(SQLException e){
-            if(e.getErrorCode() == 1062) response.sendError(400);
+            if(e.getErrorCode() == 1062) response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
         
     }

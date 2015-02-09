@@ -71,7 +71,7 @@ public class AddReviewServlet extends HttpServlet {
             } else {
                 //失敗に遷移したときにこれを書くとajaxでエラーに飛ぶ
                 //何もなくうまくいったら200が自動で帰る。
-                response.sendError(400);
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST);
             }
 
         } catch (SQLException ex) {
