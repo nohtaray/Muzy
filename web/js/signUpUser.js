@@ -7,12 +7,23 @@ function checkEmail() {
         data: {
             email: email,
         }
-    }).done(function() {
-        document.getElementById("NG").style.display = "none";
-        document.getElementById("OK").style.display = "block";
+    }).done(function(result) {
+        if (result === "OK") {
+            ok();
+        } else {
+            ng();
+        }
     }).fail(function() {
-        document.getElementById("OK").style.display = "none";
-        document.getElementById("NG").style.display = "block";
+        ng();
     }).always(function() {
     });
+    
+    function ok() {
+        document.getElementById("NG").style.display = "none";
+        document.getElementById("OK").style.display = "block";
+    }
+    function ng() {
+        document.getElementById("OK").style.display = "none";
+        document.getElementById("NG").style.display = "block";
+    }
 }

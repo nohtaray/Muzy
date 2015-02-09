@@ -4,7 +4,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
@@ -30,19 +29,18 @@ import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
 
 public class UniqueCheckServlet extends HttpServlet {
-    
+
     static {
         try {
-                Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
-        catch(ClassNotFoundException e ){
-                throw new RuntimeException(e);
-        }
-     }
-    
+    }
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException, ClassNotFoundException {
-    response.setContentType("text/html;charset=UTF-8");
+            throws ServletException, IOException, ClassNotFoundException {
+        response.setContentType("text/html;charset=UTF-8");
     }
 
     @Override
@@ -50,32 +48,27 @@ public class UniqueCheckServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-            
+
             User user = new User();
             user.email = request.getParameter("email");
-            
+
             String mailFormat = "^[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+(\\.[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+)*+(.*)@[a-zA-Z0-9][a-zA-Z0-9\\-]*(\\.[a-zA-Z0-9\\-]+)+$";
-            if(!user.email.matches(mailFormat)){
-                //エラー番号適当
-                response.sendError(1000);
+            if (!user.email.matches(mailFormat)) {
+                response.getWriter().print("NG");
                 return;
             }
-                    
-            if(uniqueCheckEmail(user) != null){
-                response.sendError(1082);
+            if (uniqueCheckEmail(user) != null) {
+                response.getWriter().print("NG");
                 return;
             }
-            
-            
-            
-            
+            response.getWriter().print("OK");
+
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(UniqueCheckServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        
-
     }
+
     private User uniqueCheckEmail(User user)
             throws IOException {
         UserDAO dao = new UserDAO();
