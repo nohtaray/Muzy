@@ -16,7 +16,7 @@
 
         
         <form method="GET" action="">
-            <input type="text" name="q" value="<%= keyword != null ? keyword : ""%>">
+            <input type="text" name="q" value="<%= keyword != null ? h(keyword) : ""%>">
             <input type="submit" value="検索">
             <div id="orders">
                 <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.CREATED_AT.ordinal()%>">新着順</label>
@@ -27,11 +27,11 @@
         </form>
         <div>
             <% if (musics != null) {%>
-            キーワード "<%= keyword%>" の検索結果
+            キーワード "<%= h(keyword)%>" の検索結果
             <ul>
                 <% for (Music music : musics) {%>
                 <li>
-                    <a href="MusicServlet?id=<%= music.musicId%>"><%= music.title%></a>
+                    <a href="MusicServlet?id=<%= music.musicId%>"><%= h(music.title)%></a>
                 </li>
                 <% }%>
             </ul>

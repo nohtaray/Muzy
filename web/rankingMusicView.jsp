@@ -17,7 +17,7 @@
                 for (Music music : musics) {
             %>
             <li>
-                <a href="MusicServlet?id=<%= music.musicId%>"><%= music.title%></a>（<%= music.viewCount %>）
+                <a href="MusicServlet?id=<%= music.musicId%>"><%= h(music.title)%></a>（<%= music.viewCount %>）
             </li>
             <%
                 }

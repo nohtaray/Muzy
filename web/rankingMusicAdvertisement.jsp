@@ -17,7 +17,7 @@
                 for (MusicAdvertisement musicAdvertisement : musicAdvertisements) {
             %>
             <li>
-                <a href="MusicServlet?id=<%= musicAdvertisement.music.musicId%>"><%= musicAdvertisement.music.title%></a>（<%= musicAdvertisement.spentPointsSum %>pts）
+                <a href="MusicServlet?id=<%= musicAdvertisement.music.musicId%>"><%= h(musicAdvertisement.music.title)%></a>（<%= musicAdvertisement.spentPointsSum %>pts）
             </li>
             <%
                 }

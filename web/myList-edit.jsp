@@ -28,8 +28,8 @@ ResultSet rs = (ResultSet)request.getAttribute("mylistThumbnail");
         <% while (rs.next()) {%>
             <div>
                 <a href="MyListDetailServlet?id=<%= rs.getString("mylist_id")%>">
-                    <img src="http://img.youtube.com/vi/<%= rs.getString("youtube_video_id")%>/1.jpg" alt="Loading..." />
-                    <%= rs.getString("name")%> <%=rs.getString("updated_at")%>
+                    <img src="http://img.youtube.com/vi/<%= h(rs.getString("youtube_video_id"))%>/1.jpg" alt="Loading..." />
+                    <%= h(rs.getString("name"))%> <%=rs.getString("updated_at")%>
                 </a>
                 <input type="button" onclick="deleteMyList(<%= rs.getString("mylist_id")%> , this)" value="削除" />
             </div>

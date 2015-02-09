@@ -18,7 +18,7 @@
             while ((music = musics.readRow()) != null) {
                 out.println("<li>");
                 out.println(dateToString(music.createdAt));
-                out.println("<a href=\"MusicServlet?id=" + music.musicId + "\">" + music.title + "</a>");
+                out.println("<a href=\"MusicServlet?id=" + music.musicId + "\">" + h(music.title) + "</a>");
                 out.println("</li>");
             }
         %>

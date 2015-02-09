@@ -12,20 +12,20 @@
     <c:param name="content">
 
         <div id="music-youtube-video-area">
-            <iframe width="540" height="330" frameborder="0" src="http://www.youtube.com/embed/<%= music.youtubeVideoId%>?rel=0" allowfullscreen></iframe>
+            <iframe width="540" height="330" frameborder="0" src="http://www.youtube.com/embed/<%= h(music.youtubeVideoId)%>?rel=0" allowfullscreen></iframe>
         </div>
         <form action="EditMusicServlet" method="post">
             <input type="hidden" name="id" value="<%= music.musicId%>">
             <div class="form-group">
                 <label for="music-title" class="control-label">Title</label>
                 <div>
-                    <input type="text" class="form-control" id="music-title" placeholder="Title" name="title" value="<%= music.title%>" required>
+                    <input type="text" class="form-control" id="music-title" placeholder="Title" name="title" value="<%= h(music.title)%>" required>
                 </div>
             </div>
             <div class="form-group">
                 <label for="music-description" class="control-label">Description</label>
                 <div>
-                    <textarea class="form-control" id="music-description" placeholder="Description" name="description"><%= music.description%></textarea>
+                    <textarea class="form-control" id="music-description" placeholder="Description" name="description"><%= h(music.description)%></textarea>
                 </div>
             </div>
             <div class="form-group">

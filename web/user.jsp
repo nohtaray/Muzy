@@ -6,16 +6,16 @@
 %>
 <c:import url="/layout/application.jsp">
     <c:param name="title">
-        <%= user.name + " さんのプロフィール"%>
+        <%= h(user.name) + " さんのプロフィール"%>
     </c:param>
     <c:param name="header">
     </c:param>
     <c:param name="content">
 
-        <%= user.name + " さんのプロフィール"%>
+        <%= h(user.name) + " さんのプロフィール"%>
         <dl>
-            <dt>name</dt><dd><%= user.name%></dd>
-            <dt>introduction</dt><dd><%= user.introduction%></dd>
+            <dt>name</dt><dd><%= h(user.name)%></dd>
+            <dt>introduction</dt><dd><%= br(h(user.introduction))%></dd>
         </dl>
 
     </c:param>

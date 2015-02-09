@@ -17,7 +17,7 @@
                 for (ArtistMylistDetail artistMylistDetail : artistMylistDetails) {
             %>
             <li>
-                <a href="ArtistServlet?id=<%= artistMylistDetail.artist.artistId%>"><%= artistMylistDetail.artist.name%></a>（<%= artistMylistDetail.mylistDetailCount %>）
+                <a href="ArtistServlet?id=<%= artistMylistDetail.artist.artistId%>"><%= h(artistMylistDetail.artist.name)%></a>（<%= artistMylistDetail.mylistDetailCount %>）
             </li>
             <%
                 }

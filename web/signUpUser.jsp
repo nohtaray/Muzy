@@ -15,7 +15,7 @@
             <% if (error != null) { %>
 
             <div class="has-error">
-                <%= error %>
+                <%= h(error) %>
             </div>
             <% } %>
             <label>

@@ -19,7 +19,7 @@
 
         <h2>マイページ</h2>
 
-        name: <%= user.name%>
+        name: <%= h(user.name)%>
         <div class="row">
             <div class="col-md-4">
                 <div class="list-group">
@@ -35,7 +35,7 @@
         <% if (isArtist) {%>
         <div>
             アーティスト登録があります
-            （<a href="ArtistServlet?id=<%= artist.artistId%>"><%= artist.name%></a>）
+            （<a href="ArtistServlet?id=<%= artist.artistId%>"><%= h(artist.name)%></a>）
             <div class="row">
                 <div class="col-md-4">
                     <div class="list-group">

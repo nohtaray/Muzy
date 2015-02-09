@@ -10,9 +10,9 @@
     </c:param>
     <c:param name="content">
         <form method="post" action="EditUserServlet">
-            <input type="text" name="name" value="<%= user.name%>"><br>
-            <input type="text" name="email" value="<%= user.email%>"><br>
-            <textarea placeholder="自己紹介文" name="introduction"><%= user.introduction%></textarea><br>
+            <input type="text" name="name" value="<%= h(user.name)%>"><br>
+            <input type="text" name="email" value="<%= h(user.email)%>"><br>
+            <textarea placeholder="自己紹介文" name="introduction"><%= h(user.introduction)%></textarea><br>
             <input type="submit" value="更新">
         </form>
 

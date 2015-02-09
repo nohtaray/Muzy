@@ -16,7 +16,7 @@
                 User user;
                 while ((user = users.readRow()) != null) {
                     out.println("<li>");
-                    out.println("<a href=\"UserServlet?id=" + user.userId + "\">" + user.name + "</a>");
+                    out.println("<a href=\"UserServlet?id=" + user.userId + "\">" + h(user.name) + "</a>");
                     out.println("<form action=\"DeleteUserByAdminServlet\" method=\"post\">");
                     out.println("<input type=\"hidden\" name=\"id\" value=\"" + user.userId + "\">");
                     out.println("<input type=\"submit\" value=\"削除\">");

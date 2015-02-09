@@ -15,7 +15,7 @@
     <c:param name="content">
 
         <form method="GET" action="">
-            <input type="text" name="q" value="<%= keyword != null ? keyword : ""%>">
+            <input type="text" name="q" value="<%= keyword != null ? h(keyword) : ""%>">
             <input type="submit" value="検索">
             <div id="orders">
                 <label><input type="radio" name="o" value="<%= SearchArtistServlet.Order.CREATED_AT.ordinal()%>">新着順</label>
@@ -25,12 +25,12 @@
         </form>
             
             <% if (artists != null) { %>
-            <%= keyword%> の検索結果
+            <%= h(keyword)%> の検索結果
         <ul>
             <% for (Artist artist : artists) {%>
             <li>
                 <%= artist.artistId%>
-                <a href="ArtistServlet?id=<%= artist.artistId%>"><%= artist.name%></a>
+                <a href="ArtistServlet?id=<%= artist.artistId%>"><%= h(artist.name)%></a>
             </li>
             <% }%>
         </ul>

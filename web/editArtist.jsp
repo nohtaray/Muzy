@@ -12,8 +12,8 @@
         アーティスト情報編集
 
         <form method="post" action="EditArtistServlet">
-            <input type="text" name="name" value="<%= artist.name%>"><br>
-            <textarea placeholder="アーティストプロフィール" name="introduction"><%= artist.introduction%></textarea><br>
+            <input type="text" name="name" value="<%= h(artist.name)%>"><br>
+            <textarea placeholder="アーティストプロフィール" name="introduction"><%= h(artist.introduction)%></textarea><br>
             <input type="submit" value="更新">
         </form>
 

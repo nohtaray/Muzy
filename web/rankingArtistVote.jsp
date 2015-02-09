@@ -17,7 +17,7 @@
                 for (ArtistVote artistVote : artistVotes) {
             %>
             <li>
-                <a href="ArtistServlet?id=<%= artistVote.artist.artistId%>"><%= artistVote.artist.name%></a>（<%= artistVote.spentTicketsSum%>tickets）
+                <a href="ArtistServlet?id=<%= artistVote.artist.artistId%>"><%= h(artistVote.artist.name)%></a>（<%= artistVote.spentTicketsSum%>tickets）
             </li>
             <%
                 }

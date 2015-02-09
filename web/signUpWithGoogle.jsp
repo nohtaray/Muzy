@@ -15,7 +15,7 @@
             <div class="form-group row">
                 <label for="name" class="col-sm-2 control-label">名前</label>
                 <div class="col-sm-5">
-                    <input type="text" class="form-control" name="name" id="name" value="<%= name%>">
+                    <input type="text" class="form-control" name="name" id="name" value="<%= h(name)%>">
                 </div>
             </div>
             <div class="form-group row">

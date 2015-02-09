@@ -48,7 +48,7 @@
                                 data-accesstype="offline"
                                 data-approvalprompt="force"
                                 data-callback="googleLoginCallback"
-                                data-clientid="<%= GoogleProxy.CLIENT_ID%>"
+                                data-clientid="<%= h(GoogleProxy.CLIENT_ID)%>"
                                 data-cookiepolicy="single_host_origin"
                                 data-redirecturi="postmessage"
                                 data-requestvisibleactions="http://schemas.google.com/AddActivity"
@@ -58,7 +58,7 @@
                     </div>
                     <% } else {%>
                     <%-- ログインしている --%>
-                    <%= userLoggedIn.name%> さん
+                    <%= h(userLoggedIn.name)%> さん
                     <a href="MyPageServlet" class="label label-info">マイページ</a>
                     <a href="LogoutServlet">ログアウト</a>
                     <% }%>

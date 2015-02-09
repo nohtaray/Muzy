@@ -15,7 +15,7 @@
         <ul>
         <% for (Music music : musics) { %>
         <li>
-            <a href="MusicServlet?id=<%= music.musicId %>"><%= music.title %></a>
+            <a href="MusicServlet?id=<%= music.musicId %>"><%= h(music.title) %></a>
             [<a href="EditMusicServlet?id=<%= music.musicId %>">編集</a>]
         </li>
         <% }%>

@@ -32,16 +32,16 @@
                             <%= music.musicId%>
                         </td>
                         <td>
-                            <a href="ArtistServlet?id=<%= music.artist.artistId%>"><%= music.artist.name%></a>
+                            <a href="ArtistServlet?id=<%= music.artist.artistId%>"><%= h(music.artist.name)%></a>
                         </td>
                         <td>
-                            <a href="MusicServlet?id=<%= music.musicId%>"><%= music.title%></a>
+                            <a href="MusicServlet?id=<%= music.musicId%>"><%= h(music.title)%></a>
                         </td>
                         <td>
-                            <%= dateToString(music.createdAt)%>
+                            <%= h(dateToString(music.createdAt))%>
                         </td>
                         <td>
-                            <%= dateToString(music.updatedAt)%>
+                            <%= h(dateToString(music.updatedAt))%>
                         </td>
                         <td>
                             <button class="delete-button btn btn-danger" data-music-id="<%= music.musicId%>">削除</button>

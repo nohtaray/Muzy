@@ -14,7 +14,7 @@
     boolean loggedIn = me != null;
 %>
 <c:import url="/layout/application.jsp">
-    <c:param name="title" value="<%= music.title%>" />
+    <c:param name="title" value="<%= h(music.title)%>" />
     <c:param name="header">
         <link rel="stylesheet" href="css/music.css">
         <script src="js/lib/jquery.raty.js"></script>
@@ -23,7 +23,7 @@
     <c:param name="content">
 
 
-        <h2><%= music.title%></h2>
+        <h2><%= h(music.title)%></h2>
         <hr>
         <div id="tools">
             <% if (loggedIn) { %>
@@ -33,13 +33,13 @@
             <% }%>
         </div>
         <div>
-            <iframe width="576" height="360" src="//www.youtube.com/embed/<%= music.youtubeVideoId%>?autoplay=1&controls=2&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>    
+            <iframe width="576" height="360" src="//www.youtube.com/embed/<%= h(music.youtubeVideoId)%>?autoplay=1&controls=2&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>    
         </div>
         <div>
             <div>
                 再生： <%= music.viewCount%> 回
             </div>
-            <%= music.description%>
+            <%= br(h(music.description))%>
         </div>
 
         <hr>
@@ -72,7 +72,7 @@
         <div id="reviewarea">
             <%for (Comment comment : comments) {%>
             <div class="comment" data-comment-id="<%= comment.commentId%>">
-                <div class="comment-content"><%= comment.content%>
+                <div class="comment-content"><%= h(comment.content)%>
                     <!--評価値 : <label><%= (comment.scorePlusCount - comment.scoreMinusCount) %></label>-->
                     <%if(me != null){%>
                     <input type="button" class="glyphicon glyphicon-thumbs-up" aria-hidden="true" onclick="evaluationCommentGood(<%= comment.commentId%>, this, <%= comment.scorePlusCount %>)" /><label><%= (comment.scorePlusCount) %></label>
@@ -146,7 +146,7 @@
                             out.print("<table>");
                             while ((mylist = mylists.readRow()) != null) {
                                 out.println("<tr>");
-                                out.println("<td>" + mylist.name + "</td>");
+                                out.println("<td>" + h(mylist.name) + "</td>");
                                 out.println("<td><input type=\"button\" onclick=\"addMyListDetail(" + mylist.mylist_id + "," + music.musicId + ")\" value=\"追加\" /></td></tr>");
                             }
                             out.print("</table>");

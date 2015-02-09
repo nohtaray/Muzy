@@ -17,7 +17,7 @@
                 for (MusicMylistDetail musicMylistDetail : musicMylistDetails) {
             %>
             <li>
-                <a href="MusicServlet?id=<%= musicMylistDetail.music.musicId%>"><%= musicMylistDetail.music.title%></a>（<%= musicMylistDetail.mylistDetailCount %>）
+                <a href="MusicServlet?id=<%= musicMylistDetail.music.musicId%>"><%= h(musicMylistDetail.music.title)%></a>（<%= musicMylistDetail.mylistDetailCount %>）
             </li>
             <%
                 }

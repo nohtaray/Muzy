@@ -32,7 +32,7 @@
                 <tr>
                     <td><%= dateToString(history.createdAt)%></td>
                     <td><%= history.gotTickets%></td>
-                    <td><%= history.description%></td>
+                    <td><%= h(history.description)%></td>
                 </tr>
                 <% }%>
             </tbody>

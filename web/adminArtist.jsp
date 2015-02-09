@@ -15,7 +15,7 @@
                 Artist artist;
                 while ((artist = artists.readRow()) != null) {
                     out.println("<li>");
-                    out.println("<a href=\"ArtistServlet?id=" + artist.artistId + "\">" + artist.name + "</a>");
+                    out.println("<a href=\"ArtistServlet?id=" + artist.artistId + "\">" + h(artist.name) + "</a>");
                     out.println("<form action=\"DeleteArtistByAdminServlet\" method=\"post\">");
                     out.println("<input type=\"hidden\" name=\"id\" value=\"" + artist.artistId + "\">");
                     out.println("<input type=\"submit\" value=\"削除\">");

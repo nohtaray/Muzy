@@ -13,7 +13,7 @@
                 data-accesstype="offline"
                 data-approvalprompt="force"
                 data-callback="googleLoginCallback"
-                data-clientid="<%= GoogleProxy.CLIENT_ID %>"
+                data-clientid="<%= h(GoogleProxy.CLIENT_ID) %>"
                 data-cookiepolicy="single_host_origin"
                 data-redirecturi="postmessage"
                 data-requestvisibleactions="http://schemas.google.com/AddActivity"

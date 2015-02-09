@@ -44,8 +44,8 @@ ResultSet rs2 = (ResultSet)request.getAttribute("artistThumbnail");
         %>
         <% while (rs.next()) {%>
         <div>
-            <a href="MusicServlet?id=<%= rs.getString("music_id")%>"><img src="http://img.youtube.com/vi/<%= rs.getString("youtube_video_id")%>/1.jpg" alt="Loading..." />
-                <%= rs.getString("title")%>
+            <a href="MusicServlet?id=<%= rs.getString("music_id")%>"><img src="http://img.youtube.com/vi/<%= h(rs.getString("youtube_video_id"))%>/1.jpg" alt="Loading..." />
+                <%= h(rs.getString("title"))%>
             </a>
             <input type="button" onclick="deleteDetail(<%= rs.getString("mylist_detail_id")%> , this)" value="削除" />
         </div>
@@ -54,7 +54,7 @@ ResultSet rs2 = (ResultSet)request.getAttribute("artistThumbnail");
         <div>
             <a href="ArtistServlet?id=<%= rs2.getString("artist_id")%>">
                 歌手画像
-                <%= rs2.getString("name")%>
+                <%= h(rs2.getString("name"))%>
             </a>
             <input type="button" onclick="deleteDetail(<%= rs2.getString("mylist_detail_id")%>, this)" value="削除" />
         </div>

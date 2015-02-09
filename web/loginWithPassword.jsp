@@ -12,11 +12,11 @@
         <form method="POST" action="LoginWithPasswordServlet">
             <% if (error != null) { %>
             <div class="has-error">
-                <%= error %>
+                <%= h(error) %>
             </div>
             <% } %>
             
-            <input type="hidden" name="token" value="<%= token %>">
+            <input type="hidden" name="token" value="<%= h(token) %>">
             <label>
                 email：<input type="text" name="email">
             </label><br>

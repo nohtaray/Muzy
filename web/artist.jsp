@@ -160,7 +160,7 @@
                             out.print("<table>");
                             while ((mylist = mylists.readRow()) != null) {
                                 out.println("<tr>");
-                                out.println("<td>" + mylist.name + "</td>");
+                                out.println("<td>" + h(mylist.name) + "</td>");
                                 out.println("<td><input type=\"button\" onclick=\"addArtistMyListDetail(" + mylist.mylist_id + "," + artist.artistId + ")\" value=\"追加\" /></td></tr>");
                             }
                             out.print("</table>");
