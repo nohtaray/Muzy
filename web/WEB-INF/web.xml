@@ -202,10 +202,6 @@
         <servlet-class>jp.ac.jec.jz.gr03.servlet.AddMyListDetailServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>GetMyListServlet</servlet-name>
-        <servlet-class>jp.ac.jec.jz.gr03.servlet.GetMyListServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>MyListServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.MyListServlet</servlet-class>
     </servlet>
@@ -444,10 +440,6 @@
     <servlet-mapping>
         <servlet-name>AddMyListDetailServlet</servlet-name>
         <url-pattern>/AddMyListDetailServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetMyListServlet</servlet-name>
-        <url-pattern>/GetMyListServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MyListServlet</servlet-name>
