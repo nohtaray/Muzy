@@ -30,6 +30,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import jp.ac.jec.jz.gr03.entity.User;
+import jp.ac.jec.jz.gr03.util.Flash;
 
 /**
  *
@@ -131,6 +132,7 @@ public class WithdrawUserServlet extends HttpServlet {
                 //ログアウト
                 auth.logout();
 
+                Flash.get(session).success.offer("ユーザ情報を削除しました。ご利用ありがとうございました。");
                 response.sendRedirect("");
             }
         } catch (SQLException ex) {

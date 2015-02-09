@@ -16,6 +16,7 @@ import jp.ac.jec.jz.gr03.dao.MessageDAO;
 import jp.ac.jec.jz.gr03.entity.Artist;
 import jp.ac.jec.jz.gr03.entity.Message;
 import jp.ac.jec.jz.gr03.util.Authorizer;
+import jp.ac.jec.jz.gr03.util.Flash;
 
 /**
  *
@@ -97,6 +98,7 @@ public class NewMessageServlet extends HttpServlet {
         message.content = content;
         insertMessage(message);
         
+        Flash.get(session).success.offer("メッセージを投稿しました。");
         response.sendRedirect("ArtistServlet?id=" + artist.artistId);
     }
 

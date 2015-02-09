@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import jp.ac.jec.jz.gr03.dao.UserDAO;
 import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
+import jp.ac.jec.jz.gr03.util.Flash;
 
 /**
  *
@@ -94,6 +95,7 @@ public class DeleteUserByAdminServlet extends HttpServlet {
             return;
         }
         userDAO.delete(user);
+        Flash.get(session).success.offer("ユーザを削除しました。");
         response.sendRedirect("AdminUserServlet");
     }
 

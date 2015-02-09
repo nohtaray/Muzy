@@ -128,6 +128,8 @@ public class NewMusicServlet extends HttpServlet {
             request.getRequestDispatcher("newMusic.jsp").forward(request, response);
             return;
         }
+        
+        Flash.get(session).success.offer("楽曲を投稿しました。");
         response.sendRedirect("MusicServlet?id=" + music.musicId);
     }
 

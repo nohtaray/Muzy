@@ -16,6 +16,7 @@ import jp.ac.jec.jz.gr03.entity.Artist;
 import jp.ac.jec.jz.gr03.entity.Music;
 import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
+import jp.ac.jec.jz.gr03.util.Flash;
 
 /**
  *
@@ -83,6 +84,7 @@ public class EditMusicServlet extends HttpServlet {
         }
         
         request.setAttribute("music", music);
+        Flash.get(session).success.offer("楽曲情報を更新しました。");
         request.getRequestDispatcher("editMusic.jsp").forward(request, response);
     }
 

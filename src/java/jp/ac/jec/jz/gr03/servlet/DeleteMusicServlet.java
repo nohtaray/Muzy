@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import jp.ac.jec.jz.gr03.dao.MusicDAO;
 import jp.ac.jec.jz.gr03.entity.Music;
 import jp.ac.jec.jz.gr03.util.Authorizer;
+import jp.ac.jec.jz.gr03.util.Flash;
 
 /**
  *
@@ -91,6 +92,7 @@ public class DeleteMusicServlet extends HttpServlet {
         }
         
         delete(music);
+        Flash.get(session).success.offer("楽曲を削除しました。");
         response.sendRedirect("MyMusicServlet");
     }
 
