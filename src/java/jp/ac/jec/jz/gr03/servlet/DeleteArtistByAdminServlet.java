@@ -5,8 +5,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import jp.ac.jec.jz.gr03.dao.ArtistDAO;
 import jp.ac.jec.jz.gr03.entity.Artist;
+import jp.ac.jec.jz.gr03.entity.User;
+import jp.ac.jec.jz.gr03.util.Authorizer;
 
 /**
  *
@@ -59,9 +62,20 @@ public class DeleteArtistByAdminServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
 
+        // 管理者ですか？
+        HttpSession session = request.getSession();
+        Authorizer auth = new Authorizer(session);
+        if (!auth.hasLoggedIn()) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "ログインしてください");
+            return;
+        }
+        if (!auth.getUserLoggedInAs().isOwner) {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "許可がありません");
+            return;
+        }
         String idStr = request.getParameter("id");
         if (idStr == null) {
-            // パラメータがない。どうするか
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが足りません");
             return;
         }
 
@@ -69,7 +83,7 @@ public class DeleteArtistByAdminServlet extends HttpServlet {
         try {
             id = Integer.parseInt(idStr);
         } catch (NumberFormatException e) {
-            // idが不正。どうするか
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが不正です");
             return;
         }
         
