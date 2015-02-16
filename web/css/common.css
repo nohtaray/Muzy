@@ -16,3 +16,6 @@ body {
     display: none;
     visibility: hidden;
 }
+hr {
+    border-top-color: #ccc;
+}
