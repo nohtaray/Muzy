@@ -48,6 +48,7 @@
                         <div class="col-md-9">
                             <div id="tags"></div>
                         </div>
+                        <% if (loggedIn) { %>
                         <div class="col-md-3 col-md-offset-0 col-xs-4 col-xs-offset-8 clearfix">
                             <form id="add-tag-form" onsubmit="funcSignUpTags();
                                     return false;">
@@ -57,12 +58,14 @@
                                 </div>
                             </form>
                         </div>
+                        <% }%>
                     </div>
                     <%= br(h(music.description))%>
                 </div>
 
                 <hr>
 
+                <% if (loggedIn) { %>
                 <form id="add-comment-form" class="clearfix" onsubmit="funcReview();
                         return false;">
                     <div class="form-group">
@@ -71,6 +74,7 @@
                     </div>
                     <input type="submit" class="btn btn-primary pull-right" value="送信">
                 </form>
+                <% } %>
 
                 <div id="comments">
                     <% for (Comment comment : comments) {%>
