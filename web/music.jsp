@@ -31,7 +31,7 @@
                 <div class="clearfix">
                     <% if (userIsLoggedIn) { %>
                     <div class="pull-right">
-                        <a class="modal-open btn" data-toggle="modal" data-target="#advertise-modal" id="advertise-button">この動画を広告する</a>
+                        <a class="modal-open btn" data-toggle="modal" data-target="#advertise-modal" id="advertise-button">この楽曲を広告する</a>
                         <a class="modal-open btn" data-toggle="modal" data-target="#add-mylist-modal" id="add-mylist-button">マイリストに追加</a>
                     </div>
                     <% }%>
@@ -70,7 +70,7 @@
                 <form id="add-comment-form" class="clearfix" onsubmit="funcReview();
                         return false;">
                     <div class="form-group">
-                        <label for="comment-add-content">この動画にコメントする</label>
+                        <label for="comment-add-content">この楽曲にコメントする</label>
                         <textarea placeholder="コメントを入力してください" id="comment-add-content" class="form-control" rows="3" required></textarea>
                     </div>
                     <input type="submit" class="btn btn-primary pull-right" value="送信">
