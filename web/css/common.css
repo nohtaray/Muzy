@@ -16,8 +16,13 @@ body {
     display: none;
     visibility: hidden;
 }
+
 hr {
     border-top-color: #ccc;
     margin-top: 15px;
     margin-bottom: 15px;
+}
+
+.media-object {
+    margin-top: 3px;
 }
