@@ -10,23 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import jp.ac.jec.jz.gr03.dao.CommentDAO;
+import jp.ac.jec.jz.gr03.entity.Comment;
 import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
-import jp.ac.jec.jz.gr03.util.Flash;
 
 /**
  *
  * @author 12jz0121
  */
 public class DeleteCommentServlet extends HttpServlet {
-
-    static {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -77,12 +69,44 @@ public class DeleteCommentServlet extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(DeleteCommentServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         HttpSession session = request.getSession();
         Authorizer auth = new Authorizer(session);
-        User user = auth.getUserLoggedInAs();
+        if (!auth.hasLoggedIn()) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "ログインしてください");
+            return;
+        }
 
-        deleteComment(user.userId, Integer.parseInt(request.getParameter("commentid")));
+        String strId = request.getParameter("commentid");
+        if (strId == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが足りません");
+            return;
+        }
+
+        int id;
+        try {
+            id = Integer.parseInt(strId);
+        } catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "idが不正です");
+            return;
+        }
+
+        Comment comment = fetchComment(id);
+        if (comment == null) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "コメントが存在しません");
+            return;
+        }
+
+        User user = auth.getUserLoggedInAs();
+        if (auth.hasLoggedInAs(comment.user) || auth.hasLoggedInAs(comment.music.artist.user) || user.isOwner) {
+            // 削除可能。
+        } else {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "許可がありません");
+            return;
+        }
+
+        comment.isDeleted = true;
+        updateComment(comment);
     }
 
     /**
@@ -95,8 +119,18 @@ public class DeleteCommentServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void deleteComment(int userId, int commentId) throws IOException {
+    private Comment fetchComment(int id) throws IOException {
         CommentDAO dao = new CommentDAO();
-        dao.delete(userId, commentId);
+        return dao.selectById(id);
+    }
+
+    private void deleteComment(int commentId) throws IOException {
+        CommentDAO dao = new CommentDAO();
+        dao.delete(commentId);
+    }
+    
+    private void updateComment(Comment comment) throws IOException {
+        CommentDAO dao = new CommentDAO();
+        dao.update(comment);
     }
 }
