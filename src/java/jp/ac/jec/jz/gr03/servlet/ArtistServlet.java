@@ -51,16 +51,16 @@ public class ArtistServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
         HttpSession session = request.getSession();
         Authorizer auth = new Authorizer(session);
-        
+
         String idStr = request.getParameter("id");
         if (idStr == null) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが足りません");
             return;
         }
-        
+
         int id;
         try {
             id = Integer.parseInt(idStr);
@@ -68,17 +68,16 @@ public class ArtistServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID は数値で指定してください");
             return;
         }
-        if (auth.getUserLoggedInAs() != null){
-            MyListResultSet mylists = fetchMyLists(auth.getUserLoggedInAs().userId);
-            request.setAttribute("mylists", mylists);
-        }
-        
+
         Artist artist = selectArtist(id);
         if (artist != null) {
             request.setAttribute("artist", artist);
             request.setAttribute("me", auth.getUserLoggedInAs());
             request.setAttribute("messages", selectMessages(artist.artistId));
             request.setAttribute("musics", selectMusics(artist.artistId));
+            if (auth.hasLoggedIn()) {
+                request.setAttribute("mylists", fetchMyLists(auth.getUserLoggedInAs().userId));
+            }
             request.getRequestDispatcher("artist.jsp").forward(request, response);
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "アーティストが存在しません");
@@ -98,7 +97,7 @@ public class ArtistServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
         response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
     }
 
@@ -112,19 +111,21 @@ public class ArtistServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    
     private Artist selectArtist(int id) throws IOException {
         ArtistDAO dao = new ArtistDAO();
         return dao.selectById(id);
     }
+
     private MessageResultSet selectMessages(int artistId) throws IOException {
         MessageDAO dao = new MessageDAO();
         return dao.selectByArtistId(artistId);
     }
+
     private MusicResultSet selectMusics(int artistId) throws IOException {
         MusicDAO dao = new MusicDAO();
         return dao.selectByArtistId(artistId);
     }
+
     private MyListResultSet fetchMyLists(int userId) throws IOException {
         MyListDAO dao = new MyListDAO();
         return dao.selectByUserId(userId);
