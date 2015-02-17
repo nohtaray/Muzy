@@ -27,3 +27,7 @@
 #add-tag-button {
     cursor: pointer;
 }
+
+#add-comment-form {
+    margin-bottom: 20px;
+}

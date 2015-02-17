@@ -63,7 +63,8 @@
 
                 <hr>
 
-                <form class="clearfix" onsubmit="funcReview(); return false;">
+                <form id="add-comment-form" class="clearfix" onsubmit="funcReview();
+                        return false;">
                     <div class="form-group">
                         <label for="comment-add-content">この動画にコメントする</label>
                         <textarea placeholder="コメントを入力してください" id="comment-add-content" class="form-control" rows="3"></textarea>
@@ -71,21 +72,39 @@
                     <input type="submit" class="btn btn-primary pull-right" value="送信">
                 </form>
 
-                <div id="reviewarea">
-                    <%for (Comment comment : comments) {%>
-                    <div class="comment" data-comment-id="<%= comment.commentId%>">
-                        <div class="comment-content"><%= h(comment.content)%>
-                            <!--評価値 : <label><%= (comment.scorePlusCount - comment.scoreMinusCount)%></label>-->
-                            <%if (me != null) {%>
-                            <input type="button" class="glyphicon glyphicon-thumbs-up" aria-hidden="true" onclick="evaluationCommentGood(<%= comment.commentId%>, this, <%= comment.scorePlusCount%>)" /><label><%= (comment.scorePlusCount)%></label>
-                            <input type="button" class="glyphicon glyphicon-thumbs-down" onclick="evaluationCommentBad(<%= comment.commentId%>, this, <%= comment.scoreMinusCount%>)" /><var><%= (comment.scoreMinusCount)%></var>
-                                <%}%>
-                                <%if (me != null && me.userId == comment.user.userId) {%>
-                            <input type="button" onclick="deleteComment(<%= comment.commentId%>, this)" value="削除" />
-                            <%}%>
+                <div id="comments">
+                    <% for (Comment comment : comments) {%>
+                    <div class="media">
+                        <a class="media-left">
+                            <img class="media-object" src="<%= !comment.isDeleted && comment.user.iconImageFile != null ? h(comment.user.iconImageFile) : "img/default.png"%>" width="64">
+                        </a>
+                        <div class="media-body thumbnail clearfix">
+                            <% if (comment.isDeleted) {%>
+                            <h4></h4>
+                            <div class="text-muted">削除されました</div>
+                            <% } else {%>
+                            <h4>
+                                <a href="UserServlet?id=<%= comment.user.userId%>"><%= h(comment.user.name)%></a>
+                                <small><%= dateToString(comment.createdAt)%></small>
+                            </h4>
+                            <%= br(h(comment.content))%>
+                            <% if (me != null) {%>
+                            <div class="pull-right">
+                                <div>
+                                    <a class="btn" onclick="evaluationCommentGood(<%= comment.commentId%>, this, <%= comment.scorePlusCount%>)"><span class="glyphicon glyphicon-thumbs-up"></span></a><span class="comment-good-count text-success"><%= (comment.scorePlusCount)%></span>
+                                    <a class="btn" onclick="evaluationCommentBad(<%= comment.commentId%>, this, <%= comment.scoreMinusCount%>)"><span class="glyphicon glyphicon-thumbs-down"></span></a><span class="comment-bad-count text-danger"><%= (comment.scoreMinusCount)%></span>
+                                </div>
+                                <% if (me.userId == comment.user.userId || me.userId == comment.music.artist.user.userId || me.isOwner) {%>
+                                <div class="pull-right">
+                                    <small><a class="btn comment-delete-button" data-comment-id="<%=comment.commentId%>">削除</a></small>
+                                </div>
+                                <% } %>
+                            </div>
+                            <% } %>
+                            <% } %>
                         </div>
                     </div>
-                    <% } %>
+                    <% }%>
                 </div>
             </div>
 

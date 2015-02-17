@@ -88,6 +88,17 @@ $(function() {
             });
         });
     });
+
+    // コメント
+    $(function() {
+        $('.comment-delete-button').click(function() {
+            var ok = confirm('本当に削除しますか？この動作は取り消せません。');
+            if (!ok) return false;
+
+            var id = $(this).data('commentId');
+            deleteComment(id);
+        });
+    });
 });
 
 function HeaderClick() {
@@ -167,6 +178,7 @@ function rateTag(tagId, score) {
 
 function funcReview() {
     var content = $('#comment-add-content').val();
+
     $.ajax({
         type: 'POST',
         dataType: 'text',
@@ -177,22 +189,14 @@ function funcReview() {
             review: content,
             musicid: $('#musicid').val()
         }
-    }).done(function (data) {
-        // ajax ok
-        //追加表示
-        var $newreview = $('<div>', { class: 'comment' }).appendTo($('#reviewarea'));
-        // 内容
-        $('<div>', { class: 'comment-content' }).text(content).appendTo($newreview);
-        // 評価ボタン
-        $('<input type="button" onclick="evaluationCommentGood()" value="良い" /><input type="button" onclick="evaluationCommentBad()" value="悪い" /><input type="button" onclick="deleteComment()" value="削除" />').appendTo($newreview);
-        alert("成功");
-    }).fail(function (data) {
-        // ajax error
-        //追加できませんでした的な通知
-        alert("失敗");
-    }).always(function (data) {
-        // ajax complete
+    }).done(function () {
+        // とりあえず今回は追加に成功したらページを更新して対処
+        location.href = '';
+        return;
+    }).fail(function () {
+        alert('コメントの投稿に失敗しました');
     });
+
 }
 function addMyListDetail(mylistId, musicId){
     $.ajax({
@@ -224,11 +228,10 @@ function evaluationCommentGood(commentid, target, eva) {
             eva: 1
         }
     }).done(function () {
-        $(target).parent().children('input').attr({disabled:"disabled"});
-        $(target).parent().children('label').text(eva + 1);
+        $(target).parent().children().attr({disabled:"disabled"});
+        $(target).next().text(eva + 1);
     }).fail(function () {
-        alert("評価できません。");
-    }).always(function () {
+        alert('評価に失敗しました。');
     });
 }
 function evaluationCommentBad(commentid, target, eva) {
@@ -241,16 +244,15 @@ function evaluationCommentBad(commentid, target, eva) {
             eva: -1
         }
     }).done(function () {
-        $(target).parent().children('var').text(eva + 1);
-        $(target).parent().children('input').attr({disabled:"disabled"});
+        $(target).next().text(eva + 1);
+        $(target).parent().children().attr({disabled:"disabled"});
     }).fail(function () {
-        alert("評価できません。");
-    }).always(function () {
+        alert('評価に失敗しました。');
     });
 }
 
 
-function deleteComment(commentid, target) {
+function deleteComment(commentid) {
     $.ajax({
         type: 'POST',
         dataType: 'text',
@@ -259,12 +261,10 @@ function deleteComment(commentid, target) {
             commentid: commentid
         }
     }).done(function () {
-        //$("div." + commentid).remove();
-        $(target).parent().parent().remove();
-        //$("#" + commentid).remove();
-        alert("コメントを削除しました。");
+        // 今回は画面を更新することで対処
+        location.href = '';
+        return;
     }).fail(function () {
-        alert("コメントを削除できません。");
-    }).always(function () {
+        alert('コメントの削除に失敗しました。');
     });
 }
