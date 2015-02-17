@@ -49,7 +49,16 @@ public class RankingMusicAdvertisementJsonServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-        MusicAdvertisementResultSet musicAdvertisements = selectMostAdvertised();
+        int limit = 30;
+        String strLimit = request.getParameter("limit");
+        if (strLimit != null) {
+            try {
+                limit = Integer.parseInt(strLimit);
+            } catch(NumberFormatException e) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "limit must be integer");
+            }
+        }
+        MusicAdvertisementResultSet musicAdvertisements = selectMostAdvertised(limit);
         
         // リンクしてるユーザ情報などを出力しないようフィルタリングする
         List<Map<String, Object>> outs = new ArrayList<>();
@@ -98,8 +107,8 @@ public class RankingMusicAdvertisementJsonServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private MusicAdvertisementResultSet selectMostAdvertised() throws IOException {
+    private MusicAdvertisementResultSet selectMostAdvertised(int limit) throws IOException {
         MusicAdvertisementDAO dao = new MusicAdvertisementDAO();
-        return dao.selectMostCounts(30, 0);
+        return dao.selectMostCounts(limit, 0);
     }
 }

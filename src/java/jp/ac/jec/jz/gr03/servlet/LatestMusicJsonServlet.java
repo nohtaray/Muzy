@@ -49,8 +49,16 @@ public class LatestMusicJsonServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-        final int size = 30;
-        MusicResultSet musics = fetchLatestMusics(size);
+        int limit = 30;
+        String strLimit = request.getParameter("limit");
+        if (strLimit != null) {
+            try {
+                limit = Integer.parseInt(strLimit);
+            } catch(NumberFormatException e) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "limit must be integer");
+            }
+        }
+        MusicResultSet musics = fetchLatestMusics(limit);
         
         // リンクしてるユーザ情報などを出力しないようフィルタリングする
         List<Map<String, Object>> outs = new ArrayList<>();
@@ -95,8 +103,8 @@ public class LatestMusicJsonServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private MusicResultSet fetchLatestMusics(int size) throws IOException {
+    private MusicResultSet fetchLatestMusics(int limit) throws IOException {
         MusicDAO dao = new MusicDAO();
-        return dao.selectLatests(size, 0);
+        return dao.selectLatests(limit, 0);
     }
 }

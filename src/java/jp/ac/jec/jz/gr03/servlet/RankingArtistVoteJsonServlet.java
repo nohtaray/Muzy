@@ -50,7 +50,16 @@ public class RankingArtistVoteJsonServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-        ArtistVoteResultSet artistVotes = selectArtistVotes();
+        int limit = 30;
+        String strLimit = request.getParameter("limit");
+        if (strLimit != null) {
+            try {
+                limit = Integer.parseInt(strLimit);
+            } catch(NumberFormatException e) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "limit must be integer");
+            }
+        }
+        ArtistVoteResultSet artistVotes = selectArtistVotes(limit);
         
         // リンクしてるユーザ情報などを出力しないようフィルタリングする
         List<Map<String, Object>> outs = new ArrayList<>();
@@ -104,9 +113,9 @@ public class RankingArtistVoteJsonServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private ArtistVoteResultSet selectArtistVotes() throws IOException {
+    
+    private ArtistVoteResultSet selectArtistVotes(int limit) throws IOException {
         ArtistVoteDAO dao = new ArtistVoteDAO();
-        return dao.select(30, 0);
+        return dao.select(limit, 0);
     }
 }
