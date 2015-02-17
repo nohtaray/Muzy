@@ -210,10 +210,9 @@ function addMyListDetail(mylistId, musicId){
             musicid: musicId
         }
     }).done(function () {
-        alert("マイリストに追加しました");
+        alert("追加しました");
     }).fail(function () {
-        alert("マイリストに追加済みです");
-    }).always(function () {
+        alert("追加済みです");
     });
 }
 //------------ここまで実行可能確認------------------

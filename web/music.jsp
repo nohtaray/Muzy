@@ -11,6 +11,7 @@
     Music music = (Music) request.getAttribute("music");
     User me = (User) request.getAttribute("me");
     CommentResultSet comments = (CommentResultSet) request.getAttribute("comments");
+    MyListResultSet mylists = (MyListResultSet) request.getAttribute("mylists");
     boolean userIsLoggedIn = me !=null;
 %>
 <c:import url="/layout/application.jsp">
@@ -167,22 +168,17 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4>マイリスト追加</h4>
+                        <h4>追加先を選択してください</h4>
                     </div>
                     <div class="modal-body">
-                        <%
-                            MyListResultSet mylists = (MyListResultSet) request.getAttribute("mylists");
-                            MyList mylist;
-
-                            out.print("<table>");
-                            while ((mylist = mylists.readRow()) != null) {
-                                out.println("<tr>");
-                                out.println("<td>" + h(mylist.name) + "</td>");
-                                out.println("<td><input type=\"button\" onclick=\"addMyListDetail(" + mylist.mylist_id + "," + music.musicId + ")\" value=\"追加\" /></td></tr>");
-                            }
-                            out.print("</table>");
-
-                        %>
+                        <ul class="list-unstyled">
+                            <% if (mylists != null)
+                                    for (MyList mylist : mylists) {%>
+                            <li>
+                                <a class="btn" onclick="addMyListDetail(<%= mylist.mylist_id%>, <%= music.musicId%>)"><%= h(mylist.name)%></a>
+                            </li>
+                            <% } %>
+                        </ul>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
