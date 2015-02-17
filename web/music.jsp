@@ -11,7 +11,7 @@
     Music music = (Music) request.getAttribute("music");
     User me = (User) request.getAttribute("me");
     CommentResultSet comments = (CommentResultSet) request.getAttribute("comments");
-    boolean loggedIn = me != null;
+    boolean userIsLoggedIn = me !=null;
 %>
 <c:import url="/layout/application.jsp">
     <c:param name="title" value="<%= h(music.title)%>" />
@@ -28,7 +28,7 @@
                 <h2><%= h(music.title)%></h2>
                 <hr>
                 <div class="clearfix">
-                    <% if (loggedIn) { %>
+                    <% if (userIsLoggedIn) { %>
                     <div class="pull-right">
                         <a class="modal-open btn" data-toggle="modal" data-target="#advertise-modal" id="advertise-button">この動画を広告する</a>
                         <a class="modal-open btn" data-toggle="modal" data-target="#add-mylist-modal" id="add-mylist-button">マイリストに追加</a>
@@ -48,7 +48,7 @@
                         <div class="col-md-9">
                             <div id="tags"></div>
                         </div>
-                        <% if (loggedIn) { %>
+                        <% if (userIsLoggedIn) { %>
                         <div class="col-md-3 col-md-offset-0 col-xs-4 col-xs-offset-8 clearfix">
                             <form id="add-tag-form" onsubmit="funcSignUpTags();
                                     return false;">
@@ -65,7 +65,7 @@
 
                 <hr>
 
-                <% if (loggedIn) { %>
+                <% if (userIsLoggedIn) { %>
                 <form id="add-comment-form" class="clearfix" onsubmit="funcReview();
                         return false;">
                     <div class="form-group">
@@ -92,7 +92,7 @@
                                 <small><%= dateToString(comment.createdAt)%></small>
                             </h4>
                             <%= br(h(comment.content))%>
-                            <% if (me != null) {%>
+                            <% if (userIsLoggedIn) {%>
                             <div class="pull-right">
                                 <div>
                                     <a class="btn" onclick="evaluationCommentGood(<%= comment.commentId%>, this, <%= comment.scorePlusCount%>)"><span class="glyphicon glyphicon-thumbs-up"></span></a><span class="comment-good-count text-success"><%= (comment.scorePlusCount)%></span>
@@ -118,7 +118,7 @@
 
         </div>
 
-        <% if (loggedIn) {%>
+        <% if (userIsLoggedIn) {%>
         <div id="advertise-modal" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -195,8 +195,8 @@
 
         <input type="hidden" id="musicid" value="<%= music.musicId%>">
         <%-- 投稿者かどうか --%>
-        <input type="hidden" id="is-my-music" value="<%= me != null && me.userId == music.artist.user.userId%>">
+        <input type="hidden" id="is-my-music" value="<%= userIsLoggedIn && me.userId == music.artist.user.userId%>">
         <%-- ログインしてるか --%>
-        <input type="hidden" id="is-logged-in" value="<%= loggedIn%>">
+        <input type="hidden" id="is-logged-in" value="<%= userIsLoggedIn%>">
     </c:param>
 </c:import>
