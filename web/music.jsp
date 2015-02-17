@@ -71,7 +71,7 @@
                         return false;">
                     <div class="form-group">
                         <label for="comment-add-content">この動画にコメントする</label>
-                        <textarea placeholder="コメントを入力してください" id="comment-add-content" class="form-control" rows="3"></textarea>
+                        <textarea placeholder="コメントを入力してください" id="comment-add-content" class="form-control" rows="3" required></textarea>
                     </div>
                     <input type="submit" class="btn btn-primary pull-right" value="送信">
                 </form>
