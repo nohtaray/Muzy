@@ -43,6 +43,7 @@
                 <div id="profile">
                     <%= br(h(artist.introduction))%>
                 </div>
+                <hr>
                 <% if (loggedIn) {%>
                 <form method="post" action="NewMessageServlet" class="clearfix" id="new-message-form">
                     <input type="hidden" name="artist" value="<%= artist.artistId%>">
@@ -53,7 +54,6 @@
                     <input type="submit" class="btn btn-primary pull-right" value="送信">
                 </form>
                 <% } %>
-
                 <div id="messages">
                     <% for (Message message : messages) {%>
                     <div class="media">
