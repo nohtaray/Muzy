@@ -84,7 +84,6 @@ public class EditMusicServlet extends HttpServlet {
         }
         
         request.setAttribute("music", music);
-        Flash.get(session).success.offer("楽曲情報を更新しました。");
         request.getRequestDispatcher("editMusic.jsp").forward(request, response);
     }
 
@@ -145,6 +144,7 @@ public class EditMusicServlet extends HttpServlet {
         music.title = title;
         music.description = description;
         update(music);
+        Flash.get(session).success.offer("楽曲情報を更新しました。");
         response.sendRedirect("MusicServlet?id=" + music.musicId);
     }
 
