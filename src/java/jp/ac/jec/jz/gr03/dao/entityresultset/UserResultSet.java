@@ -31,7 +31,12 @@ public class UserResultSet extends EntityResultSet<User> {
         user.googleRefreshToken = (String)row.get("google_refresh_token");
         user.name           = (String)row.get("name");
         user.introduction   = (String)row.get("introduction");
-        user.iconImageFile  = (String)row.get("icon_image_file");
+        // TODO: ここ以外でもすべて NULL チェック？
+        // エンティティオブジェクトに書かれたデフォルト値を上書きしたくない。
+        String iconImageFile  = (String)row.get("icon_image_file");
+        if (iconImageFile != null) {
+            user.iconImageFile = iconImageFile;
+        }
         Integer isValid = (Integer)row.get("is_valid");
         user.isValid = isValid != null ? isValid != 0 : null;
         Integer isOwner = (Integer)row.get("is_owner");

@@ -59,7 +59,7 @@
                     <% for (Message message : messages) {%>
                     <div class="media">
                         <a class="media-left">
-                            <img class="media-object" src="<%= !message.isDeleted && message.user.iconImageFile != null ? h(message.user.iconImageFile) : "img/default.png"%>" width="64">
+                            <img class="media-object" src="<%= !message.isDeleted && message.user.iconImageFile != null ? h(message.user.iconImageFile) : ""%>" height="64" width="64">
                         </a>
                         <div class="media-body thumbnail">
                             <% if (message.isDeleted) {%>

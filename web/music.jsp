@@ -12,7 +12,7 @@
     User me = (User) request.getAttribute("me");
     CommentResultSet comments = (CommentResultSet) request.getAttribute("comments");
     MyListResultSet mylists = (MyListResultSet) request.getAttribute("mylists");
-    boolean userIsLoggedIn = me !=null;
+    boolean userIsLoggedIn = me != null;
 %>
 <c:import url="/layout/application.jsp">
     <c:param name="title" value="<%= h(music.title)%>" />
@@ -81,7 +81,7 @@
                     <% for (Comment comment : comments) {%>
                     <div class="media">
                         <a class="media-left">
-                            <img class="media-object" src="<%= !comment.isDeleted && comment.user.iconImageFile != null ? h(comment.user.iconImageFile) : "img/default.png"%>" width="64">
+                            <img class="media-object" src="<%= !comment.isDeleted && comment.user.iconImageFile != null ? h(comment.user.iconImageFile) : ""%>" height="64" width="64">
                         </a>
                         <div class="media-body thumbnail clearfix">
                             <% if (comment.isDeleted) {%>
@@ -150,8 +150,7 @@
                                 広告が完了しました！
                             </div>
                             <div id="advertise-fail" class="hidden">
-                                <div id="advertise-fail-message">
-                                </div>
+                                <div id="advertise-fail-message"></div>
                                 <button type="button" class="btn btn-default" id="advertise-retry-button">やり直す</button>
                             </div>
                         </div>
