@@ -6,7 +6,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import jp.ac.jec.jz.gr03.dao.ArtistDAO;
 import jp.ac.jec.jz.gr03.dao.UserDAO;
+import jp.ac.jec.jz.gr03.entity.Artist;
 import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
 
@@ -71,9 +73,16 @@ public class UserServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "ユーザが存在しません");
             return;
         }
-        
-        request.setAttribute("user", user);
-        request.getRequestDispatcher("user.jsp").forward(request, response);
+
+        Artist artist = fetchArtist(user.userId);
+        if (artist != null) {
+            response.sendRedirect("ArtistServlet?id=" + artist.artistId);
+            return;
+        } else {
+            request.setAttribute("user", user);
+            request.getRequestDispatcher("user.jsp").forward(request, response);
+            return;
+        }
     }
 
     /**
@@ -105,5 +114,10 @@ public class UserServlet extends HttpServlet {
     private User fetchUser(int id) throws IOException {
         UserDAO dao = new UserDAO();
         return dao.selectById(id);
+    }
+
+    private Artist fetchArtist(int userId) throws IOException {
+        ArtistDAO dao = new ArtistDAO();
+        return dao.selectByUserId(userId);
     }
 }
