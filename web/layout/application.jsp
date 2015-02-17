@@ -152,6 +152,10 @@
             <div id="main">
                 ${param.content}
             </div><!-- /#main -->
+        </div><!-- /.container -->
+        
+        <div id="footer">
+            <p>Copyright &copy; 2015 Muzy</p>
         </div>
 
         <script type="text/javascript">
