@@ -33,7 +33,7 @@
         ${param.header}
     </head>
     <body>
-        <nav id="header" class="navbar navbar-inverse navbar-fixed-top">
+        <nav id="top-bar" class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="./"></a>
@@ -65,10 +65,10 @@
                     <% }%>
                 </div>
             </div>
-        </nav>
+        </nav><!-- /#top-bar -->
 
         <div class="container">
-            <div class="row">
+            <div class="row" id="header">
                 <div class="col-sm-6">
                     <form id="search-form" method="GET" class="form-horizontal">
                         <div class="form-group">
@@ -102,7 +102,8 @@
                     </ul>
                     </div>
                 </div>
-            </div>
+            </div><!-- /#header -->
+            
             <%
                 if (!flash.success.isEmpty()) {
                     String message;

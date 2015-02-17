@@ -11,7 +11,7 @@ body {
 .container {
 }
 
-#header {
+#top-bar {
     height: 60px;
 }
 
@@ -34,13 +34,13 @@ body {
     margin-bottom: 2px;
 }
 
+#header {
+    margin-bottom: 14px;
+}
+
 #sponsors img {
     border-radius: 3px;
     width: 100%;
-}
-
-#main {
-    padding-top: 12px;
 }
 
 #footer {
