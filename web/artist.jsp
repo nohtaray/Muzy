@@ -12,6 +12,7 @@
     Artist artist = (Artist) request.getAttribute("artist");
     MessageResultSet messages = (MessageResultSet) request.getAttribute("messages");
     MusicResultSet musics = (MusicResultSet) request.getAttribute("musics");
+    MyListResultSet mylists = (MyListResultSet) request.getAttribute("mylists");
     User me = (User) request.getAttribute("me");
 
     boolean loggedIn = me != null;
@@ -30,12 +31,12 @@
         </div>
         <div class="row">
             <div class="col-sm-7">
-        <h2><%= h(artist.name)%></h2>
+                <h2><%= h(artist.name)%></h2>
                 <% if (loggedIn) { %>
                 <div class="clearfix">
                     <div class="pull-right">
-                        <a class="modal-open btn btn-xs" data-toggle="modal" data-target="#vote-modal" id="vote-button">このアーティストを応援する</a>
-                        <a class="modal-open btn btn-xs" data-toggle="modal" data-target="#add-mylist-modal" id="add-mylist-button">マイリストに追加</a>
+                        <a class="modal-open btn" data-toggle="modal" data-target="#vote-modal" id="vote-button">このアーティストを応援する</a>
+                        <a class="modal-open btn" data-toggle="modal" data-target="#add-mylist-modal" id="add-mylist-button">マイリストに追加</a>
                     </div>
                 </div>
                 <% }%>
@@ -144,28 +145,23 @@
                 </div>
             </div>
         </div>
-                                
+
         <div id="add-mylist-modal" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4>マイリスト追加</h4>
+                        <h4>追加先を選択してください</h4>
                     </div>
                     <div class="modal-body">
-                        <%
-                            MyListResultSet mylists = (MyListResultSet) request.getAttribute("mylists");
-                            MyList mylist;
-
-                            out.print("<table>");
-                            while ((mylist = mylists.readRow()) != null) {
-                                out.println("<tr>");
-                                out.println("<td>" + h(mylist.name) + "</td>");
-                                out.println("<td><input type=\"button\" onclick=\"addArtistMyListDetail(" + mylist.mylist_id + "," + artist.artistId + ")\" value=\"追加\" /></td></tr>");
-                            }
-                            out.print("</table>");
-
-                        %>
+                        <ul class="list-unstyled">
+                            <% if (mylists != null)
+                                    for (MyList mylist : mylists) {%>
+                            <li>
+                                <a class="btn" onclick="addArtistMyListDetail(<%= mylist.mylist_id%>, <%= artist.artistId%>)"><%= h(mylist.name)%></a>
+                            </li>
+                            <% } %>
+                        </ul>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>

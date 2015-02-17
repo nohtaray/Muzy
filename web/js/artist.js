@@ -77,17 +77,14 @@ function addArtistMyListDetail(mylistId, artistId){
     $.ajax({
         type: 'GET',
         dataType: 'text',
-        url: 'AddMyListDetailServlet', //ここにServletのアドレス
-        //ここがServletに渡される値
-        //複数渡せる左が変数で右が値
+        url: 'AddMyListDetailServlet',
         data: {
             mylistid: mylistId,
             artistid: artistId
         }
     }).done(function () {
-        alert("マイリストに追加しました");
+        alert("追加しました");
     }).fail(function () {
-        alert("マイリストに追加済みです");
-    }).always(function () {
+        alert("追加済みです");
     });
 }
