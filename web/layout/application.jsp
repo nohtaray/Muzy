@@ -95,10 +95,12 @@
                     </form>
                 </div>
                 <div id="sponsors" class="col-sm-6">
-                    <ul class="list-inline pull-right">
-                        <li><a href="SponsorServlet"><img src="img/sponsor/062580.jpg" width="230" height="165" alt="Sponsor ATreat" border="0"></a></li>
-                        <li><a href="SponsorServlet"><img src="img/sponsor/081510.jpg" width="230" height="165" alt="Sponsor ATreat" border="0"></a></li>
+                    <div class="row">
+                    <ul class="list-inline">
+                        <li class="col-xs-6"><a href="SponsorServlet"><img src="img/sponsor/01.png" alt="Sponsor" border="0"></a></li>
+                        <li class="col-xs-6"><a href="SponsorServlet"><img src="img/sponsor/02.png" alt="Sponsor" border="0"></a></li>
                     </ul>
+                    </div>
                 </div>
             </div>
             <%

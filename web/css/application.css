@@ -33,3 +33,12 @@ body {
 #common-menu-list>li {
     margin-bottom: 2px;
 }
+
+#sponsors img {
+    border-radius: 3px;
+    width: 100%;
+}
+
+#main {
+    padding-top: 12px;
+}
