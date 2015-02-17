@@ -58,9 +58,10 @@
                     </div>
                     <% } else {%>
                     <%-- ログインしている --%>
-                    <%= h(userLoggedIn.name)%> さん
-                    <a href="MyPageServlet" class="label label-info">マイページ</a>
-                    <a href="LogoutServlet">ログアウト</a>
+                    <ul class="list-unstyled" id="common-menu-list">
+                        <li><a href="MyPageServlet" class="label label-default">マイページ</a></li>
+                        <li><a href="LogoutServlet" class="label label-default">ログアウト</a></li>
+                    </ul>
                     <% }%>
                 </div>
             </div>

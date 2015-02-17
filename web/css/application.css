@@ -26,3 +26,10 @@ body {
 #login-box {
     margin-top: 14px;
 }
+
+#common-menu-list {
+    margin-top: 6px;
+}
+#common-menu-list>li {
+    margin-bottom: 2px;
+}
