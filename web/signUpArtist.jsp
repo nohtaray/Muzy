@@ -12,28 +12,34 @@
     <c:param name="header">
     </c:param>
     <c:param name="content">
-        
-        <p>
-            アーティスト名とプロフィールを入力して、アーティスト登録してください。
-        </p>
-        <form method="post" action="" class="form-horizontal">
-            <div class="form-group row">
-                <label for="name" class="col-sm-2 control-label">アーティスト名</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" name="name" id="name" value="<%= name != null ? h(name) : h(me.name)%>">
-                </div>
+
+        <div class="row">
+            <div class="col-sm-7">
+                <h3>アーティスト登録</h3>
+                <p>
+                    アーティスト名とプロフィールを入力して登録してください。
+                </p>
+                <hr>
+                <form method="post" action="" class="form-horizontal">
+                    <div class="form-group row">
+                        <label for="name" class="col-sm-3 control-label">アーティスト名</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="name" id="name" value="<%= name != null ? h(name) : h(me.name)%>">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="introduction" class="col-sm-3 control-label">プロフィール</label>
+                        <div class="col-sm-9">
+                            <textarea name="introduction" class="form-control" id="introduction" rows="3"><%= introduction != null ? h(introduction) : h(me.introduction)%></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button type="submit" class="btn btn-primary">登録</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="form-group row">
-                <label for="introduction" class="col-sm-2 control-label">プロフィール</label>
-                <div class="col-sm-5">
-                    <textarea name="introduction" class="form-control" id="introduction"><%= introduction != null ? h(introduction) : h(me.introduction) %></textarea>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-primary">登録</button>
-                </div>
-            </div>
-        </form>
+        </div>
     </c:param>
 </c:import>
