@@ -8,8 +8,13 @@ $(function() {
         latestMusicDescription: 50,
         latestMusicTitle: 30,
     };
+    var Limits = {
+        rankingArtist: 10,
+        rankingMusic: 10,
+        latestMusic: 10,
+    };
 
-    loadJson('RankingArtistVoteJsonServlet', function(artistVotes) {
+    loadJson('RankingArtistVoteJsonServlet', Limits.rankingArtist, function(artistVotes) {
         var $template = $('#ranking-artist-template').clone();
         var $container = $('#ranking-artists').empty();
         artistVotes.forEach(function(artistVote) {
@@ -21,7 +26,7 @@ $(function() {
             $artist.removeAttr('id').removeClass('hidden').appendTo($container);
         });
     });
-    loadJson('RankingMusicAdvertisementJsonServlet', function(musicAdvertisements) {
+    loadJson('RankingMusicAdvertisementJsonServlet', Limits.rankingMusic, function(musicAdvertisements) {
         var $template = $('#ranking-music-template').clone();
         var $container = $('#ranking-musics').empty();
         musicAdvertisements.forEach(function(musicAdvertisement) {
@@ -33,7 +38,7 @@ $(function() {
             $music.removeAttr('id').removeClass('hidden').appendTo($container);
         });
     });
-    loadJson('LatestMusicJsonServlet', function(musics) {
+    loadJson('LatestMusicJsonServlet', Limits.latestMusic, function(musics) {
         var $template = $('#latest-music-template').clone();
         var $container = $('#latest-musics').empty();
         musics.forEach(function(music) {
@@ -46,11 +51,14 @@ $(function() {
         });
     });
 
-    function loadJson(url, onSuccess) {
+    function loadJson(url, limit, onSuccess) {
         $.ajax({
             type: 'GET',
             url: url,
-            dataType: 'json'
+            dataType: 'json',
+            data: {
+                limit: limit
+            },
         }).success(onSuccess);
     }
 });
