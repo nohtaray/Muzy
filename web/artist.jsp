@@ -50,7 +50,7 @@
                     <input type="hidden" name="artist" value="<%= artist.artistId%>">
                     <div class="form-group">
                         <label for="new-message-content">メッセージを送る</label>
-                        <textarea placeholder="メッセージを入力してください" name="content" id="new-message-content" class="form-control" rows="3"></textarea>
+                        <textarea placeholder="メッセージを入力してください" name="content" id="new-message-content" class="form-control" rows="3" required></textarea>
                     </div>
                     <input type="submit" class="btn btn-primary pull-right" value="送信">
                 </form>
