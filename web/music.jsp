@@ -23,69 +23,77 @@
     <c:param name="content">
 
 
-        <h2><%= h(music.title)%></h2>
-        <hr>
-        <div id="tools">
-            <% if (loggedIn) { %>
-            <a class="modal-open btn" data-toggle="modal" data-target="#advertise-modal" id="advertise-button">この動画を広告する！</a>
-
-            <a class="modal-open btn" data-toggle="modal" data-target="#add-mylist-modal" id="add-mylist-button">マイリストに追加</a>
-            <% }%>
-        </div>
-        <div>
-            <iframe width="576" height="360" src="//www.youtube.com/embed/<%= h(music.youtubeVideoId)%>?autoplay=1&controls=2&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>    
-        </div>
-        <div>
-            <div>
-                再生： <%= music.viewCount%> 回
-            </div>
-            <%= br(h(music.description))%>
-        </div>
-
-        <hr>
-
-        <%--既存登録タグ(暫定的)--%>
-        <div id="tags">
-
-        </div>
-
-        <%--タグ追加スペース--%>
-        <input type="button" onclick="HeaderClick();" value="タグ追加">
-        <div>
-            <div id="ContentsPanel" style="width:780px;border:1px solid #008d18; display:none">
-                <div id="tagfiled">
-                    <input type="text" id="tagname" placeholder="タグ名" required>
+        <div class="row">
+            <div class="col-lg-7 col-md-8">
+                <h2><%= h(music.title)%></h2>
+                <hr>
+                <div class="clearfix">
+                    <% if (loggedIn) { %>
+                    <div class="pull-right">
+                        <a class="modal-open btn" data-toggle="modal" data-target="#advertise-modal" id="advertise-button">この動画を広告する</a>
+                        <a class="modal-open btn" data-toggle="modal" data-target="#add-mylist-modal" id="add-mylist-button">マイリストに追加</a>
+                    </div>
+                    <% }%>
                 </div>
-                <input type="button" onclick="funcSignUpTags();" value="新規タグを登録する">
-            </div>
-            <input type="hidden" id="musicid" value="<%= music.musicId%>">
-        </div>
+                <div class="text-center" id="video">
+                    <iframe width="576" height="360" src="//www.youtube.com/embed/<%= h(music.youtubeVideoId)%>?autoplay=1&controls=2&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div>
+                    <div class="clearfix">
+                        <div class="pull-right">
+                            再生：<%= music.viewCount%> 回
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div id="tags"></div>
+                        </div>
+                        <div class="col-md-3 col-md-offset-0 col-xs-4 col-xs-offset-8 clearfix">
+                            <form id="add-tag-form" onsubmit="funcSignUpTags();
+                                    return false;">
+                                <a class="pull-right" id="add-tag-button" onclick="HeaderClick();">タグ追加...</a>
+                                <div id="ContentsPanel" class="hidden">
+                                    <input type="text" id="tagname" class="form-control" placeholder="タグ名" required>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <%= br(h(music.description))%>
+                </div>
 
-        レビュー<br />
-        <div>
-            <textarea id="comment-add-content" cols="30" rows="5"></textarea>
-            <input type="button" onclick="funcReview();" value="レビュー書き込み">
-        </div>
+                <hr>
 
-        <br /><br /><br />
-        <h2>レビュー一覧</h2>
-        <div id="reviewarea">
-            <%for (Comment comment : comments) {%>
-            <div class="comment" data-comment-id="<%= comment.commentId%>">
-                <div class="comment-content"><%= h(comment.content)%>
-                    <!--評価値 : <label><%= (comment.scorePlusCount - comment.scoreMinusCount) %></label>-->
-                    <%if(me != null){%>
-                    <input type="button" class="glyphicon glyphicon-thumbs-up" aria-hidden="true" onclick="evaluationCommentGood(<%= comment.commentId%>, this, <%= comment.scorePlusCount %>)" /><label><%= (comment.scorePlusCount) %></label>
-                    <input type="button" class="glyphicon glyphicon-thumbs-down"　onclick="evaluationCommentBad(<%= comment.commentId%>, this, <%= comment.scoreMinusCount %>)" /><var><%= (comment.scoreMinusCount) %></var>
-                    <%}%>
-                    <%if(me != null && me.userId == comment.user.userId){%>
-                    <input type="button" onclick="deleteComment(<%= comment.commentId %>, this)" value="削除" />
-                    <%}%>
+                <form class="clearfix" onsubmit="funcReview(); return false;">
+                    <div class="form-group">
+                        <label for="comment-add-content">この動画にコメントする</label>
+                        <textarea placeholder="コメントを入力してください" id="comment-add-content" class="form-control" rows="3"></textarea>
+                    </div>
+                    <input type="submit" class="btn btn-primary pull-right" value="送信">
+                </form>
+
+                <div id="reviewarea">
+                    <%for (Comment comment : comments) {%>
+                    <div class="comment" data-comment-id="<%= comment.commentId%>">
+                        <div class="comment-content"><%= h(comment.content)%>
+                            <!--評価値 : <label><%= (comment.scorePlusCount - comment.scoreMinusCount)%></label>-->
+                            <%if (me != null) {%>
+                            <input type="button" class="glyphicon glyphicon-thumbs-up" aria-hidden="true" onclick="evaluationCommentGood(<%= comment.commentId%>, this, <%= comment.scorePlusCount%>)" /><label><%= (comment.scorePlusCount)%></label>
+                            <input type="button" class="glyphicon glyphicon-thumbs-down" onclick="evaluationCommentBad(<%= comment.commentId%>, this, <%= comment.scoreMinusCount%>)" /><var><%= (comment.scoreMinusCount)%></var>
+                                <%}%>
+                                <%if (me != null && me.userId == comment.user.userId) {%>
+                            <input type="button" onclick="deleteComment(<%= comment.commentId%>, this)" value="削除" />
+                            <%}%>
+                        </div>
+                    </div>
+                    <% } %>
                 </div>
             </div>
-            <% } %>
-        </div>
 
+            <div class="col-lg-5 col-md-4">
+
+            </div>
+
+        </div>
 
         <% if (loggedIn) {%>
         <div id="advertise-modal" class="modal fade" tabindex="-1" role="dialog">
@@ -142,7 +150,7 @@
                         <%
                             MyListResultSet mylists = (MyListResultSet) request.getAttribute("mylists");
                             MyList mylist;
-                            
+
                             out.print("<table>");
                             while ((mylist = mylists.readRow()) != null) {
                                 out.println("<tr>");
@@ -162,7 +170,7 @@
 
         <% }%>
 
-
+        <input type="hidden" id="musicid" value="<%= music.musicId%>">
         <%-- 投稿者かどうか --%>
         <input type="hidden" id="is-my-music" value="<%= me != null && me.userId == music.artist.user.userId%>">
         <%-- ログインしてるか --%>

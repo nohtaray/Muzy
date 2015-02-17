@@ -91,12 +91,9 @@ $(function() {
 });
 
 function HeaderClick() {
-    var target = document.getElementById("ContentsPanel");
-    if (target.style.display === "none") {
-        target.style.display = "block";
-    } else {
-        target.style.display = "none";
-    }
+    $('#add-tag-button').addClass('hidden');
+    $('#ContentsPanel').removeClass('hidden');
+    $('#tagname').focus();
 }
 
 function funcSignUpTags() {
@@ -110,17 +107,14 @@ function funcSignUpTags() {
             tagname: $('#tagname').val(),
             musicid: $('#musicid').val()
         }
-    }).done(function (data) {
-        // ajax ok
-        alert("成功");
+    }).done(function () {
         loadTags();
-    }).fail(function (data) {
-        // ajax error
-        //追加できませんでした的な通知
-        alert("失敗");
-    }).always(function (data) {
-        // ajax complete
+    }).fail(function () {
+        alert("タグの追加に失敗しました");
     });
+    $('#tagname').val('');
+    $('#ContentsPanel').addClass('hidden');
+    $('#add-tag-button').removeClass('hidden');
 }
 function loadTags() {
     var musicId = $('#musicid').val();

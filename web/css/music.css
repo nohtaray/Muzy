@@ -3,6 +3,10 @@
     Author     : yada
 */
 
+#video {
+    margin: 4px 0 8px;
+}
+
 .tag {
     margin: 0 10px 5px 0;
     display: inline-block;
@@ -13,5 +17,13 @@
 }
 
 .tag-delete-button {
+    cursor: pointer;
+}
+
+#add-tag-form {
+    margin-top: 10px;
+}
+
+#add-tag-button {
     cursor: pointer;
 }
