@@ -158,7 +158,7 @@
                             <% if (mylists != null)
                                     for (MyList mylist : mylists) {%>
                             <li>
-                                <a class="btn" onclick="addArtistMyListDetail(<%= mylist.mylist_id%>, <%= artist.artistId%>)"><%= h(mylist.name)%></a>
+                                <a class="btn add-mylist-button" data-mylist-id="<%=mylist.mylist_id %>" data-artist-id="<%= artist.artistId%>"><%= h(mylist.name)%></a>
                             </li>
                             <% } %>
                         </ul>

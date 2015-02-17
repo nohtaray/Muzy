@@ -72,19 +72,26 @@ $(function() {
             });
         });
     });
-});
-function addArtistMyListDetail(mylistId, artistId){
-    $.ajax({
-        type: 'GET',
-        dataType: 'text',
-        url: 'AddMyListDetailServlet',
-        data: {
-            mylistid: mylistId,
-            artistid: artistId
-        }
-    }).done(function () {
-        alert("追加しました");
-    }).fail(function () {
-        alert("追加済みです");
+    // add to mylist
+    $(function() {
+        $(document).on('click', '.add-mylist-button', function() {
+            var that = this;
+            $(this).addClass('disabled');
+            $.ajax({
+                type: 'GET',
+                dataType: 'text',
+                url: 'AddMyListDetailServlet',
+                data: {
+                    mylistid: $(this).data('mylistId'),
+                    artistid: $(this).data('artistId'),
+                }
+            }).done(function () {
+                alert('追加しました');
+            }).fail(function () {
+                alert('追加済みです');
+            }).always(function() {
+                $(that).removeClass('disabled');
+            });
+        });
     });
-}
+});
