@@ -10,7 +10,7 @@
         
         <div class="row">
             <div class="col-md-8">
-                注目ランキング
+                <h3>注目ランキング</h3>
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#ranking-artists" data-toggle="tab">アーティスト</a></li>
                     <li><a href="#ranking-musics" data-toggle="tab">楽曲</a></li>
