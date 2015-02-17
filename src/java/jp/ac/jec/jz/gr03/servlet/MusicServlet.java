@@ -1,4 +1,3 @@
-
 package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
@@ -56,16 +55,16 @@ public class MusicServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
         HttpSession session = request.getSession();
         Authorizer auth = new Authorizer(session);
-        
+
         String idStr = request.getParameter("id");
         if (idStr == null) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "パラメータが足りません");
             return;
         }
-        
+
         int id;
         try {
             id = Integer.parseInt(idStr);
@@ -73,11 +72,7 @@ public class MusicServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID は数値で指定してください");
             return;
         }
-        if (auth.getUserLoggedInAs() != null){
-            MyListResultSet mylists = fetchMyLists(auth.getUserLoggedInAs().userId);
-            request.setAttribute("mylists", mylists);
-        }
-        
+
         Music music = selectMusic(id);
         if (music != null) {
             music.viewCount++;
@@ -85,6 +80,9 @@ public class MusicServlet extends HttpServlet {
             request.setAttribute("me", auth.getUserLoggedInAs());
             request.setAttribute("music", music);
             request.setAttribute("comments", selectComments(music.musicId));
+            if (auth.hasLoggedIn()) {
+                request.setAttribute("mylists", fetchMyLists(auth.getUserLoggedInAs().userId));
+            }
             request.getRequestDispatcher("music.jsp").forward(request, response);
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "楽曲が存在しません");
@@ -115,20 +113,22 @@ public class MusicServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
-    
+
     private Music selectMusic(int musicId) throws IOException {
         MusicDAO dao = new MusicDAO();
         return dao.selectById(musicId);
     }
+
     private CommentResultSet selectComments(int musicId) throws IOException {
         CommentDAO dao = new CommentDAO();
         return dao.selectByMusicId(musicId);
     }
+
     private void update(Music music) throws IOException {
         MusicDAO dao = new MusicDAO();
         dao.update(music);
     }
+
     private MyListResultSet fetchMyLists(int userId) throws IOException {
         MyListDAO dao = new MyListDAO();
         return dao.selectByUserId(userId);
