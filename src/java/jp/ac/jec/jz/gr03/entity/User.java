@@ -18,7 +18,7 @@ public class User {
     public String googleRefreshToken = null;
     public String name = null;
     public String introduction = null;
-    public String iconImageFile = null;
+    public String iconImageFile = "img/default.png";
     public Date createdAt = null;
     public Date updatedAt = null;
     public Boolean isValid = null;
