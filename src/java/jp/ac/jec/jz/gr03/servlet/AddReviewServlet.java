@@ -62,7 +62,7 @@ public class AddReviewServlet extends HttpServlet {
             //追加されたレビュー内容を引っ張ってくる
             String review = request.getParameter("review");
 
-            if (review != null) {
+            if (review != null && !review.isEmpty()) {
                 ps = con.prepareStatement("insert into comments (user_id, content, music_id, score_plus_count, score_minus_count, created_at, is_deleted) VALUES (?, ?, ?, 0, 0, now(), 0)", Statement.RETURN_GENERATED_KEYS);
                 ps.setInt(1, auth.getUserLoggedInAs().userId);
                 ps.setString(2, review);
