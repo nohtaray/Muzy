@@ -7,6 +7,7 @@
 <c:import url="/layout/application.jsp">
     <c:param name="title" value="スポンサー" />
     <c:param name="header">
+        <script type="text/javascript" src="js/sponsor.js"></script>
     </c:param>
     <c:param name="content">
 
