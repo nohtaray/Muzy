@@ -124,7 +124,7 @@
                                 <img class="media-object" src="<%= h(music.artist.user.iconImageFile)%>" width="80" height="80">
                             </a>
                             <div class="media-body">
-                                <h4 class="media-heading"><%= h(music.artist.name) %></h4>
+                                <h4 class="media-heading"><a href="ArtistServlet?id=<%= music.artist.artistId %>"><%= h(music.artist.name) %></a></h4>
                                 <div><%= br(h(truncate(music.artist.introduction, 60))) %></div>
                             </div>
                         </div>
