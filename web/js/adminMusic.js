@@ -1,3 +1,4 @@
+/*global $, Helper */
 $(function() {
     $('.delete-button').click(function() {
         var ok = confirm('本当に削除しますか？');

@@ -10,15 +10,15 @@
     </c:param>
     <c:param name="content">
 
+        <h3>楽曲一覧</h3>
         <table class="table table-hover">
-            <caption>楽曲一覧</caption>
             <thead>
                 <tr>
-                    <th>id</th>
+                    <th>楽曲ID</th>
                     <th>アーティスト</th>
                     <th>楽曲ページ</th>
-                    <th>投稿</th>
-                    <th>更新</th>
+                    <th>投稿日時</th>
+                    <th>更新日時</th>
                     <th>削除</th>
                 </tr>
             </thead>
