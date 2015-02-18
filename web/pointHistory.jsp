@@ -8,35 +8,42 @@
     PointGetHistoryResultSet histories = (PointGetHistoryResultSet) request.getAttribute("histories");
 %>
 <c:import url="/layout/application.jsp">
-    <c:param name="title" value="ページのタイトル" />
+    <c:param name="title" value="ポイント獲得・利用履歴" />
     <c:param name="header">
-        <%-- スクリプトのインポートなど。例↓
-        <script type="text/javascript" src="js/template.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/template.css">
-        --%>
     </c:param>
     <c:param name="content">
 
-        所有ポイント：<%= point.pointCount%>
-        <table border="1">
-            <caption>ポイント獲得・利用履歴</caption>
-            <thead>
-                <tr>
-                    <th>日時</th>
-                    <th>ポイント</th>
-                    <th>詳細</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% for (PointGetHistory history : histories) {%>
-                <tr>
-                    <td><%= dateToString(history.createdAt)%></td>
-                    <td><%= history.gotPoints%></td>
-                    <td><%= h(history.description)%></td>
-                </tr>
-                <% }%>
-            </tbody>
-        </table>
+        <div class="row">
+            <div class="col-sm-7">
+                <div class="clearfix">
+                    <h3>ポイント獲得・利用履歴</h3>
+                    <div class="pull-right">
+                        所有ポイント：<%= point.pointCount%>
+                    </div>
+                </div>
+                <hr>
+            </div>
 
+            <div class="col-sm-6">
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="text-center">ポイント</th>
+                            <th class="text-center">詳細</th>
+                            <th class="text-center">日時</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (PointGetHistory history : histories) {%>
+                        <tr>
+                            <td class="text-right"><%= history.gotPoints%></td>
+                            <td><%= h(history.description)%></td>
+                            <td><%= dateToString(history.createdAt)%></td>
+                        </tr>
+                        <% }%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </c:param>
 </c:import>
