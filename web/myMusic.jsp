@@ -11,15 +11,25 @@
     </c:param>
     <c:param name="content">
 
-        あなたが投稿した楽曲
-        <ul>
-        <% for (Music music : musics) { %>
-        <li>
-            <a href="MusicServlet?id=<%= music.musicId %>"><%= h(music.title) %></a>
-            [<a href="EditMusicServlet?id=<%= music.musicId %>">編集</a>]
-        </li>
-        <% }%>
-        </ul>
+        <h3>投稿楽曲一覧</h3>
+        <div class="row">
+            <div class="col-sm-7">
+                <% for (Music music : musics) {%>
+                <div class="music thumbnail media clearfix">
+                    <a class="pull-left" href="MusicServlet?id=<%= music.musicId%>">
+                        <img class="media-object" src="http://img.youtube.com/vi/<%= h(music.youtubeVideoId)%>/1.jpg">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading"><a href="MusicServlet?id=<%= music.musicId%>"><%= h(truncate(music.title, 100))%></a></h4>
+                            <%= h(truncate(music.description, 200))%>
+                    </div>
+                    <div class="pull-right">
+                        <a class="btn btn-info" href="EditMusicServlet?id=<%= music.musicId%>">編集</a>
+                    </div>
+                </div>
+                <% }%>
+            </div>
+        </div>
 
     </c:param>
 </c:import>
