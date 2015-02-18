@@ -5,6 +5,7 @@
     <c:param name="header">
     </c:param>
     <c:param name="content">
+        <h3>メニュー</h3>
         <ul>
             <li><a href="AdminArtistServlet">アーティスト管理</a></li>
             <li><a href="AdminUserServlet">ユーザ管理</a></li>

@@ -21,7 +21,7 @@
     </head>
     <body>
         <h1>Muzy管理画面</h1>
-        <div id="content">
+        <div class="container">
             ${param.content}
         </div>
     </body>
