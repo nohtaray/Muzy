@@ -14,27 +14,36 @@
     </c:param>
     <c:param name="content">
 
-        <form method="GET" action="">
-            <input type="text" name="q" value="<%= keyword != null ? h(keyword) : ""%>">
-            <input type="submit" value="検索">
+        <form method="GET" action="" id="artist-search-form" class="form-inline">
+            
+            <div class="form-group">
+                <label for="keyword">キーワード：</label>
+                <input type="text" name="q" id="keyword" class="form-control" placeholder="キーワード" value="<%= keyword != null ? h(keyword) : ""%>">
+            </div>
+            <input type="submit" class="btn btn-primary" value="検索">
             <div id="orders">
                 <label><input type="radio" name="o" value="<%= SearchArtistServlet.Order.CREATED_AT.ordinal()%>">新着順</label>
                 <label><input type="radio" name="o" value="<%= SearchArtistServlet.Order.MYLIST.ordinal()%>">マイリスト登録数順</label>
                 <label><input type="radio" name="o" value="<%= SearchArtistServlet.Order.VOTE.ordinal()%>">投票数順</label>
             </div>
         </form>
-            
-            <% if (artists != null) { %>
-            <%= h(keyword)%> の検索結果
-        <ul>
+
+        <% if (artists != null) {%>
+        <h3>キーワード "<%= h(keyword)%>" のアーティスト検索結果</h3>
+        <div id="artists">
             <% for (Artist artist : artists) {%>
-            <li>
-                <%= artist.artistId%>
-                <a href="ArtistServlet?id=<%= artist.artistId%>"><%= h(artist.name)%></a>
-            </li>
+            <div class="artist thumbnail clearfix media">
+                <a class="pull-left" href="ArtistServlet?id=<%= artist.artistId%>">
+                    <img class="media-object" src="<%= h(artist.user.iconImageFile)%>" width="90" height="90">
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading"><a href="ArtistServlet?id=<%= artist.artistId%>"><%= h(truncate(artist.name, 50))%></a></h4>
+                        <%= h(truncate(artist.introduction, 200))%>
+                </div>
+            </div>
             <% }%>
-        </ul>
-        <% } %>
+        </div>
+        <% }%>
 
     </c:param>
 </c:import>
