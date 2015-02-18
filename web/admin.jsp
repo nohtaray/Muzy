@@ -7,9 +7,9 @@
     <c:param name="content">
         <h3>メニュー</h3>
         <ul>
-            <li><a href="AdminArtistServlet">アーティスト管理</a></li>
-            <li><a href="AdminUserServlet">ユーザ管理</a></li>
-            <li><a href="AdminMusicServlet">楽曲管理</a></li>
+            <li><a href="AdminArtistServlet">アーティスト一覧</a></li>
+            <li><a href="AdminUserServlet">ユーザ一覧</a></li>
+            <li><a href="AdminMusicServlet">楽曲一覧</a></li>
         </ul>
     </c:param>
 </c:import>
