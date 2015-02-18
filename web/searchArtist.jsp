@@ -18,7 +18,7 @@
             
             <div class="form-group">
                 <label for="keyword">キーワード：</label>
-                <input type="text" name="q" id="keyword" class="form-control" placeholder="キーワード" value="<%= keyword != null ? h(keyword) : ""%>">
+                <input type="text" name="q" id="keyword" class="form-control" placeholder="キーワード" value="<%= keyword != null ? h(keyword) : ""%>" required>
             </div>
             <input type="submit" class="btn btn-primary" value="検索">
             <div id="orders">

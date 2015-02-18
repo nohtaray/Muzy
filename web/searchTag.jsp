@@ -22,7 +22,7 @@
         <form method="GET" action="" id="tag-search-form" class="form-inline">
             <div class="form-group">
                 <label for="tag" class="control-label">タグ：</label>
-                <input type="text" id="tag" class="form-control" name="t" placeholder="タグ" value="<%= tagName != null ? h(tagName) : ""%>">
+                <input type="text" id="tag" class="form-control" name="t" placeholder="タグ" value="<%= tagName != null ? h(tagName) : ""%>" required>
             </div>
             <div class="form-group">
                 <label for="keyword" class="control-label"><a id="show-keywordform" href="#">キーワードで絞込</a></label>

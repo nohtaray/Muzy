@@ -86,7 +86,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <input type="text" id="search-form-text" placeholder="キーワードを入力" class="form-control">
+                                <input type="text" id="search-form-text" placeholder="キーワードを入力" class="form-control" required>
                             </div>
                             <div class="col-sm-2">
                                 <input type="submit" class="btn btn-primary" value="検索">
