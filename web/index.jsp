@@ -26,7 +26,7 @@
                                     <img class="media-object ranking-artist-img" width="80" height="80">
                                 </a>
                                 <div class="media-body">
-                                    <h4 class="media-heading ranking-artist-name"></h4>
+                                    <h4 class="media-heading"><a class="ranking-artist-a ranking-artist-name"></a></h4>
                                     <div class="ranking-artist-introduction"></div>
                                 </div>
                             </li>
@@ -46,7 +46,7 @@
                                     <img class="media-object ranking-music-img" width="120" height="90">
                                 </a>
                                 <div class="media-body">
-                                    <h4 class="media-heading ranking-music-title"></h4>
+                                    <h4 class="media-heading"><a class="ranking-music-a ranking-music-title"></a></h4>
                                     <div class="ranking-music-description"></div>
                                 </div>
                             </li>
@@ -66,7 +66,7 @@
                                 <img class="media-object latest-music-img" width="120" height="90">
                             </a>
                             <div class="media-body">
-                                <h4 class="media-heading latest-music-title"></h4>
+                                <h4 class="media-heading"><a class="latest-music-a latest-music-title"></a></h4>
                                 <div class="latest-music-description"></div>
                             </div>
                         </li>
