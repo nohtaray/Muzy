@@ -102,7 +102,7 @@
                                     </a>
                                     <div class="media-body">
                                         <h4 class="media-heading"><%= h(truncate(music.title, 30))%></h4>
-                                        <%= h(truncate(music.description, 150))%>
+                                        <%= h(truncate(music.description, 100))%>
                                     </div>
                                 </li>
                                 <% } %>
