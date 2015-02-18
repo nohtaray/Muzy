@@ -26,9 +26,11 @@
         <script type="text/javascript" src="js/artist.js"></script>
     </c:param>
     <c:param name="content">
+        <!--
         <div id="artist-header">
             <img id="header-image" src="<%= h(artist.headerImageFile)%>">
         </div>
+        -->
         <div class="row">
             <div class="col-sm-7">
                 <div class="clearfix">
