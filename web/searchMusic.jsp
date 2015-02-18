@@ -10,14 +10,18 @@
 <c:import url="/layout/application.jsp">
     <c:param name="title" value="楽曲検索結果" />
     <c:param name="header">
+        <link rel="stylesheet" type="text/css" href="css/searchMusic.css">
         <script type="text/javascript" src="js/search.js"></script>
     </c:param>
     <c:param name="content">
 
-        
-        <form method="GET" action="">
-            <input type="text" name="q" value="<%= keyword != null ? h(keyword) : ""%>">
-            <input type="submit" value="検索">
+
+        <form method="GET" action="" id="music-search-form" class="form-inline">
+            <div class="form-group">
+                <label for="keyword">キーワード：</label>
+                <input type="text" name="q" id="keyword" class="form-control" placeholder="キーワード" value="<%= keyword != null ? h(keyword) : ""%>">
+            </div>
+            <input type="submit" class="btn btn-primary" value="検索">
             <div id="orders">
                 <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.CREATED_AT.ordinal()%>">新着順</label>
                 <label><input type="radio" name="o" value="<%= SearchMusicServlet.Order.COMMENT_CREATED_AT.ordinal()%>">コメントの新しい順</label>
@@ -27,14 +31,20 @@
         </form>
         <div>
             <% if (musics != null) {%>
-            キーワード "<%= h(keyword)%>" の検索結果
-            <ul>
+            <h3>キーワード "<%= h(keyword)%>" の楽曲検索結果</h3>
+            <div id="musics">
                 <% for (Music music : musics) {%>
-                <li>
-                    <a href="MusicServlet?id=<%= music.musicId%>"><%= h(music.title)%></a>
-                </li>
+                <div class="music thumbnail clearfix media">
+                    <a class="pull-left" href="MusicServlet?id=<%= music.musicId%>">
+                        <img class="media-object" src="http://img.youtube.com/vi/<%= h(music.youtubeVideoId)%>/1.jpg">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading"><a href="MusicServlet?id=<%= music.musicId%>"><%= h(truncate(music.title, 100))%></a></h4>
+                            <%= h(truncate(music.description, 200))%>
+                    </div>
+                </div>
                 <% }%>
-            </ul>
+            </div>
             <% }%>
         </div>
     </c:param>
