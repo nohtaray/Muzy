@@ -22,7 +22,6 @@
                     <a href="EditUserServlet" class="list-group-item"><b>登録情報を編集する</b></a>
                     <a href="BuyTicketServlet" class="list-group-item"><b>チケットを購入する</b></a>
                     <a href="PointHistoryServlet" class="list-group-item"><b>ポイントの獲得・利用履歴</b></a>
-                    <a href="TicketHistoryServlet" class="list-group-item"><b>チケットの獲得・利用履歴</b></a>
                     <a href="MyListServlet" class="list-group-item"><b>マイリスト</b></a>
                 </div>
                     
