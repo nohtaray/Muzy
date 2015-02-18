@@ -43,7 +43,7 @@
                     <ul class="list-inline pull-right">
                         <% if (user.googleUID == null) { %>
                         <li><a href="LoginWithGoogleServlet">Google で認証する（アーティスト登録に必要です）</a></li>
-                            <% }%>
+                        <% }%>
                         <li><a href="WithdrawUserServlet">退会する</a></li>
                     </ul>
                 </div>

@@ -51,7 +51,7 @@ public class MyListDAO extends DAO {
     }
     
     public ResultSet mylistDetailById(int userId) throws SQLException{
-        String sql = "select mylist_id, name, youtube_video_id, mylists.updated_at from musics left join mylist_details using(music_id) left join mylists using(mylist_id) where user_id = ?";
+        String sql = "select mylist_id, name, youtube_video_id, mylists.updated_at from mylists left join mylist_details using(mylist_id) join musics using(music_id) where user_id = ?";
         PreparedStatement ps = conn.prepareStatement(sql);
         
         int idx = 1;
