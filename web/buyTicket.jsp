@@ -8,6 +8,7 @@
 <c:import url="/layout/application.jsp">
     <c:param name="title" value="チケット購入" />
     <c:param name="header">
+        <link rel="stylesheet" type="text/css" href="css/buyTicket.css">
         <script type="text/javascript" src="js/buyTicket.js"></script>
     </c:param>
     <c:param name="content">
@@ -18,17 +19,19 @@
             保有ポイント：<%= point.pointCount%>
         </div>
         <div>
-            <%-- この単位以外のリクエストを飛ばしてもエラーにしない想定 --%>
-            <%
-                int[] qts = {1, 2, 5, 10, 30};
-                for (int qt : qts) {
-                    int requires = price * qt;
-                    boolean canPay = requires <= point.pointCount;
-            %>
-            <button data-qt="<%= qt%>" data-requires="<%= requires%>" class="buy-button" <%= canPay ? "" : "disabled"%>><%= qt%>枚</button>(<%= requires%>ポイント)<br>
-            <%
-                }
-            %>
+            <ul class="list-unstyled" id="buy-buttons">
+                <%-- この単位以外のリクエストを飛ばしてもエラーにしない想定 --%>
+                <%
+                    int[] qts = {1, 2, 5, 10, 30};
+                    for (int qt : qts) {
+                        int requires = price * qt;
+                        boolean canPay = requires <= point.pointCount;
+                %>
+                <li><a class="buy-button btn btn-<%= canPay ? "info" : "default"%>" data-qt="<%= qt%>" data-requires="<%= requires%>" <%= canPay ? "" : "disabled"%>><%= qt%>枚</a>(<%= requires%>ポイント)</li>
+                    <%
+                        }
+                    %>
+            </ul>
         </div>
 
     </c:param>
