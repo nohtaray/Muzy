@@ -10,7 +10,7 @@
             この動作は取り消せません。よろしければ以下のボタンを押してください。
         </p>
         <form action="" method="POST">
-            <input type="submit" value="アーティスト登録解除">
+            <input class="btn btn-danger" type="submit" value="アーティスト登録解除">
         </form>
     </c:param>
 </c:import>
