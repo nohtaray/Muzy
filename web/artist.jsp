@@ -103,7 +103,7 @@
                                         <img class="media-object" src="http://img.youtube.com/vi/<%= h(music.youtubeVideoId)%>/1.jpg">
                                     </a>
                                     <div class="media-body">
-                                        <h4 class="media-heading"><%= h(truncate(music.title, 30))%></h4>
+                                        <h4 class="media-heading"><a href="MusicServlet?id=<%= music.musicId%>"><%= h(truncate(music.title, 30))%></a></h4>
                                         <%= h(truncate(music.description, 100))%>
                                     </div>
                                 </li>
