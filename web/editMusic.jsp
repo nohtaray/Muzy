@@ -30,7 +30,7 @@
                     <div class="form-group row">
                         <label for="music-description" class="control-label col-sm-3">Description</label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" id="music-description" placeholder="Description" name="description"><%= h(music.description)%></textarea>
+                            <textarea class="form-control" id="music-description" placeholder="Description" name="description"rows="5"><%= h(music.description)%></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
