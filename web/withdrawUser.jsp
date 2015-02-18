@@ -5,6 +5,7 @@
     <c:param name="header">
     </c:param>
     <c:param name="content">
+        <h3>Muzyを退会する</h3>
         <p>
             本当に退会しますか？<br>
             この動作は取り消せません。よろしければ以下のボタンを押してください。
