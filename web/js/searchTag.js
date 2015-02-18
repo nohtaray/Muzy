@@ -2,7 +2,7 @@
 $(function() {
     // 最上部の共通部分のやつ
     $('.search-form-type').val(['tag']);
-    
+
     if ($('#keyword').val() !== '') {
         $('#keyword').removeClass('hidden');
     }

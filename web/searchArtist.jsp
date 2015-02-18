@@ -10,6 +10,8 @@
 <c:import url="/layout/application.jsp">
     <c:param name="title" value="アーティスト検索" />
     <c:param name="header">
+        <link rel="stylesheet" type="text/css" href="css/searchArtist.css">
+        <script type="text/javascript" src="js/searchArtist.js"></script>
         <script type="text/javascript" src="js/search.js"></script>
     </c:param>
     <c:param name="content">

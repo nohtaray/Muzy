@@ -11,6 +11,7 @@
     <c:param name="title" value="楽曲検索結果" />
     <c:param name="header">
         <link rel="stylesheet" type="text/css" href="css/searchMusic.css">
+        <script type="text/javascript" src="js/searchMusic.js"></script>
         <script type="text/javascript" src="js/search.js"></script>
     </c:param>
     <c:param name="content">
