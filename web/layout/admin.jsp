@@ -20,7 +20,7 @@
         ${param.header}
     </head>
     <body>
-        <h1>Muzy管理画面</h1>
+        <h1><a href="./AdminServlet">Muzy管理</a></h1>
         <div class="container">
             ${param.content}
         </div>
