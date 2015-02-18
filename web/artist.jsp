@@ -31,7 +31,10 @@
         </div>
         <div class="row">
             <div class="col-sm-7">
-                <h2><%= h(artist.name)%></h2>
+                <div class="clearfix">
+                    <img src="<%= h(artist.user.iconImageFile)%>" class="pull-left" width="80" height="80" id="icon-image">
+                    <h2 id="artist-name"><%= h(artist.name)%></h2>
+                </div>
                 <% if (loggedIn) { %>
                 <div class="clearfix">
                     <div class="pull-right">

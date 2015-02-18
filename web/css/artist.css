@@ -8,6 +8,14 @@
     height: 240px;
 }
 
+#icon-image {
+    margin: 12px 14px 0 0;
+}
+
+#artist-name {
+    margin-top: 45px;
+}
+
 #new-message-form {
     margin-top: 10px;
     padding-bottom: 20px;
