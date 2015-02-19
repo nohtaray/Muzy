@@ -23,7 +23,7 @@
                     <div class="form-group row">
                         <label for="introduction" class="col-sm-3 control-label">プロフィール</label>
                         <div class="col-sm-9">
-                            <textarea name="introduction" class="form-control" id="introduction" rows="5"><%= h(artist.introduction)%></textarea>
+                            <textarea name="introduction" class="form-control" id="introduction" rows="15"><%= h(artist.introduction)%></textarea>
                         </div>
                     </div>
                     <div class="form-group row">

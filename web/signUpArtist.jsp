@@ -30,7 +30,7 @@
                     <div class="form-group row">
                         <label for="introduction" class="col-sm-3 control-label">プロフィール</label>
                         <div class="col-sm-9">
-                            <textarea name="introduction" class="form-control" id="introduction" rows="3"><%= introduction != null ? h(introduction) : h(me.introduction)%></textarea>
+                            <textarea name="introduction" class="form-control" id="introduction" rows="15"><%= introduction != null ? h(introduction) : h(me.introduction)%></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
