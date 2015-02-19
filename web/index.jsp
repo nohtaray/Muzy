@@ -31,10 +31,6 @@
                                 </div>
                             </li>
                         </ul>
-                        <div id="ranking-artist-template" class="ranking-artist hidden">
-                            <div class="ranking-artist-name"></div>
-                            <div class="ranking-artist-introduction"></div>
-                        </div>
                     </div>
                     <div class="tab-pane fade" id="ranking-musics">
                         <div class="text-center">
