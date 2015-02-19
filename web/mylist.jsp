@@ -48,6 +48,11 @@
             <div class="col-lg-9 col-md-8 col-sm-7">
                 <h3 id="mylist-title"></h3>
                 <hr>
+                <div class="clearfix">
+                    <div class="pull-right">
+                        <a class="btn delete-mylist-button">このマイリストを削除する</a>
+                    </div>
+                </div>
                 <div class="text-center" id="loading-image">
                     <img src="img/ajax-loader.gif">
                 </div>

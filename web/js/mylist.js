@@ -20,6 +20,7 @@ $(function () {
     $('.mylist').on('click', function () {
         location.hash = $('.mylist').index(this);
         $('#mylist-title').text($(this).find('.mylist-name').text());
+        $('.delete-mylist-button').attr('data-mylist-id', $(this).data('mylistId'));
         $('#loading-image').removeClass('hidden');
         fetchDetails($(this).data('mylistId'), function (details) {
             $('#loading-image').addClass('hidden');
@@ -39,6 +40,14 @@ $(function () {
             location.reload();
         });
     });
+    $(document).on('click', '.delete-mylist-button', function() {
+        var ok = confirm('このマイリストを削除しますか？この動作は取り消せません');
+        if (!ok) return;
+        
+        deleteMyList($(this).data('mylistId'), function() {
+            location.href = '';
+        });
+    })
 
     function fetchDetails(mylistId, callback) {
         $.ajax({
@@ -101,7 +110,7 @@ function deleteDetail(detailId, callback) {
         alert("項目の削除に失敗しました。");
     });
 }
-function deleteMyList(mylistId, target) {
+function deleteMyList(mylistId, callback) {
     $.ajax({
         type: 'POST',
         dataType: 'text',
@@ -109,12 +118,8 @@ function deleteMyList(mylistId, target) {
         data: {
             id: mylistId
         }
-    }).done(function () {
-        $(target).parent().remove();
-        alert("削除しました。");
-    }).fail(function () {
-        alert("削除できません。");
-    }).always(function () {
+    }).done(callback).fail(function() {
+        alert("マイリストの削除に失敗しました。");
     });
 }
 function addMyList(name, onSuccess) {
