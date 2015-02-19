@@ -20,7 +20,7 @@ public class MylistDAO extends DAO {
     
     public Mylist selectById(Integer myListId) throws IOException {
         try {
-            String sql = "select * from mylists where mylist_id = ?";
+            String sql = "select * from mylists where mylist_id = ? limit 1";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             int idx = 1;

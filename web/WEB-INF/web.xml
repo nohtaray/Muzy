@@ -313,6 +313,10 @@
         <servlet-name>LatestMusicJsonServlet</servlet-name>
         <servlet-class>jp.ac.jec.jz.gr03.servlet.LatestMusicJsonServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MylistJson</servlet-name>
+        <servlet-class>jp.ac.jec.jz.gr03.servlet.MylistJson</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginWithGoogleServlet</servlet-name>
         <url-pattern>/LoginWithGoogleServlet</url-pattern>
@@ -579,6 +583,10 @@
     <servlet-mapping>
         <servlet-name>LatestMusicJsonServlet</servlet-name>
         <url-pattern>/LatestMusicJsonServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MylistJson</servlet-name>
+        <url-pattern>/MylistJson</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

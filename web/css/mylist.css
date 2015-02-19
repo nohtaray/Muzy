@@ -1,0 +1,19 @@
+/* 
+    Created on : Feb 20, 2015, 5:02:58 AM
+    Author     : yada
+*/
+
+.mylist {
+    padding: 10px 5px;
+    cursor: pointer;
+}
+.mylist:hover {
+    background-color: #f7f7f7;
+}
+.mylist img {
+    margin-right: 4px;
+}
+
+#loading-image {
+    margin-top: 40px;
+}

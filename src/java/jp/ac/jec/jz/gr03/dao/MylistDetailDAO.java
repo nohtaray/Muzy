@@ -88,7 +88,7 @@ public class MylistDetailDAO extends DAO {
         }
     }
 
-    public MylistDetailResultSet selectByMylistId(int mylistId) throws IOException, SQLException {
+    public MylistDetailResultSet selectByMylistId(int mylistId) throws IOException {
         try {
             String sql = "select * from mylist_details where mylist_id = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
