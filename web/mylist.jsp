@@ -2,7 +2,7 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="jp.ac.jec.jz.gr03.entity.Music" %>
-<%@page import="jp.ac.jec.jz.gr03.entity.MyList"%>
+<%@page import="jp.ac.jec.jz.gr03.entity.Mylist"%>
 <%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.MyListResultSet" %>
 <%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.MusicResultSet" %>
 <%@page import="jp.ac.jec.jz.gr03.entity.MyList_Details" %>

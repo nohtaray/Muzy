@@ -1,4 +1,4 @@
-<%@page import="jp.ac.jec.jz.gr03.entity.MyList"%>
+<%@page import="jp.ac.jec.jz.gr03.entity.Mylist"%>
 <%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.MyListResultSet"%>
 <%@page import="jp.ac.jec.jz.gr03.entity.User"%>
 <%@page import="jp.ac.jec.jz.gr03.entity.Music"%>
@@ -161,9 +161,9 @@
                     <div class="modal-body">
                         <ul class="list-unstyled">
                             <% if (mylists != null)
-                                    for (MyList mylist : mylists) {%>
+                                    for (Mylist mylist : mylists) {%>
                             <li>
-                                <a class="btn add-mylist-button" data-mylist-id="<%=mylist.mylist_id %>" data-artist-id="<%= artist.artistId%>"><%= h(mylist.name)%></a>
+                                <a class="btn add-mylist-button" data-mylist-id="<%=mylist.mylistId %>" data-artist-id="<%= artist.artistId%>"><%= h(mylist.name)%></a>
                             </li>
                             <% } %>
                         </ul>

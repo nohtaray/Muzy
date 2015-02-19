@@ -1,5 +1,5 @@
 <%@page import="java.sql.ResultSet"%>
-<%@page import="jp.ac.jec.jz.gr03.entity.MyList"%>
+<%@page import="jp.ac.jec.jz.gr03.entity.Mylist"%>
 <%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.MyListResultSet"%>
 <%@page import="jp.ac.jec.jz.gr03.entity.Music"%>
 <%@page import="jp.ac.jec.jz.gr03.entity.User"%>
@@ -187,9 +187,9 @@
                     <div class="modal-body">
                         <ul class="list-unstyled">
                             <% if (mylists != null)
-                                    for (MyList mylist : mylists) {%>
+                                    for (Mylist mylist : mylists) {%>
                             <li>
-                                <a class="btn" onclick="addMyListDetail(<%= mylist.mylist_id%>, <%= music.musicId%>)"><%= h(mylist.name)%></a>
+                                <a class="btn" onclick="addMyListDetail(<%= mylist.mylistId%>, <%= music.musicId%>)"><%= h(mylist.name)%></a>
                             </li>
                             <% } %>
                         </ul>

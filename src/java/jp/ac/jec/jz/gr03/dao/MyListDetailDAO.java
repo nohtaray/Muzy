@@ -40,7 +40,7 @@ public class MyListDetailDAO extends DAO {
             
             int idx = 1;
             
-            ps.setObject(idx++, (mylistDetail.mylist != null ? mylistDetail.mylist.mylist_id : null), Types.INTEGER);
+            ps.setObject(idx++, (mylistDetail.mylist != null ? mylistDetail.mylist.mylistId : null), Types.INTEGER);
             ps.setObject(idx++, mylistDetail.music_id , Types.INTEGER);
             ps.setObject(idx++, mylistDetail.created_at, Types.DATE);
             ps.setObject(idx++, mylistDetail.updated_at, Types.DATE);

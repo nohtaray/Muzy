@@ -8,23 +8,23 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jp.ac.jec.jz.gr03.dao.UserDAO;
-import jp.ac.jec.jz.gr03.entity.MyList;
+import jp.ac.jec.jz.gr03.entity.Mylist;
 
 /**
  *
  * @author 12jz0121
  */
-public class MyListResultSet extends EntityResultSet<MyList> {
+public class MyListResultSet extends EntityResultSet<Mylist> {
     
     public MyListResultSet(ResultSet rs) {
         super(rs);
     }
     
     @Override
-    protected MyList pickEntityFrom(Map<String, Object> row) {
-        MyList mylist = new MyList();
+    protected Mylist pickEntityFrom(Map<String, Object> row) {
+        Mylist mylist = new Mylist();
 
-        mylist.mylist_id = (Integer)row.get("mylist_id");
+        mylist.mylistId = (Integer)row.get("mylist_id");
         Integer userId = (Integer)row.get("user_id");
         if (userId != null) {
             UserDAO dao = new UserDAO();
@@ -37,9 +37,9 @@ public class MyListResultSet extends EntityResultSet<MyList> {
         } else {
             mylist.user = null;
         }
-        mylist.mylist_id = (Integer)row.get("mylist_id");
-        mylist.created_at = (Timestamp)row.get("created_at");
-        mylist.updated_at = (Timestamp)row.get("updated_at");
+        mylist.mylistId = (Integer)row.get("mylist_id");
+        mylist.createdAt = (Timestamp)row.get("created_at");
+        mylist.updatedAt = (Timestamp)row.get("updated_at");
         mylist.name = (String)row.get("name");
         
         return mylist;

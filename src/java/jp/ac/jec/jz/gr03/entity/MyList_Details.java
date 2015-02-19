@@ -11,7 +11,7 @@ import java.util.Date;
 
 public class MyList_Details {
     public Integer mylist_detail_id = null;
-    public MyList mylist = new MyList();
+    public Mylist mylist = new Mylist();
     public Integer music_id = null;
     public Integer artist_id = null;
     public Date created_at = null;

@@ -7,10 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
-import static jp.ac.jec.jz.gr03.dao.DAO.expressAsInteger;
-import jp.ac.jec.jz.gr03.dao.entityresultset.MusicResultSet;
 import jp.ac.jec.jz.gr03.dao.entityresultset.MyListResultSet;
-import jp.ac.jec.jz.gr03.entity.MyList;
+import jp.ac.jec.jz.gr03.entity.Mylist;
 import jp.ac.jec.jz.gr03.util.Date;
 
 /**
@@ -20,7 +18,7 @@ import jp.ac.jec.jz.gr03.util.Date;
 public class MyListDAO extends DAO {
 
     
-    public MyList selectById(Integer myListId) throws IOException {
+    public Mylist selectById(Integer myListId) throws IOException {
         try {
             String sql = "select * from mylists where mylist_id = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -71,7 +69,7 @@ public class MyListDAO extends DAO {
      * @param mylist
      * @throws IOException 
      */
-    public void insert(MyList mylist) throws IOException {
+    public void insert(Mylist mylist) throws IOException {
         String sql = "insert into mylists("
                 + "user_id, "
                 + "created_at, "
@@ -89,9 +87,9 @@ public class MyListDAO extends DAO {
             
             ps.execute();
             
-            mylist.mylist_id = getGeneratedKey(ps);
-            mylist.created_at = Date.now();
-            mylist.updated_at = Date.now();
+            mylist.mylistId = getGeneratedKey(ps);
+            mylist.createdAt = Date.now();
+            mylist.updatedAt = Date.now();
         } catch (SQLException e) {
             throw new IOException(e);
         }
@@ -100,7 +98,7 @@ public class MyListDAO extends DAO {
      * @param mylist
      * @throws IOException 
      */
-    public void update(MyList mylist) throws IOException {
+    public void update(Mylist mylist) throws IOException {
         String sql = "update mylists set "
                 + "user_id = ?, "
                 + "name = ?, "
@@ -113,12 +111,12 @@ public class MyListDAO extends DAO {
             ps.setObject(idx++, (mylist.user != null ? mylist.user.userId : null), Types.INTEGER);
             ps.setObject(idx++, mylist.name, Types.VARCHAR);
             ps.setObject(idx++, Date.now(), Types.TIMESTAMP);
-            ps.setObject(idx++, mylist.mylist_id, Types.INTEGER);
+            ps.setObject(idx++, mylist.mylistId, Types.INTEGER);
             
-            ps.setObject(idx++, mylist.mylist_id, Types.INTEGER);
+            ps.setObject(idx++, mylist.mylistId, Types.INTEGER);
             ps.execute();
             
-            mylist.updated_at = Date.now();
+            mylist.updatedAt = Date.now();
         } catch (SQLException e) {
             throw new IOException(e);
         }
@@ -132,21 +130,6 @@ public class MyListDAO extends DAO {
             ps.setObject(idx++, mylistid, Types.INTEGER);
 
             ps.execute();
-        } catch (SQLException e) {
-            throw new IOException(e);
-        }
-    }
-    public MyList selectNameByUserId(Integer userId) throws IOException {
-        try {
-            String sql = "select name from mylists where user_id = ?";
-            PreparedStatement ps = conn.prepareStatement(sql);
-
-            int idx = 1;
-            ps.setObject(idx++, userId, Types.INTEGER);
-
-            MyListResultSet results = new MyListResultSet(ps.executeQuery());
-            
-            return results.readRow();
         } catch (SQLException e) {
             throw new IOException(e);
         }
