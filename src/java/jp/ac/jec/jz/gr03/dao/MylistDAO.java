@@ -48,22 +48,6 @@ public class MylistDAO extends DAO {
         }
     }
     
-    public ResultSet mylistDetailById(int userId) throws SQLException{
-        String sql = "select mylist_id, name, youtube_video_id, mylists.updated_at from mylists left join mylist_details using(mylist_id) join musics using(music_id) where user_id = ?";
-        PreparedStatement ps = conn.prepareStatement(sql);
-        
-        int idx = 1;
-        ps.setObject(idx++, userId, Types.INTEGER);
-        return ps.executeQuery();
-    }
-    public ResultSet musicThumbnailById(int userId) throws SQLException{
-        String sql = "select youtube_video_id , title  from mylist_details join musics using(music_id) where mylist_id = ?";
-        PreparedStatement ps = conn.prepareStatement(sql);
-        
-        int idx = 1;
-        ps.setObject(idx++, userId, Types.INTEGER);
-        return ps.executeQuery();
-    }
     
     /**
      * @param mylist

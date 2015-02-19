@@ -9,9 +9,8 @@ import java.sql.Types;
 import jp.ac.jec.jz.gr03.dao.entityresultset.MylistDetailResultSet;
 import jp.ac.jec.jz.gr03.entity.MylistDetail;
 
-
-
 public class MylistDetailDAO extends DAO {
+
     public MylistDetailResultSet selectLatestsByMylistId(int mylistId) throws IOException, SQLException {
         try {
             String sql = "select * from mylist_details where mylist_id = ? order by created_at desc limit 1";
@@ -24,6 +23,30 @@ public class MylistDetailDAO extends DAO {
             throw new IOException(e);
         }
     }
+
+    /**
+     * メソッド名がわかりづらい
+     *
+     * @param userId
+     * @return
+     * @throws IOException
+     */
+    public MylistDetailResultSet select1FromEachMylists(int userId) throws IOException {
+        // SQL 汚すぎ
+        // 自分の持ってるマイリストの中の最新のdetailを1つ以下取り出し、マイリストの作成順に返す
+        String sql = "select * from (select * from (select mylist_id, created_at as mylist_created_at from mylists where user_id = ?) as m left join mylist_details using(mylist_id) order by created_at desc) as d group by mylist_id order by mylist_created_at desc";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            int idx = 1;
+            ps.setObject(idx++, userId, Types.INTEGER);
+
+            return new MylistDetailResultSet(ps.executeQuery());
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+    }
+
     public void insert(MylistDetail mylistDetail) throws IOException {
         String sql = "insert into mylist_details("
                 + "mylist_id,"
@@ -77,21 +100,23 @@ public class MylistDetailDAO extends DAO {
             throw new IOException(e);
         }
     }
-    public ResultSet musicThumbnailById(int userId) throws SQLException{
+
+    public ResultSet musicThumbnailById(int userId) throws SQLException {
         String sql = "select youtube_video_id, music_id, title, mylist_detail_id from mylist_details join musics using(music_id) where mylist_id = ?";
         PreparedStatement ps = conn.prepareStatement(sql);
-        
+
         int idx = 1;
         ps.setObject(idx++, userId, Types.INTEGER);
         return ps.executeQuery();
     }
-    public ResultSet artistThumbnailById(int mylistId) throws SQLException{
+
+    public ResultSet artistThumbnailById(int mylistId) throws SQLException {
         String sql = "select artist_id, name, header_image_file, mylist_detail_id from artists left join mylist_details using(artist_id) where mylist_id = ?";
         PreparedStatement ps = conn.prepareStatement(sql);
-        
+
         int idx = 1;
         ps.setObject(idx++, mylistId, Types.INTEGER);
         return ps.executeQuery();
     }
-    
+
 }

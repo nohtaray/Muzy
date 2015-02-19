@@ -1,4 +1,3 @@
-
 package jp.ac.jec.jz.gr03.servlet;
 
 import java.io.IOException;
@@ -14,14 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import jp.ac.jec.jz.gr03.dao.MylistDAO;
 import jp.ac.jec.jz.gr03.dao.entityresultset.MylistResultSet;
-import jp.ac.jec.jz.gr03.entity.Mylist;
-import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
-import jp.ac.jec.jz.gr03.entity.MylistDetail;
-import jp.ac.jec.jz.gr03.dao.MusicMylistDetailDAO;
 import jp.ac.jec.jz.gr03.dao.MylistDetailDAO;
 import jp.ac.jec.jz.gr03.dao.entityresultset.MylistDetailResultSet;
-
 
 public class MyListServlet extends HttpServlet {
 
@@ -52,23 +46,17 @@ public class MyListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        try (PrintWriter out = response.getWriter()) {
-            HttpSession session = request.getSession();
-            Authorizer auth = new Authorizer(session);
-            if (!auth.hasLoggedIn()) {
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "ログインしてください");
-            }
 
-            MylistResultSet mylists = fetchLatestMusics(auth.getUserLoggedInAs().userId);
-            //MyListDetailResultSet mylistDetail = fetchMyListDetails(mylists.readRow().mylist_id);
-            //request.setAttribute("mylistDetail", mylistDetail);
-            ResultSet rs = fetchYoutube(auth.getUserLoggedInAs().userId);
-            request.setAttribute("mylistThumbnail", rs);
-            request.setAttribute("mylists", mylists);
-            request.getRequestDispatcher("mylist.jsp").forward(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(MyListServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }    }
+        HttpSession session = request.getSession();
+        Authorizer auth = new Authorizer(session);
+        if (!auth.hasLoggedIn()) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "ログインしてください");
+        }
+
+        MylistDetailResultSet mylistDetails = fetchEach1DetailFromMylists(auth.getUserLoggedInAs().userId);
+        request.setAttribute("mylistDetails", mylistDetails);
+        request.getRequestDispatcher("mylist.jsp").forward(request, response);
+    }
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -82,7 +70,7 @@ public class MyListServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
         MylistDAO dao = new MylistDAO();
         dao.delete(Integer.parseInt(request.getParameter("id")));
     }
@@ -96,16 +84,10 @@ public class MyListServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    private MylistResultSet fetchLatestMusics(int userId) throws IOException {
-        MylistDAO dao = new MylistDAO();
-        return dao.selectByUserId(userId);
-    }
-    private MylistDetailResultSet fetchMyListDetails(int myListId) throws IOException, SQLException {
+
+    private MylistDetailResultSet fetchEach1DetailFromMylists(int userId) throws IOException {
         MylistDetailDAO dao = new MylistDetailDAO();
-        return dao.selectLatestsByMylistId(myListId);
+        return dao.select1FromEachMylists(userId);
     }
-    private ResultSet fetchYoutube(int userId) throws IOException, SQLException {
-        MylistDAO dao = new MylistDAO();
-        return dao.mylistDetailById(userId);
-    }
+
 }
