@@ -1,5 +1,5 @@
 <%@page import="java.sql.ResultSet"%>
-<%@page import="jp.ac.jec.jz.gr03.entity.MyList_Details"%>
+<%@page import="jp.ac.jec.jz.gr03.entity.MylistDetail "%>
 <%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.MyListDetailResultSet"%>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>

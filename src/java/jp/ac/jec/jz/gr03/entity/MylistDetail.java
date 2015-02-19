@@ -9,11 +9,11 @@ import java.util.Date;
  */
 
 
-public class MyList_Details {
-    public Integer mylist_detail_id = null;
+public class MylistDetail {
+    public Integer mylistDetailId = null;
     public Mylist mylist = new Mylist();
-    public Integer music_id = null;
-    public Integer artist_id = null;
-    public Date created_at = null;
-    public Date updated_at = null;
+    public Integer musicId = null;
+    public Integer artistId = null;
+    public Date createdAt = null;
+    public Date updatedAt = null;
 }

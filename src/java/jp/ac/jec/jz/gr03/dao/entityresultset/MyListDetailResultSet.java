@@ -8,25 +8,20 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jp.ac.jec.jz.gr03.dao.MyListDAO;
-import jp.ac.jec.jz.gr03.entity.MyList_Details;
-
-/**
- *
- * @author 12jz0121
- */
+import jp.ac.jec.jz.gr03.entity.MylistDetail;
 
 
-public class MyListDetailResultSet extends EntityResultSet<MyList_Details> {
+public class MyListDetailResultSet extends EntityResultSet<MylistDetail> {
     
     public MyListDetailResultSet(ResultSet rs) {
         super(rs);
     }
     
     @Override
-    protected MyList_Details pickEntityFrom(Map<String, Object> row) {
-        MyList_Details mylistDetail = new MyList_Details();
+    protected MylistDetail pickEntityFrom(Map<String, Object> row) {
+        MylistDetail mylistDetail = new MylistDetail();
 
-        mylistDetail.mylist_detail_id = (Integer)row.get("mylist_detail_id");
+        mylistDetail.mylistDetailId = (Integer)row.get("mylist_detail_id");
         Integer mylistId = (Integer)row.get("mylist_id");
         if (mylistId != null) {
             MyListDAO dao = new MyListDAO();
@@ -39,11 +34,11 @@ public class MyListDetailResultSet extends EntityResultSet<MyList_Details> {
         } else {
             mylistDetail.mylist = null;
         }
-        mylistDetail.mylist_detail_id = (Integer)row.get("mylist_detail_id");
-        mylistDetail.music_id = (Integer)row.get("music_id");
-        mylistDetail.artist_id = (Integer)row.get("artist_id");
-        mylistDetail.created_at = (Timestamp)row.get("created_at");
-        mylistDetail.updated_at = (Timestamp)row.get("updated_at");
+        mylistDetail.mylistDetailId = (Integer)row.get("mylist_detail_id");
+        mylistDetail.musicId = (Integer)row.get("music_id");
+        mylistDetail.artistId = (Integer)row.get("artist_id");
+        mylistDetail.createdAt = (Timestamp)row.get("created_at");
+        mylistDetail.updatedAt = (Timestamp)row.get("updated_at");
         
         return mylistDetail;
     }

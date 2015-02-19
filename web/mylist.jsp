@@ -5,7 +5,7 @@
 <%@page import="jp.ac.jec.jz.gr03.entity.Mylist"%>
 <%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.MyListResultSet" %>
 <%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.MusicResultSet" %>
-<%@page import="jp.ac.jec.jz.gr03.entity.MyList_Details" %>
+<%@page import="jp.ac.jec.jz.gr03.entity.MylistDetail" %>
 <%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.MyListDetailResultSet" %>
 <%
 ResultSet rs = (ResultSet)request.getAttribute("mylistThumbnail");

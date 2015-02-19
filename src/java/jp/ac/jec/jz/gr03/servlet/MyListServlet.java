@@ -17,7 +17,7 @@ import jp.ac.jec.jz.gr03.dao.entityresultset.MyListResultSet;
 import jp.ac.jec.jz.gr03.entity.Mylist;
 import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
-import jp.ac.jec.jz.gr03.entity.MyList_Details;
+import jp.ac.jec.jz.gr03.entity.MylistDetail;
 import jp.ac.jec.jz.gr03.dao.MusicMylistDetailDAO;
 import jp.ac.jec.jz.gr03.dao.MyListDetailDAO;
 import jp.ac.jec.jz.gr03.dao.entityresultset.MyListDetailResultSet;

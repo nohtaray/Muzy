@@ -7,12 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import jp.ac.jec.jz.gr03.dao.entityresultset.MyListDetailResultSet;
-import jp.ac.jec.jz.gr03.entity.MyList_Details;
+import jp.ac.jec.jz.gr03.entity.MylistDetail;
 
-/**
- *
- * @author 12jz0121
- */
 
 
 public class MyListDetailDAO extends DAO {
@@ -28,7 +24,7 @@ public class MyListDetailDAO extends DAO {
             throw new IOException(e);
         }
     }
-    public void insert(MyList_Details mylistDetail) throws IOException {
+    public void insert(MylistDetail mylistDetail) throws IOException {
         String sql = "insert into mylist_details("
                 + "mylist_id,"
                 + "music_id, "
@@ -41,13 +37,13 @@ public class MyListDetailDAO extends DAO {
             int idx = 1;
             
             ps.setObject(idx++, (mylistDetail.mylist != null ? mylistDetail.mylist.mylistId : null), Types.INTEGER);
-            ps.setObject(idx++, mylistDetail.music_id , Types.INTEGER);
-            ps.setObject(idx++, mylistDetail.created_at, Types.DATE);
-            ps.setObject(idx++, mylistDetail.updated_at, Types.DATE);
+            ps.setObject(idx++, mylistDetail.musicId , Types.INTEGER);
+            ps.setObject(idx++, mylistDetail.createdAt, Types.DATE);
+            ps.setObject(idx++, mylistDetail.updatedAt, Types.DATE);
             
             ps.execute();
             
-            mylistDetail.mylist_detail_id = getGeneratedKey(ps);
+            mylistDetail.mylistDetailId = getGeneratedKey(ps);
         } catch (SQLException e) {
             throw new IOException(e);
         }
