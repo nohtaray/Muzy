@@ -53,7 +53,10 @@
                 </div>
                 <ul id="details" class="media-list"></ul>
                 <ul id="templates" class="hidden">
-                    <li id="artist-template" class="artist hidden media list-unstyled">
+                    <li id="artist-template" class="artist hidden media clearfix">
+                        <div class="pull-right">
+                            <a class="btn delete-detail-button">削除</a>
+                        </div>
                         <a class="media-left artist-a">
                             <img class="media-object artist-img" width="80" height="80">
                         </a>
@@ -62,7 +65,10 @@
                             <div class="artist-introduction"></div>
                         </div>
                     </li>
-                    <li id="music-template" class="music hidden media list-unstyled">
+                    <li id="music-template" class="music hidden media clearfix">
+                        <div class="pull-right">
+                            <a class="btn delete-detail-button">削除</a>
+                        </div>
                         <a class="media-left music-a">
                             <img class="media-object music-img" width="120" height="90">
                         </a>
