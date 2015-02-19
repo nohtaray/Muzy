@@ -22,6 +22,7 @@ $(function () {
         $('#mylist-title').text($(this).find('.mylist-name').text());
         $('.delete-mylist-button').attr('data-mylist-id', $(this).data('mylistId'));
         $('#loading-image').removeClass('hidden');
+        $('#right-column').removeClass('hidden');
         fetchDetails($(this).data('mylistId'), function (details) {
             $('#loading-image').addClass('hidden');
             if (details.length > 0) {

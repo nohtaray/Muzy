@@ -45,7 +45,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-9 col-md-8 col-sm-7">
+            <div class="col-lg-9 col-md-8 col-sm-7 hidden" id="right-column">
                 <h3 id="mylist-title"></h3>
                 <hr>
                 <div class="clearfix">
