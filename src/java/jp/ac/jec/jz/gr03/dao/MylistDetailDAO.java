@@ -28,26 +28,29 @@ public class MylistDetailDAO extends DAO {
         String sql = "insert into mylist_details("
                 + "mylist_id,"
                 + "music_id, "
+                + "artist_id, "
                 + "created_at, "
                 + "updated_at) "
                 + "values(?, ?, ?, ?)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            
+
             int idx = 1;
-            
+
             ps.setObject(idx++, (mylistDetail.mylist != null ? mylistDetail.mylist.mylistId : null), Types.INTEGER);
-            ps.setObject(idx++, mylistDetail.musicId , Types.INTEGER);
+            ps.setObject(idx++, (mylistDetail.music != null ? mylistDetail.music.musicId : null), Types.INTEGER);
+            ps.setObject(idx++, (mylistDetail.artist != null ? mylistDetail.artist.artistId : null), Types.INTEGER);
             ps.setObject(idx++, mylistDetail.createdAt, Types.DATE);
             ps.setObject(idx++, mylistDetail.updatedAt, Types.DATE);
-            
+
             ps.execute();
-            
+
             mylistDetail.mylistDetailId = getGeneratedKey(ps);
         } catch (SQLException e) {
             throw new IOException(e);
         }
     }
+
     public void delete(int detailId) throws IOException {
         try {
             String sql = "delete from mylist_details where mylist_detail_id = ?";
@@ -61,6 +64,7 @@ public class MylistDetailDAO extends DAO {
             throw new IOException(e);
         }
     }
+
     public MylistDetailResultSet selectByMylistId(int mylistId) throws IOException, SQLException {
         try {
             String sql = "select * from mylist_details where mylist_id = ?";
