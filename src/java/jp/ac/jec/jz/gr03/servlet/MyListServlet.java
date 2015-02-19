@@ -70,7 +70,7 @@ public class MyListServlet extends HttpServlet {
             ResultSet rs = fetchYoutube(auth.getUserLoggedInAs().userId);
             request.setAttribute("mylistThumbnail", rs);
             request.setAttribute("mylists", mylists);
-            request.getRequestDispatcher("myList-edit.jsp").forward(request, response);
+            request.getRequestDispatcher("mylist.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(MyListServlet.class.getName()).log(Level.SEVERE, null, ex);
         }    }
