@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
-import jp.ac.jec.jz.gr03.dao.entityresultset.MyListResultSet;
+import jp.ac.jec.jz.gr03.dao.entityresultset.MylistResultSet;
 import jp.ac.jec.jz.gr03.entity.Mylist;
 import jp.ac.jec.jz.gr03.util.Date;
 
@@ -15,7 +15,7 @@ import jp.ac.jec.jz.gr03.util.Date;
  *
  * @author 12jz0121
  */
-public class MyListDAO extends DAO {
+public class MylistDAO extends DAO {
 
     
     public Mylist selectById(Integer myListId) throws IOException {
@@ -26,7 +26,7 @@ public class MyListDAO extends DAO {
             int idx = 1;
             ps.setObject(idx++, myListId, Types.INTEGER);
 
-            MyListResultSet results = new MyListResultSet(ps.executeQuery());
+            MylistResultSet results = new MylistResultSet(ps.executeQuery());
             
             return results.readRow();
         } catch (SQLException e) {
@@ -34,7 +34,7 @@ public class MyListDAO extends DAO {
         }
     }
     
-    public MyListResultSet selectByUserId(int userId) throws IOException {
+    public MylistResultSet selectByUserId(int userId) throws IOException {
         try {
             String sql = "select * from mylists where user_id = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -42,7 +42,7 @@ public class MyListDAO extends DAO {
             int idx = 1;
             ps.setObject(idx++, userId, Types.INTEGER);
             
-            return new MyListResultSet(ps.executeQuery());
+            return new MylistResultSet(ps.executeQuery());
         } catch (SQLException e) {
             throw new IOException(e);
         }

@@ -6,20 +6,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
-import jp.ac.jec.jz.gr03.dao.entityresultset.MyListDetailResultSet;
+import jp.ac.jec.jz.gr03.dao.entityresultset.MylistDetailResultSet;
 import jp.ac.jec.jz.gr03.entity.MylistDetail;
 
 
 
-public class MyListDetailDAO extends DAO {
-    public MyListDetailResultSet selectLatestsByMylistId(int mylistId) throws IOException, SQLException {
+public class MylistDetailDAO extends DAO {
+    public MylistDetailResultSet selectLatestsByMylistId(int mylistId) throws IOException, SQLException {
         try {
             String sql = "select * from mylist_details where mylist_id = ? order by created_at desc limit 1";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             int idx = 1;
             ps.setObject(idx++, mylistId, Types.INTEGER);
-            return new MyListDetailResultSet(ps.executeQuery());
+            return new MylistDetailResultSet(ps.executeQuery());
         } catch (SQLException e) {
             throw new IOException(e);
         }
@@ -61,14 +61,14 @@ public class MyListDetailDAO extends DAO {
             throw new IOException(e);
         }
     }
-    public MyListDetailResultSet selectByMylistId(int mylistId) throws IOException, SQLException {
+    public MylistDetailResultSet selectByMylistId(int mylistId) throws IOException, SQLException {
         try {
             String sql = "select * from mylist_details where mylist_id = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             int idx = 1;
             ps.setObject(idx++, mylistId, Types.INTEGER);
-            return new MyListDetailResultSet(ps.executeQuery());
+            return new MylistDetailResultSet(ps.executeQuery());
         } catch (SQLException e) {
             throw new IOException(e);
         }

@@ -14,9 +14,9 @@ import jp.ac.jec.jz.gr03.entity.Mylist;
  *
  * @author 12jz0121
  */
-public class MyListResultSet extends EntityResultSet<Mylist> {
+public class MylistResultSet extends EntityResultSet<Mylist> {
     
-    public MyListResultSet(ResultSet rs) {
+    public MylistResultSet(ResultSet rs) {
         super(rs);
     }
     
@@ -31,7 +31,7 @@ public class MyListResultSet extends EntityResultSet<Mylist> {
             try {
                 mylist.user = dao.selectById(userId);
             } catch (IOException ex) {
-                Logger.getLogger(MyListResultSet.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MylistResultSet.class.getName()).log(Level.SEVERE, null, ex);
                 mylist.user = null;
             }
         } else {

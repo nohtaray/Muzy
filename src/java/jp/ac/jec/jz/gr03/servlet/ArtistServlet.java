@@ -11,10 +11,10 @@ import javax.servlet.http.HttpSession;
 import jp.ac.jec.jz.gr03.dao.ArtistDAO;
 import jp.ac.jec.jz.gr03.dao.MessageDAO;
 import jp.ac.jec.jz.gr03.dao.MusicDAO;
-import jp.ac.jec.jz.gr03.dao.MyListDAO;
+import jp.ac.jec.jz.gr03.dao.MylistDAO;
 import jp.ac.jec.jz.gr03.dao.entityresultset.MessageResultSet;
 import jp.ac.jec.jz.gr03.dao.entityresultset.MusicResultSet;
-import jp.ac.jec.jz.gr03.dao.entityresultset.MyListResultSet;
+import jp.ac.jec.jz.gr03.dao.entityresultset.MylistResultSet;
 import jp.ac.jec.jz.gr03.entity.Artist;
 import jp.ac.jec.jz.gr03.util.Authorizer;
 
@@ -126,8 +126,8 @@ public class ArtistServlet extends HttpServlet {
         return dao.selectByArtistId(artistId);
     }
 
-    private MyListResultSet fetchMyLists(int userId) throws IOException {
-        MyListDAO dao = new MyListDAO();
+    private MylistResultSet fetchMyLists(int userId) throws IOException {
+        MylistDAO dao = new MylistDAO();
         return dao.selectByUserId(userId);
     }
 }

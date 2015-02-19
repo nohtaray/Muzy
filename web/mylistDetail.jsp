@@ -1,6 +1,6 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="jp.ac.jec.jz.gr03.entity.MylistDetail "%>
-<%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.MyListDetailResultSet"%>
+<%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.MylistDetaulResultSet"%>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
@@ -20,7 +20,7 @@ ResultSet rs2 = (ResultSet)request.getAttribute("artistThumbnail");
     <c:param name="content">
 
         <%/*
-            //MyListDetailResultSet mylists = (MyListDetailResultSet)request.getAttribute("mylistDetails");
+            //MylistDetaulResultSet mylists = (MylistDetaulResultSet)request.getAttribute("mylistDetails");
             //MyList_Details details = new MyList_Details();
             
             ResultSet rs = (ResultSet)request.getAttribute("musicThumbnail");

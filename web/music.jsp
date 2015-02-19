@@ -1,6 +1,6 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="jp.ac.jec.jz.gr03.entity.Mylist"%>
-<%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.MyListResultSet"%>
+<%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.MylistResultSet"%>
 <%@page import="jp.ac.jec.jz.gr03.entity.Music"%>
 <%@page import="jp.ac.jec.jz.gr03.entity.User"%>
 <%@page import="jp.ac.jec.jz.gr03.entity.Comment"%>
@@ -11,7 +11,7 @@
     Music music = (Music) request.getAttribute("music");
     User me = (User) request.getAttribute("me");
     CommentResultSet comments = (CommentResultSet) request.getAttribute("comments");
-    MyListResultSet mylists = (MyListResultSet) request.getAttribute("mylists");
+    MylistResultSet mylists = (MylistResultSet) request.getAttribute("mylists");
     boolean userIsLoggedIn = me != null;
 %>
 <c:import url="/layout/application.jsp">

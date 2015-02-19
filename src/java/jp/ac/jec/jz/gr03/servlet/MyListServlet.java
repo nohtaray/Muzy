@@ -12,20 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import jp.ac.jec.jz.gr03.dao.MyListDAO;
-import jp.ac.jec.jz.gr03.dao.entityresultset.MyListResultSet;
+import jp.ac.jec.jz.gr03.dao.MylistDAO;
+import jp.ac.jec.jz.gr03.dao.entityresultset.MylistResultSet;
 import jp.ac.jec.jz.gr03.entity.Mylist;
 import jp.ac.jec.jz.gr03.entity.User;
 import jp.ac.jec.jz.gr03.util.Authorizer;
 import jp.ac.jec.jz.gr03.entity.MylistDetail;
 import jp.ac.jec.jz.gr03.dao.MusicMylistDetailDAO;
-import jp.ac.jec.jz.gr03.dao.MyListDetailDAO;
-import jp.ac.jec.jz.gr03.dao.entityresultset.MyListDetailResultSet;
-
-/**
- *
- * @author 12jz0121
- */
+import jp.ac.jec.jz.gr03.dao.MylistDetailDAO;
+import jp.ac.jec.jz.gr03.dao.entityresultset.MylistDetailResultSet;
 
 
 public class MyListServlet extends HttpServlet {
@@ -64,7 +59,7 @@ public class MyListServlet extends HttpServlet {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "ログインしてください");
             }
 
-            MyListResultSet mylists = fetchLatestMusics(auth.getUserLoggedInAs().userId);
+            MylistResultSet mylists = fetchLatestMusics(auth.getUserLoggedInAs().userId);
             //MyListDetailResultSet mylistDetail = fetchMyListDetails(mylists.readRow().mylist_id);
             //request.setAttribute("mylistDetail", mylistDetail);
             ResultSet rs = fetchYoutube(auth.getUserLoggedInAs().userId);
@@ -88,7 +83,7 @@ public class MyListServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-        MyListDAO dao = new MyListDAO();
+        MylistDAO dao = new MylistDAO();
         dao.delete(Integer.parseInt(request.getParameter("id")));
     }
 
@@ -101,16 +96,16 @@ public class MyListServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    private MyListResultSet fetchLatestMusics(int userId) throws IOException {
-        MyListDAO dao = new MyListDAO();
+    private MylistResultSet fetchLatestMusics(int userId) throws IOException {
+        MylistDAO dao = new MylistDAO();
         return dao.selectByUserId(userId);
     }
-    private MyListDetailResultSet fetchMyListDetails(int myListId) throws IOException, SQLException {
-        MyListDetailDAO dao = new MyListDetailDAO();
+    private MylistDetailResultSet fetchMyListDetails(int myListId) throws IOException, SQLException {
+        MylistDetailDAO dao = new MylistDetailDAO();
         return dao.selectLatestsByMylistId(myListId);
     }
     private ResultSet fetchYoutube(int userId) throws IOException, SQLException {
-        MyListDAO dao = new MyListDAO();
+        MylistDAO dao = new MylistDAO();
         return dao.mylistDetailById(userId);
     }
 }

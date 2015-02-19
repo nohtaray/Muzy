@@ -3,10 +3,10 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="jp.ac.jec.jz.gr03.entity.Music" %>
 <%@page import="jp.ac.jec.jz.gr03.entity.Mylist"%>
-<%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.MyListResultSet" %>
+<%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.MylistResultSet" %>
 <%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.MusicResultSet" %>
 <%@page import="jp.ac.jec.jz.gr03.entity.MylistDetail" %>
-<%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.MyListDetailResultSet" %>
+<%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.MylistDetailResultSet" %>
 <%
 ResultSet rs = (ResultSet)request.getAttribute("mylistThumbnail");
 %>

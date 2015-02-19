@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import jp.ac.jec.jz.gr03.dao.MyListDAO;
-import jp.ac.jec.jz.gr03.dao.MyListDetailDAO;
-import jp.ac.jec.jz.gr03.dao.entityresultset.MyListDetailResultSet;
+import jp.ac.jec.jz.gr03.dao.MylistDAO;
+import jp.ac.jec.jz.gr03.dao.MylistDetailDAO;
+import jp.ac.jec.jz.gr03.dao.entityresultset.MylistDetailResultSet;
 import jp.ac.jec.jz.gr03.util.Authorizer;
 
 /**
@@ -55,8 +55,8 @@ public class MyListDetailServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
             Authorizer auth = new Authorizer(session);
-            MyListDetailDAO dao = new MyListDetailDAO();
-            MyListDAO mylistdao = new MyListDAO();
+            MylistDetailDAO dao = new MylistDetailDAO();
+            MylistDAO mylistdao = new MylistDAO();
             
             if (!auth.hasLoggedIn()) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "ログインしてください");
@@ -92,7 +92,7 @@ public class MyListDetailServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-        MyListDetailDAO dao = new MyListDetailDAO();
+        MylistDetailDAO dao = new MylistDetailDAO();
         dao.delete(Integer.parseInt(request.getParameter("id")));
     }
 

@@ -1,5 +1,5 @@
 <%@page import="jp.ac.jec.jz.gr03.entity.Mylist"%>
-<%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.MyListResultSet"%>
+<%@page import="jp.ac.jec.jz.gr03.dao.entityresultset.MylistResultSet"%>
 <%@page import="jp.ac.jec.jz.gr03.entity.User"%>
 <%@page import="jp.ac.jec.jz.gr03.entity.Music"%>
 <%@page import="jp.ac.jec.jz.gr03.entity.Message"%>
@@ -12,7 +12,7 @@
     Artist artist = (Artist) request.getAttribute("artist");
     MessageResultSet messages = (MessageResultSet) request.getAttribute("messages");
     MusicResultSet musics = (MusicResultSet) request.getAttribute("musics");
-    MyListResultSet mylists = (MyListResultSet) request.getAttribute("mylists");
+    MylistResultSet mylists = (MylistResultSet) request.getAttribute("mylists");
     User me = (User) request.getAttribute("me");
 
     boolean loggedIn = me != null;
