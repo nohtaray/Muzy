@@ -68,8 +68,7 @@ public class MyListDAO extends DAO {
     }
     
     /**
-     * music.artist は artistId のみ insert します
-     * @param music
+     * @param mylist
      * @throws IOException 
      */
     public void insert(MyList mylist) throws IOException {
@@ -98,23 +97,25 @@ public class MyListDAO extends DAO {
         }
     }
     /**
-     * music.artist は artistId のみ update します
-     * @param music
+     * @param mylist
      * @throws IOException 
      */
     public void update(MyList mylist) throws IOException {
         String sql = "update mylists set "
-                + "updated_at = ?, "
-                + "name = ? "
-                + "where mylist_id_id = ?";
+                + "user_id = ?, "
+                + "name = ?, "
+                + "updated_at = ? "
+                + "where mylist_id = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
 
             int idx = 1;
-            ps.setObject(idx++, Date.now(), Types.TIMESTAMP);
+            ps.setObject(idx++, (mylist.user != null ? mylist.user.userId : null), Types.INTEGER);
             ps.setObject(idx++, mylist.name, Types.VARCHAR);
+            ps.setObject(idx++, Date.now(), Types.TIMESTAMP);
             ps.setObject(idx++, mylist.mylist_id, Types.INTEGER);
             
+            ps.setObject(idx++, mylist.mylist_id, Types.INTEGER);
             ps.execute();
             
             mylist.updated_at = Date.now();
