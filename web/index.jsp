@@ -26,7 +26,7 @@
                                     <img class="media-object ranking-artist-img" width="80" height="80">
                                 </a>
                                 <div class="media-body">
-                                    <h4 class="media-heading"><a class="ranking-artist-a ranking-artist-name"></a> <small>★<span class="ranking-artist-points"></span></small></h4>
+                                    <h4 class="media-heading"><a class="ranking-artist-a ranking-artist-name"></a> <small>☆<span class="ranking-artist-points"></span></small></h4>
                                     <div class="ranking-artist-introduction"></div>
                                 </div>
                             </li>
