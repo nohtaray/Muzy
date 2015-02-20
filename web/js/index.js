@@ -23,6 +23,7 @@ $(function() {
             $artist.find('.ranking-artist-img').attr('src', artistVote['artist']['user']['icon_image_file']);
             $artist.find('.ranking-artist-name').text(artistVote['artist']['name']);
             $artist.find('.ranking-artist-introduction').text(Helper.truncateString(artistVote['artist']['introduction'], Lengths.rankingArtistIntroduction));
+            $artist.find('.ranking-artist-points').text(artistVote['spent_tickets_sum']);
             $artist.removeAttr('id').removeClass('hidden').appendTo($container);
         });
     });
@@ -35,6 +36,7 @@ $(function() {
             $music.find('.ranking-music-img').attr('src', 'http://img.youtube.com/vi/' + musicAdvertisement['music']['youtube_video_id'] + '/1.jpg');
             $music.find('.ranking-music-title').text(Helper.truncateString(musicAdvertisement['music']['title'], Lengths.rankingMusicTitle));
             $music.find('.ranking-music-description').text(Helper.truncateString(musicAdvertisement['music']['description'], Lengths.rankingMusicDescription));
+            $music.find('.ranking-music-points').text(musicAdvertisement['spent_point_sum']);
             $music.removeAttr('id').removeClass('hidden').appendTo($container);
         });
     });
