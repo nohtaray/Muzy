@@ -7,5 +7,6 @@ $(function() {
                 id: $(this).data('musicId')
             });
         }
+        return false;
     });
 });
