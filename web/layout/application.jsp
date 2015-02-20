@@ -96,14 +96,14 @@
                 </div>
                 <div id="sponsors" class="col-sm-6">
                     <div class="row">
-                    <ul class="list-inline">
-                        <li class="col-xs-6"><a href="SponsorServlet"><img src="img/sponsor/01.png" alt="Sponsor" border="0"></a></li>
-                        <li class="col-xs-6"><a href="SponsorServlet"><img src="img/sponsor/02.png" alt="Sponsor" border="0"></a></li>
-                    </ul>
+                        <ul class="list-inline">
+                            <li class="col-xs-6"><a href="SponsorServlet"><img src="img/sponsor/01.png" alt="Sponsor" border="0"></a></li>
+                            <li class="col-xs-6"><a href="SponsorServlet"><img src="img/sponsor/02.png" alt="Sponsor" border="0"></a></li>
+                        </ul>
                     </div>
                 </div>
             </div><!-- /#header -->
-            
+
             <%
                 if (!flash.success.isEmpty()) {
                     String message;
@@ -154,9 +154,14 @@
                 ${param.content}
             </div><!-- /#main -->
         </div><!-- /.container -->
-        
+
         <div id="footer">
-            <p>Copyright &copy; 2015 Muzy</p>
+            <div class="container-fluid clearfix">
+                <div class="pull-right">
+                    <a href="AdminServlet">管理ページ</a>
+                </div>
+                <p class="text-center">Copyright &copy; 2015 Muzy</p>
+            </div>
         </div>
 
         <script type="text/javascript">
