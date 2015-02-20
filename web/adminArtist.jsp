@@ -15,6 +15,7 @@
                 <tr>
                     <th>アーティストID</th>
                     <th>アーティストページ</th>
+                    <th>連絡先</th>
                     <th>ユーザID</th>
                     <th>登録日時</th>
                     <th>更新日時</th>
@@ -32,6 +33,13 @@
                     </td>
                     <td>
                         <a href="ArtistServlet?id=<%= artist.artistId%>"><%= h(artist.name)%></a>
+                    </td>
+                    <td>
+                        <% if (artist.user.email != null) { %>
+                        <a href="mailto:<%= artist.user.email %>"><%= artist.user.email %></a>
+                        <% } else { %>
+                        None
+                        <% } %>
                     </td>
                     <td>
                         <%= artist.user.userId%>
