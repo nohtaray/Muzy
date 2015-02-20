@@ -9,14 +9,22 @@
         <%= h(user.name) + " さんのプロフィール"%>
     </c:param>
     <c:param name="header">
+        <link rel="stylesheet" type="text/css" href="css/user.css">
     </c:param>
     <c:param name="content">
 
-        <%= h(user.name) + " さんのプロフィール"%>
-        <dl>
-            <dt>name</dt><dd><%= h(user.name)%></dd>
-            <dt>introduction</dt><dd><%= br(h(user.introduction))%></dd>
-        </dl>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="clearfix">
+                    <img src="<%= h(user.iconImageFile)%>" class="pull-left" width="64" height="64" id="icon-image">
+                    <h2 id="user-name"><%= h(user.name)%></h2>
+                </div>
+                <hr>
+                <div>
+                    <%= br(h(user.introduction))%>
+                </div>
+            </div>
+        </div>
 
     </c:param>
 </c:import>
