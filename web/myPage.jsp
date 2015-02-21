@@ -16,7 +16,7 @@
         <h2>マイページ</h2>
 
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-lg-5 col-md-6 col-sm-8">
                 <div class="list-group">
                     <a href="UserServlet?id=<%= user.userId%>" class="list-group-item"><b>あなたの公開プロフィール</b></a>
                     <a href="EditUserServlet" class="list-group-item"><b>登録情報を編集する</b></a>
